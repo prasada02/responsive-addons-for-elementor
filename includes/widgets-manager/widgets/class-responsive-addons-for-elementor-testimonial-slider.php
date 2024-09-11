@@ -17,8 +17,8 @@ use Elementor\Repeater;
 use Elementor\Utils;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Color;
-use Elementor\Core\Schemes\Typography;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 use Elementor\Icons_Manager;
@@ -691,10 +691,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__text' => 'color: {{VALUE}}',
 				),
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
-				),
+				'global'   => [
+					'default' => Global_Colors::COLOR_TEXT,
+				],
 			)
 		);
 
@@ -703,7 +702,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			array(
 				'name'     => 'content_typography',
 				'selector' => '{{WRAPPER}} .responsive-testimonial__text',
-				'scheme'   => Typography::TYPOGRAPHY_3,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			)
 		);
 
@@ -724,10 +725,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__name' => 'color: {{VALUE}}',
 				),
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_3,
-				),
+				'global'   => [
+					'default' => Global_Colors::COLOR_TEXT,
+				],
 			)
 		);
 
@@ -736,7 +736,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			array(
 				'name'     => 'name_typography',
 				'selector' => '{{WRAPPER}} .responsive-testimonial__name',
-				'scheme'   => Typography::TYPOGRAPHY_1,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 			)
 		);
 
@@ -757,10 +759,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__title' => 'color: {{VALUE}}',
 				),
-				'scheme'    => array(
-					'type'  => Color::get_type(),
-					'value' => Color::COLOR_1,
-				),
+				'global'    => [
+					'default' => Global_Colors::COLOR_PRIMARY,
+				],
 			)
 		);
 
@@ -769,7 +770,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			array(
 				'name'     => 'title_typography',
 				'selector' => '{{WRAPPER}} .responsive-testimonial__title',
-				'scheme'   => Typography::TYPOGRAPHY_2,
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
+				],
 			)
 		);
 
