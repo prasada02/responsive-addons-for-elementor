@@ -599,7 +599,7 @@ class Module extends Module_Base {
 
 				// Return data and call your function according to your need for ajax call.
 				// You will have access to settings variable as well as some widget functions.
-				require_once RAEL_DIR . 'includes/widgets-manager/widgets/skins/template-blocks/skin-init.php';
+				require_once RAEL_DIR . 'includes/widgets-manager/widgets/skins/template-blocks/class-skin-init.php';
 				$skin = \Responsive_Addons_For_Elementor\WidgetsManager\Widgets\Skins\TemplateBlocks\Skin_Init::get_instance( $style_id );
 
 				// Here you will just need posts based on ajax requst to attache in layout.
