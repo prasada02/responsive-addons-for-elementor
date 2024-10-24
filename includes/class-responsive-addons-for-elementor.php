@@ -695,7 +695,7 @@ class Responsive_Addons_For_Elementor {
 
 			$widgets = get_option( 'rael_widgets' );
 
-			if ( $widgets && version_compare( RAEL_VER, $installed_rael_version, '>=' ) ) {
+			if ( $widgets && version_compare( RAEL_VER, $installed_rael_version, '>' ) ) {
 				$rael_widgets_data->reset_widgets_data();
 				$widgets = get_option( 'rael_widgets' );
 			}
