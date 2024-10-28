@@ -3,10 +3,10 @@ Contributors: cyberchimps
 Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page builder plugin
 Requires at least: 5.0
-Tested up to: 6.6.1
-Elementor tested up to: 3.23.4
+Tested up to: 6.6.2
+Elementor tested up to: 3.24.7
 Requires PHP: 5.6
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,16 +31,13 @@ https://www.youtube.com/watch?v=pR4ZjH-P9Qs
 <li>Cross-Browser Compatible</li>
 <li>Expert Support</li>
 <li>Fully compatible with Elementor plugin</li>
+<li>Best free Elementor Addons Alternative for Essential Addons, Happy Addons, Royal Addons, Premium Addons, ElementsKit, Powerpack Addons</li>
 </ol>
 
 
 ##Highlights of Responsive Addons for Elementor Plugin:##
 
-Here are some of the key highlights of Responsive Addons for Elementor plugin that sets it apart from many premium Elementor Addons:
-
-### 🌐 Fully Responsive Design:###
-With our Responsive Addons for Elementor plugin, we make sure your website looks perfect on all devices. You can create beautiful layouts that seamlessly adapt to desktops, tablets, and mobile phones.
-
+Here are some of the key highlights of Responsive Addons for Elementor plugin:
 
 ###🎨 Customization at Your Fingertips:###
 Each Elementor widget unlocks endless design possibilities. Customize your website’s appearance with numerous options, allowing you to bring your creative vision to life.
@@ -63,10 +60,6 @@ Responsive Addons for Elementor require the Elementor plugin for its functionali
 
 ###🚀 Continuous Updates:###
 Stay ahead with regular updates and new additions to our collection of Elementor widgets, giving you fresh tools to enhance your website.
-
-
-###🌐 Trusted Development:###
-Created by the [Cyberchimps](https://cyberchimps.com/responsive-addons-for-elementor/) team, Responsive Addons for Elementor is committed to delivering top-notch WordPress products. Join the ranks of satisfied users and elevate your website-building journey.
 
 ##Import Designer-made Elementor Templates and Ready-to-use Elementor Websites##
 
@@ -241,22 +234,6 @@ Let’s get started with the widget list.
 
 1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-image-widget/" >Product Images</a> – The product images widget lets you dynamically add the WooCommerce product image on archive pages.
 
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-meta-widget/" >Product Meta</a> – Product Meta helps you insert product meta without writing code.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-price-widget/" >Product Price</a> – Customize the product price for WooCommerce products on archive pages.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-rating-widget/" >Product Ratings</a> — The Product rating widget lets you add a WooCommerce product rating by fetching it dynamically on archive pages.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/related-products-widget/" >Related Product</a> — Product Related lets you add the related products easily. 
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-short-description-widget/" >Product Short Description</a> – With the Short Description widget, you can add the product short description for WooCommerce products.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-stock/" >Product Stock</a> – Product stock widgets fetch the stock quantity on archive pages.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-title-widget/" >Product Title</a> – The product title widget lets you dynamically add the WooCommerce product titles on archive pages.
-
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-upsells/" >Product Upsells</a> – Upsells lets you add product upsells easily on dynamic product pages.
-
 ###Extension Modules###
 
 1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/cross-site-copy-paste/" >Cross site Copy Paste</a> — Cross-site copy-paste lets you easily replicate Elementor sections from one website to another with the ease of copy-paste functionality. It copies all the texts, columns, widgets, typography, design, and everything else. If you’re still not using the fantastic widgets from the Responsive Elementor Addons plugin, you can sign up for the Responsive Pro version.
@@ -309,14 +286,13 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 
 1. **[Responsive Blocks](https://wordpress.org/plugins/responsive-block-editor-addons/)**: A library of 50+ creative blocks, you can design beautiful pages without writing a single line of code, and the settings are easy to customize to create your unique look.
 
-1. **[WPLegalPages](https://wordpress.org/plugins/wplegalpages/)**  is a popular plugin that helps you generate a professional Privacy Policy, terms of use, terms and conditions, eCommerce returns and refunds policy, affiliate disclaimers, and more.
-
-1. **[WP Cookie Notice & Consent Banner for GDPR, CCPA & ePrivacy](https://wordpress.org/plugins/gdpr-cookie-consent/)**: WP Cookie Notice for GDPR, CCPA & ePrivacy Cons.
-
 ####Development Version#### 
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 1.5.5 - 28th October 2024 =
+- Fix: Minor bug fixes.
 
 = 1.5.4 - 11th September 2024 =
 - Improvement: Added sticky section in flexbox containers.
@@ -421,11 +397,6 @@ To install the Responsive Addons for the Elementor plugin manually from the Word
 * Go to Plugins > Add New.
 * Upload the downloaded plugin zip file.
 * Install and activate it.
-
-
-
-= 6. How do we add responsive widgets to our website? =
-Install and activate the Responsive Addons for Elementor plugin, search for the widget you want to add, drag and drop it on the page, and customize it.
 
 
 == Installation ==
