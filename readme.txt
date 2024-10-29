@@ -16,7 +16,7 @@ Responsive Addons for Elementor is a plugin to add some exciting elementor widge
 
 <a href="https://cyberchimps.com/responsive-addons-for-elementor/" target="_blank">Responsive Addons for Elementor</a> is a free Elementor addons plugin that offers 80+ powerful Elementor widgets, and powerful Elementor extensions to build any Elementor website with ease, all at no cost. The plugin is designed for you to fine-tune every part of your Elementor website and enhance your design further.
 
-<a href="https://cyberchimps.com/responsive-addons-for-elementor/home/#home-menu" target="_blank">Checkout the Responsive Addons for Elementor demos</a> 
+<a href="https://cyberchimps.com/responsive-addons-for-elementor/widgets/" target="_blank">Checkout the Responsive Addons for Elementor demos</a> 
 
 https://www.youtube.com/watch?v=pR4ZjH-P9Qs
 
