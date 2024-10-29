@@ -4,9 +4,9 @@ Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page builder plugin
 Requires at least: 5.0
 Tested up to: 6.6.2
-Elementor tested up to: 3.24.7
+Elementor tested up to: 3.25
 Requires PHP: 5.6
-Stable tag: 1.5.5
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -291,7 +291,9 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 
-= 1.5.5 - 28th October 2024 =
+= 1.6.0 - 29th October 2024 =
+- Improvement: Made compatible with Elementor version 3.25
+- Fix: Enhanced Security: Strengthened the codebase.
 - Fix: Minor bug fixes.
 
 = 1.5.4 - 11th September 2024 =
