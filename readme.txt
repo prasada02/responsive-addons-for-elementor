@@ -5,8 +5,9 @@ Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page
 Requires at least: 5.0
 Tested up to: 6.6.2
 Elementor tested up to: 3.25
+Elementor Pro tested up to: 3.25
 Requires PHP: 5.6
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -290,6 +291,9 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 1.6.1 - 30th October 2024 =
+- Improvement: Made compatible with Elementor Pro version 3.25
 
 = 1.6.0 - 29th October 2024 =
 - Improvement: Made compatible with Elementor version 3.25
