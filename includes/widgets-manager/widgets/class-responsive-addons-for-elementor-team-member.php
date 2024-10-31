@@ -2285,6 +2285,10 @@ class Responsive_Addons_For_Elementor_Team_Member extends Widget_Base {
 			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'rael_team_thumbnail', 'rael_team_image' );
 		}
 
+		if ( ! isset( $rael_team_content_text_align ) ) {
+			$rael_team_content_text_align = 'text-center';
+		}
+
 		$this->add_render_attribute(
 			'profile_card',
 			array(
