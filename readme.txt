@@ -221,7 +221,7 @@ Let’s get started with the widget list.
 
 1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/post-navigation-widget/" >Post Navigation</a> — Post Navigation is a single post template widget that dynamically displays links to the previous and next posts.
 
-1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/docs/post-title/" >Post Title</a> — The post Title widget allows you to display the page's title or post it is set upon.
+1. <a href = "https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-title/" >Post Title</a> — The post Title widget allows you to display the page's title or post it is set upon.
 
 1. <a href = "https://cyberchimps.com/responsive-addons-for-elementor/product-additional-information-widget/" >Product Additional Information</a> – Product Additional Information lets you display product-related information.
 
