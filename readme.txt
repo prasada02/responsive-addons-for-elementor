@@ -3,11 +3,11 @@ Contributors: cyberchimps
 Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page builder plugin
 Requires at least: 5.0
-Tested up to: 6.6.2
+Tested up to: 6.7
 Elementor tested up to: 3.25
 Elementor Pro tested up to: 3.25
 Requires PHP: 5.6
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -291,6 +291,12 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 1.6.2 - 21st November 2024 =
+- Improvement: RAE Posts - Added a funtionality to sort the posts based on primary category.
+- Fix: Feature List Widget - Fixed icons style settings not working.
+- Fix: Flip Box Widget - Fixed vertical position not working.
+- Fix: Post Title Widget - Fixed need help option not working.
 
 = 1.6.1 - 30th October 2024 =
 - Improvement: Made compatible with Elementor Pro version 3.25
