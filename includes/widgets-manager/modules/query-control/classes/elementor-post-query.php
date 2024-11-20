@@ -39,49 +39,57 @@ class Elementor_Post_Query {
 	 */
 	public function get_query() {
 		$this->get_query_args();
-		// Determine if `term_taxonomy_id` is used as the field in `tax_query`
-		$is_termm_primary_category = false;
+		$tax_query = $this->query_args['tax_query'] ?? [];
 
-    	// Check if `term_taxonomy_id` is the field in `tax_query`
-    	$tax_query = $this->query_args['tax_query'] ?? [];
-    	$term_ids = [];
-
-    	foreach ($tax_query as $tax) {
-    	    if (isset($tax['field']) && $tax['field'] === 'primary_category') {
-				$is_termm_primary_category = true;
-    	        $term_ids = $tax['terms'] ?? [];
-            	break;
-    	    }
-    	}
-
-		if($is_termm_primary_category) {
-			// If we have term IDs, retrieve post IDs from wp_postmeta
-			if (!empty($term_ids)) {
-				global $wpdb;
-
-				// Prepare a placeholder for IN clause
-				$placeholders = implode(',', array_fill(0, count($term_ids), '%d'));
-				// Meta key for Yoast SEO primary category used to filter posts
+		// Primary Category Ids
+		$primary_category_ids = [];
+		// Terms Ids
+		$normal_category_ids = [];
+	
+		// Find primary category IDs from tax_query
+		$is_primary_category = $this->find_primary_category($tax_query, $primary_category_ids);
+	
+		// Find normal categories (term_taxonomy_id) in tax_query
+		$is_normal_category = $this->find_normal_category($tax_query, $normal_category_ids);
+	
+		// Handle Primary Category logic
+		if ($is_primary_category && !empty($primary_category_ids)) {
+			if ($is_normal_category && !empty($normal_category_ids)) {
+				// Both Primary and Normal Categories are selected
 				$meta_key_for_primary_category = '_yoast_wpseo_primary_category';
-
-				// SQL query to get post IDs with matching meta_value in wp_postmeta
-				$query = $wpdb->prepare(
-					"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value IN ($placeholders) and meta_key='$meta_key_for_primary_category'",
-					...$term_ids
+	
+				// Add meta_query for primary category
+				$meta_query = $this->query_args['meta_query'] ?? [];
+				$meta_query[] = array(
+					'key'     => $meta_key_for_primary_category,
+					'value'   => $primary_category_ids,
+					'compare' => 'IN',
 				);
-
-				$post_ids = $wpdb->get_col($query);
-
-				// If post IDs are found, update `query_args` to use `post__in`
-				if ($post_ids) {
-					$this->query_args['post__in'] = $post_ids;
-				} else {
-					// No matching posts, return an empty query result
-					return new \WP_Query(['post__in' => [0]]);
-				}
-
-				// Remove the taxonomy query, as we’re now filtering by post IDs
-				unset($this->query_args['tax_query']);
+	
+				// Add tax_query for normal category
+				$tax_query[] = array(
+					'taxonomy' => 'category',
+					'field'    => 'term_taxonomy_id',
+					'terms'    => $normal_category_ids,
+					'operator' => 'IN',
+				);
+	
+				// Update query arguments
+				$this->query_args['meta_query'] = $meta_query;
+				$this->query_args['tax_query'] = $tax_query;
+			} else {
+				// Only Primary Category is selected
+				$meta_key_for_primary_category = '_yoast_wpseo_primary_category';
+	
+				// Add meta_query for primary category only
+				$meta_query = $this->query_args['meta_query'] ?? [];
+				$meta_query[] = array(
+					'key'     => $meta_key_for_primary_category,
+					'value'   => $primary_category_ids,
+					'compare' => 'IN',
+				);
+	
+				$this->query_args['meta_query'] = $meta_query;
 			}
 
 			// Proceed with the WP_Query
@@ -113,6 +121,38 @@ class Elementor_Post_Query {
 			Module::add_to_avoid_list( wp_list_pluck( $query->posts, 'ID' ) );
 			return $query;
 		}
+	}
+
+	// Function to find primary category in `tax_query`
+	protected function find_primary_category($tax_query, &$term_ids) {
+	    foreach ($tax_query as $tax) {
+	        if (isset($tax['field']) && $tax['field'] === 'primary_category') {
+	            $term_ids = $tax['terms'] ?? [];
+	            return true;
+	        }
+	        if (is_array($tax)) {
+	            if ($this->find_primary_category($tax, $term_ids)) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+	
+	// Function to find normal category in `tax_query`
+	protected function find_normal_category($tax_query, &$term_ids) {
+	    foreach ($tax_query as $tax) {
+	        if (isset($tax['field']) && $tax['field'] === 'term_taxonomy_id') {
+	            $term_ids = $tax['terms'] ?? [];
+	            return true;
+	        }
+	        if (is_array($tax)) {
+	            if ($this->find_normal_category($tax, $term_ids)) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
 	}
 
 	protected function get_query_defaults() {
@@ -150,7 +190,11 @@ class Elementor_Post_Query {
 			$this->set_avoid_duplicates();
 			$this->set_terms_args();
 			$this->set_author_args();
+			//TODO
+			// Conditionally add 'primary_category' option.
+		if ( in_array( 'wordpress-seo-premium/wp-seo-premium.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 			$this->set_primary_category_args();
+		}
 			$this->set_date_args();
 		}
 
@@ -319,6 +363,7 @@ class Elementor_Post_Query {
 		} else {
 			$this->query_args['tax_query']['relation'] = 'AND';
 			$this->query_args['tax_query'][]           = $tax_query;
+			error_log("Tax Query: ".print_r($this->query_args['tax_query'], true));
 		}
 	}
 
