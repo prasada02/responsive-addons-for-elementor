@@ -293,7 +293,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 == Changelog ==
 
 = 1.6.2 - 21st November 2024 =
-- Improvement: RAE Posts - Added a funtionality to sort the posts based on primary category.
+- Improvement: RAE Posts - Added a funtionality to sort the posts based on primary category with yoast SEO premium.
 - Fix: Feature List Widget - Fixed icons style settings not working.
 - Fix: Flip Box Widget - Fixed vertical position not working.
 - Fix: Post Title Widget - Fixed need help option not working.
