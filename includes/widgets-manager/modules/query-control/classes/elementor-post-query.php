@@ -363,7 +363,6 @@ class Elementor_Post_Query {
 		} else {
 			$this->query_args['tax_query']['relation'] = 'AND';
 			$this->query_args['tax_query'][]           = $tax_query;
-			error_log("Tax Query: ".print_r($this->query_args['tax_query'], true));
 		}
 	}
 
