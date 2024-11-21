@@ -365,10 +365,8 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 
 		$widgets = $this->get_rael_widgets_data();
 
-		if ( ! $this->is_widgets_in_db() ) {
-			foreach ( $widgets as &$widget ) {
-				$widget['status'] = 1;
-			}
+		foreach ( $widgets as &$widget ) {
+			$widget['status'] = 1;
 		}
 
 		return $widgets;
