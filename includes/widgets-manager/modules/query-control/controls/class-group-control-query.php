@@ -125,7 +125,6 @@ class Group_Control_Query extends Group_Control_Base {
 			'options'      => array(
 				'terms'   => __( 'Term', 'responsive-addons-for-elementor' ),
 				'authors' => __( 'Author', 'responsive-addons-for-elementor' ),
-				'primary_category' => __( 'Primary Category', 'responsive-addons-for-elementor' ),
 			),
 			'condition'    => array(
 				'post_type!' => array(
@@ -137,6 +136,11 @@ class Group_Control_Query extends Group_Control_Base {
 			'tabs_wrapper' => $tabs_wrapper,
 			'inner_tab'    => $include_wrapper,
 		);
+
+		// Conditionally add 'primary_category' option.
+		if ( in_array( 'wordpress-seo-premium/wp-seo-premium.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		    $fields['include']['options']['primary_category'] = __( 'Primary Category', 'responsive-addons-for-elementor' );
+		}
 
 		$fields['include_term_ids'] = array(
 			'label'        => __( 'Term', 'responsive-addons-for-elementor' ),
@@ -189,32 +193,35 @@ class Group_Control_Query extends Group_Control_Base {
 			'export'       => false,
 		);
 
-		$fields['include_primary_category'] = array(
-			'label'        => __( 'Primary Category', 'responsive-addons-for-elementor' ),
-			'label_block'  => true,
-			'type'         => 'rael-query',
-			'multiple'     => true,
-			'default'      => array(),
-			'options'      => array(),
-			'include_type' => true,
-			'post_type'    => '',
-			'filter_type'  => 'primary_category',
-			'autocomplete' => array(
-				'object'  => 'cpt_tax',
-				'display' => 'detailed',
-			),
-			'condition'    => array(
-				'include'    => 'primary_category',
-				'post_type!' => array(
-					'by_id',
-					'current_query',
+		// Conditionally add 'primary_category' option.
+		if ( in_array( 'wordpress-seo-premium/wp-seo-premium.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		    $fields['include_primary_category'] = array(
+				'label'        => __( 'Primary Category', 'responsive-addons-for-elementor' ),
+				'label_block'  => true,
+				'type'         => 'rael-query',
+				'multiple'     => true,
+				'default'      => array(),
+				'options'      => array(),
+				'include_type' => true,
+				'post_type'    => '',
+				'filter_type'  => 'primary_category',
+				'autocomplete' => array(
+					'object'  => 'cpt_tax',
+					'display' => 'detailed',
 				),
-			),
+				'condition'    => array(
+					'include'    => 'primary_category',
+					'post_type!' => array(
+						'by_id',
+						'current_query',
+					),
+				),
 
-			'tabs_wrapper' => $tabs_wrapper,
-			'inner_tab'    => $include_wrapper,
-			'export'	   => false,
-		);
+				'tabs_wrapper' => $tabs_wrapper,
+				'inner_tab'    => $include_wrapper,
+				'export'	   => false,
+			);
+		}
 
 		$fields['query_exclude'] = array(
 			'type'         => Controls_Manager::TAB,
