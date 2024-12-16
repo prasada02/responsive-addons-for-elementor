@@ -11,7 +11,6 @@
  * Text Domain: responsive-addons-for-elementor
  * Domain Path: /languages
  *
- * Requires Plugins: elementor
  * Elementor tested up to: 3.26
  * Elementor Pro tested up to: 3.25
  *
