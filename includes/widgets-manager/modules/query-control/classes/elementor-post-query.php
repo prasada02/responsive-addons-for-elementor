@@ -98,11 +98,6 @@ class Elementor_Post_Query {
 			$this->set_avoid_duplicates();
 			$this->set_terms_args();
 			$this->set_author_args();
-			//TODO
-			// Conditionally add 'primary_category' option.
-		if ( in_array( 'wordpress-seo-premium/wp-seo-premium.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-			$this->set_primary_category_args();
-		}
 			$this->set_date_args();
 		}
 
@@ -211,67 +206,6 @@ class Elementor_Post_Query {
 			}
 		}
 		$this->insert_tax_query( $terms, $exclude );
-	}
-
-	protected function set_primary_category_args() {
-
-		$post_type = $this->get_widget_settings( 'post_type' );
-		if ( 'by_id' === $post_type ) {
-			return;
-		}
-		$this->build_primary_category_query_include( 'include_primary_category' );
-	}
-
-	protected function build_primary_category_query_include( $control_id ) {
-		$this->build_primary_category_query( 'include', $control_id );
-	}
-
-	protected function build_primary_category_query( $tab_id, $control_id, $exclude = false ) {
-		$tab_id         = $this->get_widget_settings( $tab_id );
-		$settings_terms = $this->get_widget_settings( $control_id );
-		if ( empty( $tab_id ) || empty( $settings_terms ) || ! $this->maybe_in_array( 'primary_category', $tab_id ) ) {
-			return;
-		}
-
-		$terms = array();
-
-		// Switch to term_id in order to get all term children (sub-categories).
-		foreach ( $settings_terms as $id ) {
-			$term_data = get_term_by( 'term_taxonomy_id', $id );
-			if ( false !== $term_data ) {
-				$taxonomy             = $term_data->taxonomy;
-				$terms[ $taxonomy ][] = $id;
-			}
-		}
-		$this->insert_tax_query_for_primary_category( $terms, $exclude );
-	}
-
-	protected function insert_tax_query_for_primary_category( $terms, $exclude ) {
-		$tax_query = array();
-		foreach ( $terms as $taxonomy => $ids ) {
-			$query = array(
-				'taxonomy' => $taxonomy,
-				'field'    => 'primary_category',
-				'terms'    => $ids,
-			);
-
-			if ( $exclude ) {
-				$query['operator'] = 'NOT IN';
-			}
-
-			$tax_query[] = $query;
-		}
-
-		if ( empty( $tax_query ) ) {
-			return;
-		}
-
-		if ( empty( $this->query_args['tax_query'] ) ) {
-			$this->query_args['tax_query'] = $tax_query;
-		} else {
-			$this->query_args['tax_query']['relation'] = 'AND';
-			$this->query_args['tax_query'][]           = $tax_query;
-		}
 	}
 
 	protected function insert_tax_query( $terms, $exclude ) {
