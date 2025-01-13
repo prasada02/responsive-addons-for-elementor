@@ -292,7 +292,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 = 1.6.4 - 14th January 2025 =
-- Fix: RAE widget warnings appear on the frontend.
+- Fix: Fixed minor warnings.
 - Fix: FAQ Widget - Resolved missing parent element error for [role]s.
 
 = 1.6.3 - 17th December 2024 =
