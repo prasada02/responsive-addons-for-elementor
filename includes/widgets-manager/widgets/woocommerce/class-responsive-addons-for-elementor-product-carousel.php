@@ -2993,6 +2993,7 @@ class Responsive_Addons_For_Elementor_Product_Carousel extends Widget_Base {
 	 * @return string The file path of the template.
 	 */
 	protected function get_template( $template_name ) {
+		$template_name = sanitize_file_name( $template_name );
 		if ( 'preset_1' === $template_name ) {
 			$template_name = 'preset-1';
 		} elseif ( 'preset_2' === $template_name ) {
@@ -3167,7 +3168,7 @@ class Responsive_Addons_For_Elementor_Product_Carousel extends Widget_Base {
 						echo '<p class="rael-pc__no-posts-found">' . wp_kses_post( $settings['rael_pc_not_found_msg'] ) . '</p>';
 					endif;
 				else :
-					esc_html_e( '<p class="rael-pc__no-posts-found">No layout found!</p>', 'responsive-addons-for-elementor' );
+					esc_html( '<p class="rael-pc__no-posts-found">No layout found!</p>', 'responsive-addons-for-elementor' );
 				endif;
 
 				if ( 'yes' === $settings['rael_pc_image_dots'] ) {
