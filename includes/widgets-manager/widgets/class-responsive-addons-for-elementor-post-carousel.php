@@ -2607,7 +2607,7 @@ class Responsive_Addons_For_Elementor_Post_Carousel extends Widget_Base {
 	 * @return string The full path to the template file.
 	 */
 	private function get_template( $template_name ) {
-		$file_name = RAEL_DIR . 'includes/widgets-manager/widgets/skins/post-carousel/' . $template_name . '.php';
+		$file_name = RAEL_DIR . 'includes/widgets-manager/widgets/skins/post-carousel/' . sanitize_file_name( $template_name ) . '.php';
 		return $file_name;
 	}
 
