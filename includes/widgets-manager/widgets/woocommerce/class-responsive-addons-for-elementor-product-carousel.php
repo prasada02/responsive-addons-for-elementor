@@ -86,6 +86,17 @@ class Responsive_Addons_For_Elementor_Product_Carousel extends Widget_Base {
 		return array( 'responsive-addons-for-elementor' );
 	}
 	/**
+	 * Get the stylesheets required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return array(
+			'swiper',
+			'e-swiper',	
+		);
+	}
+	/**
 	 * Get the keywords of the RAE Product Carousel widget.
 	 *
 	 * @return array The keywords associated with the widget.
