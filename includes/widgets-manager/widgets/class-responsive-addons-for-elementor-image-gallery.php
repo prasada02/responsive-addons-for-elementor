@@ -17,6 +17,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Control_Media;
+use Responsive_Addons_For_Elementor\Helper\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;   // Exit if accessed directly.
@@ -2087,9 +2088,9 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 		}
 
 		$output  = '<div class="rael-grid-img-caption ' . $settings['rael_caption_animation'] . ' ">';
-		$output .= '<' . $settings['rael_caption_tag'] . ' class="rael-grid-caption-text">';
+		$output .= '<' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . ' class="rael-grid-caption-text">';
 		$output .= $image['caption'];
-		$output .= '</' . $settings['rael_caption_tag'] . '>';
+		$output .= '</' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . '>';
 		$output .= '<p class="rael-img-description">' . $image['description'] . '</p>';
 		$output .= '</div>';
 
@@ -2109,14 +2110,14 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 		?>
 		<style type="text/css">
 			<?php echo '.rael-grid-item-content:hover .',esc_html( $animation_name ); ?> > p, /* variable escaped before hand. */
-			<?php echo '.rael-grid-item-content:hover .',esc_html( $animation_name ); ?> > <?php echo esc_html( $caption_tag ); ?>{
+			<?php echo '.rael-grid-item-content:hover .',esc_html( $animation_name ); ?> > <?php echo esc_html( Helper::validate_html_tags( $caption_tag ) ); ?>{
 				animation:
 					<?php echo esc_html( $animation_name ),'-in'; ?>
 					<?php echo esc_html( $animation_speed ),'ms'; ?>
 					ease-out;
 			}
 			<?php echo '.rael-grid-item-content:not( :hover ) .',esc_html( $animation_name ); ?> > p,
-			<?php echo '.rael-grid-item-content:not( :hover ) .',esc_html( $animation_name ); ?> > <?php echo esc_html( $caption_tag ); ?>{
+			<?php echo '.rael-grid-item-content:not( :hover ) .',esc_html( $animation_name ); ?> > <?php echo esc_html( Helper::validate_html_tags( $caption_tag ) ); ?>{
 				animation:
 					<?php echo esc_html( $animation_name ),'-out'; ?>
 					<?php echo esc_html( $animation_speed ),'ms'; ?>
