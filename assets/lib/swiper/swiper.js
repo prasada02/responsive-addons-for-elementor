@@ -3947,9 +3947,6 @@
   var RAELSwiper = /*@__PURE__*/(function (SwiperClass) {
     function RAELSwiper() {
       
-      const prototype = Reflect.getPrototypeOf(this);
-      console.log('prototype.constructor.name:', prototype.constructor.name); 
-      console.log('new.target.name: ', new.target.name);
       var assign;
 
       var args = [], len = arguments.length;
