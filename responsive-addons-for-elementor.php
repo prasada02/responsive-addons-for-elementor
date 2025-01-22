@@ -11,7 +11,7 @@
  * Text Domain: responsive-addons-for-elementor
  * Domain Path: /languages
  *
- * Elementor tested up to: 3.26
+ * Elementor tested up to: 3.27
  * Elementor Pro tested up to: 3.25
  *
  * @package responsive-addons-for-elementor
@@ -29,6 +29,9 @@ define( 'RAEL_PATH', plugin_basename( __FILE__ ) );
 define( 'RAEL_ASSETS_URL', RAEL_URL . 'assets/' );
 define( 'RAEL_PLUGIN_SHORT_NAME', 'RAEL' );
 if ( 'active' === get_option( 'elementor_experiment-e_swiper_latest' ) ) {
+	define( 'RAEL_ELEMENTOR_SWIPER', true );
+	define( 'RAEL_SWIPER_CONTAINER', '' );
+} else if(defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.25.6', '>' )) {
 	define( 'RAEL_ELEMENTOR_SWIPER', true );
 	define( 'RAEL_SWIPER_CONTAINER', '' );
 } else {

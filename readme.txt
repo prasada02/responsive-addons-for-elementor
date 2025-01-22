@@ -4,7 +4,7 @@ Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page builder plugin
 Requires at least: 5.0
 Tested up to: 6.7
-Elementor tested up to: 3.26
+Elementor tested up to: 3.27
 Elementor Pro tested up to: 3.25
 Requires PHP: 5.6
 Stable tag: 1.6.5
@@ -292,6 +292,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 = 1.6.5 - 20th January 2025 =
+- Fix: Made carousel and slider widgets compatible with latest Elementor version 3.27.
 - Fix: Enhanced Security: Strengthened the codebase.
 
 = 1.6.4 - 14th January 2025 =

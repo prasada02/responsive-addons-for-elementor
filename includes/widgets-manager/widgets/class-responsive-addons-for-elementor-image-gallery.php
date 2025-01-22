@@ -83,6 +83,18 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 	}
 
 	/**
+	 * Get the stylesheets required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return array(
+			'swiper',
+			'e-swiper',	
+		);
+	}
+
+	/**
 	 * Get placeholder image source.
 	 *
 	 * Retrieve the source of the placeholder image.
@@ -1968,7 +1980,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 		$images_count = count( $settings['rael_wp_gallery'] );
 		?>
 		<div class="swiper-gallery">
-			<div class="swiper-container gallery-carousel rael-caption-<?php echo esc_attr( $settings['rael_gallery_caption'] ); ?> swiper-gallery" dir="<?php echo esc_attr( $direction ); ?>">
+			<div class="swiper<?php echo esc_attr( RAEL_SWIPER_CONTAINER ); ?> gallery-carousel rael-caption-<?php echo esc_attr( $settings['rael_gallery_caption'] ); ?> swiper-gallery" dir="<?php echo esc_attr( $direction ); ?>">
 				<div class="swiper-wrapper rael-img-gallery-wrap">
 					<?php $this->print_image_gallery( $gallery ); ?>
 				</div>
