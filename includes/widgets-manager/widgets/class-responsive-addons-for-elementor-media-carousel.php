@@ -85,6 +85,17 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 		return array( 'responsive-addons-for-elementor' );
 	}
 	/**
+	 * Get the stylesheets required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return array(
+			'swiper',
+			'e-swiper',	
+		);
+	}
+	/**
 	 * Get the default values for the repeater.
 	 *
 	 * @return array

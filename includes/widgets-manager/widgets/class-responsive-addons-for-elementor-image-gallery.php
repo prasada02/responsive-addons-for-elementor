@@ -81,7 +81,6 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 	public function get_categories() {
 		return array( 'responsive-addons-for-elementor' );
 	}
-
 	/**
 	 * Get the stylesheets required for the widget.
 	 *
@@ -93,7 +92,6 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 			'e-swiper',	
 		);
 	}
-
 	/**
 	 * Get placeholder image source.
 	 *

@@ -76,7 +76,19 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 	public function get_categories() {
 		return array( 'responsive-addons-for-elementor' );
 	}
-
+	/**
+	 * Get the stylesheets required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return array(
+			'font-awesome-5-all',
+			'font-awesome-4-shim',
+			'swiper',
+			'e-swiper',	
+		);
+	}
 	/**
 	 * Get button sizes.
 	 *
