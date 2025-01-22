@@ -78,7 +78,17 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 	public function get_categories() {
 		return array( 'responsive-addons-for-elementor' );
 	}
-
+	/**
+	 * Get the stylesheets required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return array(
+			'swiper',
+			'e-swiper',	
+		);
+	}
 	/**
 	 * Get widget keywords.
 	 *
