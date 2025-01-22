@@ -90,6 +90,16 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 		);
 	}
 	/**
+	 * Get the scripts required for the widget.
+	 *
+	 * @return array
+	 */
+	public function get_script_depends() {
+		return array(
+			'font-awesome-4-shim',
+		);
+	}
+	/**
 	 * Get button sizes.
 	 *
 	 * @since 1.0.0
@@ -1445,11 +1455,11 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 					<?php endif; ?>
 					<?php if ( $show_arrows ) : ?>
 						<div class="responsive-swiper-button responsive-swiper-button-prev">
-							<i class="eicon-chevron-<?php echo esc_attr( $prev ); ?>" aria-hidden="true"></i>
+							<i class="fa fa-angle-<?php echo esc_attr( $prev ); ?>" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php esc_html_e( 'Previous', 'responsive-addons-for-elementor' ); ?></span>
 						</div>
 						<div class="responsive-swiper-button responsive-swiper-button-next">
-							<i class="eicon-chevron-<?php echo esc_attr( $next ); ?>" aria-hidden="true"></i>
+							<i class="fa fa-angle-<?php echo esc_attr( $next ); ?>" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php esc_html_e( 'Next', 'responsive-addons-for-elementor' ); ?></span>
 						</div>
 					<?php endif; ?>
