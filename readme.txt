@@ -291,7 +291,7 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
-= 1.6.5 - 20th January 2025 =
+= 1.6.5 - 22nd January 2025 =
 - Fix: Made carousel and slider widgets compatible with latest Elementor version 3.27.
 - Fix: Enhanced Security: Strengthened the codebase.
 
