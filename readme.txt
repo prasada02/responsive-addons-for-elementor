@@ -292,6 +292,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 = 1.6.5 - 20th January 2025 =
+- Improvement: Made carousel and slider widgets compatible with latest Elementor version 3.27.
 - Fix: Enhanced Security: Strengthened the codebase.
 
 = 1.6.4 - 14th January 2025 =
