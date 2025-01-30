@@ -336,6 +336,156 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/widgets/gravity-forms-styler',
 				'category' => 'form',
 			),
+			array(
+				'title'    => 'theme-post-title',
+				'name'     => 'Post title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-title/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-featured-image',
+				'name'     => 'Featured image',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/featured-image/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-content',
+				'name'     => 'Post content',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-content/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-info',
+				'name'     => 'Post info',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-info/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-excerpt',
+				'name'     => 'Post excerpt',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-excerpt/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-site-logo',
+				'name'     => 'Site logo',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/site-logo/',
+				'category' => 'marketing',
+			),
+			array(
+				'title'    => 'theme-author-box',
+				'name'     => 'Author box',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/author-box/',
+				'category' => 'marketing',
+			),
+			array(
+				'title'    => 'theme-post-comments',
+				'name'     => 'Post comments',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-comments/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-navigation',
+				'name'     => 'Post navigation',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-navigation/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-archive-title',
+				'name'     => 'Archive title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/archive-title/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-archive-posts',
+				'name'     => 'Archive posts',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/archive-posts/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-title',
+				'name'     => 'Product title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-title/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-images',
+				'name'     => 'Product images',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-image/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-additional-info',
+				'name'     => 'Product additional info',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-additional-information/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-price',
+				'name'     => 'Product price',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-price/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-rating',
+				'name'     => 'Product rating',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-rating/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-stock',
+				'name'     => 'Product stock',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-stock/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-meta',
+				'name'     => 'Product meta',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-meta/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-short-description',
+				'name'     => 'Product short description',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/short-description/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-related',
+				'name'     => 'Product related',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-content',
+				'name'     => 'Product content',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-content/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-data-tabs',
+				'name'     => 'Product data tabs',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-upsell',
+				'name'     => 'Product upsells',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-upsells/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-archive',
+				'name'     => 'Archive products',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-archive-product-description',
+				'name'     => 'Archive description',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
 		);
 
 		return $widgets;
@@ -366,7 +516,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 		$widgets = $this->get_rael_widgets_data();
 
 		foreach ( $widgets as &$widget ) {
-			$widget['status'] = 1;
+			// by default all theme builder widgets are disabled.
+			if ( 'themebuilder' === $widget['category'] ) {
+				$widget['status'] = 0;
+			} else {
+				$widget['status'] = 1;
+			}
 		}
 
 		return $widgets;
