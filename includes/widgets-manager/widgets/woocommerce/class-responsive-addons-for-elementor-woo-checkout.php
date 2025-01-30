@@ -90,7 +90,7 @@ class Responsive_Addons_For_Elementor_Woo_Checkout extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'RAE Woo Checkout', 'responsive-addons-for-elementor' );
+		return __( 'Woo Checkout', 'responsive-addons-for-elementor' );
 	}
 
 	/**

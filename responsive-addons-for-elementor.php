@@ -27,7 +27,7 @@ define( 'RAEL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RAEL_URL', plugins_url( '/', __FILE__ ) );
 define( 'RAEL_PATH', plugin_basename( __FILE__ ) );
 define( 'RAEL_ASSETS_URL', RAEL_URL . 'assets/' );
-define( 'RAEL_PLUGIN_SHORT_NAME', 'RAEL' );
+define( 'RAEL_PLUGIN_SHORT_NAME', 'RAE' );
 if ( 'active' === get_option( 'elementor_experiment-e_swiper_latest' ) ) {
 	define( 'RAEL_ELEMENTOR_SWIPER', true );
 	define( 'RAEL_SWIPER_CONTAINER', '' );
