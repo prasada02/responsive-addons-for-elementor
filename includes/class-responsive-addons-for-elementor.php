@@ -1089,6 +1089,14 @@ class Responsive_Addons_For_Elementor {
 					case 'progress-bar':
 						wp_enqueue_script( 'rael-inview', RAEL_ASSETS_URL . 'lib/inview/inview.min.js', array(), RAEL_VER, true );
 						break;
+					case 'team-member':
+						if ( ! isset( $included_libs['rael-magnific-popup'] ) ) {
+							$included_libs['rael-magnific-popup'] = true;
+							wp_enqueue_script( 'rael-magnific-popup', RAEL_ASSETS_URL . 'lib/magnific-popup/jquery.magnific-popup.min.js', array(), RAEL_VER, true );
+							wp_register_style( 'rael-magnific-popup-style', RAEL_ASSETS_URL . 'lib/magnific-popup/magnific-popup.min.css', null, RAEL_VER );
+							wp_enqueue_style( 'rael-magnific-popup-style' );
+						}
+						break;
 				}
 			}
 		}
