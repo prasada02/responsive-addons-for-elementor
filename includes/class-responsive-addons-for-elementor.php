@@ -2030,7 +2030,6 @@ class Responsive_Addons_For_Elementor {
 			$facebook_data = wp_remote_retrieve_body( wp_remote_get( "https://graph.facebook.com/v22.0/{$page_id}/posts?fields=id,message,story,created_time,full_picture,permalink_url,attachments{type,media_type,title,description,unshimmed_url},comments.summary(total_count){from},reactions.summary(total_count){from}&limit=99&access_token={$token}", array( 'timeout' => 70 ) ) );
 
 			$facebook_data = json_decode( $facebook_data, true );
-			error_log( 'this is the data' . print_r( $facebook_data, true ) );
 			if ( isset( $facebook_data['data'] ) ) {
 				set_transient( $key, $facebook_data, ( $settings['rael_facebook_feed_cache_limit'] * MINUTE_IN_SECONDS ) );
 			}
