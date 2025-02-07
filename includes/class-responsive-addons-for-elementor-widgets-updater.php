@@ -43,6 +43,37 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'content',
 			),
 			array(
+				'title'    => 'theme-author-box',
+				'name'     => 'Author box',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/author-box/',
+				'category' => 'marketing',
+			),
+			array(
+				'title'    => 'woocommerce-theme-archive-product-description',
+				'name'     => 'Archive description',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-archive',
+				'name'     => 'Archive products',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+
+			array(
+				'title'    => 'theme-archive-posts',
+				'name'     => 'Archive posts',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/archive-posts/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-archive-title',
+				'name'     => 'Archive title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/archive-title/',
+				'category' => 'themebuilder',
+			),
+			array(
 				'title'    => 'back-to-top',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/back-to-top',
 				'category' => 'content',
@@ -109,6 +140,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'creativity',
 			),
 			array(
+				'title'    => 'fancy-text',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/fancy-text',
+				'category' => 'content',
+			),
+			array(
 				'title'    => 'faq',
 				'name'     => 'FAQ',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/faq',
@@ -119,6 +155,13 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/feature-list',
 				'category' => 'content',
 			),
+
+			array(
+				'title'    => 'theme-post-featured-image',
+				'name'     => 'Featured image',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/featured-image/',
+				'category' => 'themebuilder',
+			),
 			array(
 				'title'    => 'flip-box',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/flipbox',
@@ -127,6 +170,17 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			array(
 				'title'    => 'fancy-text',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/fancy-text',
+        'category' => 'content',
+      ),
+      array(
+        'title'    => 'gf-styler',
+				'name'     => 'Gravity Forms Styler',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/gravity-forms-styler',
+				'category' => 'form',
+			),
+			array(
+				'title'    => 'google-map',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/google-map',
 				'category' => 'content',
 			),
 			array(
@@ -145,6 +199,16 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'creativity',
 			),
 			array(
+				'title'    => 'lottie',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/lottie/',
+				'category' => 'creativity',
+			),
+			array(
+				'title'    => 'login-register',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/login-register',
+				'category' => 'marketing',
+			),
+			array(
 				'title'    => 'logo-carousel',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/logo-carousel',
 				'category' => 'content',
@@ -156,14 +220,74 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'form',
 			),
 			array(
+				'title'    => 'media-carousel',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/media-carousel',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'menu-cart',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/menu-cart',
+				'category' => 'woocommerce',
+			),
+			array(
+				'title'    => 'modal-popup',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/modal-popup',
+				'category' => 'marketing',
+			),
+			array(
 				'title'    => 'multi-button',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/multibutton',
 				'category' => 'content',
 			),
 			array(
+				'title'    => 'nav-menu',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/nav-menu',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'offcanvas',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/offcanvas',
+				'category' => 'creativity',
+			),
+			array(
 				'title'    => 'one-page-navigation',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/one-page-navigation',
 				'category' => 'creativity',
+			),
+			array(
+				'title'    => 'portfolio',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/portfolio',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'post-carousel',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/post-carousel',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'posts',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/posts',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'price-box',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/price-box',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'price-list',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/price-list',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'pricing-table',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/pricing-table',
+				'category' => 'content',
+			),
+			array(
+				'title'    => 'product-carousel',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/product-carousel',
+				'category' => 'woocommerce',
 			),
 			array(
 				'title'    => 'product-category-grid',
@@ -175,6 +299,115 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/progress-bar',
 				'category' => 'content',
 			),
+
+			array(
+				'title'    => 'woocommerce-theme-product-content',
+				'name'     => 'Product content',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-content/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-data-tabs',
+				'name'     => 'Product data tabs',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-images',
+				'name'     => 'Product images',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-image/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-meta',
+				'name'     => 'Product meta',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-meta/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-price',
+				'name'     => 'Product price',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-price/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-rating',
+				'name'     => 'Product rating',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-rating/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-related',
+				'name'     => 'Product related',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-short-description',
+				'name'     => 'Product short description',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/short-description/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-stock',
+				'name'     => 'Product stock',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-stock/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-title',
+				'name'     => 'Product title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-title/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-upsell',
+				'name'     => 'Product upsells',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-upsells/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'woocommerce-theme-product-additional-info',
+				'name'     => 'Product additional info',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/product-additional-information/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-comments',
+				'name'     => 'Post comments',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-comments/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-content',
+				'name'     => 'Post content',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-content/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-excerpt',
+				'name'     => 'Post excerpt',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-excerpt/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-info',
+				'name'     => 'Post info',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-info/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-navigation',
+				'name'     => 'Post navigation',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-navigation/',
+				'category' => 'themebuilder',
+			),
+			array(
+				'title'    => 'theme-post-title',
+				'name'     => 'Post title',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/post-title/',
+				'category' => 'themebuilder',
+			),
 			array(
 				'title'    => 'reviews',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/reviews',
@@ -184,6 +417,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'title'    => 'search-form',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/search-form',
 				'category' => 'form',
+			),
+			array(
+				'title'    => 'theme-site-logo',
+				'name'     => 'Site logo',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/site-logo/',
+				'category' => 'marketing',
 			),
 			array(
 				'title'    => 'slider',
@@ -236,6 +475,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'name'     => 'WP Form Styler',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/wp-forms-styler',
 				'category' => 'form',
+			),
+			array(
+				'title'    => 'wc-add-to-cart',
+				'name'     => 'WC Add to Cart',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/custom-add-to-cart',
+				'category' => 'woocommerce',
 			),
 			array(
 				'title'    => 'breadcrumb',
@@ -331,9 +576,15 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'marketing',
 			),
 			array(
-				'title'    => 'gf-styler',
-				'name'     => 'Gravity Forms Styler',
-				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/gravity-forms-styler',
+				'title'    => 'woo-products',
+				'name'     => 'WC Products',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/products',
+				'category' => 'woocommerce',
+			),
+			array(
+				'title'    => 'wpf-styler',
+				'name'     => 'WP Form Styler',
+				'docs'     => 'https://cyberchimps.com/docs/widgets/wp-forms-styler',
 				'category' => 'form',
 			),
 		);
@@ -366,7 +617,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 		$widgets = $this->get_rael_widgets_data();
 
 		foreach ( $widgets as &$widget ) {
-			$widget['status'] = 1;
+			// by default all theme builder widgets are disabled.
+			if ( 'themebuilder' === $widget['category'] ) {
+				$widget['status'] = 0;
+			} else {
+				$widget['status'] = 1;
+			}
 		}
 
 		return $widgets;
