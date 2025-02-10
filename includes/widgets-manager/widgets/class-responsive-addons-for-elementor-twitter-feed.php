@@ -882,9 +882,6 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
     	$hashtag         = $settings['rael_hashtag_name'];
     	$column_spacing  = $settings['rael_column_spacing']['size'] ?? 10;
     	$token           = $settings['rael_bearer_token'] ?? '';
-
-		error_log('this is the token');
-		error_log( print_r( $token, true ) );
 		
     	if ( empty( $token ) ) {
     	    return;
@@ -932,8 +929,6 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 
     	$tweets_data   = $tweets->data;
     	$tweets_author = $user_object->data;
-		error_log('this is the tweets data');
-		error_log( print_r( $tweets_data, true ) );
 
     	if ( $hashtag ) {
         	$tweets_data = array_filter( $tweets_data, [ $this, 'filter_hashtag_data' ] );
