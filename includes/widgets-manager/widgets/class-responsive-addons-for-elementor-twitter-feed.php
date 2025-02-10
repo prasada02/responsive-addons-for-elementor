@@ -174,7 +174,7 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 			array(
 				'label'       => __( 'Bearer Token', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( '<a href="" >Get Consumer Secret.</a> Create a new app or select an existing app and enter that app\'s <strong>consumer secret</strong> here.', 'responsive-addons-for-elementor' ),
+				'description' => __( '<a href="https://developer.twitter.com/en/portal/dashboard" target="_blank">Get Bearer Token.</a> Create a new app or select an existing app and enter that app\'s <strong>bearer token</strong> here.', 'responsive-addons-for-elementor' ),
 			)
 		);
 
