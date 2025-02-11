@@ -151,6 +151,9 @@ class Responsive_Addons_For_Elementor {
 		add_action( 'admin_init', array( $this, 'rael_notice_dismissed' ) );
 		add_action( 'admin_init', array( $this, 'rael_notice_change_timeout' ) );
 
+		add_action( 'upgrader_process_complete', array($this,'rael_wp_upe_upgrade_completed') , 10, 2 );
+
+
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 	}
@@ -670,6 +673,34 @@ class Responsive_Addons_For_Elementor {
 	public function rael_enqueue_dashicons() {
 		// Enqueue the dashicons stylesheet.
 		wp_enqueue_style( 'dashicons' );
+	}
+
+	/**
+	 * This function runs when WordPress completes its upgrade process
+	 * It iterates through each plugin updated to see if ours is included
+	 * @param $upgrader_object Array
+	 * @param $options Array
+	 * @since 1.6.6
+	 */
+	function rael_wp_upe_upgrade_completed( $upgrader_object, $options ) {
+		// The path to our plugin's main file
+		$our_plugin = RAEL_PATH;
+		if ( isset( $options['action'], $options['type'], $options['plugins'] ) &&
+			$options['action'] === 'update' &&
+			$options['type'] === 'plugin' ) {
+			
+		   // Iterate through the updated plugins
+		   foreach( $options['plugins'] as $plugin ) {
+			   if( $plugin === $our_plugin ) {
+					//added new theme builder widgets in the dashboard.
+					include_once RAEL_DIR . 'includes/class-responsive-addons-for-elementor-widgets-updater.php';
+					$rael_widgets_data = new Responsive_Addons_For_Elementor_Widgets_Updater();
+
+					$rael_widgets_data->insert_widgets_data();
+					update_option( 'rael_theme_builder_widgets_data_update', true );
+			   }
+		   }
+    	}
 	}
 
 	/**
