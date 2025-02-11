@@ -693,6 +693,13 @@ class Responsive_Addons_For_Elementor {
             update_option( 'rael_widgets_data_update', true );
 		}
 
+		$exist_rael_theme_builder_widgets_data_update = get_option( 'rael_theme_builder_widgets_data_update', false );
+
+		if ( ! $exist_rael_theme_builder_widgets_data_update ) {
+			$rael_widgets_data->insert_widgets_data();
+			update_option( 'rael_theme_builder_widgets_data_update', true );
+		}
+
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}

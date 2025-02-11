@@ -519,12 +519,7 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 		$widgets = $this->get_rael_widgets_data();
 
 		foreach ( $widgets as &$widget ) {
-			// by default all theme builder widgets are disabled.
-			if ( 'themebuilder' === $widget['category'] ) {
-				$widget['status'] = 0;
-			} else {
-				$widget['status'] = 1;
-			}
+			$widget['status'] = 1;
 		}
 
 		return $widgets;
