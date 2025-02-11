@@ -697,7 +697,6 @@ class Responsive_Addons_For_Elementor {
 					$rael_widgets_data = new Responsive_Addons_For_Elementor_Widgets_Updater();
 
 					$rael_widgets_data->insert_widgets_data();
-					update_option( 'rael_theme_builder_widgets_data_update', true );
 			   }
 		   }
     	}
