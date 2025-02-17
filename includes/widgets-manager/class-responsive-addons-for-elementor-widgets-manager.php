@@ -582,7 +582,6 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 						case 'facebook-feed':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Facebook_Feed() );
 							break;
-					}
 						case 'theme-post-excerpt':
 							Plugin::instance()->widgets_manager->register( new Widgets\ThemeBuilder\Responsive_Addons_For_Elementor_Theme_Post_Excerpt() );
 							break;
