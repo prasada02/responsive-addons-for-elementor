@@ -40,7 +40,7 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'RAE Facebook Feed', 'responsive-addons-for-elementor' );
+		return __( 'Facebook Feed', 'responsive-addons-for-elementor' );
 	}
 
 	/**
