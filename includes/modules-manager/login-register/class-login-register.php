@@ -369,7 +369,7 @@ class Login_Register {
 			//TODO
 			if ( isset( $settings['rael_reg_email_message'] ) ) {
 				// Added esc_html to strip all tags from the message.
-				self::$email_options['message'] = esc_html( wp_strip_all_tags( $settings['rael_reg_email_message'] ) );
+				self::$email_options['message'] = esc_html( sanitize_text_field( $settings['rael_reg_email_message'] ) );
 			}
 			if ( isset( $settings['rael_reg_email_content_type'] ) ) {
 				self::$email_options['headers'] = 'Content-Type: text/' . $settings['rael_reg_email_content_type'] . '; charset=UTF-8' . "\r\n";
