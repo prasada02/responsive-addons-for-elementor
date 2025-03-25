@@ -293,7 +293,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 == Changelog ==
 = 1.6.9 - 25th March 2025 =
 - Fix: Enhanced Security: Strengthened the codebase.
-- Fix: Manu Cart Widget - Fixed the cart icon visiblity issue.
+- Fix: Menu Cart Widget - Fixed the cart icon visibility issue.
 - Fix: Fixed PHP warnings.
 
 = 1.6.8 - 5th March 2025 =
