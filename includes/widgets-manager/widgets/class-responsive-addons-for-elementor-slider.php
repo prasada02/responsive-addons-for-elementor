@@ -46,7 +46,7 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'RAE Slider', 'responsive-addons-for-elementor' );
+		return __( 'Slider', 'responsive-addons-for-elementor' );
 	}
 
 	/**
@@ -192,15 +192,7 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 				'label'      => __( 'Background Overlay', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::SWITCHER,
 				'default'    => '',
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'     => 'background_image[url]',
-							'operator' => '!=',
-							'value'    => '',
-						),
-					),
-				),
+				'condition' => array( 'background_image[id]!' => '' ),
 			)
 		);
 
@@ -274,20 +266,7 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 				'label'      => __( 'Ken Burns Effect', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::SWITCHER,
 				'default'    => '',
-				'conditions' => array(
-					'terms' => array(
-						array(
-							'name'     => 'background_image[url]',
-							'operator' => '!=',
-							'value'    => '',
-						),
-						array(
-							'name'     => 'background_image[url]',
-							'operator' => '!=',
-							'value'    => '',
-						),
-					),
-				),
+				'condition' => array( 'background_image[id]!' => '' ),
 			)
 		);
 
