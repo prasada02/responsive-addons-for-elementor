@@ -2924,7 +2924,7 @@ class Responsive_Addons_For_Elementor_Icon_Box extends Widget_Base {
 				<# view.addRenderAttribute('rael_title', 'class', 'rael-infobox__title'); #>
 				<# view.addInlineEditingAttributes('rael_title', 'basic'); #>
 
-				<{{{ settings.rael_title_tag }}} {{{ view.getRenderAttributeString('rael_title') }}}>
+				<{{{ elementor.helpers.validateHTMLTag( settings.rael_title_tag ) }}} {{{ view.getRenderAttributeString('rael_title') }}}>
 				{{{ settings.rael_title }}}
 			</
 			{{{ settings.rael_title_tag }}}>
