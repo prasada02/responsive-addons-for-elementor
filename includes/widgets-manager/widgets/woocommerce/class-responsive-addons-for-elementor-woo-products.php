@@ -82,6 +82,13 @@ class Responsive_Addons_For_Elementor_Woo_Products extends Widget_Base {
 	private $default_add_to_cart_button_text;
 
 	/**
+	 * Page ID
+	 *
+	 * @var integer
+	 */
+	private $page_id;
+
+	/**
 	 * Constructor for the RAEL Product Carousel widget class.
 	 *
 	 * @param array $data  Optional. An array of widget data. Default is an empty array.
