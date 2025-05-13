@@ -1,6 +1,6 @@
 <?php
 /**
- * REA Feature List Widget
+ * RAEL Feature List Widget
  *
  * @since      1.2.2
  * @package    Responsive_Addons_For_Elementor
