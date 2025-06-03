@@ -695,7 +695,6 @@ class Responsive_Addons_For_Elementor {
 		   foreach( $options['plugins'] as $plugin ) {
 			   if( $plugin === $our_plugin ) {
 					//to check this function is getting called or not.
-					error_log('Responsive Addons for Elementor plugin updated');
 					//added new theme builder widgets in the dashboard.
 					include_once RAEL_DIR . 'includes/class-responsive-addons-for-elementor-widgets-updater.php';
 					$rael_widgets_data = new Responsive_Addons_For_Elementor_Widgets_Updater();
