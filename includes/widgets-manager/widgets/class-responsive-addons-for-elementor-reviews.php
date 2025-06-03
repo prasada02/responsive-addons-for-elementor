@@ -1284,7 +1284,7 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 		$slides_count = count( $settings['slides'] );
 		?>
 		<div class="responsive-swiper">
-			<div class="<?php echo wp_kses_post( $settings['container_class'] ); ?> responsive-reviews swiper<?php echo esc_attr( RAEL_SWIPER_CONTAINER ); ?>">
+			<div class="<?php echo esc_attr( $settings['container_class'] ); ?> responsive-reviews swiper<?php echo esc_attr( RAEL_SWIPER_CONTAINER ); ?>">
 				<div class="swiper-wrapper">
 					<?php
 					foreach ( $settings['slides'] as $index => $slide ) :
