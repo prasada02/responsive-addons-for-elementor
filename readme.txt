@@ -293,7 +293,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 == Changelog ==
 
 = 1.7.3 - 11th June 2025 =
-- Fix: Resolved the UI issues affecting elementor container.
+- Fix: Resolved the UI issues affecting the Elementor container.
 
 = 1.7.2 - 9th June 2025 =
 - Improvement: Made theme builder display conditions dynamic based on selected template type.
