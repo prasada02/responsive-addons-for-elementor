@@ -2099,7 +2099,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 
 		$output  = '<div class="rael-grid-img-caption ' . $settings['rael_caption_animation'] . ' ">';
 		$output .= '<' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . ' class="rael-grid-caption-text">';
-		$output .= esc_attr( $image['caption'] );
+		$output .= esc_html__( $image['caption'] );
 		$output .= '</' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . '>';
 		$output .= '<p class="rael-img-description">' . $image['description'] . '</p>';
 		$output .= '</div>';
