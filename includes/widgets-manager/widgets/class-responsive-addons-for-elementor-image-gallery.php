@@ -2498,6 +2498,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 					$this->add_render_attribute(
 						'grid-media-' . $index,
 						array(
+							'href'						   => $item_link, 
 							'data-elementor-open-lightbox' => 'no',
 						)
 					);
@@ -2505,6 +2506,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 					$this->add_render_attribute(
 						'grid-media-' . $index,
 						array(
+							'href'						   => $item_link, 
 							'data-elementor-open-lightbox' => 'no',
 						)
 					);
