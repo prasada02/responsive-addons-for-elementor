@@ -2099,7 +2099,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 
 		$output  = '<div class="rael-grid-img-caption ' . $settings['rael_caption_animation'] . ' ">';
 		$output .= '<' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . ' class="rael-grid-caption-text">';
-		$output .= $image['caption'];
+		$output .= esc_html__( $image['caption'] );
 		$output .= '</' . Helper::validate_html_tags( $settings['rael_caption_tag'] ) . '>';
 		$output .= '<p class="rael-img-description">' . $image['description'] . '</p>';
 		$output .= '</div>';
@@ -2486,11 +2486,11 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 				}
 				$image_wrap_tag = ( ! empty( $item_link ) ) ? 'a' : 'span';
 
-				if ( ! empty( $item_link ) ) {
+				if ( ! empty ( $item_link ) ) {
 					$this->add_render_attribute(
 						'grid-media-' . $index,
 						array(
-							'href'                         => $item_link,
+							'href'						   => $item_link, 
 							'data-elementor-open-lightbox' => 'no',
 						)
 					);
@@ -2498,6 +2498,7 @@ class Responsive_Addons_For_Elementor_Image_Gallery extends Widget_Base {
 					$this->add_render_attribute(
 						'grid-media-' . $index,
 						array(
+							'href'						   => $item_link, 
 							'data-elementor-open-lightbox' => 'no',
 						)
 					);
