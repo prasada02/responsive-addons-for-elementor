@@ -292,7 +292,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 
-= 1.7.4 - 23rd June 2025 =
+= 1.7.4 - 24th June 2025 =
 - Fix: Enhanced Security: Strengthened the codebase.
 - Fix: Sticky Section - Fixed sticky section position issue.
 
