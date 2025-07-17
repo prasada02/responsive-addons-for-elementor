@@ -196,8 +196,8 @@ class Login_Register {
 					'message' => isset( $settings['rael_success_login'] ) ? $settings['rael_success_login'] : __( 'You are logged in successfully', 'responsive-addons-for-elementor' ),
 				);
 				if ( ! empty( $_POST['redirect_to'] ) ) {
-				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					$data['redirect_to'] = esc_url( $_POST['redirect_to'] );
+					$redirect_to = wp_sanitize_redirect( wp_unslash( $_POST['redirect_to'] ) ); 
+    				$data['redirect_to'] = $redirect_to;
 				}
 				wp_send_json_success( $data );
 			}

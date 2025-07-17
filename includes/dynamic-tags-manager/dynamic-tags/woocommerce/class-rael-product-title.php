@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Product_Title extends Base_Tag {
+class RAEL_Product_Title extends Base_Tag {
 	public function get_name() {
 		return 'rael-product-title-tag';
 	}

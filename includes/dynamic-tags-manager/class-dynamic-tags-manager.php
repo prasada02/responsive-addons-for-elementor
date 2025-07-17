@@ -128,7 +128,7 @@ class Dynamic_Tags_Manager {
 			// only then load the widget class.
 			if ( str_starts_with( $tag, 'woocommerce' ) ) {
 				if ( class_exists( 'WooCommerce' ) ) {
-					$file_name = 'class-' . substr( $tag, 12 ) . '.php';
+					$file_name = 'class-rael-' . substr( $tag, 12 ) . '.php';
 					// Include the Dynamic tag class file.
 					include_once 'dynamic-tags/woocommerce/' . $file_name;
 				} else {
@@ -145,7 +145,7 @@ class Dynamic_Tags_Manager {
 
 			if ( str_starts_with( $tag, 'woocommerce' ) ) {
 				$class_name = ucwords( str_replace( '-', '_', substr( $tag, 12 ) ), '_' );
-				$class_name = __NAMESPACE__ . "\DynamicTags\\WooCommerce\\{$class_name}";
+				$class_name = __NAMESPACE__ . "\DynamicTags\\WooCommerce\\RAEL_{$class_name}";
 			}
 
 			$dynamic_tags->register( new $class_name() );
