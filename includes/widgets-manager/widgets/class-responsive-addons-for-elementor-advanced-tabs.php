@@ -1330,7 +1330,7 @@ class Responsive_Addons_For_Elementor_Advanced_Tabs extends Widget_Base {
 							<?php echo do_shortcode( $tab['rael_advanced_tabs_tab_content'] ); ?>
 							<?php
 						elseif ( 'image' === $tab['rael_advanced_tabs_text_type'] ) :
-							{;
+							{
 							?>
 							<?php $this->render_image( $tab ); ?>
 						<?php } elseif ( 'template' === $tab['rael_advanced_tabs_text_type'] ) : ?>
