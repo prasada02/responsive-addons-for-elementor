@@ -367,7 +367,7 @@ if ( ! class_exists( 'Responsive_Addons_For_Elementor_Theme_Builder_Admin' ) ) {
 				'capability_type'     => 'post',
 				'hierarchical'        => false,
 				'rewrite'             => false,
-				'supports'            => array( 'title', 'thumbnail', 'elementor' ),
+				'supports'            => array( 'title', 'thumbnail', 'elementor'),
 			);
 
 			register_post_type( 'rael-theme-template', $args );
@@ -810,4 +810,3 @@ if ( ! class_exists( 'Responsive_Addons_For_Elementor_Theme_Builder_Admin' ) ) {
 	// new Responsive_Addons_For_Elementor_Theme_Builder_Admin();
 	Responsive_Addons_For_Elementor_Theme_Builder_Admin::instance();
 }
-
