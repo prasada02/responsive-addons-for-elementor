@@ -1093,10 +1093,7 @@ class Responsive_Addons_For_Elementor {
 							$included_libs['rael-isotope'] = true;
 							wp_enqueue_script( 'rael-isotope', RAEL_ASSETS_URL . 'lib/isotope/isotope.min.js', array( 'jquery' ), RAEL_VER, true );
 						}
-						if ( ! isset( $included_libs['imagesloaded'] ) ) {
-							$included_libs['imagesloaded'] = true;
-							wp_enqueue_script( 'imagesloaded', RAEL_ASSETS_URL . 'lib/imagesloaded/imagesloaded.min.js', array( 'jquery' ), RAEL_VER, true );
-						}
+						
 						wp_enqueue_script(
 							'rael-twitter-feed', 
 							RAEL_ASSETS_URL . 'js/frontend/twitter-feed/twitter-feed.js', 
