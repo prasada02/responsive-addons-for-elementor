@@ -11,7 +11,7 @@ Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Responsive Addons for Elementor is a plugin to add some exciting elementor widgets.
+80+ widgets, 5+ advanced extensions, and a full header, footer, and theme builder. Unlock 250+ Elementor templates and 500+ Elementor sections to build beautiful, high-converting websites in minutes. No premium upgrade required.
 
 == Description ==
 
