@@ -6,6 +6,8 @@
  */
 
 use Responsive_Addons_For_Elementor\ModulesManager\Theme_Builder\Theme_Builder;
+use Responsive_Addons_For_Elementor\ModulesManager\Theme_Builder\Conditions\RAEL_Conditions;
+
 
 /**
  * Checks if Header is enabled from RAEL.
