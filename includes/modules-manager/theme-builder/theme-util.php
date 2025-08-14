@@ -158,11 +158,9 @@ function rael_single_enabled() {
  * @return (String|boolean) Single Post ID or false.
  */
 function get_rael_single_post_id() {
-<<<<<<< HEAD
+
 	$single_post_id = Theme_Builder::get_settings( 'single-post', '' );
-=======
-	$single_post_id = RAEL_Theme_Builder::get_settings( 'single-post' );
->>>>>>> develop
+
 
 	$current_post_type = get_post_type();
 
