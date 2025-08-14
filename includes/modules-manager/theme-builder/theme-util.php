@@ -99,11 +99,40 @@ function rael_single_page_enabled() {
 function get_rael_single_page_id() {
 	$single_page_id = Theme_Builder::get_settings( 'single-page', '' );
 
-	if ( '' === $single_page_id ) {
-		$single_page_id = false;
+	$current_post_type = get_post_type();
+
+	$fallback_types = array( 'single-post', 'error-404' );
+
+	// acceptable fallback rules
+	$allowed_rules = array( 'basic-singulars', $current_post_type . '|all', 'special-front' );
+
+	// Get all templates
+	$templates = RAEL_Conditions::instance()->get_posts_by_conditions(
+		'rael-theme-template',
+		array(
+			'location'  => 'rael_hf_include_locations',
+			'exclusion' => 'rael_hf_exclude_locations',
+			'users'     => 'rael_hf_target_user_roles',
+		)
+	);
+
+	foreach ( $templates as $template ) {
+		$template_id = absint( $template['id'] );
+		$template_type = get_post_meta( $template_id, 'rael_hf_template_type', true );
+
+		// Match allowed fallback types
+		if ( in_array( $template_type, $fallback_types, true ) ) {
+			$rules = isset( $template['location']['rule'] ) && is_array( $template['location']['rule'] )
+				? $template['location']['rule']
+				: array();
+
+			if ( array_intersect( $allowed_rules, $rules ) ) {
+				return apply_filters( 'get_rael_single_page_id', $template_id );
+			}
+		}
 	}
 
-	return apply_filters( 'get_rael_single_page_id', $single_page_id );
+	return apply_filters( 'get_rael_single_page_id', $single_page_id ?: false );
 }
 
 /**
@@ -129,13 +158,46 @@ function rael_single_enabled() {
  * @return (String|boolean) Single Post ID or false.
  */
 function get_rael_single_post_id() {
+<<<<<<< HEAD
 	$single_post_id = Theme_Builder::get_settings( 'single-post', '' );
+=======
+	$single_post_id = RAEL_Theme_Builder::get_settings( 'single-post' );
+>>>>>>> develop
 
-	if ( '' === $single_post_id ) {
-		$single_post_id = false;
+	$current_post_type = get_post_type();
+
+	$fallback_types = array( 'single-page', 'error-404' );
+
+	// acceptable fallback rules
+	$allowed_rules = array( 'basic-singulars', 'post|all', $current_post_type . '|all' );
+
+	// Get all templates
+	$templates = RAEL_Conditions::instance()->get_posts_by_conditions(
+		'rael-theme-template',
+		array(
+			'location'  => 'rael_hf_include_locations',
+			'exclusion' => 'rael_hf_exclude_locations',
+			'users'     => 'rael_hf_target_user_roles',
+		)
+	);
+
+	foreach ( $templates as $template ) {
+		$template_id = absint( $template['id'] );
+		$template_type = get_post_meta( $template_id, 'rael_hf_template_type', true );
+
+		// Match allowed fallback types
+		if ( in_array( $template_type, $fallback_types, true ) ) {
+			$rules = isset( $template['location']['rule'] ) && is_array( $template['location']['rule'] )
+				? $template['location']['rule']
+				: array();
+
+			if ( array_intersect( $allowed_rules, $rules ) ) {
+				return apply_filters( 'get_rael_single_post_id', $template_id );
+			}
+		}
 	}
 
-	return apply_filters( 'get_rael_single_post_id', $single_post_id );
+	return apply_filters( 'get_rael_single_post_id', $single_post_id ?: false );
 }
 
 /**
@@ -148,11 +210,38 @@ function get_rael_single_post_id() {
 function get_rael_error_404_id() {
 	$error_404_id = Theme_Builder::get_settings( 'error-404', '' );
 
-	if ( '' === $error_404_id ) {
-		$error_404_id = false;
+	$fallback_types = array( 'single-page', 'single-post' );
+
+	// acceptable fallback rules
+	$allowed_rules = array( 'special-404' );
+
+	// Get all templates
+	$templates = RAEL_Conditions::instance()->get_posts_by_conditions(
+		'rael-theme-template',
+		array(
+			'location'  => 'rael_hf_include_locations',
+			'exclusion' => 'rael_hf_exclude_locations',
+			'users'     => 'rael_hf_target_user_roles',
+		)
+	);
+
+	foreach ( $templates as $template ) {
+		$template_id = absint( $template['id'] );
+		$template_type = get_post_meta( $template_id, 'rael_hf_template_type', true );
+
+		// Match allowed fallback types
+		if ( in_array( $template_type, $fallback_types, true ) ) {
+			$rules = isset( $template['location']['rule'] ) && is_array( $template['location']['rule'] )
+				? $template['location']['rule']
+				: array();
+
+			if ( array_intersect( $allowed_rules, $rules ) ) {
+				return apply_filters( 'get_rael_error_404_id', $template_id );
+			}
+		}
 	}
 
-	return apply_filters( 'get_rael_error_404_id', $error_404_id );
+	return apply_filters( 'get_rael_error_404_id', $error_404_id ?: false );
 }
 
 /**
@@ -175,7 +264,7 @@ function rael_archive_enabled() {
  *
  * @since  1.5.0
  *
- * @return (String|boolean) Error_404 ID or false.
+ * @return (String|boolean) Archive ID or false.
  */
 function get_rael_archive_id() {
 	$error_404_id = Theme_Builder::get_settings( 'archive', '' );
@@ -214,7 +303,7 @@ function get_rael_single_product_id() {
  *
  * @since  1.8.0
  *
- * @return (String|boolean) Error_404 ID or false.
+ * @return (String|boolean) Product Archive ID or false.
  */
 function get_rael_product_archive_id() {
 	$product_archive_id = false;
