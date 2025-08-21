@@ -20,6 +20,7 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Image_Size;
+use Responsive_Addons_For_Elementor\Helper\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -64,5 +65,268 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		<p> Hello World </p>
 		<?php
 	}
+
 	
+    // protected function register_controls() {
+
+    //     // 👇 Content Tab
+    //     $this->start_controls_section(
+    //         'section_content',
+    //         [
+    //             'label' => __( 'Source', 'responsive-addons-for-elementor' ),
+    //             'tab'   => Controls_Manager::TAB_CONTENT,
+    //         ]
+    //     );
+
+    //     // Dropdown for Source
+    //     $this->add_control(
+    //         'source_type',
+    //         [
+    //             'label'   => __( 'Items Source', 'responsive-addons-for-elementor' ),
+    //             'type'    => Controls_Manager::SELECT,
+    //             'default' => 'posts',
+    //             'options' => [
+    //                 'posts' => __( 'Posts', 'responsive-addons-for-elementor' ),
+    //                 'items' => __( 'Items', 'responsive-addons-for-elementor' ),
+    //             ],
+    //         ]
+    //     );
+
+    //     $this->end_controls_section();
+    // }
+
+	protected function register_controls() {
+
+		$this->start_controls_section(
+			'section_content',
+			array(
+				'label' => __( 'Source', 'responsive-addons-for-elementor' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'source_type',
+			array(
+				'label'   => __( 'Items Source', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'posts',
+				'options' => array(
+					'posts' => __( 'Posts', 'responsive-addons-for-elementor' ),
+					'items' => __( 'Items', 'responsive-addons-for-elementor' ),
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// Items Repeater (visible only if source = items)
+		$this->start_controls_section(
+			'item_section',
+			array(
+				'label'     => __( 'Items List', 'responsive-addons-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source_type' => 'items',
+				),
+			)
+		);
+
+		$repeater = new Repeater();
+
+		// ================== Tabs inside Items ==================
+		$repeater->start_controls_tabs( 'item_tabs' );
+
+		// ------------------ Content Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_content',
+			array( 'label' => __( 'Content', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'item_title',
+			array(
+				'label'   => __( 'Title', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Innovative Solution', 'responsive-addons-for-elementor' ),
+			)
+		);
+
+		$repeater->add_control(
+			'content_type',
+			array(
+				'label'   => __( 'Content Type', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'editor' => __( 'Text Editor', 'responsive-addons-for-elementor' ),
+					'template' => __( 'Template', 'responsive-addons-for-elementor' ),
+            		'section'  => __( 'Section ID', 'responsive-addons-for-elementor' ),
+				),
+			)
+		);
+		
+
+		$repeater->add_control(
+			'item_desc',
+			array(
+				'label'   => __( 'Description', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'default' => __( 'Explore cutting-edge technologies...', 'responsive-addons-for-elementor' ),
+			)
+		);
+
+		$repeater->add_control(
+			'item_link',
+			array(
+				'label'       => __( 'Link', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-link.com', 'responsive-addons-for-elementor' ),
+			)
+		);
+
+		$repeater->add_control(
+			'show_button',
+			array(
+				'label'        => __( 'Show Button', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
+				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+			)
+		);
+
+		$repeater->add_control(
+			'button_text',
+			array(
+				'label'     => __( 'Button Text', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'Learn More', 'responsive-addons-for-elementor' ),
+				'condition' => array( 'show_button' => 'yes' ),
+			)
+		);
+
+		$repeater->add_control(
+			'item_image',
+			array(
+				'label'   => __( 'Image', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'item_image_size',
+				'default'   => 'medium_large',
+				'separator' => 'none',
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		// ------------------ Graphic Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_graphic',
+			array( 'label' => __( 'Graphic', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'graphic_image',
+			array(
+				'label'   => __( 'Graphic Image', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'    => 'graphic_image_size',
+				'default' => 'medium_large',
+			)
+		);
+
+		$repeater->add_control(
+			'graphic_icon',
+			array(
+				'label' => __( 'Graphic Icon', 'responsive-addons-for-elementor' ),
+				'type'  => Controls_Manager::ICONS,
+			)
+		);
+
+		$repeater->add_control(
+			'graphic_text',
+			array(
+				'label'   => __( 'Graphic Text', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'D', 'responsive-addons-for-elementor' ),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		// ------------------ Background Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_background',
+			array( 'label' => __( 'Background', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'background_type',
+			array(
+				'label'   => __( 'Background Type', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'color',
+				'options' => array(
+					'color' => __( 'Color', 'responsive-addons-for-elementor' ),
+					'image' => __( 'Image', 'responsive-addons-for-elementor' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'background_color',
+			array(
+				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'background_type' => 'color' ),
+			)
+		);
+
+		$repeater->add_control(
+			'background_image',
+			array(
+				'label'     => __( 'Background Image', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array( 'background_type' => 'image' ),
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
+		// ================== Tabs End ==================
+
+		// Add repeater to control
+		$this->add_control(
+			'items_list',
+			array(
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => array(
+					array( 'item_title' => __( 'Item #1', 'responsive-addons-for-elementor' ) ),
+					array( 'item_title' => __( 'Item #2', 'responsive-addons-for-elementor' ) ),
+					array( 'item_title' => __( 'Item #3', 'responsive-addons-for-elementor' ) ),
+				),
+				'title_field' => '{{{ item_title }}}',
+			)
+		);
+
+    	$this->end_controls_section();
+	}
+
 }
