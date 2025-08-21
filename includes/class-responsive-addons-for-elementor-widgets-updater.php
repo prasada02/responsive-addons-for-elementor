@@ -494,6 +494,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/woo-checkout',
 				'category' => 'woocommerce',
 			),
+			array(
+				'title'    => 'stacking-cards',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards',
+				'category' => 'creativity',
+			),
 		);
 
 		return $widgets;
