@@ -89,8 +89,166 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			)
 		);
 
-		$this->end_controls_section();
+		$source_options = array(
+			'static'        => __( '-- Static Value --', 'responsive-addons-for-elementor' ),
+			'before'        => __( '-- Text Before --', 'responsive-addons-for-elementor' ),
+			'after'         => __( '-- Text After --', 'responsive-addons-for-elementor' ),
+			'separator'     => __( '-- Separator --', 'responsive-addons-for-elementor' ),
+			'post_title'    => __( 'Post Title', 'responsive-addons-for-elementor' ),
+			'post_name'     => __( 'Post Name', 'responsive-addons-for-elementor' ),
+			'post_intro'    => __( 'Post Intro', 'responsive-addons-for-elementor' ),
+			'post_content'  => __( 'Post Content', 'responsive-addons-for-elementor' ),
+			'post_image'    => __( 'Post Featured Image', 'responsive-addons-for-elementor' ),
+			'post_date'     => __( 'Post Date', 'responsive-addons-for-elementor' ),
+			'post_url'      => __( 'Post URL', 'responsive-addons-for-elementor' ),
+			'post_meta'     => __( 'Post Meta Field', 'responsive-addons-for-elementor' ),
+			'post_term'     => __( 'Post Term', 'responsive-addons-for-elementor' ),
+			'truncate'      => __( '-- Truncate Text --', 'responsive-addons-for-elementor' ),
+		);
 
+		$this->add_control(
+			'title_source',
+			array(
+				'label'     => __( 'Title Source', 'responsive-addons-for-elementor' ),
+				'label_block' => true,
+				'type'      => Controls_Manager::SELECT2,
+				'multiple'  => true,
+				'default'   => 'post_title',
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'description_source',
+			array(
+				'label'     => __( 'Description Source', 'responsive-addons-for-elementor' ),
+				'label_block' => true,
+				'type'      => Controls_Manager::SELECT2,
+				'multiple'  => true,
+				'default'   => 'post_content',
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'link_source',
+			array(
+				'label'     => __( 'Link Source', 'responsive-addons-for-elementor' ),
+				'label_block' => true,
+				'type'      => Controls_Manager::SELECT2,
+				'multiple'  => true,
+				'default'   => 'post_url',
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'button_text_source',
+			array(
+				'label'     => __( 'Button Text Source', 'responsive-addons-for-elementor' ),
+				'label_block' => true,
+				'type'      => Controls_Manager::SELECT2,
+				'multiple'  => true,
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'image_source',
+			array(
+				'label'     => __( 'Image Source', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple'  => true,
+				'default'   => 'post_image',
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'graphic_image_source',
+			array(
+				'label'     => __( 'Graphic Image Source', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple'  => true,
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'graphic_icon_source',
+			array(
+				'label'     => __( 'Graphic Icon Source', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple'  => true,
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'graphic_text_source',
+			array(
+				'label'     => __( 'Graphic Text Source', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple'  => true,
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+
+		$this->add_control(
+			'background_color_source',
+			array(
+				'label'     => __( 'Background Color Source', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'label_block' => true,
+				'multiple'  => true,
+				'options'   => $source_options,
+				'condition'   => array(
+					'source_type' => 'posts',
+				),
+			)
+		);
+		$this->end_controls_section();
+		// ================== Source = Post ==================
+		$this->start_controls_section(
+			'post_source_section',
+			array(
+				'label'     => __( 'Items Post Query', 'responsive-addons-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array( 'source_type' => 'posts' ),
+			)
+		);
+
+
+		$this->end_controls_section();
+	// ================== End Post Source ==================
 		// Items Repeater (visible only if source = items)
 		$this->start_controls_section(
 			'item_section',
