@@ -1148,6 +1148,30 @@ class Responsive_Addons_For_Elementor {
 							wp_enqueue_style( 'rael-magnific-popup-style' );
 						}
 						break;
+					case 'stacking-cards':
+						wp_enqueue_script(
+							'gsap',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+							array(),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'gsap-scrolltrigger',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+							array('gsap'),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'rael-stacking-cards',
+							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.js',
+							array('gsap', 'gsap-scrolltrigger'),
+							RAEL_VER,
+							true
+						);
+						break;
+    
 				}
 			}
 		}
