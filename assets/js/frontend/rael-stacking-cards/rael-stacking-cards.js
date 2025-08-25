@@ -26,18 +26,34 @@ class RaelStackingCardsHandler extends elementorModules.frontend.handlers.Base {
 
     const cards = this.elements.$cards.toArray();
 
+    // set initial states
+    gsap.set(cards, { scale: 0.9, opacity: 1, zIndex: 0 });
+
+    // Give each card a descending z-index initially
+
     cards.forEach((card, i) => {
-      gsap.to(card, {
-        scale: 0.9,
-        opacity: 0.7,
-        zIndex: cards.length - i,
-        scrollTrigger: {
-          trigger: card,
-          start: "top center+=100",
-          scrub: true,
-          onEnter: () => gsap.to(card, { scale: 1, opacity: 1, duration: 0.3 }),
-          onLeaveBack: () =>
-            gsap.to(card, { scale: 0.9, opacity: 0.7, duration: 0.3 }),
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top center+=100",
+        end: "bottom center",
+        onToggle: ({ isActive }) => {
+          if (isActive) {
+            // only animate the active card
+            gsap.to(card, {
+              scale: 1,
+              zIndex: 10 + i,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          } else {
+            // smoothly reset card when leaving
+            gsap.to(card, {
+              scale: 0.9,
+              zIndex: i,
+              duration: 0.4,
+              ease: "power2.inOut",
+            });
+          }
         },
       });
     });
@@ -48,11 +64,8 @@ class RaelStackingCardsHandler extends elementorModules.frontend.handlers.Base {
     this.initStackingCards();
   }
 
-  onElementChange(propertyName) {
-    // If user updates repeater or settings in editor, re-init
-    if (propertyName.startsWith("items_list")) {
-      this.initStackingCards();
-    }
+  onElementChange() {
+    this.initStacking(); // Re-run when settings change
   }
 }
 
@@ -67,4 +80,5 @@ jQuery(window).on("elementor/frontend/init", () => {
     "frontend/element_ready/rael-stacking-cards.default",
     addHandler
   );
+
 });

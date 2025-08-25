@@ -1748,6 +1748,10 @@ class Responsive_Addons_For_Elementor {
 					case 'facebook-feed':
 						array_push( $css_files, $css_files_path . 'facebook-feed/facebook-feed' . $css_min_ext );
 						break;
+					// case 'stacking-cards':
+					// 	array_push( $js_files, $js_files_path . 'stacking-cards/stacking-cards' . $ext );
+					// 	array_push( $css_files, $css_files_path . 'stacking-cards/stacking-cards.css');
+					// 	break;
 				}
 			}
 		}
