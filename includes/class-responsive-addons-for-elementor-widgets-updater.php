@@ -494,6 +494,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/woo-checkout',
 				'category' => 'woocommerce',
 			),
+			array(
+				'title'    => 'before-after-slider',
+				'name'     => 'Before After Slider',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider',
+				'category' => 'creativity',
+			)
 		);
 
 		return $widgets;
