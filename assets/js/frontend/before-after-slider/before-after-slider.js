@@ -44,7 +44,6 @@
         if('yes' === move_on_hover) {
             move_slider_on_hover = true;
         } else {
-            console.log("here NOOO");
             move_slider_on_hover = false;
         }
 

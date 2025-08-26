@@ -2,7 +2,7 @@
 /**
  * RAEL Before After Slider Widget
  *
- * @since      1.7.5
+ * @since      2.0.0
  * @package    Responsive_Addons_For_Elementor
  */
 
@@ -34,7 +34,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 	 *
 	 * Retrieve 'RAEL Before After Slider' widget name.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return string Widget name.
@@ -48,7 +48,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 	 *
 	 * Retrieve 'RAEL Before After Slider' widget title.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return string Widget title.
@@ -62,7 +62,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 	 *
 	 * Retrieve 'RAEL Before After Slider' widget icon.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return string Widget icon.
@@ -76,31 +76,19 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 	 *
 	 * Retrieve the list of categories the RAEL Before After Slider widget belongs to.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 */
 	public function get_categories() {
 		return array( 'responsive-addons-for-elementor' );
 	}
 
-	/**
-	 * Get the stylesheets required for the widget.
-	 *
-	 * @return array
-	 */
-	// public function get_style_depends() {
-	// 	return array(
-	// 		'before-after-slider',
-	// 	);
-	// }
-
-    //check this
     /**
 	 * Retrieve the list of scripts the image carousel widget depended on.
 	 *
 	 * Used to set scripts dependencies required to run the widget.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 *
 	 * @return array Widget scripts dependencies.
@@ -110,14 +98,13 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 			'imagesloaded',
             'rael-twentytwenty',
             'rael-event-move',
-            'before-after-slider',
 		);
 	}
 
     /**
 	 * Register BeforeAfterSlider controls.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access protected
 	 */
 	protected function register_controls() {
@@ -142,9 +129,10 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
          $this->add_control(
             'rael_before_image',
             array(
-                'label' => __( 'Before Image Type', 'responsive-addons-for-elementor' ),
+                'label' => __( 'Before Image Input', 'responsive-addons-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'default'   => 'media',
+                'label_block' => true,
                 'options' => array(
                     'media' => __( 'Media', 'responsive-addons-for-elementor' ),
                     'url' => __( 'URL', 'responsive-addons-for-elementor' ),
@@ -179,7 +167,8 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                 'condition' => array(
                     'rael_before_image' => 'url',
                 ),
-            )
+                'label_block' => true,
+            ),
         );
 
         $this->add_group_control(
@@ -226,9 +215,10 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
         $this->add_control(
             'rael_after_image',
             array(
-                'label' => __( 'After Image Type', 'responsive-addons-for-elementor' ),
+                'label' => __( 'After Image Input', 'responsive-addons-for-elementor' ),
                 'type' => Controls_Manager::SELECT,
                 'default'   => 'media',
+                'label_block' => true,
                 'options' => array(
                     'media' => __( 'Media', 'responsive-addons-for-elementor' ),
                     'url' => __( 'URL', 'responsive-addons-for-elementor' ),
@@ -261,6 +251,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                 'condition' => array(
                     'rael_after_image' => 'url',
                 ),
+                'label_block' => true,
             )
         );
 
@@ -325,32 +316,60 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
             )
         );
 
+        //check whether to remove this control or have this control
+        
+        // $this->add_control(
+        //     'rael_before_after_alignment',
+        //     array(
+        //         'label' => __('Alignment', 'responsive-addons-for-elementor'),
+        //         'type' => Controls_Manager::CHOOSE,
+        //         'default' => '-right',
+        //         'options' => array(
+        //             '-right' => array(
+        //                 'title' => __('Left', 'responsive-addons-for-elementor'),   
+        //                 'icon' => '',
+        //             ),
+        //             ' ' => array(
+        //                 'title' => __('Center', 'responsive-addons-for-elementor'),
+        //                 'icon' => '',
+        //             ),
+        //             '-left' => array(
+        //                 'title' => __('Right', 'responsive-addons-for-elementor'),
+        //                 'icon' => '',
+        //             ),
+        //         ),
+        //         'selectors' => array(
+		// 			'{{WRAPPER}}' => 'margin{{VALUE}}:auto;',
+		// 		),
+        //         'toggle' => false,
+        //     )
+        // );
+
         $this->add_control(
             'rael_before_after_alignment',
-            array(
+            [
                 'label' => __('Alignment', 'responsive-addons-for-elementor'),
-                'type' => Controls_Manager::CHOOSE,
-                'default' => '-right',
-                'options' => array(
-                    '-right' => array(
-                        'title' => __('Left', 'responsive-addons-for-elementor'),   
-                        'icon' => 'eicon-text-align-left',
-                    ),
-                    ' ' => array(
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'default' => 'center',
+                'options' => [
+                    'left' => [
+                        'title' => __('Left', 'responsive-addons-for-elementor'),
+                        'icon'  => 'eicon-text-align-left',
+                    ],
+                    'center' => [
                         'title' => __('Center', 'responsive-addons-for-elementor'),
-                        'icon' => 'eicon-text-align-center',
-                    ),
-                    '-left' => array(
+                        'icon'  => 'eicon-text-align-center',
+                    ],
+                    'right' => [
                         'title' => __('Right', 'responsive-addons-for-elementor'),
-                        'icon' => 'eicon-text-align-right',
-                    ),
-                ),
-                'selectors' => array(
-					'{{WRAPPER}}' => 'margin{{VALUE}}:auto;',
-				),
+                        'icon'  => 'eicon-text-align-right',
+                    ],
+                ],
+                'prefix_class' => 'rael-align-',
                 'toggle' => false,
-            )
+            ]
         );
+
 
         $this->add_control(
             'rael_before_after_move_on_hover',
@@ -481,7 +500,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                     )
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .twentytwenty-handle' => 'width: {{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}}; margin-left:calc( -{{SIZE}}{{UNIT}}/2 - {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} ); margin-top:calc( -{{SIZE}}{{UNIT}}/2 - {{thickness.size}}{{rael_before_after_comparison_thickness.unit}} );',
+                    '{{WRAPPER}} .twentytwenty-handle' => 'width: {{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}}; margin-left:calc( -{{SIZE}}{{UNIT}}/2 - {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} ); margin-top:calc( -{{SIZE}}{{UNIT}}/2 - {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} );',
 					'{{WRAPPER}} .twentytwenty-horizontal .twentytwenty-handle:before' => 'margin-bottom: calc( ( {{SIZE}}{{UNIT}} + ( {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} * 2 ) ) / 2 );',
 					'{{WRAPPER}} .twentytwenty-horizontal .twentytwenty-handle:after' => 'margin-top: calc( ( {{SIZE}}{{UNIT}} + ( {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} * 2 ) ) / 2 );',
 					'{{WRAPPER}} .twentytwenty-vertical .twentytwenty-handle:before' => 'margin-left: calc( ( {{SIZE}}{{UNIT}} + ( {{rael_before_after_comparison_thickness.size}}{{rael_before_after_comparison_thickness.unit}} * 2 ) ) / 2 );',
@@ -547,7 +566,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
     /**
 	 * Register card style controls.
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @access public
 	 */
 	public function rael_before_after_style_settings() {
@@ -574,6 +593,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                 'label' => __('Show Label On', 'responsive-addons-for-elementor'),
                 'type' => Controls_Manager::SELECT,
                 'default' => 'hover',
+                'label_block' => true,
                 'options' => array(
                     'hover' => __('Hover only', 'responsive-addons-for-elementor'),
                     'normal' => __('Normal only', 'responsive-addons-for-elementor'),
@@ -661,7 +681,6 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 				'condition'    => array(
 					'rael_before_after_orientation' => 'horizontal',
 				),
-                
 			)
 		);
 
@@ -703,7 +722,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
     /**
 	 * Get Custom help URL
 	 *
-	 * @since 1.7.5
+	 * @since 2.0.0
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
@@ -784,7 +803,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
      *
      * Written as a Backbone JavaScript template and used to generate the live preview.
      *
-     * @since 1.7.5
+     * @since 2.0.0
      * @access protected
      */
     protected function content_template() {
