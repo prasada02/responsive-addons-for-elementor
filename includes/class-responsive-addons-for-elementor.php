@@ -1166,7 +1166,7 @@ class Responsive_Addons_For_Elementor {
 						wp_enqueue_script(
 							'rael-stacking-cards',
 							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.js',
-							array('gsap', 'gsap-scrolltrigger'),
+							array('gsap', 'gsap-scrolltrigger','elementor-frontend'),
 							RAEL_VER,
 							true
 						);

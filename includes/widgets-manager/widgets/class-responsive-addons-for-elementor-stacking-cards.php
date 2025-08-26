@@ -524,6 +524,11 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'       => __( 'Link', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::URL,
 				'placeholder' => __( 'https://your-link.com', 'responsive-addons-for-elementor' ),
+				'default'     => array(
+					'url'         => 'https://your-link.com', // Default URL
+					'is_external' => true,                    // Open in new tab by default
+					'nofollow'    => false,                   // No follow attribute
+				),
 				'condition' => array( 'content_type' => 'editor' ),
 			)
 		);
@@ -1488,223 +1493,224 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$items = [];
+		// Wrapper
+		$sticky_top = ! empty( $settings['sticky_position_top_space']['size'] )
+			? $settings['sticky_position_top_space']['size']
+			: 0; // numeric value only
 
-		// ============ WRAPPER ============
-		$this->add_render_attribute( 'wrapper', 'class', [
-			'rae-stacking-cards-wrapper',
-			( isset($settings['rtl_enable']) && 'yes' === $settings['rtl_enable'] ) ? 'is-rtl' : '',
-		] );
+		$sticky_unit = ! empty( $settings['sticky_position_top_space']['unit'] ) 
+			? $settings['sticky_position_top_space']['unit'] 
+			: 'px';
 
-		// Optional: expose a few style controls as CSS variables for your stacking/hover CSS/JS.
-		$css_vars = [];
-		if ( ! empty( $settings['transform_origin_x']['size'] ) ) { $css_vars[] = '--sm-ox:' . floatval($settings['transform_origin_x']['size']) . '%'; }
-		if ( ! empty( $settings['transform_origin_y']['size'] ) ) { $css_vars[] = '--sm-oy:' . floatval($settings['transform_origin_y']['size']) . '%'; }
-		if ( ! empty( $settings['hover_scale']['size'] ) )       { $css_vars[] = '--hover-scale:' . floatval($settings['hover_scale']['size']); }
-		if ( ! empty( $settings['hover_opacity']['size'] ) )     { $css_vars[] = '--hover-opacity:' . floatval($settings['hover_opacity']['size'])/100; }
-		if ( ! empty( $settings['hover_blur']['size'] ) )        { $css_vars[] = '--hover-blur:' . floatval($settings['hover_blur']['size']) . 'px'; }
-		if ( ! empty( $settings['hover_rotation'] ) )            { $css_vars[] = '--hover-rotate:' . floatval($settings['hover_rotation']) . 'deg'; }
-		if ( $css_vars ) {
-			$this->add_render_attribute( 'wrapper', 'style', implode(';', $css_vars) . ';' );
+		$card_gap = ! empty( $settings['card_gap']['size'] )
+			? $settings['card_gap']['size'] . ( $settings['card_gap']['unit'] ?? 'px' )
+			: '100px';
+
+		$card_offset = ! empty( $settings['card_top_offset']['size'] )
+			? $settings['card_top_offset']['size'] . ( $settings['card_top_offset']['unit'] ?? 'px' )
+			: '20px';
+
+		// ---------- Items (repeater source) ----------
+		if ( isset($settings['source_type']) && 'items' === $settings['source_type'] && ! empty( $settings['items_list'] ) ) {
+			foreach ( $settings['items_list'] as $item ) {
+				// Main image
+				$image_html = '';
+				if ( ! empty( $item['item_image']['id'] ) ) {
+					$image_html = \Elementor\Group_Control_Image_Size::get_attachment_image_html( $item, 'item_image_size', 'item_image' );
+				} elseif ( ! empty( $item['item_image']['url'] ) ) {
+					$image_html = '<img src="' . esc_url( $item['item_image']['url'] ) . '" alt="">';
+				}
+
+				// Graphic image
+				$graphic_html = '';
+				if ( ! empty( $item['graphic_image']['id'] ) ) {
+					$graphic_html = \Elementor\Group_Control_Image_Size::get_attachment_image_html( $item, 'graphic_image_size', 'graphic_image' );
+				}
+
+				$link = is_array( $item['item_link'] ) ? $item['item_link'] : [
+					'url'         => '',
+					'is_external' => false,
+					'nofollow'    => false,
+				];
+
+				$items[] = [
+					'title'        => $item['item_title'] ?? '',
+					'desc'         => $item['item_desc'] ?? '',
+					'image_html'   => $image_html,
+					'image_url'    => '',
+					'button_text'  => $item['button_text'] ?? '',
+					'link_url'     => $link['url'] ?? '',
+					'link_external'=> ! empty( $link['is_external'] ),
+					'link_nofollow'=> ! empty( $link['nofollow'] ),
+					'graphic_html' => $graphic_html,
+					'graphic_icon' => $item['graphic_icon'] ?? null,
+					'graphic_text' => $item['graphic_text'] ?? '',
+				];
+			}
 		}
 
-		// Build items array from repeater or posts.
-		$items = $this->build_items_for_render( $settings );
+		// ---------- Posts source ----------
+		if ( isset($settings['source_type']) && 'posts' === $settings['source_type'] ) {
+			error_log('in postsssss');
+			$query = new \WP_Query( [
+				'post_type'           => 'post',
+				'posts_per_page'      => 3,
+				'ignore_sticky_posts' => true,
+				'no_found_rows'       => true,
+			] );
 
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+					$post_id = get_the_ID();
+					$img_size = ! empty( $settings['item_image_size'] ) ? $settings['item_image_size'] : 'medium_large';
+					$img_url  = get_the_post_thumbnail_url( $post_id, $img_size );
+
+					$items[] = [
+						'title'        => get_the_title(),
+						'desc'         => wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 24 ),
+						'image_html'   => '',
+						'image_url'    => $img_url ?: '',
+						'button_text'  => $settings['button_text'] ?? __( 'Read More', 'responsive-addons-for-elementor' ),
+						'link_url'     => get_permalink( $post_id ),
+						'link_external'=> false,
+						'link_nofollow'=> false,
+						'graphic_html' => '',
+						'graphic_icon' => null,
+						'graphic_text' => '',
+					];
+				}
+				wp_reset_postdata();
+			}
+		}
+
+		if ( empty( $items ) ) {
+			return;
+		}
+
+	
+		$this->add_render_attribute( 'wrapper', 'class', 'rae-stacking-cards-wrapper' );
+		
+		// if ( ! empty( $settings['sticky_position_top_space']['size'] ) ) {
+		// 	$top_space = $settings['sticky_position_top_space']['size'] . $settings['sticky_position_top_space']['unit'];
+		// 	$this->add_render_attribute( 'wrapper', 'style', 'padding-top:' . esc_attr( $top_space ) . ';' );
+		// }
+		// optional: add data attribute for scroll motion toggle
+		if ( ! empty( $settings['enable_scroll_motion'] ) ) {
+			$this->add_render_attribute( 'wrapper', 'data-scroll-motion', 'true' );
+		}
+		
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>';
-
 		foreach ( $items as $index => $item ) {
-			$card_key     = 'card_' . $index;
-			$content_key  = 'content_' . $index;
-			$media_key    = 'media_' . $index;
-			$btnwrap_key  = 'btnwrap_' . $index;
-			$btn_key      = 'btn_' . $index;
+			$offset_value = 'calc(' . $index+1 . ' * ' . $card_offset . ')';
+			$sticky_top_item = ( $sticky_top + ( $index * 40 ) ) . $sticky_unit;
+			$this->add_render_attribute(
+                'card' . $index,
+                array(
+                    'class' => array( 'rae-stacking-card', 'elementor-repeater-item-' . $index+1, ),
+                    'style' => 'top:' . esc_attr( $sticky_top_item ) . '; margin-top:' . esc_attr( $offset_value ) . ';',
+				)
+            );
+			//$this->add_render_attribute( 'card' . $index, 'class', 'rae-stacking-card' );
 
-        // Card container (use the class you targeted in style controls)
-        $this->add_render_attribute( $card_key, 'class', [ 'rae-card', 'rae-stacking-card' ] );
+			echo '<div ' . $this->get_render_attribute_string( 'card' . $index ) . '>';
 
-        // Content & media regions
-        $this->add_render_attribute( $content_key, 'class', [ 'rae-card-content', 'your-content-class' ] );
-        $this->add_render_attribute( $media_key, 'class', [ 'rae-card-media' ] );
+			// Image
+			$image_output = '';
+			if ( ! empty( $item['image_html'] ) ) {
+				$image_output = $item['image_html'];
+			} elseif ( ! empty( $item['image_url'] ) ) {
+				$image_output = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+			}
+			if ( !empty($settings['show_image']) && ! empty( $image_output ) ) {
+				echo '<div class="rae-card-image">' . $image_output . '</div>';
+			}
 
-        // Button wrap respects text-align selector you set on .your-button-class
-        $btn_wrap_classes = [ 'rae-btn-wrap', 'your-button-class' ];
-        $this->add_render_attribute( $btnwrap_key, 'class', $btn_wrap_classes );
+			// Graphic
+			$graphic_output = '';
+			if ( ! empty( $item['graphic_html'] ) ) {
+				$graphic_output = $item['graphic_html'];
+			} elseif ( ! empty( $item['graphic_icon'] ) ) {
+				ob_start();
+				\Elementor\Icons_Manager::render_icon( $item['graphic_icon'], [ 'aria-hidden' => 'true' ] );
+				$graphic_output = ob_get_clean();
+			} elseif ( ! empty( $item['graphic_text'] ) ) {
+				$graphic_output = '<div class="rae-card-graphic-text">' . esc_html( $item['graphic_text'] ) . '</div>';
+			}
+			if ( ! empty( $graphic_output ) ) {
+				echo '<div class="rae-card-graphic">' . $graphic_output . '</div>';
+			}
 
-        // Button element (full width vs auto)
-        $btn_classes = [ 'rae-btn', 'your-button-element-class' ];
-        if ( isset($settings['button_width_type']) && 'full' === $settings['button_width_type'] ) {
-            $btn_classes[] = 'is-full';
-        }
-        $this->add_render_attribute( $btn_key, 'class', $btn_classes );
+			$tag = ! empty( $settings['title_html_tag'] ) ? $settings['title_html_tag'] : 'div';
 
-        // Link attributes
-        if ( ! empty( $item['link_url'] ) ) {
-            $this->add_link_attributes( $btn_key, [
-                'url'        => $item['link_url'],
-                'is_external'=> ! empty( $item['link_external'] ),
-                'nofollow'   => ! empty( $item['link_nofollow'] ),
-            ] );
-        }
+			// Content
+			echo '<div class="rae-card-content">';
+			if ( !empty ($settings['show_title']) && ! empty( $item['title'] ) ) {
+				echo '<' . esc_html( $tag ) . ' class="rae-card-title">' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
 
-        echo '<div ' . $this->get_render_attribute_string( $card_key ) . '>';
+			}
+			if ( !empty ($settings['show_description']) && ! empty( $item['desc'] ) ) {
+				echo '<div class="rae-card-desc">' . wp_kses_post( $item['desc'] ) . '</div>';
+			}
 
-            // ---------- MEDIA (right side in your screenshot) ----------
-            echo '<div ' . $this->get_render_attribute_string( $media_key ) . '>';
-                if ( ! empty( $item['image_html'] ) ) {
-                    // Ensure image has the class targeted by your selectors
-                    // (Group_Control_Image_Size returns <img>; we inject our class)
-                    echo str_replace( '<img ', '<img class="your-image-class" ', $item['image_html'] );
-                } elseif ( ! empty( $item['image_url'] ) ) {
-                    echo '<img class="your-image-class" src="' . esc_url( $item['image_url'] ) . '" alt="' . esc_attr( wp_strip_all_tags( $item['title'] ) ) . '">';
-                }
-            echo '</div>';
+			if ( !empty($settings['show_button']) && ! empty( $item['button_text'] ) && ! empty( $item['link_url'] ) ) {
+				$this->add_link_attributes( 'button_' . $index, [
+					'url'         => $item['link_url'],
+					'is_external' => $item['link_external'],
+					'nofollow'    => $item['link_nofollow'],
+				] );
+				echo '<a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rae-card-button">';
+				echo esc_html( $item['button_text'] );
+				echo '</a>';
+			}
 
-            // ---------- CONTENT (left side in your screenshot) ----------
-            echo '<div ' . $this->get_render_attribute_string( $content_key ) . '>';
+			echo '</div>'; // content
+			echo '</div>'; // card
+		}
 
-                // Graphic element (icon/image/text) — respects your Graphic Element style section
-                if ( ! empty( $settings['show_graphic_element'] ) && 'none' !== $settings['show_graphic_element'] ) {
-                    echo '<div class="rae-graphic your-graphic-element-class">';
-                        if ( 'image' === $settings['show_graphic_element'] && ! empty( $item['graphic_image_html'] ) ) {
-                            echo str_replace( '<img ', '<img class="your-image-class" ', $item['graphic_image_html'] );
-                        } elseif ( 'icon' === $settings['show_graphic_element'] && ! empty( $item['graphic_icon'] ) ) {
-                            Icons_Manager::render_icon( $item['graphic_icon'], [ 'aria-hidden' => 'true', 'class' => 'rae-icon' ] );
-                        } elseif ( 'text' === $settings['show_graphic_element'] && isset( $item['graphic_text'] ) ) {
-                            echo '<span class="rae-graphic-text your-title-class">' . esc_html( $item['graphic_text'] ) . '</span>';
-                        }
-                    echo '</div>';
-                }
+		echo '</div>'; // wrapper
+	}
 
-                // Title
-                if ( ! empty( $item['title'] ) && ( ! isset($settings['show_title']) || 'yes' === $settings['show_title'] ) ) {
-                    $tag = ! empty( $settings['title_html_tag'] ) ? tag_escape( $settings['title_html_tag'] ) : 'div';
-                    echo '<' . $tag . ' class="rae-title your-title-class">' . wp_kses_post( $item['title'] ) . '</' . $tag . '>';
-                }
 
-                // Description
-                if ( ! empty( $item['desc'] ) && ( ! isset($settings['show_description']) || 'yes' === $settings['show_description'] ) ) {
-                    echo '<div class="rae-desc your-description-class">' . wp_kses_post( $item['desc'] ) . '</div>';
-                }
-
-                // Button
-                if ( ( ! isset($settings['show_button']) || 'yes' === $settings['show_button'] ) && ! empty( $item['link_url'] ) ) {
-                    echo '<div ' . $this->get_render_attribute_string( $btnwrap_key ) . '>';
-                        $btn_text = ! empty( $item['button_text'] ) ? $item['button_text'] : ( ! empty($settings['button_text']) ? $settings['button_text'] : __( 'Read More', 'responsive-addons-for-elementor' ) );
-                        echo '<a ' . $this->get_render_attribute_string( $btn_key ) . '>' . esc_html( $btn_text ) . '</a>';
-                    echo '</div>';
-                }
-
-            echo '</div>'; // .rae-card-content
-
-        echo '</div>'; // .rae-card
-    	}
-
-    	echo '</div>'; // .rae-stacking-cards
-}
-
-	/**
- * Build items from repeater (Items) or from Posts.
- * Keeps fields your renderer expects: title, desc, image_html/url, button_text, link_*, graphic_*
- */
-private function build_items_for_render( array $settings ): array {
-    $items = [];
-
-    // ---------- Items (repeater) ----------
-    if ( isset($settings['source_type']) && 'items' === $settings['source_type'] && ! empty( $settings['items_list'] ) ) {
-        foreach ( $settings['items_list'] as $item ) {
-            // Main image (uses repeater image-size group control)
-            $image_html = '';
-            if ( ! empty( $item['item_image']['id'] ) ) {
-                $image_html = Group_Control_Image_Size::get_attachment_image_html( $item, 'item_image_size', 'item_image' );
-            } elseif ( ! empty( $item['item_image']['url'] ) ) {
-                $image_html = '<img src="' . esc_url( $item['item_image']['url'] ) . '" alt="">';
-            }
-
-            // Graphic image (optional)
-            $graphic_image_html = '';
-            if ( ! empty( $item['graphic_image']['id'] ) ) {
-                $graphic_image_html = Group_Control_Image_Size::get_attachment_image_html( $item, 'graphic_image_size', 'graphic_image' );
-            } elseif ( ! empty( $item['graphic_image']['url'] ) ) {
-                $graphic_image_html = '<img src="' . esc_url( $item['graphic_image']['url'] ) . '" alt="">';
-            }
-
-            $link = is_array( $item['item_link'] ?? null ) ? $item['item_link'] : [];
-
-            $items[] = [
-                'title'               => $item['item_title'] ?? '',
-                'desc'                => $item['item_desc'] ?? '',
-                'image_html'          => $image_html,
-                'image_url'           => '', // not needed because we have HTML
-                'button_text'         => $item['button_text'] ?? '',
-                'link_url'            => $link['url'] ?? '',
-                'link_external'       => ! empty( $link['is_external'] ),
-                'link_nofollow'       => ! empty( $link['nofollow'] ),
-                'graphic_image_html'  => $graphic_image_html,
-                'graphic_icon'        => $item['graphic_icon'] ?? null,
-                'graphic_text'        => $item['graphic_text'] ?? '',
-            ];
-        }
-
-        return $items;
-    }
-
-    // ---------- Posts (basic mapping) ----------
-    $query = new \WP_Query( [
-        'post_type'           => 'post',
-        'posts_per_page'      => 3,
-        'ignore_sticky_posts' => true,
-        'no_found_rows'       => true,
-    ] );
-
-    if ( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
-            $query->the_post();
-            $post_id = get_the_ID();
-
-            // Image size set in your "General › Item Image Size" select
-            $img_size = ! empty( $settings['item_image_size'] ) ? $settings['item_image_size'] : 'medium_large';
-            $img_url  = get_the_post_thumbnail_url( $post_id, $img_size );
-
-            $items[] = [
-                'title'         => get_the_title(),
-                'desc'          => wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 24 ),
-                'image_html'    => '',
-                'image_url'     => $img_url ?: '',
-                'button_text'   => $settings['button_text'] ?? __( 'Read More', 'responsive-addons-for-elementor' ),
-                'link_url'      => get_permalink( $post_id ),
-                'link_external' => false,
-                'link_nofollow' => false,
-                // no graphic element by default for posts
-                'graphic_image_html' => '',
-                'graphic_icon'       => null,
-                'graphic_text'       => '',
-            ];
-        }
-        wp_reset_postdata();
-    }
-
-    return $items;
-}
 	protected function content_template() {
 	?>
-	<div class="rae-stacking-cards-wrapper">
+	<# 
+		var stickyTop  = ( settings.sticky_position_top_space && settings.sticky_position_top_space.size ) 
+			? settings.sticky_position_top_space.size + ( settings.sticky_position_top_space.unit || 'px' ) 
+			: '150px';
+
+		var cardGap = ( settings.card_gap && settings.card_gap.size ) 
+			? settings.card_gap.size + ( settings.card_gap.unit || 'px' ) 
+			: '100px';
+
+		var cardOffset = ( settings.card_top_offset && settings.card_top_offset.size ) 
+			? settings.card_top_offset.size + 'px' 
+			: '20px';
+	#>
+
+	<div class="rae-stacking-cards-wrapper" style="--sticky-top: {{{ stickyTop }}}; --card-gap: {{{ cardGap }}}; --card-offset: {{{ cardOffset }}};"
+		data-scroll-motion="{{{ settings.enable_scroll_motion }}}">
 		<# if ( settings.items_list && settings.items_list.length ) { #>
 			<# jQuery.each( settings.items_list, function( item ) { #>
 				<div class="rae-stacking-card elementor-repeater-item-{{ item._id }}">
-					<div class="rae-card-media">
-						<# if ( item.image && item.image.url ) { #>
-							<img src="{{ item.image.url }}" alt="{{ item.title }}">
-						<# } #>
-					</div>
-					<div class="rae-card-content">
-						<# if ( item.title ) { #>
-							<h3 class="rae-title">{{{ item.title }}}</h3>
-						<# } #>
-						<# if ( item.desc ) { #>
-							<p class="rae-desc">{{{ item.desc }}}</p>
-						<# } #>
-						<# if ( item.button_text && item.link_url && item.link_url.url ) { #>
-							<a href="{{ item.link_url.url }}" class="rae-btn">{{{ item.button_text }}}</a>
+					<div class="rae-card-inner">
+						<div class="rae-card-content">
+							<# if ( settings.show_title == 'yes' && item.title ) { #>
+								<h3 class="rae-title">{{{ item.title }}}</h3>
+							<# } #>
+							<# if ( settings.show_description == 'yes' && item.desc ) { #>
+								<p class="rae-desc">{{{ item.desc }}}</p>
+							<# } #>
+							<# if ( settings.show_button == 'yes' && item.button_text && item.link_url && item.link_url.url ) { #>
+								<a href="{{ item.link_url.url }}" class="rae-btn">{{{ item.button_text }}}</a>
+							<# } #>
+						</div>
+						<# if ( settings.show_image == 'yes' && item.image && item.image.url ) { #>
+
+						<div class="rae-card-media">
+								<img src="{{ item.image.url }}" alt="{{ item.title }}">
+						</div>
 						<# } #>
 					</div>
 				</div>
