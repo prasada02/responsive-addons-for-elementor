@@ -138,7 +138,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_feed_settings() {
@@ -181,7 +180,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_general_settings() {
@@ -447,7 +445,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_general_styles() {
@@ -533,7 +530,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_card_header_styles() {
@@ -655,7 +651,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_card_body_styles() {
@@ -828,7 +823,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_card_footer_styles() {
@@ -901,7 +895,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	protected function rael_overlay_styles() {
@@ -1070,7 +1063,6 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	//added widget in RAE v1.6.7 but not added load more button
@@ -1292,7 +1284,8 @@ class Responsive_Addons_For_Elementor_Facebook_Feed extends Widget_Base {
 				<?php endif; ?>
 			<?php } ?>
 		</div>
-	<?php }
+		<?php
+	}
 
 	protected function rael_print_missing_field( $arg ) {
 		?>

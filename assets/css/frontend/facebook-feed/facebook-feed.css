@@ -394,15 +394,13 @@
     }
 }
 
-/* Prevent single character breaks in all cases */
 .rael-fb-feed-message {
-    word-break: keep-all; /* Prevents breaking within words unless necessary */
+    word-break: keep-all;
     white-space: normal;
-    display: inline; /* Better text flow */
+    display: inline;
 }
 
-/* Ensure proper text container behavior */
 .rael-fb-feed-item-content-container {
-    overflow: hidden; /* Prevents content from breaking layout */
+    overflow: hidden;
 }
   /*# sourceMappingURL=facebook-feed.css.map */
