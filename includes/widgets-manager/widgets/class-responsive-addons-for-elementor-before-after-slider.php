@@ -396,18 +396,6 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                     )
                     ),
                 'label_block' => true,
-				'options'     => array(
-					'0.0' => __( '0.0', 'rael' ),
-					'0.1' => __( '0.1', 'rael' ),
-					'0.2' => __( '0.2', 'rael' ),
-					'0.3' => __( '0.3', 'rael' ),
-					'0.4' => __( '0.4', 'rael' ),
-					'0.5' => __( '0.5', 'rael' ),
-					'0.6' => __( '0.6', 'rael' ),
-					'0.7' => __( '0.7', 'rael' ),
-					'0.8' => __( '0.8', 'rael' ),
-					'0.9' => __( '0.9', 'rael' ),
-				),
             )
         );
 
@@ -699,7 +687,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
-		return 'https://cyberchimps.com/docs/widgets/before-after-slider/';
+		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/';
 	}
 
 

@@ -497,7 +497,7 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			array(
 				'title'    => 'before-after-slider',
 				'name'     => 'Before After Slider',
-				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/',
 				'category' => 'creativity',
 			)
 		);

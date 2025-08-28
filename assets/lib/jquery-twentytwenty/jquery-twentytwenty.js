@@ -1,3 +1,11 @@
+/*!
+ * TwentyTwenty jQuery plugin
+ * https://github.com/zurb/twentytwenty
+ *
+ * Copyright 2018 zurb
+ * Licensed under the ISC License (https://opensource.org/licenses/ISC)
+*/
+
 (function($){
 
   $.fn.twentytwenty = function(options) {
