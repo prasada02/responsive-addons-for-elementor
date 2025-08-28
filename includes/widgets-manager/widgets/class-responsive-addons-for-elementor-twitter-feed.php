@@ -856,9 +856,9 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-twitter-feed__twitter-icon' => 'color: {{VALUE}};',
 				),
@@ -877,78 +877,85 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render() {
-		$settings        = $this->get_settings_for_display();
-    	$account_name    = ltrim( $settings['rael_account_name'], '@' );
-    	$hashtag         = $settings['rael_hashtag_name'];
-    	$column_spacing  = $settings['rael_column_spacing']['size'] ?? 10;
-    	$token           = $settings['rael_bearer_token'] ?? '';
-		
-    	if ( empty( $token ) ) {
-    	    return;
-    	}
+		$settings       = $this->get_settings_for_display();
+		$account_name   = ltrim( $settings['rael_account_name'], '@' );
+		$hashtag        = $settings['rael_hashtag_name'];
+		$column_spacing = $settings['rael_column_spacing']['size'] ?? 10;
+		$token          = $settings['rael_bearer_token'] ?? '';
 
-    	$user_cache_key = $this->get_name() . '_' . $this->get_id() . '__user_object';
-    	$user_object    = get_transient( $user_cache_key );
+		if ( empty( $token ) ) {
+			return;
+		}
 
-    	if ( empty( $user_object ) ) {
-        	$user_endpoint = "https://api.twitter.com/2/users/by/username/{$account_name}?user.fields=id,name,username,profile_image_url";
-        	$response      = wp_remote_get( $user_endpoint, [
-        	    'headers' => [ 'Authorization' => "Bearer $token" ]
-        	]);
+		$user_cache_key = $this->get_name() . '_' . $this->get_id() . '__user_object';
+		$user_object    = get_transient( $user_cache_key );
 
-        	if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
-        	    $user_object = json_decode( wp_remote_retrieve_body( $response ) );
-        	    set_transient( $user_cache_key, $user_object, 1800 );
-        	}
-    	}
+		if ( empty( $user_object ) ) {
+			$user_endpoint = "https://api.twitter.com/2/users/by/username/{$account_name}?user.fields=id,name,username,profile_image_url";
+			$response      = wp_remote_get(
+				$user_endpoint,
+				array(
+					'headers' => array( 'Authorization' => "Bearer $token" ),
+				)
+			);
 
-    	if ( empty( $user_object->data->id ) ) {
-        	return;
-    	}
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+				$user_object = json_decode( wp_remote_retrieve_body( $response ) );
+				set_transient( $user_cache_key, $user_object, 1800 );
+			}
+		}
 
-    	$user_id       = $user_object->data->id;
-    	$tweet_fields  = 'id,text,created_at,public_metrics,entities,attachments';
-    	$tweet_cache_key = $this->get_name() . '_' . $this->get_id() . '__tweets_cache';
-    	$tweets        = get_transient( $tweet_cache_key );
+		if ( empty( $user_object->data->id ) ) {
+			return;
+		}
 
-    	if ( empty( $tweets ) ) {
-    	    $tweet_endpoint = "https://api.twitter.com/2/users/{$user_id}/tweets?max_results=100&tweet.fields={$tweet_fields}";
-    	    $response       = wp_remote_get( $tweet_endpoint, [
-    	        'headers' => [ 'Authorization' => "Bearer $token" ]
-    	    ]);
+		$user_id         = $user_object->data->id;
+		$tweet_fields    = 'id,text,created_at,public_metrics,entities,attachments';
+		$tweet_cache_key = $this->get_name() . '_' . $this->get_id() . '__tweets_cache';
+		$tweets          = get_transient( $tweet_cache_key );
 
-    	    if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
-    	        $tweets = json_decode( wp_remote_retrieve_body( $response ) );
-    	        set_transient( $tweet_cache_key, $tweets, 1800 );
-    	    }
-    	}
+		if ( empty( $tweets ) ) {
+			$tweet_endpoint = "https://api.twitter.com/2/users/{$user_id}/tweets?max_results=100&tweet.fields={$tweet_fields}";
+			$response       = wp_remote_get(
+				$tweet_endpoint,
+				array(
+					'headers' => array( 'Authorization' => "Bearer $token" ),
+				)
+			);
 
-    	if ( empty( $tweets->data ) ) {
-    	    return;
-    	}
+			if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+				$tweets = json_decode( wp_remote_retrieve_body( $response ) );
+				set_transient( $tweet_cache_key, $tweets, 1800 );
+			}
+		}
 
-    	$tweets_data   = $tweets->data;
-    	$tweets_author = $user_object->data;
+		if ( empty( $tweets->data ) ) {
+			return;
+		}
 
-    	if ( $hashtag ) {
-        	$tweets_data = array_filter( $tweets_data, [ $this, 'filter_hashtag_data' ] );
-    	}
+		$tweets_data   = $tweets->data;
+		$tweets_author = $user_object->data;
 
-    	$tweets_data = array_splice( $tweets_data, 0, $settings['rael_post_limit'] );
+		if ( $hashtag ) {
+			$tweets_data = array_filter( $tweets_data, array( $this, 'filter_hashtag_data' ) );
+		}
 
     	$this->add_render_attribute('rael_twitter_feed', 'class', [
-        	'rael-twitter-feed',
-        	'rael-twitter-feed-' . $this->get_id(),
-        	'rael-twitter-feed--' . $settings['rael_content_layout'],
-        	'rael-twitter-feed--' . $settings['rael_column_grid'],
-        	'clearfix',
-    	]);
-    
-    	$this->add_render_attribute('rael_twitter_feed', 'data-gutter', $column_spacing);
+			'rael-twitter-feed',
+			'rael-twitter-feed-' . $this->get_id(),
+			'rael-twitter-feed--' . $settings['rael_content_layout'],
+			'rael-twitter-feed--' . $settings['rael_column_grid'],
+			'clearfix',
+		]);
 
-    	$author_avatar = '<a href="https://twitter.com/' . $tweets_author->username . '" class="rael-twitter-feed__author-avatar" target="_blank">
-                        <img src="' . $tweets_author->profile_image_url . '" class="rael-twitter-feed__avatar-image--' . $settings['rael_avatar_style'] . '" alt="' . $tweets_author->name . '" />
-                      </a>'; ?>
+		$this->add_render_attribute('rael_twitter_feed_item', 'class', 'rael-twitter-feed__item');
+		$this->add_render_attribute('rael_twitter_feed', 'data-gutter', $column_spacing);
+
+		$author_avatar = '<a href="https://twitter.com/' . $tweets_author->username . '" class="rael-twitter-feed__author-avatar" target="_blank">
+						<img src="' . $tweets_author->profile_image_url . '" class="rael-twitter-feed__avatar-image--' . $settings['rael_avatar_style'] . '" alt="' . $tweets_author->name . '" />
+					  </a>'; 
+		
+		$tweets_data = array_splice( $tweets_data, 0, $settings['rael_post_limit'] );?>
 
 		<div <?php $this->print_render_attribute_string( 'rael_twitter_feed' ); ?>>
 			<?php foreach ( $tweets_data as $tweet ) : ?>
@@ -1020,29 +1027,34 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 						}
 					endif;
 					?>
-				</div>
-			<?php endforeach; ?>
-		</div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
-		<?php
-		echo '<style>
-			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-2 .rael-twitter-feed__item {
-				width: calc(50% - ' . esc_attr( ceil( $column_spacing / 2 ) ) . 'px);
-			}
+    <?php
+    echo '<style>
+        .rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-2 .rael-twitter-feed__item {
+            width: calc(50% - ' . esc_attr( ceil( $column_spacing / 2 ) ) . 'px);
+        }
 
-			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-3 .rael-twitter-feed__item {
-				width: calc(33.33% - ' . esc_attr( ceil( $column_spacing * 2 / 3 ) ) . 'px);
-			}
+        .rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-3 .rael-twitter-feed__item {
+            width: calc(33.33% - ' . esc_attr( ceil( $column_spacing * 2 / 3 ) ) . 'px);
+        }
 
-			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-4 .rael-twitter-feed__item {
-				width: calc(25% - ' . esc_attr( ceil( $column_spacing * 3 / 4 ) ) . 'px);
-			}
+        .rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-4 .rael-twitter-feed__item {
+            width: calc(25% - ' . esc_attr( ceil( $column_spacing * 3 / 4 ) ) . 'px);
+        }
 
-			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-2 .rael-twitter-feed__item,
+		.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-2 .rael-twitter-feed__item,
 			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-3 .rael-twitter-feed__item,
 			.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-4 .rael-twitter-feed__item	{
-				margin-bottom: ' . esc_attr( $column_spacing ) . 'px;
-			}
+            margin-bottom: ' . esc_attr( $column_spacing ) . 'px;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+			word-break: break-word;
+			overflow: hidden;
+			box-sizing: border-box;
+        }
 
 			@media only screen and (min-width: 768px) and (max-width: 992px) {
 				.rael-twitter-feed-' . esc_attr( $this->get_id() ) . '.rael-twitter-feed--masonry.rael-twitter-feed--col-3 .rael-twitter-feed__item,
@@ -1050,8 +1062,8 @@ class Responsive_Addons_For_Elementor_Twitter_Feed extends Widget_Base {
 					width: calc(50% - ' . esc_attr( ceil( $column_spacing / 2 ) ) . 'px);
 				}
 			}
-		</style>';
-	}
+    </style>';
+}
 
 	/**
 	 * Checks whether the given tweet has required hashtag.
