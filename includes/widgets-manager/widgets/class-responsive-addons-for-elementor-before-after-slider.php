@@ -315,59 +315,32 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                 'toggle' => false,
             )
         );
-
-        //check whether to remove this control or have this control
         
-        // $this->add_control(
-        //     'rael_before_after_alignment',
-        //     array(
-        //         'label' => __('Alignment', 'responsive-addons-for-elementor'),
-        //         'type' => Controls_Manager::CHOOSE,
-        //         'default' => '-right',
-        //         'options' => array(
-        //             '-right' => array(
-        //                 'title' => __('Left', 'responsive-addons-for-elementor'),   
-        //                 'icon' => '',
-        //             ),
-        //             ' ' => array(
-        //                 'title' => __('Center', 'responsive-addons-for-elementor'),
-        //                 'icon' => '',
-        //             ),
-        //             '-left' => array(
-        //                 'title' => __('Right', 'responsive-addons-for-elementor'),
-        //                 'icon' => '',
-        //             ),
-        //         ),
-        //         'selectors' => array(
-		// 			'{{WRAPPER}}' => 'margin{{VALUE}}:auto;',
-		// 		),
-        //         'toggle' => false,
-        //     )
-        // );
-
         $this->add_control(
             'rael_before_after_alignment',
-            [
+            array(
                 'label' => __('Alignment', 'responsive-addons-for-elementor'),
-                'type' => \Elementor\Controls_Manager::CHOOSE,
-                'default' => 'center',
-                'options' => [
-                    'left' => [
-                        'title' => __('Left', 'responsive-addons-for-elementor'),
-                        'icon'  => 'eicon-text-align-left',
-                    ],
-                    'center' => [
+                'type' => Controls_Manager::CHOOSE,
+                'default' => '-right',
+                'options' => array(
+                    '-right' => array(
+                        'title' => __('Left', 'responsive-addons-for-elementor'),   
+                        'icon' => 'eicon-text-align-left',
+                    ),
+                    ' ' => array(
                         'title' => __('Center', 'responsive-addons-for-elementor'),
-                        'icon'  => 'eicon-text-align-center',
-                    ],
-                    'right' => [
+                        'icon' => 'eicon-text-align-center',
+                    ),
+                    '-left' => array(
                         'title' => __('Right', 'responsive-addons-for-elementor'),
-                        'icon'  => 'eicon-text-align-right',
-                    ],
-                ],
-                'prefix_class' => 'rael-align-',
+                        'icon' => 'eicon-text-align-right',
+                    ),
+                ),
+                'selectors' => array(
+					'{{WRAPPER}}' => 'margin{{VALUE}}:auto;',
+				),
                 'toggle' => false,
-            ]
+            )
         );
 
 
