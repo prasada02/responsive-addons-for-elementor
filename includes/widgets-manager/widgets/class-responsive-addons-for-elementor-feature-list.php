@@ -632,7 +632,7 @@ class Responsive_Addons_For_Elementor_Feature_List extends Widget_Base {
 		$this->add_control(
 			'rael_feature_list_icon_normal_color',
 			array(
-				'label'     => esc_html__( 'Color', 'responsive-addons-for-elementor' ),
+				'label'     => esc_html__( 'Icon Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -821,12 +821,12 @@ class Responsive_Addons_For_Elementor_Feature_List extends Widget_Base {
 		$this->add_control(
 			'rael_feature_list_icon_hover_color',
 			array(
-				'label'     => esc_html__( 'Color', 'responsive-addons-for-elementor' ),
+				'label'     => esc_html__( 'Icon Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .rael-feature-list-items.stacked:hover .rael-feature-list-icon, {{WRAPPER}} .rael-feature-list-items.framed:hover .rael-feature-list-icon' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .rael-feature-list-items.stacked:hover .rael-feature-list-icon svg, {{WRAPPER}} .rael-feature-list-items.framed:hover .rael-feature-list-icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .rael-feature-list-items.stacked .rael-feature-list-icon:hover, {{WRAPPER}} .rael-feature-list-items.framed .rael-feature-list-icon:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .rael-feature-list-items.stacked .rael-feature-list-icon:hover svg, {{WRAPPER}} .rael-feature-list-items.framed .rael-feature-list-icon:hover svg' => 'fill: {{VALUE}};',
 				),
 				'separator' => 'before',
 			)
