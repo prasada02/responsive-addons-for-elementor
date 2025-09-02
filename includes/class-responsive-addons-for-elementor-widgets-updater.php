@@ -496,7 +496,7 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			),
 			array(
 				'title'    => 'stacking-cards',
-				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards/',
 				'category' => 'creativity',
 			),
 		);

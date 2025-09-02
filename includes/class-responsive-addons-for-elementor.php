@@ -1165,8 +1165,8 @@ class Responsive_Addons_For_Elementor {
 						);
 						wp_enqueue_script(
 							'rael-stacking-cards',
-							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.js',
-							array('gsap', 'gsap-scrolltrigger','elementor-frontend'),
+							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.min.js',
+							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
 							RAEL_VER,
 							true
 						);
@@ -1749,8 +1749,7 @@ class Responsive_Addons_For_Elementor {
 						array_push( $css_files, $css_files_path . 'facebook-feed/facebook-feed' . $css_min_ext );
 						break;
 					// case 'stacking-cards':
-					// 	array_push( $js_files, $js_files_path . 'stacking-cards/stacking-cards' . $ext );
-					// 	array_push( $css_files, $css_files_path . 'stacking-cards/stacking-cards.css');
+					// 	array_push( $js_files, $js_files_path . 'rael-stacking-cards/rael-stacking-cards' . $ext );
 					// 	break;
 				}
 			}
