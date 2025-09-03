@@ -82,10 +82,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		);
 
 		$source_options = array(
-			'static'        => __( '-- Static Value --', 'responsive-addons-for-elementor' ),
-			'before'        => __( '-- Text Before --', 'responsive-addons-for-elementor' ),
-			'after'         => __( '-- Text After --', 'responsive-addons-for-elementor' ),
-			'separator'     => __( '-- Separator --', 'responsive-addons-for-elementor' ),
 			'post_title'    => __( 'Post Title', 'responsive-addons-for-elementor' ),
 			'post_name'     => __( 'Post Name', 'responsive-addons-for-elementor' ),
 			'post_intro'    => __( 'Post Intro', 'responsive-addons-for-elementor' ),
@@ -95,7 +91,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			'post_url'      => __( 'Post URL', 'responsive-addons-for-elementor' ),
 			'post_meta'     => __( 'Post Meta Field', 'responsive-addons-for-elementor' ),
 			'post_term'     => __( 'Post Term', 'responsive-addons-for-elementor' ),
-			'truncate'      => __( '-- Truncate Text --', 'responsive-addons-for-elementor' ),
 		);
 
 		$this->add_control(
@@ -113,41 +108,15 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			)
 		);
 
-		// Text Before
 		$this->add_control(
-			'title_text_before',
+			'title_meta_field',
 			array(
-				'label'     => __( 'Title Text Before', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '',
-				'condition' => array(
-					'title_source' => 'before',
-				),
-			)
-		);
-
-		// Text After
-		$this->add_control(
-			'title_text_after',
-			array(
-				'label'     => __( 'Title Text After', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '',
-				'condition' => array(
-					'title_source' => 'after',
-				),
-			)
-		);
-
-		// Truncate Length
-		$this->add_control(
-			'title_truncate_chars',
-			array(
-				'label'     => __( 'Title Truncate Characters', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 100,
-				'condition' => array(
-					'title_source' => 'truncate',
+				'label'       => __( 'Title Meta Field', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'condition'   => array(
+					'source_type' => 'posts',
+					'title_source' => 'post_meta', // shows only if post_meta is selected
 				),
 			)
 		);
@@ -169,6 +138,19 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		);
 
 		$this->add_control(
+			'description_meta_field',
+			array(
+				'label'       => __( 'Description Meta Field', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'condition'   => array(
+					'source_type' => 'posts',
+					'description_source' => 'post_meta', // shows only if post_meta is selected
+				),
+			)
+		);
+
+		$this->add_control(
 			'link_source',
 			array(
 				'label'     => __( 'Link Source', 'responsive-addons-for-elementor' ),
@@ -182,6 +164,24 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				),
 			)
 		);
+		$this->add_control(
+			'link_meta_field',
+			array(
+				'label'       => __( 'Link Meta Field', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'condition'   => array(
+					'source_type' => 'posts',
+					'link_source' => 'post_meta', // shows only if post_meta is selected
+				),
+			)
+		);
+		
+		$btn_source_options = array(
+			'post_title'    => __( 'Post Title', 'responsive-addons-for-elementor' ),
+			'post_name'     => __( 'Post Name', 'responsive-addons-for-elementor' ),
+			'post_meta'     => __( 'Post Meta Field', 'responsive-addons-for-elementor' ),
+		);
 
 		$this->add_control(
 			'button_text_source',
@@ -190,13 +190,29 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label_block' => true,
 				'type'      => Controls_Manager::SELECT2,
 				'multiple'  => true,
-				'options'   => $source_options,
+				'options'   => $btn_source_options,
 				'condition'   => array(
 					'source_type' => 'posts',
 				),
 			)
 		);
+		$this->add_control(
+			'button_meta_field',
+			array(
+				'label'       => __( 'Button Meta Field', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'condition'   => array(
+					'source_type' => 'posts',
+					'button_text_source' => 'post_meta', // shows only if post_meta is selected
+				),
+			)
+		);
 
+		$img_source_options = array(
+			'post_image'    => __( 'Post Featured Image', 'responsive-addons-for-elementor' ),
+			'post_meta'     => __( 'Post Meta Field', 'responsive-addons-for-elementor' ),
+		);
 		$this->add_control(
 			'image_source',
 			array(
@@ -205,68 +221,25 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label_block' => true,
 				'multiple'  => true,
 				'default'   => 'post_image',
-				'options'   => $source_options,
+				'options'   => $img_source_options,
 				'condition'   => array(
 					'source_type' => 'posts',
+				),
+			)
+		);
+		$this->add_control(
+			'image_meta_field',
+			array(
+				'label'       => __( 'Image Meta Field', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'condition'   => array(
+					'source_type' => 'posts',
+					'image_source' => 'post_meta', // shows only if post_meta is selected
 				),
 			)
 		);
 
-		$this->add_control(
-			'graphic_image_source',
-			array(
-				'label'     => __( 'Graphic Image Source', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'multiple'  => true,
-				'options'   => $source_options,
-				'condition'   => array(
-					'source_type' => 'posts',
-				),
-			)
-		);
-
-		$this->add_control(
-			'graphic_icon_source',
-			array(
-				'label'     => __( 'Graphic Icon Source', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'multiple'  => true,
-				'options'   => $source_options,
-				'condition'   => array(
-					'source_type' => 'posts',
-				),
-			)
-		);
-
-		$this->add_control(
-			'graphic_text_source',
-			array(
-				'label'     => __( 'Graphic Text Source', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'multiple'  => true,
-				'options'   => $source_options,
-				'condition'   => array(
-					'source_type' => 'posts',
-				),
-			)
-		);
-
-		$this->add_control(
-			'background_color_source',
-			array(
-				'label'     => __( 'Background Color Source', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'multiple'  => true,
-				'options'   => $source_options,
-				'condition'   => array(
-					'source_type' => 'posts',
-				),
-			)
-		);
 		$this->end_controls_section();
 		// ================== General Section ==================
     $this->start_controls_section(
@@ -1650,7 +1623,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 		$card_gap = ! empty( $settings['card_gap']['size'] )
 			? $settings['card_gap']['size'] . ( $settings['card_gap']['unit'] ?? 'px' )
-			: '100px';
+			: '50px';
 
 		$card_offset = ! empty( $settings['card_top_offset']['size'] )
 			? $settings['card_top_offset']['size'] . ( $settings['card_top_offset']['unit'] ?? 'px' )
@@ -1662,10 +1635,8 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				// Main image
 				$image_html = '';
 				if ( ! empty( $item['item_image']['id'] ) ) {
-					error_log('in iffffff');
 					$image_html = \Elementor\Group_Control_Image_Size::get_attachment_image_html( $item, 'item_image_size', 'item_image' );
 				} elseif ( ! empty( $item['item_image']['url'] ) ) {
-					error_log(message: 'in elseiffffff');
 					$image_html = '<img src="' . esc_url( $item['item_image']['url'] ) . '" alt="">';
 				}
 
@@ -1714,6 +1685,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					$img_url  = get_the_post_thumbnail_url( $post_id, $img_size );
 
 					$items[] = [
+						'post_id'       => $post_id,
 						'title'        => get_the_title(),
 						'desc'         => wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 24 ),
 						'image_html'   => '',
@@ -1750,7 +1722,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		foreach ( $items as $index => $item ) {
 			$offset_value = 'calc(' . $index+1 . ' * ' . $card_offset . ')';
 			$sticky_top_item = ( $sticky_top + ( $index * 40 ) ) . $sticky_unit;
-
 			// Get numeric values
 			$origin_x_val = ! empty( $settings['transform_origin_x']['size'] ) 
 				? $settings['transform_origin_x']['size'] 
@@ -1807,7 +1778,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 				)
             );
-
+			
 			echo '<div ' . $this->get_render_attribute_string( 'card' . $index ) . '>';
 
 			// Card inner (flex container)
@@ -1831,16 +1802,297 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			if ( ! empty( $graphic_output ) ) {
 				echo '<div class="rael-card-graphic">' . $graphic_output . '</div>';
 			}
+
+			// For Post Titles
+			$final_title_parts = [];
+
+			if ( ! empty( $settings['title_source'] ) ) {
+				foreach ( $settings['title_source'] as $source ) {
+					switch ( $source ) {
+						case 'post_name':
+							if ( isset( $item['post_id'] ) ) {
+								$final_title_parts[] = get_post_field( 'post_name', $item['post_id'] );
+							}
+							break;
+
+						case 'post_intro':
+							if ( isset( $item['post_id'] ) ) {
+								$intro = get_post_meta( $item['post_id'], '_intro', true ); // adjust key if custom
+								if ( ! $intro ) {
+									$intro = wp_trim_words( get_the_excerpt( $item['post_id'] ), 15 );
+								}
+								$final_title_parts[] = $intro;
+							}
+							break;
+
+						case 'post_content':
+							if ( isset( $item['post_id'] ) ) {
+								$content = get_post_field( 'post_content', $item['post_id'] );
+								$final_title_parts[] = wp_trim_words( wp_strip_all_tags( $content ), 20 );
+							}
+							break;
+
+						case 'post_image':
+							if ( ! empty( $item['image_url'] ) ) {
+								$final_title_parts[] = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+							}
+							break;
+
+						case 'post_date':
+							if ( isset( $item['post_id'] ) ) {
+								$final_title_parts[] = get_the_date( '', $item['post_id'] );
+							}
+							break;
+
+						case 'post_url':
+							if ( ! empty( $item['link_url'] ) ) {
+								$final_title_parts[] = esc_url( $item['link_url'] );
+							}
+							break;
+
+						case 'post_meta':
+							if ( ! empty( $settings['title_meta_field'] ) ) {
+								$meta_value = get_post_meta( $item['post_id'], $settings['title_meta_field'], true );
+								if ( $meta_value ) {
+									$final_title_parts[] = $meta_value;
+								}
+							}
+							break;
+
+						case 'post_term':
+							if ( isset( $item['post_id'] ) ) {
+								$post_id = $item['post_id'];
+								$all_terms = [];
+
+								// Get all taxonomies for this post type
+								$taxonomies = get_object_taxonomies( get_post_type( $post_id ), 'names' );
+
+								foreach ( $taxonomies as $taxonomy ) {
+									$terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'names' ] );
+									if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+										$all_terms = array_merge( $all_terms, $terms );
+									}
+								}
+
+								if ( ! empty( $all_terms ) ) {
+									$final_title_parts[] = implode( ', ', $all_terms );
+								}
+							}
+							break;
+					}
+				}
+			}
+			$final_title = implode( ' ', array_filter( $final_title_parts ) );
+			error_log('$final_title===' . print_r($final_title, true));
 			$tag = ! empty( $settings['title_html_tag'] ) ? $settings['title_html_tag'] : 'div';
-			if ( !empty ($settings['show_title']) && ! empty( $item['title'] ) ) {
+			if ( !empty($final_title) ) {
+				echo '<' . esc_html( $tag ) . ' class="rael-card-title">' . esc_html( $final_title ) . '</' . esc_html( $tag ) . '>';
+
+			}
+			else if ( !empty ($settings['show_title']) && ! empty( $item['title'] )  ){
 				echo '<' . esc_html( $tag ) . ' class="rael-card-title">' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
 
 			}
-			if ( !empty ($settings['show_description']) && ! empty( $item['desc'] ) ) {
+
+			//Description 
+			$final_desc_parts = [];
+
+			if ( ! empty( $settings['description_source'] ) ) {
+				foreach ( $settings['description_source'] as $source ) {
+					switch ( $source ) {
+						case 'post_title':
+							if ( isset( $item['post_id'] ) ) {
+								$final_desc_parts[] = get_post_field( 'post_title', $item['post_id'] );
+							}
+							break;
+
+						case 'post_name':
+							if ( isset( $item['post_id'] ) ) {
+								$final_desc_parts[] = get_post_field( 'post_name', $item['post_id'] );
+							}
+							break;
+
+						case 'post_intro':
+							if ( isset( $item['post_id'] ) ) {
+								$introdesc = get_post_meta( $item['post_id'], '_intro', true ); // adjust key if custom
+								if ( ! $introdesc ) {
+									$introdesc = wp_trim_words( get_the_excerpt( $item['post_id'] ), 15 );
+								}
+								$final_desc_parts[] = $introdesc;
+							}
+							break;
+
+						case 'post_content':
+							if ( isset( $item['post_id'] ) ) {
+								$content_desc = get_post_field( 'post_content', $item['post_id'] );
+								$final_desc_parts[] = wp_trim_words( wp_strip_all_tags( $content_desc ), 20 );
+							}
+							break;
+
+						case 'post_image':
+							if ( ! empty( $item['image_url'] ) ) {
+								$final_desc_parts[] = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+							}
+							break;
+
+						case 'post_date':
+							if ( isset( $item['post_id'] ) ) {
+								$final_desc_parts[] = get_the_date( '', $item['post_id'] );
+							}
+							break;
+
+						case 'post_url':
+							if ( ! empty( $item['link_url'] ) ) {
+								$final_desc_parts[] = esc_url( $item['link_url'] );
+							}
+							break;
+
+						case 'post_meta':
+							if ( ! empty( $settings['title_meta_field'] ) ) {
+								$meta_value = get_post_meta( $item['post_id'], $settings['title_meta_field'], true );
+								if ( $meta_value ) {
+									$final_desc_parts[] = $meta_value;
+								}
+							}
+							break;
+						case 'post_term':
+							if ( isset( $item['post_id'] ) ) {
+								$post_id = $item['post_id'];
+								$all_terms = [];
+
+								// Get all taxonomies for this post type
+								$taxonomies = get_object_taxonomies( get_post_type( $post_id ), 'names' );
+
+								foreach ( $taxonomies as $taxonomy ) {
+									$terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'names' ] );
+									if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+										$all_terms = array_merge( $all_terms, $terms );
+									}
+								}
+
+								if ( ! empty( $all_terms ) ) {
+									$final_desc_parts[] = implode( ', ', $all_terms );
+								}
+							}
+							break;
+					}
+				}
+			}
+			$final_desc = implode( ' ', array_filter( $final_desc_parts ) );
+			if ( ! empty( $final_desc )  ) {
+				echo '<div class="rael-card-desc">' . wp_kses_post( $final_desc ) . '</div>';
+			} 
+			else if ( !empty ($settings['show_description']) && ! empty( $item['desc'] ) ) {
 				echo '<div class="rael-card-desc">' . wp_kses_post( $item['desc'] ) . '</div>';
+			} 
+
+			// Button render
+			$final_button_parts = [];
+
+			if ( ! empty( $settings['button_text_source'] ) ) { // assume you added a button_source control
+				foreach ( $settings['button_text_source'] as $source ) {
+					switch ( $source ) {
+
+                case 'post_title':
+                    if ( isset( $item['post_id'] ) ) {
+                        $final_button_parts[] = get_post_field( 'post_title', $item['post_id'] );
+                    }
+                    break;
+
+                case 'post_name':
+                    if ( isset( $item['post_id'] ) ) {
+                        $final_button_parts[] = get_post_field( 'post_name', $item['post_id'] );
+                    }
+                    break;
+				case 'post_content':
+						if ( isset( $item['post_id'] ) ) {
+							$content_btn = get_post_field( 'post_content', $item['post_id'] );
+							$final_button_parts[] = wp_trim_words( wp_strip_all_tags( $content_btn ), 20 );
+						}
+						break;
+				case 'post_intro':
+							if ( isset( $item['post_id'] ) ) {
+								$introbtn = get_post_meta( $item['post_id'], '_intro', true ); // adjust key if custom
+								if ( ! $introbtn ) {
+									$introbtn = wp_trim_words( get_the_excerpt( $item['post_id'] ), 15 );
+								}
+								$final_button_parts[] = $introbtn;
+							}
+							break;
+                case 'post_meta':
+                    if ( ! empty( $settings['button_meta_field'] ) && isset( $item['post_id'] ) ) {
+                        $meta_value = get_post_meta( $item['post_id'], $settings['button_meta_field'], true );
+                        if ( $meta_value ) {
+                            $final_button_parts[] = $meta_value;
+                        }
+                    }
+                    break;
+
+                case 'post_term':
+                    if ( isset( $item['post_id'] ) ) {
+                        $post_id = $item['post_id'];
+                        $all_terms = [];
+
+                        $taxonomies = get_object_taxonomies( get_post_type( $post_id ), 'names' );
+                        foreach ( $taxonomies as $taxonomy ) {
+                            $terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'names' ] );
+                            if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+                                $all_terms = array_merge( $all_terms, $terms );
+                            }
+                        }
+
+                        if ( ! empty( $all_terms ) ) {
+                            $final_button_parts[] = implode( ', ', $all_terms );
+                        }
+                    }
+                    break;
+
+                case 'post_image':
+					if ( ! empty( $item['image_url'] ) ) {
+						$final_button_parts[] = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+					}
+					break;
+
+				case 'post_date':
+					if ( isset( $item['post_id'] ) ) {
+						$final_button_parts[] = get_the_date( '', $item['post_id'] );
+					}
+					break;
+				case 'post_url':
+						if ( ! empty( $item['link_url'] ) ) {
+							$final_button_parts[] = esc_url( $item['link_url'] );
+						}
+						break;
+            }
+				}
 			}
 
-			if ( !empty($settings['show_button']) && ! empty( $item['button_text'] ) && ! empty( $item['link_url'] ) ) {
+			$final_button_text = implode( ' ', array_filter( $final_button_parts ) );
+
+			// Determine button URL: post meta first, fallback to $item['link_url']
+			$button_url = '';
+			if ( isset( $item['post_id'] ) && ! empty( $settings['link_meta_field'] ) ) {
+				$meta_url = get_post_meta( $item['post_id'], $settings['link_meta_field'], true );
+				if ( ! empty( $meta_url ) ) {
+					$button_url = $meta_url;
+				}
+			}
+			if ( empty( $button_url ) && ! empty( $item['link_url'] ) ) {
+				$button_url = $item['link_url'];
+			}
+
+			if ( ! empty( $final_button_text ) ) {
+				$this->add_link_attributes( 'button_' . $index, [
+					'url'         => $button_url,
+					'is_external' => $item['link_external'],
+					'nofollow'    => $item['link_nofollow'],
+				] );
+
+				echo '<a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
+				echo esc_html( $final_button_text );
+				echo '</a>';
+			}
+			else if ( !empty($settings['show_button']) && ! empty( $item['button_text'] ) && ! empty( $item['link_url'] ) ) {
 				$this->add_link_attributes( 'button_' . $index, [
 					'url'         => $item['link_url'],
 					'is_external' => $item['link_external'],
@@ -1855,11 +2107,52 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 			// Image
 			$image_output = '';
-			if ( ! empty( $item['image_html'] ) ) {
-				$image_output = $item['image_html'];
-			} elseif ( ! empty( $item['image_url'] ) ) {
-				$image_output = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+			// Loop through selected image sources
+			if ( ! empty( $settings['image_source'] ) && isset( $item['post_id'] ) ) {
+				foreach ( $settings['image_source'] as $source ) {
+					// Skip if we've already found an image
+					if ( ! empty( $image_output ) ) {
+						continue;
+					}
+
+					switch ( $source ) {
+
+						case 'post_image':
+							$post_thumbnail_id = get_post_thumbnail_id( $item['post_id'] );
+							if ( $post_thumbnail_id ) {
+								$image_url = wp_get_attachment_image_url( $post_thumbnail_id, 'full' );
+								if ( $image_url ) {
+									$image_output = '<img src="' . esc_url( $image_url ) . '" alt="">';
+								}
+							}
+							break;
+
+						case 'post_meta':
+							if ( ! empty( $settings['image_meta_field'] ) ) {
+								$meta_image_url = get_post_meta( $item['post_id'], $settings['image_meta_field'], true );
+								if ( ! empty( $meta_image_url ) ) {
+									$image_output = '<img src="' . esc_url( $meta_image_url ) . '" alt="">';
+								}
+							}
+							break;
+					}
+				}
 			}
+
+			// Fallback to static item image
+			if ( empty( $image_output ) ) {
+				if ( ! empty( $item['image_html'] ) ) {
+					$image_output = $item['image_html'];
+				} elseif ( ! empty( $item['image_url'] ) ) {
+					$image_output = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+				}
+			}
+
+			// if ( ! empty( $item['image_html'] ) ) {
+			// 	$image_output = $item['image_html'];
+			// } elseif ( ! empty( $item['image_url'] ) ) {
+			// 	$image_output = '<img src="' . esc_url( $item['image_url'] ) . '" alt="">';
+			// }
 			if ( !empty($settings['show_image']) && ! empty( $image_output ) ) {
 				echo '<div class="rael-card-media">' . $image_output . '</div>';
 			}
