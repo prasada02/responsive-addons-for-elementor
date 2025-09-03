@@ -735,7 +735,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Transform Origin X', 'responsive-addons-for-elementor' ),
 				'type' => Controls_Manager::SLIDER,
-				'default' => array( 'size' => 50 ),
+				'default' => array( 'size' => 0 ),
 				'range' => array(
 					'px' => array( 'min' => 0, 'max' => 100 ),
 				),
@@ -864,10 +864,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			'scroll_rotation',
 			array(
 				'label'   => __( 'Rotation (deg)', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::NUMBER,
+				'type'    => Controls_Manager::SLIDER,
 				'size_units' => array( 'deg' ),
 				'range'   => array(
-					'deg' => array( 'min' => -360, 'max' => 360 ),
+					'deg' => array( 'min' => 0, 'max' => 100, 'step' => 1, ),
 				),
 				'default' => array( 'size' => 0, 'unit' => 'deg' ),
 				'dynamic' => array( 'active' => true ), 
@@ -1719,65 +1719,77 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		}
 		
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>';
+
+		$total_cards = count($items);
+		$min_scale = 0.85; // first (back) card
+		$max_scale = 1.0;  // front card
+
+		$scale_step = $total_cards > 1 ? ($max_scale - $min_scale) / ($total_cards - 1) : 0;
+		$yStep = 10; // vertical offset per card (optional)
+		$z = 0; // z-depth
+
 		foreach ( $items as $index => $item ) {
-			$offset_value = 'calc(' . $index+1 . ' * ' . $card_offset . ')';
+			$offset_value = 'calc(' . ($index+1) . ' * ' . $card_offset . ')';
 			$sticky_top_item = ( $sticky_top + ( $index * 40 ) ) . $sticky_unit;
 			// Get numeric values
 			$origin_x_val = ! empty( $settings['transform_origin_x']['size'] ) 
 				? $settings['transform_origin_x']['size'] 
-				: 0;
+				: '0';
 			$origin_y_val = ! empty( $settings['transform_origin_y']['size'] ) 
 				? $settings['transform_origin_y']['size'] 
-				: 0;
+				: '0';
 
 			// Get units
 			$origin_x_unit = $settings['transform_origin_x']['unit'] ?? 'px';
 			$origin_y_unit = $settings['transform_origin_y']['unit'] ?? 'px';
 
-			// Scale factor
-			$scale_step = 0;
-			$scale = 1 - ($index * $scale_step);
+			
+			
+        $scale = $min_scale + ($index * $scale_step);
+        $offsetY = $index * $yStep;
+        $offsetX = 0;
 
-			// Final transform
-			if ( $origin_x_val == 0 && $origin_y_val == 0 ) {
-				// Only scaling, no movement
-				$transform = sprintf(
-					'scale(%s)',
-					$scale
-				);
-			} else {
-				// Calculate scaled offsets
-				$offset_x = ($origin_x_val * $index) . $origin_x_unit;
-				$offset_y = ($origin_y_val * $index) . $origin_y_unit;
-
-
-				$transform = sprintf(
-					'translate3d(%s, %s, 0px) scale(%s)',
-					$offset_x,
-					$offset_y,
-					$scale
-				);
-				// Transform origin (keeps the pivot)
-				$transform_origin = $origin_x_val . $origin_x_unit; //. ' ' . $origin_y_val . $origin_y_unit;
-
-			}
+        $transform = "translate3d({$offsetX}px, {$offsetY}px, {$z}px) scale({$scale})";
+        $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
+error_log('scroll_rotation=='.$settings['scroll_rotation']['size']);
+        // Add GSAP data attributes for scroll effect
+        $this->add_render_attribute(
+            'card' . $index,
+            array(
+                'class' => array('rael-stacking-card', 'elementor-repeater-item-' . ($index+1)),
+                'style' => sprintf(
+                    'top:%s; margin-top:%s; transform-origin:%s; transform:%s;',
+                    esc_attr($sticky_top_item),
+                    esc_attr($offset_value),
+                    esc_attr($transform_origin),
+                    esc_attr($transform)
+                ),
+                'data-index'       => $index,
+                'data-translate-x' => $settings['translate_x']['size'] ?? 0,
+                'data-translate-y' => $settings['translate_y']['size'] ?? 0,
+                'data-rotate'      => $settings['scroll_rotation']['size'] ?? 0,
+                'data-scale'       => $settings['scroll_scale']['size'] ?? 1,
+                'data-blur'        => $settings['scroll_blur']['size'] ?? 0,
+                'data-grayscale'   => $settings['scroll_grayscale']['size'] ?? 0.2,
+            )
+        );
 
 	
 
-			$this->add_render_attribute(
-                'card' . $index,
-                array(
-                    'class' => array( 'rael-stacking-card', 'elementor-repeater-item-' . ($index+1), ),
-					'style' =>  sprintf(
-						'top:%s; margin-top:%s; transform-origin:%s; transform:%s;',
-						  esc_attr($sticky_top_item),
-							esc_attr($offset_value),
-							esc_attr($transform_origin),
-							esc_attr($transform)
-					),
+			// $this->add_render_attribute(
+            //     'card' . $index,
+            //     array(
+            //         'class' => array( 'rael-stacking-card', 'elementor-repeater-item-' . ($index+1), ),
+			// 		'style' =>  sprintf(
+			// 			'top:%s; margin-top:%s; transform-origin:%s; transform:%s;',
+			// 			  esc_attr($sticky_top_item),
+			// 				esc_attr($offset_value),
+			// 				esc_attr($transform_origin),
+			// 				esc_attr($transform)
+			// 		),
 
-				)
-            );
+			// 	)
+            // );
 			
 			echo '<div ' . $this->get_render_attribute_string( 'card' . $index ) . '>';
 
