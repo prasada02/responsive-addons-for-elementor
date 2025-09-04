@@ -1,28 +1,35 @@
 gsap.utils.toArray(".rael-stacking-card").forEach((card, index, cards) => {
   const baseX = parseFloat(card.dataset.translateX) || 0;
   const baseY = parseFloat(card.dataset.translateY) || 0;
-  const baseRotate = parseFloat(card.dataset.rotate) || 0;
-  const baseScale = parseFloat(card.dataset.scale) || 1;
-  const baseBlur = parseFloat(card.dataset.blur) || 0;
-  const baseGrayscale = parseFloat(card.dataset.grayscale) || 0;
-  
 
-  // Exclude last card from blur/stacking effects
+  const baseRotate = parseFloat(card.dataset.rotate) || 0;
+  console.log("baseRotate==" + baseRotate);
+  const scrollRotate = parseFloat(card.dataset.scrollrotate) || 0;
+  console.log("scrollRotate==" + scrollRotate);
+
+  const baseScale = parseFloat(card.dataset.scale) || 1;
+  console.log("baseScale==" + baseScale);
+  const baseBlur = parseFloat(card.dataset.blur) || 0;
+
+  const baseGreyscale = parseFloat(card.dataset.greyscale) || 0;
+  console.log("baseGreyscale==" + baseGreyscale);
+  const scrollGreyscale = parseFloat(card.dataset.scrollgreyscale) || 0;
+  console.log("scrollGreyscale==" + scrollGreyscale);
+
+  // Exclude last card from stacking effects
   if (index === cards.length - 1) return;
 
   ScrollTrigger.create({
     trigger: card,
-    start: "bottom top", // when this card has fully passed above viewport
+    start: "bottom top", // when this card fully passes top of viewport
     onEnter: () => {
-      // Apply effect once card has scrolled past
+      // Apply SCROLL state when card goes behind
       gsap.to(card, {
         x: baseX + index * 5,
         y: baseY + index * 10,
-        rotate: baseRotate + 10,
-        scale: baseScale - index * 0.02,
-        filter: `blur(${baseBlur + index * 2}px) grayscale(${
-          baseGrayscale * 100 + index * 20
-        }%)`,
+        rotate: scrollRotate,
+        scale: baseScale,
+        filter: `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`,
         opacity: 1,
         overwrite: "auto",
         duration: 0.4,
@@ -30,16 +37,15 @@ gsap.utils.toArray(".rael-stacking-card").forEach((card, index, cards) => {
       });
     },
     onLeaveBack: () => {
-      // Reset when card re-enters viewport
+      // Reset to NORMAL state when card comes forward again
       gsap.to(card, {
         x: baseX,
         y: baseY,
         rotate: baseRotate,
         scale: baseScale,
-        filter: `blur(0px) grayscale(${baseGrayscale * 100}%)`,
+        filter: `blur(0px) grayscale(${baseGreyscale}%)`,
         opacity: 1,
         overwrite: "auto",
-        clearProps: "transform",
         duration: 0.4,
         ease: "power2.out",
       });
