@@ -1845,9 +1845,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						array_push( $js_files, $js_files_path . 'facebook-feed/facebook-feed' . $ext );
 						array_push( $css_files, $css_files_path . 'facebook-feed/facebook-feed' . $css_min_ext );
 						break;
-					// case 'stacking-cards':
-					// 	array_push( $js_files, $js_files_path . 'rael-stacking-cards/rael-stacking-cards' . $ext );
-					// 	break;
 				}
 			}
 		}

@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * RAEL Timeline widget class.
+ * RAEL Stacking Cards widget class.
  *
  * @since 1.0.0
  */
@@ -51,11 +51,11 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 	}
 
 	public function get_keywords(): array {
-		return [ 'hello', 'world' ];
+		return array( 'stacking', 'cards' );
 	}
 
 	public function get_script_depends() {
-		return [ 'rael-stacking-card' ];
+		return array( 'rael-stacking-card' );
 	}
 
 	protected function register_controls() {
