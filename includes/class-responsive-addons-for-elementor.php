@@ -1148,6 +1148,30 @@ class Responsive_Addons_For_Elementor {
 							wp_enqueue_style( 'rael-magnific-popup-style' );
 						}
 						break;
+					case 'stacking-cards':
+						wp_enqueue_script(
+							'gsap',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+							array(),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'gsap-scrolltrigger',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+							array('gsap'),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'rael-stacking-cards',
+							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.min.js',
+							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
+							RAEL_VER,
+							true
+						);
+						break;
+    
 				}
 			}
 		}
@@ -1724,6 +1748,9 @@ class Responsive_Addons_For_Elementor {
 					case 'facebook-feed':
 						array_push( $css_files, $css_files_path . 'facebook-feed/facebook-feed' . $css_min_ext );
 						break;
+					// case 'stacking-cards':
+					// 	array_push( $js_files, $js_files_path . 'rael-stacking-cards/rael-stacking-cards' . $ext );
+					// 	break;
 				}
 			}
 		}

@@ -1,0 +1,14 @@
+.rae-stacking-cards-wrapper {
+  position: relative;
+}
+
+.rae-stacking-card {
+  position: sticky;
+  top: 100px;
+  margin-bottom: 40px;
+  background: white;
+  padding: 60px;
+  font-size: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
