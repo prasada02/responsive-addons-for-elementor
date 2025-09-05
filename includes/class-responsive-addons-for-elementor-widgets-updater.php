@@ -499,7 +499,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'name'     => 'Before After Slider',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/',
 				'category' => 'creativity',
-			)
+			),
+      array(
+				'title'    => 'stacking-cards',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards/',
+				'category' => 'creativity',
+			),
 		);
 
 		return $widgets;

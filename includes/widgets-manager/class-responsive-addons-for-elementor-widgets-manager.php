@@ -171,7 +171,8 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 			'modal-popup',
 			'gf-styler',
 			'facebook-feed',
-			'before-after-slider'
+			'before-after-slider',
+			'stacking-cards',
 		);
 
 		return $widget_list;
@@ -473,6 +474,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 							break;
 						case 'timeline':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Timeline() );
+							break;
+						case 'stacking-cards':
+							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
 							break;
 						case 'sticky-video':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Sticky_Video() );
