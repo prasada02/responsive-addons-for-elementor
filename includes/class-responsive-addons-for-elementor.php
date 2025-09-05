@@ -1238,6 +1238,29 @@ private function rael_find_element_recursive($elements, $widget_id) {
 							wp_enqueue_style( 'rael-magnific-popup-style' );
 						}
 						break;
+					case 'stacking-cards':
+						wp_enqueue_script(
+							'gsap',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+							array(),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'gsap-scrolltrigger',
+							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+							array('gsap'),
+							RAEL_VER,
+							true
+						);
+						wp_enqueue_script(
+							'rael-stacking-cards',
+							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.min.js',
+							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
+							RAEL_VER,
+							true
+						);
+						break;
 					case 'facebook-feed':
 						wp_enqueue_script( 'rael-facebook-feed', RAEL_ASSETS_URL . 'js/frontend/facebook-feed/facebook-feed.min.js', array( 'jquery' ), RAEL_VER, true );
 						wp_localize_script('rael-facebook-feed', 'rael_facebook_feed_vars', array(
