@@ -589,7 +589,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
 				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
 				'return_value' => 'yes',
-				'default'      => 'no',
+				'default'      => 'yes',
 				'condition' => array( 'content_type' => 'editor' ),
 				'render_type' => 'template', 
 			)
@@ -752,9 +752,30 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'default'     => array(
-					array( 'item_title' => __( 'Item #1', 'responsive-addons-for-elementor' ) ),
-					array( 'item_title' => __( 'Item #2', 'responsive-addons-for-elementor' ) ),
-					array( 'item_title' => __( 'Item #3', 'responsive-addons-for-elementor' ) ),
+					 array(
+                'item_title'    => 'Creative Approaches',
+                'item_desc'     => 'Harness pioneering technologies that redefine business operations and drive unprecedented productivity.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card1.png'),
+                'graphic_icon' => array('value' => 'fas fa-lightbulb', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'Unified Experience',
+                'item_desc'     => 'Seamlessly unify your tools and systems through flexible integrations designed around you.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card2.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-cogs', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'User-Driven Innovation',
+                'item_desc'     => 'Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card3.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-file-alt', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'Steady Expansion',
+                'item_desc'     => 'Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card4.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-chart-line', 'library' => 'fa-solid'),
+            ),
 				),
 				'title_field' => '{{{ item_title }}}',
 				'render_type' => 'template', 
@@ -864,7 +885,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'   => __( 'Scale', 'responsive-addons-for-elementor' ),
 				'type'    => Controls_Manager::SLIDER,
 				'range'   => array( 'px' => array( 'min' => -1, 'max' => 2, 'step' => 0.1 ) ),
-				'default' => array( 'size' => 1 ),
+				'default' => array( 'size' => 0 ),
 				'dynamic' => array( 'active' => true ),
 				'selectors' => array(
 					'{{WRAPPER}}' => '--rae-scale: {{SIZE}};',
@@ -1005,6 +1026,26 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'    => __( 'Box Shadow', 'responsive-addons-for-elementor' ),
 				'selector' => '{{WRAPPER}} .rael-stacking-card',
 				'render_type' => 'template', 
+				'fields_options' => array(
+					'box_shadow_type' => array(
+						'default' => 'classic',
+					),
+					'color' => array(
+						'default' => 'rgba(0, 0, 0, 0.5)',
+					),
+					'blur' => array(
+						'default' => 10,
+					),
+					'spread' => array(
+						'default' => 0,
+					),
+					'horizontal' => array(
+						'default' => 0,
+					),
+					'vertical' => array(
+						'default' => 0,
+					),
+				),
 			)
 		);
 		// Border Radius
@@ -1014,6 +1055,13 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
+				'default'    => array(
+					'top'    => 20,
+					'right'  => 20,
+					'bottom' => 20,
+					'left'   => 20,
+					'unit'   => 'px',
+				),
 				'selectors'  => array(
 					'{{WRAPPER}} .rael-stacking-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
@@ -1062,6 +1110,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'px' => array( 'min' => 0, 'max' => 1200 ),
 					'%'  => array( 'min' => 0, 'max' => 100 ),
 				),
+				'default'    => array(
+					'size' => 60,
+					'unit' => '%',
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-content' => 'width: {{SIZE}}{{UNIT}};',
 				),
@@ -1073,6 +1125,13 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Content Padding', 'responsive-addons-for-elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
+				'default'    => array(
+					'top'    => 40,
+					'right'  => 40,
+					'bottom' => 40,
+					'left'   => 40,
+					'unit'   => 'px',
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
@@ -1102,8 +1161,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array( 'default' => Global_Colors::COLOR_PRIMARY),
-				 'default'   => 'transparent',
+				'default'   => '',
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-content' => 'background-color: {{VALUE}};',
 				),
@@ -1131,6 +1189,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'px' => array( 'min' => 0, 'max' => 1200 ),
 					'%'  => array( 'min' => 0, 'max' => 100 ),
 				),
+				'default'    => array(
+					'size' => 50,
+					'unit' => 'px',
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-graphic' => 'width: {{SIZE}}{{UNIT}} !important;', 
             		'{{WRAPPER}} .rael-card-graphic img' => 'width: 100% !important; height: auto !important;', 
@@ -1148,6 +1210,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'range' => array(
 					'px' => array( 'min' => 0, 'max' => 1200 ),
 					'%'  => array( 'min' => 0, 'max' => 100 ),
+				),
+				'default'    => array(
+					'size' => 50,
+					'unit' => 'px',
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-graphic' => 'height: {{SIZE}}{{UNIT}} !important;',
@@ -1167,6 +1233,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'px' => array( 'min' => 0, 'max' => 1200 ),
 					'%'  => array( 'min' => 0, 'max' => 100 ),
 				),
+				'default'    => array(
+					'size' => 25,
+					'unit' => 'px',
+				),
 				'selectors' => array(
 				    '{{WRAPPER}} .rael-card-graphic svg' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;', // <- add here
             		'{{WRAPPER}} .rael-card-graphic i'   => 'font-size: {{SIZE}}{{UNIT}} !important;', // existing for icon fonts
@@ -1180,7 +1250,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => array( 'default' => Global_Colors::COLOR_PRIMARY),
+				'default'    => '#535353', 
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-graphic' => 'background-color: {{VALUE}};',
 				),
@@ -1192,6 +1262,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
+				'default'    => '#FFFFFF', 
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-graphic svg path' => 'fill: {{VALUE}} !important;',
 				),
@@ -1201,9 +1272,17 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		$this->add_responsive_control(
 			'graphic_element_border_radius',
 			array(
-				'label' => __( 'Border Radius', 'responsive-addons-for-elementor' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'selectors' => array(
+				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ), // allow multiple units
+				'default'    => array(
+					'top'    => 50,
+					'right'  => 50,
+					'bottom' => 50,
+					'left'   => 50,
+					'unit'   => 'px', 
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .rael-card-graphic' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'render_type' => 'template', 
@@ -1253,7 +1332,24 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'name' => 'title_typography',
 				'selector' => '{{WRAPPER}} .rael-card-title',
-				'render_type' => 'template', 
+				'typography' => array(
+					'default' => 'custom',
+				),
+				'fields_options' => array(
+					'font_family' => array(
+						'default' => 'Roboto',
+					),
+					'font_size' => array(
+						'default' => array(
+							'unit' => 'px',
+							'size' => 50,
+						),
+					),
+					'font_weight' => array(
+						'default' => 400,
+					),
+				),
+				'render_type' => 'template',
 			)
 		);
 
@@ -1315,6 +1411,23 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'name' => 'description_typography',
 				'selector' => '{{WRAPPER}} .rael-card-desc',
+				'typography' => array(
+					'default' => 'custom',
+				),
+				'fields_options' => array(
+					'font_family' => array(
+						'default' => 'Roboto',
+					),
+					'font_size' => array(
+						'default' => array(
+							'unit' => 'px',
+							'size' => 20,
+						),
+					),
+					'font_weight' => array(
+						'default' => 400,
+					),
+				),
 				'render_type' => 'template', 
 			)
 			
@@ -1447,6 +1560,13 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'      => __( 'Padding', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
+				'default'    => array(
+					'top'    => 10,
+					'right'  => 15,
+					'bottom' => 10,
+					'left'   => 15,
+					'unit'   => 'px',
+				),
 				'selectors'  => array(
 					'{{WRAPPER}} .rael-card-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
@@ -1460,6 +1580,20 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'name'     => 'button_typography',
 				'selector' => '{{WRAPPER}} .rael-card-button',
 				'render_type' => 'template', 
+				'typography' => array(
+					'default' => 'custom',
+				),
+				'fields_options' => array(
+					'font_family' => array(
+						'default' => 'Roboto',
+					),
+					'font_size' => array(
+						'default' => array(
+							'unit' => 'px',
+							'size' => 18,
+						),
+					),
+				),
 			)
 		);
 
@@ -1494,6 +1628,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'    => '#ffffff',
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-button' => 'color: {{VALUE}};',
 				),
@@ -1506,6 +1641,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'    => '#535353',
 				'selectors' => array(
 					'{{WRAPPER}} .rael-card-button' => 'background-color: {{VALUE}};',
 				),
@@ -1519,6 +1655,13 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 8,
+					'right'  => 8,
+					'bottom' => 8,
+					'left'   => 8,
+					'unit'   => 'px',
+				),
 				'selectors'  => array(
 					'{{WRAPPER}} .rael-card-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
@@ -1846,10 +1989,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		// sticky positioning
 		$offset_value    = 'calc(' . ($index+1) . ' * ' . $card_gap_size . $card_gap_unit . ')';
 
-			error_log('$offsetX=='.$offsetX);
-			error_log('$offsetY==' . $offsetY);
-			error_log('$scale==' . $scale);
-
        	// $transform = "translate3d({$offsetX}px, {$offsetY}px, {$z}px) scale({$scale})";
 	   	$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
 
@@ -2010,14 +2149,18 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				}
 			}
 			$final_title = implode( ' ', array_filter( $final_title_parts ) );
-			error_log('$final_title===' . print_r($final_title, true));
+			$inline_title_style = 'font-family:Roboto; font-size:50px; font-weight:400;';
+
+			// Add render attribute
+			$this->add_render_attribute( 'rael_card_title', 'class', 'rael-card-title' );
+			$this->add_render_attribute( 'rael_card_title', 'style', $inline_title_style );
 			$tag = ! empty( $settings['title_html_tag'] ) ? $settings['title_html_tag'] : 'div';
 			if ( !empty($final_title) ) {
-				echo '<' . esc_html( $tag ) . ' class="rael-card-title">' . esc_html( $final_title ) . '</' . esc_html( $tag ) . '>';
+				echo '<' . esc_html( $tag ) . ' ' . $this->get_render_attribute_string( 'rael_card_title' ) . '>' . esc_html( $final_title ) . '</' . esc_html( $tag ) . '>';
 
 			}
 			else if ( !empty ($settings['show_title']) && ! empty( $item['title'] )  ){
-				echo '<' . esc_html( $tag ) . ' class="rael-card-title">' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
+				echo '<' . esc_html( $tag ) . ' ' . $this->get_render_attribute_string( 'rael_card_title' ) . '>' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
 
 			}
 
@@ -2106,12 +2249,18 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				}
 			}
 			$final_desc = implode( ' ', array_filter( $final_desc_parts ) );
-			if ( ! empty( $final_desc )  ) {
-				echo '<div class="rael-card-desc">' . wp_kses_post( $final_desc ) . '</div>';
+			// Inline fallback style for description
+			$desc_inline_style = 'font-family:Roboto; font-size:20px; font-weight:400; line-height:1.6;';
+
+			$this->add_render_attribute( 'rael_card_desc', 'class', 'rael-card-desc' );
+			$this->add_render_attribute( 'rael_card_desc', 'style', $desc_inline_style );
+
+			if ( ! empty( $final_desc ) ) {
+				echo '<div ' . $this->get_render_attribute_string( 'rael_card_desc' ) . '>' . wp_kses_post( $final_desc ) . '</div>';
 			} 
-			else if ( !empty ($settings['show_description']) && ! empty( $item['desc'] ) ) {
-				echo '<div class="rael-card-desc">' . wp_kses_post( $item['desc'] ) . '</div>';
-			} 
+			else if ( ! empty( $settings['show_description'] ) && ! empty( $item['desc'] ) ) {
+				echo '<div ' . $this->get_render_attribute_string( 'rael_card_desc' ) . '>' . wp_kses_post( $item['desc'] ) . '</div>';
+			}
 
 			// Button render
 			$final_button_parts = [];
