@@ -1899,6 +1899,8 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'graphic_html' => $graphic_html,
 					'graphic_icon' => $item['graphic_icon'] ?? null,
 					'graphic_text' => $item['graphic_text'] ?? '',
+					'background_color' => $item['background_color'] ?? '',
+					'background_image' => ! empty( $item['background_image']['url'] ) ? $item['background_image']['url'] : '',
 				];
 			}
 		}
@@ -1993,19 +1995,24 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 	   	$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
 
         $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
-		
+		$current_item_background_color = ! empty( $item['background_color'] ) ? 'background-color:' . esc_attr( $item['background_color'] ) . ';' : '';
+		$current_item_background_image = ! empty( $item['background_image'] ) 
+			? 'background-image:url(' . esc_url( $item['background_image'] ) . ');' 
+			: '';
+
         // Add GSAP data attributes for scroll effect
+		$style  = 'top:' . esc_attr($sticky_top_item) . ';';
+		$style .= 'margin-top:' . esc_attr($offset_value) . ';';
+		$style .= 'transform-origin:' . esc_attr($transform_origin) . ';';
+		$style .= 'transform:' . esc_attr($transform) . ';';
+		$style .= $current_item_background_color;
+		$style .= $current_item_background_image;
+
         $this->add_render_attribute(
             'card' . $index,
             array(
                 'class' => array('rael-stacking-card', 'elementor-repeater-item-' . ($index+1)),
-                'style' => sprintf(
-                    'top:%s; margin-top:%s; transform-origin:%s; transform:%s;',
-                    esc_attr($sticky_top_item),
-                    esc_attr($offset_value),
-                    esc_attr($transform_origin),
-                    esc_attr($transform)
-                ),
+                'style' => $style,
                 'data-index'       => $index,
                 'data-translate-x' => $settings['translate_x']['size'] ?? 0,
                 'data-translate-y' => $settings['translate_y']['size'] ?? 0,
