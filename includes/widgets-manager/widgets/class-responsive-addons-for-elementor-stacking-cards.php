@@ -990,9 +990,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'size_units' => array( 'px' ),
 				'range' => array( 'px' => array( 'min' => 0, 'max' => 1200 ) ),
 				'default' => array( 'size' => 600, 'unit' => 'px' ),
-				// 'selectors' => array(
-				// 	'{{WRAPPER}} .rael-stacking-card' => 'height: {{SIZE}}{{UNIT}}',
-				// ),
 				'render_type' => 'template', 
 			)
 		);
@@ -1899,6 +1896,8 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'graphic_html' => $graphic_html,
 					'graphic_icon' => $item['graphic_icon'] ?? null,
 					'graphic_text' => $item['graphic_text'] ?? '',
+					'background_color' => $item['background_color'] ?? '',
+					'background_image' => ! empty( $item['background_image']['url'] ) ? $item['background_image']['url'] : '',
 				];
 			}
 		}
@@ -1943,20 +1942,31 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			return;
 		}
 
+		$total_cards = count($items);
+
 		$wrapper_classes = 'rael-stacking-cards-wrapper';
 		if ( $rtl ) {
 			$wrapper_classes .= ' rtl-enabled';
 		}
+
+		// Get the card height from settings
+		$card_height_value = ! empty( $settings['card_height']['size'] ) ? $settings['card_height']['size'] : 600;
+		$card_unit = ! empty( $settings['card_height']['unit'] ) ? $settings['card_height']['unit'] : 'px';
+
 		$this->add_render_attribute( 'wrapper', 'class', $wrapper_classes );
+
+		$this->add_render_attribute('wrapper', 'data-card-height', $card_height_value . $card_unit);
+		$this->add_render_attribute('wrapper', 'data-card-offset', $card_offset);
+
 		
 		// optional: add data attribute for scroll motion toggle
 		if ( ! empty( $settings['enable_scroll_motion'] ) ) {
 			$this->add_render_attribute( 'wrapper', 'data-scroll-motion', 'true' );
 		}
-		
+
 		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>';
 
-		$total_cards = count($items);
+		
 		$min_scale = 0.85; // first (back) card
 		$max_scale = 1.0;  // front card
 
@@ -1965,7 +1975,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		$z = 0; // z-depth
 
 		foreach ( $items as $index => $item ) {
-			//$offset_value = 'calc(' . ($index+1) . ' * ' . $card_offset . ')';
 			$sticky_top_item = ( $sticky_top + ( $index * 40 ) ) . $sticky_unit;
 			// Get numeric values
 			$origin_x_val = ! empty( $settings['transform_origin_x']['size'] ) 
@@ -1993,22 +2002,28 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 	   	$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
 
         $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
+		$current_item_background_color = ! empty( $item['background_color'] ) ? 'background-color:' . esc_attr( $item['background_color'] ) . ';' : '';
+		$current_item_background_image = ! empty( $item['background_image'] ) 
+			? 'background-image:url(' . esc_url( $item['background_image'] ) . ');' 
+			: '';
 		
         // Add GSAP data attributes for scroll effect
+		$style  = 'top:' . esc_attr($sticky_top_item) . ';';
+		$style .= 'margin-top:' . esc_attr($offset_value) . ';';
+		$style .= 'transform-origin:' . esc_attr($transform_origin) . ';';
+		$style .= 'transform: translate3d(0px,0px,0px);'; 
+		$style .= $current_item_background_color;
+		$style .= $current_item_background_image;
+
+
         $this->add_render_attribute(
             'card' . $index,
             array(
                 'class' => array('rael-stacking-card', 'elementor-repeater-item-' . ($index+1)),
-                'style' => sprintf(
-                    'top:%s; margin-top:%s; transform-origin:%s; transform:%s;',
-                    esc_attr($sticky_top_item),
-                    esc_attr($offset_value),
-                    esc_attr($transform_origin),
-                    esc_attr($transform)
-                ),
+                'style' => $style,
                 'data-index'       => $index,
-                'data-translate-x' => $settings['translate_x']['size'] ?? 0,
-                'data-translate-y' => $settings['translate_y']['size'] ?? 0,
+                'data-translate-x' => $settings['transform_origin_x']['size'] ?? 0,
+                'data-translate-y' => $settings['transform_origin_y']['size'] ?? 0,
 				'data-rotate'      => $settings['normal_rotation']['size'] ?? 0,
                 'data-scrollrotate'      => $settings['scroll_rotation']['size'] ?? 0,
                 'data-scale'       => $settings['scroll_scale']['size'] ?? 1,
@@ -2019,6 +2034,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'data-base-x'         => $offsetX,
 				'data-base-y'         => $offsetY,
 				'data-base-scale'     => $scale,
+				'data-gap'         => $settings['card_gap']['size'] . $settings['card_gap']['unit'], 
             )
         );
 			
