@@ -316,7 +316,7 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
             )
         );
         
-        $this->add_control(
+        $this->add_responsive_control(
             'rael_before_after_alignment',
             array(
                 'label' => __('Alignment', 'responsive-addons-for-elementor'),
@@ -561,7 +561,6 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
                     'both' => __('Hover and Normal', 'responsive-addons-for-elementor'),
                 ),
 				'prefix_class' => 'rael-ba-label-',
-
             )
         );
 
