@@ -2,6 +2,11 @@ function initStackingCards($scope) {
   const cards = gsap.utils.toArray($scope.find(".rael-stacking-card"));
 
   cards.forEach((card, index) => {
+    const gapValue = card.dataset.gap || "50px";
+    const gapMatch = gapValue.match(/^([0-9.]+)([a-z%]*)$/);
+    const gapNum = gapMatch ? parseFloat(gapMatch[1]) : 0;
+    const gapUnit = gapMatch ? gapMatch[2] : "px";
+
     const baseX = parseFloat(card.dataset.translateX) || 0;
     const baseY = parseFloat(card.dataset.translateY) || 0;
 
@@ -14,17 +19,26 @@ function initStackingCards($scope) {
     const baseGreyscale = parseFloat(card.dataset.greyscale) || 0;
     const scrollGreyscale = parseFloat(card.dataset.scrollgreyscale) || 0;
 
+    // calculate dynamic offset (works with px, %, vh)
+    const offsetY = `calc(${baseY}${gapUnit} + ${index * gapNum}${gapUnit})`;
 
-    // Exclude last card
-    if (index === cards.length - 1) return;
+    //  Set initial state based on dataset values
+    gsap.set(card, {
+      x: baseX,
+      y: offsetY,
+      rotate: baseRotate, 
+      scale: baseScale,
+      filter: `blur(${baseBlur}px) grayscale(${baseGreyscale}%)`,
+      opacity: 1,
+    });
 
     ScrollTrigger.create({
       trigger: card,
       start: "bottom top",
       onEnter: () => {
         gsap.to(card, {
-          x: baseX + index * 5,
-          y: baseY + index * 10,
+          x: baseX,
+          y: offsetY,
           rotate: scrollRotate,
           scale: baseScale,
           filter: `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`,
@@ -37,7 +51,7 @@ function initStackingCards($scope) {
       onLeaveBack: () => {
         gsap.to(card, {
           x: baseX,
-          y: baseY,
+          y: offsetY,
           rotate: baseRotate,
           scale: baseScale,
           filter: `blur(0px) grayscale(${baseGreyscale}%)`,
@@ -61,15 +75,40 @@ jQuery(window).on("elementor/frontend/init", function () {
     elementorFrontend.hooks.addAction(
       "frontend/element_ready/rael-stacking-cards.default",
       function ($scope) {
-        initStackingCards($scope); // your GSAP stacking init
+        // ===== Add dynamic CSS variables to parent =====
+        const wrapper = $scope.find(".rael-stacking-cards-wrapper");
+        const parent = wrapper.closest(".elementor-widget-rael-stacking-cards");
+
+        if (parent.length) {
+          const cardHeight = wrapper.data("card-height"); 
+          const cardOffset = wrapper.data("card-offset"); 
+
+          parent[0].style.setProperty("--card-height", cardHeight);
+          parent[0].style.setProperty("--card-top-offset", cardOffset);
+        }
+        // ===== End dynamic CSS variables =====
+        initStackingCards($scope); 
       }
     );
   }
 
-  // Editor live preview: recalc after load
+  // Editor live preview
   if (elementorFrontend.isEditMode()) {
     jQuery(window).on("load", function () {
       jQuery(".rael-stacking-cards").each(function () {
+         const $scope = jQuery(this);
+         const wrapper = $scope.find(".rael-stacking-cards-wrapper");
+         const parent = wrapper.closest(
+           ".elementor-widget-rael-stacking-cards"
+         );
+
+         if (parent.length) {
+           const cardHeight = wrapper.data("card-height"); 
+           const cardOffset = wrapper.data("card-offset"); 
+
+           parent[0].style.setProperty("--card-height", cardHeight);
+           parent[0].style.setProperty("--card-top-offset", cardOffset);
+         }
         initStackingCards(jQuery(this));
       });
     });
