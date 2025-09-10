@@ -2184,7 +2184,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			$final_desc_parts = [];
 
 			if ( ! empty( $settings['description_source'] ) ) {
-				foreach ( $settings['description_source'] as $source ) {
+				$description_sources = is_array( $settings['description_source'] )
+				? $settings['description_source']
+				: array( $settings['description_source'] );
+				foreach ( $description_sources as $source ) {
 					switch ( $source ) {
 						case 'post_title':
 							if ( isset( $item['post_id'] ) ) {
@@ -2401,8 +2404,12 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			$image_output = '';
 			// Loop through selected image sources
 			if ( ! empty( $settings['image_source'] ) && isset( $item['post_id'] ) ) {
-				foreach ( $settings['image_source'] as $source ) {
-					// Skip if we've already found an image
+				// Ensure $settings['image_source'] is an array
+				$image_sources = is_array( $settings['image_source'] ) 
+						? $settings['image_source'] 
+						: array( $settings['image_source'] );
+				foreach ( $image_sources as $source ) {
+					// Skip if we have already found an image
 					if ( ! empty( $image_output ) ) {
 						continue;
 					}
