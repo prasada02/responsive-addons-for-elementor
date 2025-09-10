@@ -81,7 +81,17 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'render_type' => 'template', 
 			)
 		);
-
+		$this->add_control(
+			'posts_source_notice',
+			array(
+				'type'            => \Elementor\Controls_Manager::RAW_HTML,
+				'raw'             => __( '<strong>Note:</strong> Only latest 4 published posts will be shown.', 'your-textdomain' ),
+				'content_classes' => 'elementor-descriptor', 
+				'condition'       => array(
+					'source_type' => 'posts', 
+				),
+			)
+		);
 		$source_options = array(
 			'post_title'    => __( 'Post Title', 'responsive-addons-for-elementor' ),
 			'post_name'     => __( 'Post Name', 'responsive-addons-for-elementor' ),
@@ -252,6 +262,289 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		);
 
 		$this->end_controls_section();
+			// Items (visible only if source = items)
+		$this->start_controls_section(
+			'item_section',
+			array(
+				'label'     => __( 'Items', 'responsive-addons-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source_type' => 'items',
+				),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater = new Repeater();
+
+		// ================== Tabs inside Items ==================
+		$repeater->start_controls_tabs( 'item_tabs' );
+
+		// ------------------ Content Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_content',
+			array( 'label' => __( 'Content', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'item_title',
+			array(
+				'label'   => __( 'Title', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'Creative Approaches', 'responsive-addons-for-elementor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'content_type',
+			array(
+				'label'   => __( 'Content Type', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'editor',
+				'options' => array(
+					'editor' => __( 'Text Editor', 'responsive-addons-for-elementor' ),
+					'template' => __( 'Template', 'responsive-addons-for-elementor' ),
+            		'section'  => __( 'Section ID', 'responsive-addons-for-elementor' ),
+				),
+				'render_type' => 'template', 
+			)
+		);
+		
+
+		$repeater->add_control(
+			'item_desc',
+			array(
+				'label'   => __( 'Description', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXTAREA,
+				'default' => __( 'Harness pioneering technologies that redefine business operations and drive unprecedented productivity.', 'responsive-addons-for-elementor' ),
+				'condition' => array( 'content_type' => 'editor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'item_link',
+			array(
+				'label'       => __( 'Link', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-link.com', 'responsive-addons-for-elementor' ),
+				'default'     => array(
+					'url'         => 'https://your-link.com', // Default URL
+					'is_external' => true,                    // Open in new tab by default
+					'nofollow'    => false,                   // No follow attribute
+				),
+				'condition' => array( 'content_type' => 'editor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'show_button',
+			array(
+				'label'        => __( 'Show Button', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
+				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition' => array( 'content_type' => 'editor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'button_text',
+			array(
+				'label'     => __( 'Button Text', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'Learn More', 'responsive-addons-for-elementor' ),
+				'condition' => array( 'show_button' => 'yes', 'content_type' => 'editor', ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'item_image',
+			array(
+				'label'   => __( 'Image', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
+				'condition' => array( 'content_type' => 'editor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'item_image_size',
+				'default'   => 'medium_large',
+				'separator' => 'none',
+				'condition' => array( 'content_type' => 'editor' ),
+				'render_type' => 'template', 
+			)
+		);
+		// === Field for Template ===
+
+		$repeater->add_control(
+			'item_template',
+			array(
+				'label'     => __( 'Template', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT2,
+				'options'   => $this->get_elementor_templates(),
+				'condition' => array( 'content_type' => 'template' ),
+				'render_type' => 'template', 
+			)
+		);
+		// === Field for Section ID ===
+
+		$repeater->add_control(
+			'item_section',
+			array(
+				'label'       => __( 'Section ID', 'responsive-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'my-section', 'responsive-addons-for-elementor' ),
+				'description' => __( 'Use CSS ID of a section available in the same page.', 'responsive-addons-for-elementor' ),
+				'condition'   => array( 'content_type' => 'section' ),
+				'render_type' => 'template', 
+			)
+		);
+		$repeater->end_controls_tab();
+
+		// ------------------ Graphic Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_graphic',
+			array( 'label' => __( 'Graphic', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'graphic_image',
+			array(
+				'label'   => __( 'Graphic Image', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'    => 'graphic_image_size',
+				'default' => 'medium_large',
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'graphic_icon',
+			array(
+				'label' => __( 'Graphic Icon', 'responsive-addons-for-elementor' ),
+				'type'  => Controls_Manager::ICONS,
+				 'default'     => array(
+					'value'   => 'fas fa-lightbulb',
+					'library' => 'fa-solid',
+				 ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'graphic_text',
+			array(
+				'label'   => __( 'Graphic Text', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => __( 'D', 'responsive-addons-for-elementor' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		// ------------------ Background Tab ------------------
+		$repeater->start_controls_tab(
+			'tab_background',
+			array( 'label' => __( 'Background', 'responsive-addons-for-elementor' ) )
+		);
+
+		$repeater->add_control(
+			'background_type',
+			array(
+				'label'   => __( 'Background Type', 'responsive-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'color',
+				'options' => array(
+					'color' => __( 'Color', 'responsive-addons-for-elementor' ),
+					'image' => __( 'Image', 'responsive-addons-for-elementor' ),
+				),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'background_color',
+			array(
+				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'background_type' => 'color' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->add_control(
+			'background_image',
+			array(
+				'label'     => __( 'Background Image', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array( 'background_type' => 'image' ),
+				'render_type' => 'template', 
+			)
+		);
+
+		$repeater->end_controls_tab();
+
+		$repeater->end_controls_tabs();
+		// ================== Tabs End ==================
+
+		// Add repeater to control
+		$this->add_control(
+			'items_list',
+			array(
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => array(
+					 array(
+                'item_title'    => 'Creative Approaches',
+                'item_desc'     => 'Harness pioneering technologies that redefine business operations and drive unprecedented productivity.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card1.png'),
+                'graphic_icon' => array('value' => 'fas fa-lightbulb', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'Unified Experience',
+                'item_desc'     => 'Seamlessly unify your tools and systems through flexible integrations designed around you.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card2.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-cogs', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'User-Driven Innovation',
+                'item_desc'     => 'Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card3.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-file-alt', 'library' => 'fa-solid'),
+            ),
+            array(
+                'item_title'    => 'Steady Expansion',
+                'item_desc'     => 'Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.',
+                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card4.jpg' ),
+                'graphic_icon' => array('value' => 'fas fa-chart-line', 'library' => 'fa-solid'),
+            ),
+				),
+				'title_field' => '{{{ item_title }}}',
+				'render_type' => 'template', 
+			)
+		);
+
+    	$this->end_controls_section();
 		// ================== General Section ==================
     $this->start_controls_section(
         'general_section',
@@ -504,285 +797,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
     $this->end_controls_section();
 
-		// Items (visible only if source = items)
-		$this->start_controls_section(
-			'item_section',
-			array(
-				'label'     => __( 'Items', 'responsive-addons-for-elementor' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
-				'condition' => array(
-					'source_type' => 'items',
-				),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater = new Repeater();
-
-		// ================== Tabs inside Items ==================
-		$repeater->start_controls_tabs( 'item_tabs' );
-
-		// ------------------ Content Tab ------------------
-		$repeater->start_controls_tab(
-			'tab_content',
-			array( 'label' => __( 'Content', 'responsive-addons-for-elementor' ) )
-		);
-
-		$repeater->add_control(
-			'item_title',
-			array(
-				'label'   => __( 'Title', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Innovative Solution', 'responsive-addons-for-elementor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'content_type',
-			array(
-				'label'   => __( 'Content Type', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'editor',
-				'options' => array(
-					'editor' => __( 'Text Editor', 'responsive-addons-for-elementor' ),
-					'template' => __( 'Template', 'responsive-addons-for-elementor' ),
-            		'section'  => __( 'Section ID', 'responsive-addons-for-elementor' ),
-				),
-				'render_type' => 'template', 
-			)
-		);
-		
-
-		$repeater->add_control(
-			'item_desc',
-			array(
-				'label'   => __( 'Description', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::TEXTAREA,
-				'default' => __( 'Explore cutting-edge technologies...', 'responsive-addons-for-elementor' ),
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'item_link',
-			array(
-				'label'       => __( 'Link', 'responsive-addons-for-elementor' ),
-				'type'        => Controls_Manager::URL,
-				'placeholder' => __( 'https://your-link.com', 'responsive-addons-for-elementor' ),
-				'default'     => array(
-					'url'         => 'https://your-link.com', // Default URL
-					'is_external' => true,                    // Open in new tab by default
-					'nofollow'    => false,                   // No follow attribute
-				),
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'show_button',
-			array(
-				'label'        => __( 'Show Button', 'responsive-addons-for-elementor' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
-				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'button_text',
-			array(
-				'label'     => __( 'Button Text', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Learn More', 'responsive-addons-for-elementor' ),
-				'condition' => array( 'show_button' => 'yes', 'content_type' => 'editor', ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'item_image',
-			array(
-				'label'   => __( 'Image', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			array(
-				'name'      => 'item_image_size',
-				'default'   => 'medium_large',
-				'separator' => 'none',
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
-		// === Field for Template ===
-
-		$repeater->add_control(
-			'item_template',
-			array(
-				'label'     => __( 'Template', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT2,
-				'options'   => $this->get_elementor_templates(),
-				'condition' => array( 'content_type' => 'template' ),
-				'render_type' => 'template', 
-			)
-		);
-		// === Field for Section ID ===
-
-		$repeater->add_control(
-			'item_section',
-			array(
-				'label'       => __( 'Section ID', 'responsive-addons-for-elementor' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'my-section', 'responsive-addons-for-elementor' ),
-				'description' => __( 'Use CSS ID of a section available in the same page.', 'responsive-addons-for-elementor' ),
-				'condition'   => array( 'content_type' => 'section' ),
-				'render_type' => 'template', 
-			)
-		);
-		$repeater->end_controls_tab();
-
-		// ------------------ Graphic Tab ------------------
-		$repeater->start_controls_tab(
-			'tab_graphic',
-			array( 'label' => __( 'Graphic', 'responsive-addons-for-elementor' ) )
-		);
-
-		$repeater->add_control(
-			'graphic_image',
-			array(
-				'label'   => __( 'Graphic Image', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => array( 'url' => Utils::get_placeholder_image_src() ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			array(
-				'name'    => 'graphic_image_size',
-				'default' => 'medium_large',
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'graphic_icon',
-			array(
-				'label' => __( 'Graphic Icon', 'responsive-addons-for-elementor' ),
-				'type'  => Controls_Manager::ICONS,
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'graphic_text',
-			array(
-				'label'   => __( 'Graphic Text', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'D', 'responsive-addons-for-elementor' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->end_controls_tab();
-
-		// ------------------ Background Tab ------------------
-		$repeater->start_controls_tab(
-			'tab_background',
-			array( 'label' => __( 'Background', 'responsive-addons-for-elementor' ) )
-		);
-
-		$repeater->add_control(
-			'background_type',
-			array(
-				'label'   => __( 'Background Type', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'color',
-				'options' => array(
-					'color' => __( 'Color', 'responsive-addons-for-elementor' ),
-					'image' => __( 'Image', 'responsive-addons-for-elementor' ),
-				),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'background_color',
-			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'condition' => array( 'background_type' => 'color' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->add_control(
-			'background_image',
-			array(
-				'label'     => __( 'Background Image', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::MEDIA,
-				'condition' => array( 'background_type' => 'image' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$repeater->end_controls_tab();
-
-		$repeater->end_controls_tabs();
-		// ================== Tabs End ==================
-
-		// Add repeater to control
-		$this->add_control(
-			'items_list',
-			array(
-				'type'        => Controls_Manager::REPEATER,
-				'fields'      => $repeater->get_controls(),
-				'default'     => array(
-					 array(
-                'item_title'    => 'Creative Approaches',
-                'item_desc'     => 'Harness pioneering technologies that redefine business operations and drive unprecedented productivity.',
-                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card1.png'),
-                'graphic_icon' => array('value' => 'fas fa-lightbulb', 'library' => 'fa-solid'),
-            ),
-            array(
-                'item_title'    => 'Unified Experience',
-                'item_desc'     => 'Seamlessly unify your tools and systems through flexible integrations designed around you.',
-                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card2.jpg' ),
-                'graphic_icon' => array('value' => 'fas fa-cogs', 'library' => 'fa-solid'),
-            ),
-            array(
-                'item_title'    => 'User-Driven Innovation',
-                'item_desc'     => 'Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.',
-                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card3.jpg' ),
-                'graphic_icon' => array('value' => 'fas fa-file-alt', 'library' => 'fa-solid'),
-            ),
-            array(
-                'item_title'    => 'Steady Expansion',
-                'item_desc'     => 'Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.',
-                'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card4.jpg' ),
-                'graphic_icon' => array('value' => 'fas fa-chart-line', 'library' => 'fa-solid'),
-            ),
-				),
-				'title_field' => '{{{ item_title }}}',
-				'render_type' => 'template', 
-			)
-		);
-
-    	$this->end_controls_section();
+	
 		// Scroll Motion
 		$this->start_controls_section(
 			'scroll_motion_style',
@@ -1906,7 +1921,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		if ( isset($settings['source_type']) && 'posts' === $settings['source_type'] ) {
 			$query = new \WP_Query( [
 				'post_type'           => 'post',
-				'posts_per_page'      => 3,
+				'post_status'         => 'publish',   // only published
+				'posts_per_page'      => 4,           // limit
+				'orderby'             => 'date',      // sort by publish date
+				'order'               => 'DESC',      // latest first
 				'ignore_sticky_posts' => true,
 				'no_found_rows'       => true,
 			] );
@@ -1957,8 +1975,12 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 		$this->add_render_attribute('wrapper', 'data-card-height', $card_height_value . $card_unit);
 		$this->add_render_attribute('wrapper', 'data-card-offset', $card_offset);
+		$this->add_render_attribute('wrapper', 'data-card-gap', $card_gap_size . $card_gap_unit );
 
-		
+		// Inline CSS variables for wrapper
+		$wrapper_style = '--card-gap:' . $card_gap_size . $card_gap_unit . ';';
+		$this->add_render_attribute( 'wrapper', 'style', $wrapper_style );
+
 		// optional: add data attribute for scroll motion toggle
 		if ( ! empty( $settings['enable_scroll_motion'] ) ) {
 			$this->add_render_attribute( 'wrapper', 'data-scroll-motion', 'true' );
@@ -1998,8 +2020,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		// sticky positioning
 		$offset_value    = 'calc(' . ($index+1) . ' * ' . $card_gap_size . $card_gap_unit . ')';
 
-       	// $transform = "translate3d({$offsetX}px, {$offsetY}px, {$z}px) scale({$scale})";
-	   	$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
+		$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
 
         $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
 		$current_item_background_color = ! empty( $item['background_color'] ) ? 'background-color:' . esc_attr( $item['background_color'] ) . ';' : '';
