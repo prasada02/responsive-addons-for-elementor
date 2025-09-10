@@ -85,7 +85,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			'posts_source_notice',
 			array(
 				'type'            => \Elementor\Controls_Manager::RAW_HTML,
-				'raw'             => __( '<strong>Note:</strong> Only latest 4 published posts will be shown.', 'your-textdomain' ),
+				'raw'             => __( '<strong>Note:</strong> Only latest 4 published posts will be shown.', 'responsive-addons-for-elementor' ),
 				'content_classes' => 'elementor-descriptor', 
 				'condition'       => array(
 					'source_type' => 'posts', 
