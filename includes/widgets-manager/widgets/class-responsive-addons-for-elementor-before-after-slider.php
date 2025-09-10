@@ -321,27 +321,33 @@ class Responsive_Addons_For_Elementor_Before_After_Slider extends Widget_Base {
             array(
                 'label' => __('Alignment', 'responsive-addons-for-elementor'),
                 'type' => Controls_Manager::CHOOSE,
-                'default' => '-right',
+                'default' => 'center',
                 'options' => array(
-                    '-right' => array(
-                        'title' => __('Left', 'responsive-addons-for-elementor'),   
+                    'left' => array(
+                        'title' => __('Left', 'responsive-addons-for-elementor'),
                         'icon' => 'eicon-text-align-left',
                     ),
-                    ' ' => array(
+                    'center' => array(
                         'title' => __('Center', 'responsive-addons-for-elementor'),
                         'icon' => 'eicon-text-align-center',
                     ),
-                    '-left' => array(
+                    'right' => array(
                         'title' => __('Right', 'responsive-addons-for-elementor'),
                         'icon' => 'eicon-text-align-right',
                     ),
                 ),
+                'selectors_dictionary' => array(
+                    'left'   => 'margin-left: 0 !important; margin-right: auto !important;',
+                    'center' => 'margin-left: auto !important; margin-right: auto !important;',
+                    'right'  => 'margin-left: auto !important; margin-right: 0 !important;',
+                ),
                 'selectors' => array(
-					'{{WRAPPER}}' => 'margin{{VALUE}}:auto;',
-				),
+                    '{{WRAPPER}}' => '{{VALUE}}',
+                ),
                 'toggle' => false,
             )
         );
+
 
 
         $this->add_control(
