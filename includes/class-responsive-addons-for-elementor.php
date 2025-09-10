@@ -1247,7 +1247,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 							$included_libs['rael-event-move'] = true;
 							wp_enqueue_script( 'rael-event-move', RAEL_ASSETS_URL . 'lib/jquery-event-move/jquery-event-move.min.js', array( 'jquery' ), RAEL_VER, true );
 						}
-            break;
+            			break;
 					case 'stacking-cards':
 						wp_enqueue_script(
 							'gsap',
@@ -1265,7 +1265,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						);
 						wp_enqueue_script(
 							'rael-stacking-cards',
-							RAEL_ASSETS_URL . 'js/frontend/rael-stacking-cards/rael-stacking-cards.min.js',
+							RAEL_ASSETS_URL . 'js/frontend/stacking-cards/stacking-cards.min.js',
 							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
 							RAEL_VER,
 							true
@@ -1858,6 +1858,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 					case 'before-after-slider':
 						array_push( $js_files, $js_files_path . 'before-after-slider/before-after-slider' . $ext );
 						array_push( $css_files, $css_files_path . 'before-after-slider/before-after-slider' . $css_min_ext );
+						break;
+					case 'stacking-cards':
+						array_push( $css_files, $css_files_path . 'stacking-cards/stacking-cards' . $css_min_ext );
 						break;
 				}
 			}

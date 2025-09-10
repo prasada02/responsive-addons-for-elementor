@@ -84,6 +84,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'marketing',
 			),
 			array(
+				'title'    => 'before-after-slider',
+				'name'     => 'Before After Slider',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/',
+				'category' => 'creativity',
+			),
+			array(
 				'title'    => 'breadcrumbs',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/breadcrumbs',
 				'category' => 'seo',
@@ -430,6 +436,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'content',
 			),
 			array(
+				'title'    => 'stacking-cards',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards/',
+				'category' => 'creativity',
+			),
+			array(
 				'title'    => 'sticky-video',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-video',
 				'category' => 'marketing',
@@ -493,17 +504,6 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'name'     => 'WC Checkout',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/woo-checkout',
 				'category' => 'woocommerce',
-			),
-			array(
-				'title'    => 'before-after-slider',
-				'name'     => 'Before After Slider',
-				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/',
-				'category' => 'creativity',
-			),
-      array(
-				'title'    => 'stacking-cards',
-				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards/',
-				'category' => 'creativity',
 			),
 		);
 
