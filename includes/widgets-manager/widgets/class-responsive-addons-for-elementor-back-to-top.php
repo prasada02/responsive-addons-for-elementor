@@ -503,17 +503,17 @@ class Responsive_Addons_For_Elementor_Back_To_Top extends Widget_Base {
 	 */
 	protected function render_raw() {
 		$settings   = $this->get_settings_for_display();
-		$appearance = $settings['rael_button_appearance'];
-		$is_scroll  = 'yes' === $settings['rael_show_button_after_switch'] ? 'yes' : '';
+		$appearance = $settings['rael_button_appearance'] 	?? 'icon_only';
+		$is_scroll  = ( $settings['rael_show_button_after_switch'] ?? 'no' ) === 'yes' ? 'yes' : '';
 
 		$args = array(
-			'offset_top'  => $settings['rael_offset_top'],
-			'show_after'  => $settings['rael_show_button_after'],
+			'offset_top' => $settings['rael_offset_top'],
+			'show_after' => $settings['rael_show_button_after'],
 			'show_scroll' => $is_scroll,
-			'style'       => $appearance,
-			'fg'          => $settings['rael_button_prgoress_foreground'],
-			'bg'          => $settings['rael_button_prgoress_background'],
-		)
+			'style' => $appearance,
+			'fg' => $settings['rael_button_prgoress_foreground'],
+			'bg' => $settings['rael_button_prgoress_background'],
+		);
 
 		?> <div class="rael-back-to-top-container rael-btt <?php echo esc_attr( $appearance ); ?>"
 				data-settings="<?php echo esc_attr( wp_json_encode( $args ) ); ?>">
