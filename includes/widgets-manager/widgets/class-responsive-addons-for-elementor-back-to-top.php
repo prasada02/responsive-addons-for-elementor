@@ -504,7 +504,17 @@ class Responsive_Addons_For_Elementor_Back_To_Top extends Widget_Base {
 	protected function render_raw() {
 		$settings   = $this->get_settings_for_display();
 		$appearance = $settings['rael_button_appearance'] 	?? 'icon_only';
-		$is_scroll  = ( $settings['rael_show_button_after_switch'] ?? 'no' ) === 'yes' ? 'yes' : '';
+		// Default value is 'no' if the key is missing
+		$show_button_after_switch = isset( $settings['rael_show_button_after_switch'] ) 
+			? $settings['rael_show_button_after_switch'] 
+			: 'no';
+
+		if ( $show_button_after_switch === 'yes' ) {
+			$is_scroll = 'yes';
+		} else {
+			$is_scroll = '';
+		}
+
 
 		$args = array(
 			'offset_top' => $settings['rael_offset_top'],
