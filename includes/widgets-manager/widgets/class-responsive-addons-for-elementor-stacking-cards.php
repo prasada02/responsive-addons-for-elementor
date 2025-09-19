@@ -515,31 +515,31 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'fields'      => $repeater->get_controls(),
 				'default'     => array(
 					 array(
-                'item_title'    => 'Creative Approaches',
-                'item_desc'     => 'Harness pioneering technologies that redefine business operations and drive unprecedented productivity.',
+                'item_title'    => __('Creative Approaches'),
+                'item_desc'     => __('Harness pioneering technologies that redefine business operations and drive unprecedented productivity.'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card1.png'),
                 'graphic_icon' => array('value' => 'fas fa-lightbulb', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => 'Unified Experience',
-                'item_desc'     => 'Seamlessly unify your tools and systems through flexible integrations designed around you.',
+                'item_title'    => __('Unified Experience'),
+                'item_desc'     => __('Seamlessly unify your tools and systems through flexible integrations designed around you.'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card2.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-cogs', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => 'User-Driven Innovation',
-                'item_desc'     => 'Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.',
+                'item_title'    => __('User-Driven Innovation'),
+                'item_desc'     => __('Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card3.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-file-alt', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => 'Steady Expansion',
-                'item_desc'     => 'Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.',
+                'item_title'    => __('Steady Expansion'),
+                'item_desc'     => __('Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card4.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-chart-line', 'library' => 'fa-solid'),
             ),
 				),
-				'title_field' => '{{{ item_title }}}',
+				'title_field' => '{{ item_title }}',
 				'render_type' => 'template', 
 			)
 		);
@@ -1899,8 +1899,8 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				];
 
 				$items[] = [
-					'title'        => $item['item_title'] ?? '',
-					'desc'         => $item['item_desc'] ?? '',
+					'title'        => isset( $item['item_title'] ) ? sanitize_text_field( $item['item_title'] ) : '',
+					'desc'         => isset( $item['item_desc'] ) ? wp_kses_post( $item['item_desc'] ) : '',
 					'image_html'   => $image_html,
 					'image_url'    => '',
 					'button_text'  => $item['button_text'] ?? '',
