@@ -171,6 +171,8 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 			'modal-popup',
 			'gf-styler',
 			'facebook-feed',
+			'before-after-slider',
+			'stacking-cards',
 		);
 
 		return $widget_list;
@@ -244,7 +246,7 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 
 		include_once RAEL_DIR . '/includes/widgets-manager/controls/class-responsive-addons-for-elementor-control-media-select.php';
 		include_once RAEL_DIR . '/includes/widgets-manager/controls/class-responsive-addons-for-elementor-control-visual-select.php';
-		require_once RAEL_DIR . '/includes/widgets-manager/controls/class-responsive-addons-for-elementor-ajax-select2.php';
+		require_once RAEL_DIR . '/includes/widgets-manager/controls/class-responsive-addons-for-elementor-control-ajax-select2.php';
 
 		$controls_manager->register( new Controls\Responsive_Addons_For_Elementor_Control_Media_Select() );
 		$controls_manager->register( new Controls\Responsive_Addons_For_Elementor_Control_Visual_Select() );
@@ -279,7 +281,7 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 		require_once RAEL_DIR . '/includes/widgets-manager/widgets/theme-builder/class-responsive-addons-for-elementor-title-widget-base.php';
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			require_once RAEL_DIR . '/includes/widgets-manager/widgets/theme-builder/class-responsive-addons-for-elementor-woo-widget-base.php';
+			require_once RAEL_DIR . '/includes/widgets-manager/widgets/theme-builder/class-woo-widget-base.php';
 			require_once RAEL_DIR . '/includes/widgets-manager/widgets/theme-builder/class-responsive-addons-for-elementor-woo-products-base.php';
 			require_once RAEL_DIR . '/includes/widgets-manager/widgets/theme-builder/class-responsive-addons-for-elementor-woo-products.php';
 		}
@@ -322,7 +324,6 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 				require_once RAEL_DIR . 'includes/widgets-manager/widgets/woocommerce/class-responsive-addons-for-elementor-' . $data . '.php';
 			}
 		}
-
 	}
 
 	/**
@@ -474,6 +475,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 						case 'timeline':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Timeline() );
 							break;
+						case 'stacking-cards':
+							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
+							break;
 						case 'sticky-video':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Sticky_Video() );
 							break;
@@ -529,7 +533,7 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Post_Carousel() );
 							break;
 						case 'offcanvas':
-							Plugin::instance()->widgets_manager->register( new Widgets\RAEL_Offcanvas() );
+							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Offcanvas() );
 							break;
 						case 'nav-menu':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Nav_Menu() );
@@ -685,6 +689,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 								Plugin::instance()->widgets_manager->register( new Widgets\ThemeBuilder\Responsive_Addons_For_Elementor_Theme_Product_Archive() );
 							}
 							break;
+						case 'before-after-slider':
+							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Before_After_Slider() );
+							break;
 					}
 				}
 			}
@@ -827,11 +834,13 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 			);
 
 			$encoded_data = wp_json_encode( $schema_data );
-			?>
-			<script type="application/ld+json">
-				<?php print_r( $encoded_data ); ?>
-			</script>
-			<?php
+			if ( $encoded_data ) {
+				?>
+				<script type="application/ld+json">
+					<?php echo wp_kses_data( $encoded_data ); ?>
+				</script>
+				<?php
+			}
 		}
 	}
 
@@ -942,7 +951,6 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 
 		return false;
 	}
-
 }
 
 Responsive_Addons_For_Elementor_Widgets_Manager::instance();

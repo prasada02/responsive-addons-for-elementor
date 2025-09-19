@@ -84,6 +84,12 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'marketing',
 			),
 			array(
+				'title'    => 'before-after-slider',
+				'name'     => 'Before After Slider',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/before-after-slider/',
+				'category' => 'creativity',
+			),
+			array(
 				'title'    => 'breadcrumbs',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/breadcrumbs',
 				'category' => 'seo',
@@ -147,8 +153,8 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			array(
 				'title'    => 'fancy-text',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/fancy-text',
-        		'category' => 'content',
-      		),
+				'category' => 'content',
+			),
 			array(
 				'title'    => 'faq',
 				'name'     => 'FAQ',
@@ -172,8 +178,8 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/flipbox',
 				'category' => 'creativity',
 			),
-      		array(
-        		'title'    => 'gf-styler',
+			array(
+				'title'    => 'gf-styler',
 				'name'     => 'Gravity Forms Styler',
 				'docs'     => 'https://cyberchimps.com/docs/widgets/gravity-forms-styler',
 				'category' => 'form',
@@ -430,6 +436,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'content',
 			),
 			array(
+				'title'    => 'stacking-cards',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/stacking-cards/',
+				'category' => 'creativity',
+			),
+			array(
 				'title'    => 'sticky-video',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-video',
 				'category' => 'marketing',
@@ -538,9 +549,9 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 	public function insert_widgets_data() {
 
 		$rael_widgets = $this->is_widgets_in_db();
-		$widgets = $this->initial_rael_widgets_data();
+		$widgets      = $this->initial_rael_widgets_data();
 
-		if($rael_widgets) {
+		if ( $rael_widgets ) {
 			update_option( 'rael_widgets', $widgets );
 		} else {
 			add_option( 'rael_widgets', $widgets );
@@ -557,7 +568,5 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			$widgets = $this->initial_rael_widgets_data();
 			add_option( 'rael_widgets', $widgets );
 		}
-
 	}
-
 }

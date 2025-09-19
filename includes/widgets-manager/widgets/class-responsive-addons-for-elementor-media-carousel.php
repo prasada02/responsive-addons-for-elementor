@@ -94,7 +94,7 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 			'font-awesome-5-all',
 			'font-awesome-4-shim',
 			'swiper',
-			'e-swiper',	
+			'e-swiper',
 		);
 	}
 	/**
@@ -1118,7 +1118,6 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 		$settings['rael_show_arrows']     = false;
 
 		$this->print_slider( $settings );
-
 	}
 	/**
 	 * Print method for rendering the Elementor slider.
@@ -1151,7 +1150,7 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 				<div class="swiper-wrapper">
 					<?php
 					foreach ( $settings['rael_slides'] as $index => $slide ) :
-						$this->slide_prints_count++;
+						++$this->slide_prints_count;
 						?>
 						<div class="swiper-slide">
 							<?php $this->print_slide( $slide, $settings, 'slide-' . $index . '-' . $this->slide_prints_count ); ?>
@@ -1219,17 +1218,20 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 					$this->add_render_attribute( $element_key . '_link', 'class', 'elementor-clickable' );
 				}
 
-				$this->lightbox_slide_index++;
+				++$this->lightbox_slide_index;
 			}
+			//For fixing xss issue
+			$rael_video_link = $this->sanitize_embed_url( $slide['rael_video']['url'] ?? '' );
 
-			if ( 'video' === $slide['rael_type'] && $slide['rael_video']['url'] ) {
+			if ( 'video' === $slide['rael_type'] && ! empty( $rael_video_link) ) {
 				$embed_url_params = array(
 					'autoplay' => 1,
 					'rel'      => 0,
 					'controls' => 0,
 				);
+    			$safe_embed_url = esc_url( Embed::get_embed_url( $rael_video_link, $embed_url_params ) );
 
-				$this->add_render_attribute( $element_key . '_link', 'data-elementor-lightbox-video', Embed::get_embed_url( $slide['rael_video']['url'], $embed_url_params ) );
+				$this->add_render_attribute( $element_key . '_link', 'data-elementor-lightbox-video', $safe_embed_url );
 			}
 
 			echo '<a ' . wp_kses_post( $this->get_render_attribute_string( $element_key . '_link' ) ) . '>';
@@ -1274,20 +1276,25 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 	 * @return string The URL of the link destination for the slide image.
 	 */
 	protected function get_image_link_to( $slide ) {
-		if ( ! empty( $slide['rael_video']['url'] ) ) {
-			return $slide['rael_image']['url'];
-		}
+    // If there is a video URL, return the image URL (sanitized)
+    if ( ! empty( $slide['rael_video']['url'] ) ) {
+        return $this->sanitize_embed_url( $slide['rael_image']['url'] );
+    }
 
-		if ( ! $slide['rael_image_link_to_type'] ) {
-			return '';
-		}
+    // If no link type, return empty string
+    if ( ! $slide['rael_image_link_to_type'] ) {
+        return '';
+    }
 
-		if ( 'custom' === $slide['rael_image_link_to_type'] ) {
-			return $slide['rael_image_link_to']['url'];
-		}
+    // If link type is custom, return custom URL (sanitized)
+    if ( 'custom' === $slide['rael_image_link_to_type'] && ! empty( $slide['rael_image_link_to']['url'] ) ) {
+        return $this->sanitize_embed_url( $slide['rael_image_link_to']['url'] );
+    }
 
-		return $slide['rael_image']['url'];
-	}
+    // Default: return image URL (sanitized)
+    return $this->sanitize_embed_url( $slide['rael_image']['url'] );
+}
+
 	/**
 	 * Print the HTML markup for an individual slide image.
 	 *
@@ -1358,6 +1365,54 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 	 */
 	public function get_custom_help_url() {
 		return 'https://cyberchimps.com/docs/widgets/media-carousel';
+	}
+	/**
+ * Sanitize video/audio embed URLs.
+ *
+ * @param string $url User input URL
+ * @return string Safe URL or empty string
+ */
+	private function sanitize_embed_url( $url ) {
+		if ( empty( $url ) ) {
+			return '';
+		}
+
+		// Remove leading/trailing spaces
+		$url = trim( $url );
+
+		// Decode URL to avoid encoded javascript: tricks
+		$url = rawurldecode( $url );
+
+		// Only allow http or https
+		if ( ! preg_match( '#^https?://#i', $url ) ) {
+			return '';
+		}
+
+		// Parse host
+		$host = strtolower( wp_parse_url( $url, PHP_URL_HOST ) );
+
+		// Popular allowed embed hosts
+		$allowed_hosts = array(
+			'youtube.com', 'www.youtube.com', 'youtu.be',
+			'vimeo.com', 'player.vimeo.com',
+			'dailymotion.com', 'www.dailymotion.com',
+			'wistia.com', 'fast.wistia.com',
+			'facebook.com', 'www.facebook.com',
+			'twitch.tv', 'www.twitch.tv',
+			'tiktok.com', 'www.tiktok.com',
+			'instagram.com', 'www.instagram.com',
+			'twitter.com', 'www.twitter.com', 'x.com', 'www.x.com',
+			'soundcloud.com', 'www.soundcloud.com',
+			'spotify.com', 'open.spotify.com',
+			'mixcloud.com', 'www.mixcloud.com',
+		);
+
+		if ( ! in_array( $host, $allowed_hosts, true ) ) {
+			return '';
+		}
+
+		// Final escape
+		return esc_url( $url );
 	}
 
 }

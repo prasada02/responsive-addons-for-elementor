@@ -310,9 +310,9 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'           => 'typography',
-				'global'         => [
+				'global'         => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 				'fields_options' => array(
 					'typography'  => array( 'default' => 'yes' ),
 					'font_size'   => array( 'default' => array( 'size' => 22 ) ),
@@ -417,9 +417,9 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'           => 'rael_fancy_text_strings_typography',
-				'global'         => [
+				'global'         => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 				'fields_options' => array(
 					'typography'  => array( 'default' => 'yes' ),
 					'font_size'   => array( 'default' => array( 'size' => 22 ) ),
@@ -547,9 +547,9 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'           => 'ending_typography',
-				'global'         => [
-					'default'     => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'global'         => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 				'fields_options' => array(
 					'typography'  => array( 'default' => 'yes' ),
 					'font_size'   => array( 'default' => array( 'size' => 22 ) ),
@@ -561,7 +561,6 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -575,7 +574,7 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 		$fancy_text = array( '' );
 		foreach ( $settings as $item ) {
 			if ( ! empty( $item['rael_fancy_text_strings_text_field'] ) ) {
-				$fancy_text[] = wp_kses_post( $item['rael_fancy_text_strings_text_field'] );
+				$fancy_text[] = wp_kses_post( html_entity_decode( $item['rael_fancy_text_strings_text_field'] ));
 			}
 		}
 		return implode( '|', $fancy_text );
@@ -594,7 +593,7 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 		$this->add_render_attribute( 'fancy-text', 'class', 'rael-fancy-text-container' );
 		$this->add_render_attribute( 'fancy-text', 'class', esc_attr( $settings['rael_fancy_text_style'] ) );
 		$this->add_render_attribute( 'fancy-text', 'data-fancy-text-id', esc_attr( $this->get_id() ) );
-		$this->add_render_attribute( 'fancy-text', 'data-fancy-text', $fancy_text );
+		$this->add_render_attribute( 'fancy-text', 'data-fancy-text', esc_attr( $fancy_text ) );
 		$this->add_render_attribute( 'fancy-text', 'data-fancy-text-transition-type', $settings['rael_fancy_text_transition_type'] );
 		$this->add_render_attribute( 'fancy-text', 'data-fancy-text-speed', $settings['rael_fancy_text_speed'] );
 		$this->add_render_attribute( 'fancy-text', 'data-fancy-text-back-speed', $settings['rael_fancy_text_back_speed'] );
@@ -635,7 +634,6 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 		<div class="clearfix"></div>
 
 		<?php
-
 	}
 
 	/**
@@ -644,5 +642,4 @@ class Responsive_Addons_For_Elementor_Fancy_Text extends Widget_Base {
 	 * @access protected
 	 */
 	protected function content_template() {}
-
 }

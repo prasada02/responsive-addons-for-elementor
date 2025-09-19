@@ -474,9 +474,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'      => __( 'Icon Color', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::COLOR,
-				'global'     => [
+				'global'     => array(
 					'default' => Global_Colors::COLOR_ACCENT,
-				],
+				),
 				'conditions' => array(
 					'relation' => 'and',
 					'terms'    => array(
@@ -555,7 +555,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 						),
 					),
 				),
-				'title_field' => '{{{ rael_item_text }}}',
+				'title_field' => '{{ rael_item_text }}',
 			)
 		);
 
@@ -1111,9 +1111,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box-header' => 'background-color: {{VALUE}};',
 				),
@@ -1194,9 +1194,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					array(
 						'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
-						'global'    => [
+						'global'    => array(
 							'default' => Global_Colors::COLOR_TEXT,
-						],
+						),
 						'default'   => '',
 						'selectors' => array(
 							'{{WRAPPER}} .rael-price-box-header__icon i' => 'color: {{VALUE}};',
@@ -1240,9 +1240,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					array(
 						'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
-						'global'    => [
+						'global'    => array(
 							'default' => Global_Colors::COLOR_TEXT,
-						],
+						),
 						'default'   => '',
 						'selectors' => array(
 							'{{WRAPPER}} .rael-price-box-header__icon i:hover' => 'color: {{VALUE}};',
@@ -1304,9 +1304,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box__heading' => 'color: {{VALUE}}',
 				),
@@ -1317,9 +1317,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'     => 'rael_heading_typography',
 				'selector' => '{{WRAPPER}} .rael-price-box__heading',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 			)
 		);
 
@@ -1360,9 +1360,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'condition' => array(
 					'rael_price_box_layout!' => '2',
 				),
@@ -1376,9 +1376,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_description_typography',
 				'selector'  => '{{WRAPPER}} .rael-price-box-description',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
-				],
+				),
 				'condition' => array(
 					'rael_price_box_layout!' => '2',
 				),
@@ -1433,9 +1433,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'condition' => array(
 					'rael_price_box_layout' => '2',
 				),
@@ -1449,9 +1449,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_description_typography_layout_2',
 				'selector'  => '{{WRAPPER}} .rael-price-box-description',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
-				],
+				),
 				'condition' => array(
 					'rael_price_box_layout' => '2',
 				),
@@ -1593,9 +1593,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'     => 'rael_price_typography',
 				'selector' => '{{WRAPPER}} .rael-pricing-value',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 			)
 		);
 
@@ -1753,9 +1753,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box__original-price' => 'color: {{VALUE}};',
 				),
@@ -1771,9 +1771,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_original_price_typography',
 				'selector'  => '{{WRAPPER}} .rael-price-box__original-price',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 				'condition' => array(
 					'rael_sale'            => 'yes',
 					'rael_original_price!' => '',
@@ -1834,9 +1834,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box__duration' => 'color: {{VALUE}}',
 				),
@@ -1851,9 +1851,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_duration_typography',
 				'selector'  => '{{WRAPPER}} .rael-price-box__duration',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
-				],
+				),
 				'condition' => array(
 					'rael_duration!' => '',
 				),
@@ -2028,9 +2028,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box__features-list' => 'color: {{VALUE}}',
 				),
@@ -2042,9 +2042,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'     => 'rael_features_list_typography',
 				'selector' => '{{WRAPPER}} .rael-price-box__features-list li',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 			)
 		);
 
@@ -2138,9 +2138,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ddd',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'condition' => array(
 					'rael_price_features_layout' => array( 'divider', 'borderbox' ),
 				),
@@ -2502,9 +2502,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_ACCENT,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} a.rael-price-box__cta-link' => 'color: {{VALUE}};',
 				),
@@ -2519,9 +2519,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_link_typography',
 				'selector'  => '{{WRAPPER}} a.rael-price-box__cta-link',
-				'global'   => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 				'condition' => array(
 					'rael_price_cta_type' => 'link',
 				),
@@ -2579,9 +2579,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_button_typography',
 				'selector'  => '{{WRAPPER}} .elementor-button, {{WRAPPER}} a.elementor-button',
-				'global'   => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 				'condition' => array(
 					'rael_price_cta_type' => 'button',
 				),
@@ -2656,9 +2656,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				array(
 					'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 					'type'      => Controls_Manager::COLOR,
-					'global'    => [
+					'global'    => array(
 						'default' => Global_Colors::COLOR_ACCENT,
-					],
+					),
 					'selectors' => array(
 						'{{WRAPPER}} .elementor-button' => 'background-color: {{VALUE}};',
 					),
@@ -2855,9 +2855,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'   => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box__disclaimer' => 'color: {{VALUE}}',
 				),
@@ -2871,9 +2871,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'      => 'rael_additional_info_typography',
 				'selector'  => '{{WRAPPER}} .rael-price-box__disclaimer',
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 				'condition' => array(
 					'rael_disclaimer_text!' => '',
 				),
@@ -3038,9 +3038,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_ACCENT,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-box-ribbon-content' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .rael-price-box-ribbon-3 .rael-price-box-ribbon-content:before' => 'border-left: 8px solid {{VALUE}};',
@@ -3081,9 +3081,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			array(
 				'name'     => 'rael_ribbon_typography',
 				'selector' => '{{WRAPPER}} .rael-price-box-ribbon-content',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 			)
 		);
 
@@ -3189,9 +3189,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				</div>
 				<?php
 			endif;
-		else :
-			if ( $settings['rael_title'] || $settings['rael_description'] ) :
-				?>
+		elseif ( $settings['rael_title'] || $settings['rael_description'] ) :
+			?>
 				<div class="rael-price-box-header">
 					<div class="rael-price-box-header__container">
 						<?php $this->render_heading_icon( $settings ); ?>
@@ -3200,7 +3199,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					</div>
 				</div>
 				<?php
-			endif;
+
 		endif;
 	}
 	/**
@@ -3229,7 +3228,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			if ( ! empty( $settings['rael_title'] ) ) :
 				$html_tag = esc_attr( $settings['rael_heading_tag'] );
 
-				$this->add_inline_editing_attributes( 'rael_title', 'basic' );
 				$this->add_render_attribute( 'rael_title', 'class', 'rael-price-box__heading' );
 				?>
 				<div class="rael-price-box-header__text">
@@ -3254,7 +3252,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			$html_tag         = esc_attr( $settings['rael_description_tag'] );
 
 			$this->add_render_attribute( 'rael_description', 'class', 'rael-price-box-description__text' );
-			$this->add_inline_editing_attributes( 'rael_description', 'basic' );
 			?>
 			<div class="rael-price-box-description">
 				<?php if ( '2' == $settings['rael_price_box_layout'] ) { ?>
@@ -3298,7 +3295,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			$fraction = $price[1];
 		}
 
-		$this->add_inline_editing_attributes( 'rael_duration', 'basic' );
 		$this->add_render_attribute( 'rael_duration', 'class', array( 'rael-price-box__duration ', 'rael-price-box-typo-excluded' ) );
 
 		$duration_position = $settings['rael_duration_position'];
@@ -3379,8 +3375,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					$title_key  = $this->get_repeater_setting_key( 'rael_item_text', 'rael_features_list', $index );
 					$content_id = $this->get_id() . '-' . $item['_id'];
 					$node_class = ! empty( $item['rael_tooltip_content'] ) ? 'rael-price-box__feature-content rael-price-box__content-' . $node_id : 'rael-price-box__feature-content';
-
-					$this->add_inline_editing_attributes( $title_key, 'basic' );
 
 					if ( 'yes' == $settings['rael_toggle_features_tooltip'] && ! empty( $item['rael_tooltip_content'] ) ) {
 						$tooltip_content = '<span class="' . esc_attr( 'rael-tooltip-text' ) . '" >' . wp_kses_post( $item['rael_tooltip_content'] ) . '</span>';
@@ -3487,7 +3481,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 
 			if ( ! empty( $settings['rael_link']['url'] ) ) {
 
-				$this->add_render_attribute( 'rael_link', 'href', $settings['rael_link']['url'] );
+				$this->add_render_attribute( 'rael_link', 'href', esc_url( $settings['rael_link']['url'] ) );
 				$this->add_render_attribute( 'rael_link', 'class', 'rael-price-box__cta-link' );
 
 				if ( $settings['rael_link']['is_external'] ) {
@@ -3505,10 +3499,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				<?php } ?>
 				<?php
 				if ( ! empty( $settings['rael_cta_text'] ) ) {
-					$this->add_inline_editing_attributes( 'rael_cta_text', 'basic' );
 					?>
 					<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_cta_text' ) ); ?>>
-						<?php echo wp_kses_post( $settings['rael_cta_text'] ); ?>
+						<?php echo esc_html( $settings['rael_cta_text'] ); ?>
 					</span>
 				<?php } ?>
 				<?php
@@ -3522,7 +3515,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 
 			$this->add_render_attribute( 'rael_cta_button_container', 'class', 'rael-button-container elementor-button-wrapper' );
 			if ( ! empty( $settings['rael_link']['url'] ) ) {
-				$this->add_render_attribute( 'rael_cta_button', 'href', $settings['rael_link']['url'] );
+				$this->add_render_attribute( 'rael_cta_button', 'href', esc_url( $settings['rael_link']['url'] ) );
 				$this->add_render_attribute( 'rael_cta_button', 'class', 'elementor-button-link' );
 
 				if ( $settings['rael_link']['is_external'] ) {
@@ -3544,7 +3537,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_cta_button_container' ) ); ?>>
 				<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_cta_button' ) ); ?>>
 					<?php
-						$this->add_inline_editing_attributes( 'rael_cta_text', 'none' );
 						$this->add_render_attribute( 'rael_cta_text', 'class', 'elementor-button-text' );
 					?>
 					<?php
@@ -3555,8 +3547,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					<?php
 					if ( ! empty( $settings['rael_cta_text'] ) ) {
 						?>
-						<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_cta_text' ) ); ?> >
-							<?php echo wp_kses_post( $settings['rael_cta_text'] ); ?>
+						<span <?php echo wp_kses_post($this->get_render_attribute_string( 'rael_cta_text' ) ); ?> >
+							<?php echo esc_html($settings['rael_cta_text'] ); ?>
 						</span>
 					<?php } ?>
 					<?php
@@ -3586,11 +3578,10 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 
 					<?php
 					if ( ! empty( $settings['rael_disclaimer_text'] ) ) :
-						$this->add_inline_editing_attributes( 'rael_disclaimer_text', 'basic' );
 						$this->add_render_attribute( 'rael_disclaimer_text', 'class', 'rael-price-box__disclaimer' );
 						?>
 						<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_disclaimer_text' ) ); ?>>
-							<?php echo wp_kses_post( $settings['rael_disclaimer_text'] ); ?>
+							<?php echo esc_html( $settings['rael_disclaimer_text'] ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -3622,7 +3613,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					$this->add_render_attribute( 'rael_ribbon_container', 'class', 'rael-ribbon-' . $settings['rael_ribbon_horizontal_position'] );
 				endif;
 
-				$this->add_inline_editing_attributes( 'rael_ribbon_title' );
 				$this->add_render_attribute( 'rael_ribbon_title', 'class', 'rael-price-box-ribbon-content' );
 				?>
 				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_ribbon_container' ) ); ?>>
@@ -3800,12 +3790,11 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				if ( '' != settings.rael_title ) {
 					var html_tag = settings.rael_heading_tag;
 
-					view.addInlineEditingAttributes( 'rael_title', 'basic' );
 					view.addRenderAttribute( 'rael_title', 'class', 'rael-price-box__heading' );
 					#>
 					<div class="rael-price-box-header__text">
 						<{{{ html_tag }}} {{{ view.getRenderAttributeString( 'rael_title' ) }}}>
-							{{{ settings.rael_title }}}
+							{{ settings.rael_title }}
 						</{{{ html_tag }}}>
 					</div>
 					<#
@@ -3818,7 +3807,6 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 			var html_tag_layout2 = settings.rael_description_tag_layout_2;
 			var html_tag = settings.rael_description_tag;
 
-			view.addInlineEditingAttributes( 'rael_description', 'basic' );
 			view.addRenderAttribute( 'rael_description', 'class', 'rael-price-box-description__text' );
 
 			view.addInlineEditingAttributes( 'rael_description_for_layout_2', 'basic' );
@@ -3831,7 +3819,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 						</{{{ html_tag_layout2 }}}>
 					<# } else { #>
 						<{{{ html_tag }}} {{{ view.getRenderAttributeString( 'rael_description' ) }}}>
-							{{{ settings.rael_description }}}
+							{{ settings.rael_description }}
 						</{{{ html_tag }}}>
 					<# } #>
 				</div>
@@ -3902,10 +3890,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				fraction = price[1];
 
 			view.addRenderAttribute( 'rael_duration', 'class', ['rael-price-box__duration ', 'rael-price-box-typo-excluded'] );
-			view.addInlineEditingAttributes( 'rael_duration', 'basic' );
 
 			var duration_position = settings.rael_duration_position;
-			var	durationElement = "<span " + view.getRenderAttributeString( 'rael_duration' ) + ">" + settings.rael_duration + "</span>";
+			var	durationElement = "<span " + view.getRenderAttributeString( 'rael_duration' ) + ">" + _.escape(settings.rael_duration || '') + "</span>";
 			#>
 			<div class="rael-price-box__price-container">
 				<div class="rael-price-box__pricing">
@@ -3925,7 +3912,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 								<# if ( '' != symbol && ',' == settings.rael_currency_format) { #>
 									<span class="rael-price-currency--normal">{{{ symbol }}}</span>
 								<# } #>
-								<span class="rael-price-box__integer-part">{{{ intvalue }}}</span>
+								<span class="rael-price-box__integer-part">{{ intvalue }}</span>
 							<# } #>
 
 							<span class="rael-price-box__beside-price">
@@ -3986,7 +3973,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 								<?php } ?>
 
 								<# if ( ! _.isEmpty( item.rael_item_text.trim() ) ) { #>
-									<span>{{{ item.rael_item_text }}}</span>
+									<span>{{ item.rael_item_text }}</span>
 								<# } else { #>
 									&nbsp;
 								<# } #>
@@ -4046,8 +4033,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 									if ( '' != settings.rael_cta_text ) {
 										view.addInlineEditingAttributes( 'rael_cta_text', 'basic' );
 									#>
-										<span {{{ view.getRenderAttributeString( 'rael_cta_text' ) }}}>
-											{{{  settings.rael_cta_text  }}}
+										<span {{ _.escape(view.getRenderAttributeString( 'rael_cta_text' )) }}>
+											{{  _.escape(settings.rael_cta_text)  }}
 										</span>
 									<# } #>
 									<#
@@ -4090,8 +4077,10 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 										<#
 											if ( '' != settings.rael_cta_text ) {
 										#>
-										<span {{{ view.getRenderAttributeString( 'rael_cta_text' ) }}}>
-											{{{ settings.rael_cta_text }}}
+
+										<span {{ _.escape(view.getRenderAttributeString( 'rael_cta_text' )) }}>
+											{{ _.escape(settings.rael_cta_text) }}
+
 										</span>
 										<# } #>
 										<#
@@ -4107,8 +4096,10 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 							view.addInlineEditingAttributes( 'rael_disclaimer_text', 'basic' );
 							view.addRenderAttribute( 'rael_disclaimer_text', 'class', 'rael-price-box__disclaimer' );
 						#>
-							<div {{{ view.getRenderAttributeString( 'rael_disclaimer_text' ) }}}>
-								{{{ settings.rael_disclaimer_text }}}
+
+							<div {{ _.escape(view.getRenderAttributeString( 'rael_disclaimer_text' )) }}>
+								{{ _.escape(settings.rael_disclaimer_text) }}
+
 							</div>
 						<# } #>
 					</div>
@@ -4145,12 +4136,11 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 						ribbonClass = 'rael-ribbon-' + settings.rael_ribbon_horizontal_position;
 					}
 
-					view.addInlineEditingAttributes( 'rael_ribbon_title', 'none' );
 					view.addRenderAttribute( 'rael_ribbon_title', 'class', 'rael-price-box-ribbon-content' );
 					#>
 					<div class="rael-price-box-ribbon-{{{ ribbon_style }}} {{{ ribbonClass }}}">
 						<div {{{ view.getRenderAttributeString('rael_ribbon_title') }}}>
-							{{{ settings.rael_ribbon_title }}}
+							{{ settings.rael_ribbon_title }}
 						</div>
 					</div>
 				<#

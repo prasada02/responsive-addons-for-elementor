@@ -282,7 +282,7 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 						'link'              => array( 'url' => '#' ),
 					),
 				),
-				'title_field' => '{{{ title }}}',
+				'title_field' => '{{ title }}',
 			)
 		);
 
@@ -308,9 +308,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-price-list-header',
 			)
 		);
@@ -320,9 +320,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-list-title' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .rael-price-list .rael-price-list-price' => 'color: {{VALUE}};',
@@ -375,9 +375,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			array(
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
 				'name'     => 'badge_typography',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 				'exclude'  => array(
 					'letter_spacing',
 				),
@@ -478,9 +478,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'original_price_typography',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-price-list-original-price',
 			)
 		);
@@ -499,9 +499,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'   => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-list-description' => 'color: {{VALUE}};',
 				),
@@ -512,9 +512,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'description_typography',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-price-list-description',
 			)
 		);
@@ -575,9 +575,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
+				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
-				],
+				),
 				'selectors' => array(
 					'{{WRAPPER}} .rael-price-list-separator' => 'border-bottom-color: {{VALUE}};',
 				),
@@ -797,8 +797,6 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 				if ( ! empty( $item['title'] ) || ! empty( $item['price'] ) || ! empty( $item['item_description'] ) ) :
 					$title_repeater_setting_key       = $this->get_repeater_setting_key( 'title', 'price_list', $index );
 					$description_repeater_setting_key = $this->get_repeater_setting_key( 'item_description', 'price_list', $index );
-					$this->add_inline_editing_attributes( $title_repeater_setting_key );
-					$this->add_inline_editing_attributes( $description_repeater_setting_key );
 					$this->add_render_attribute( $title_repeater_setting_key, 'class', 'rael-price-list-title' );
 					$this->add_render_attribute( $description_repeater_setting_key, 'class', 'rael-price-list-description' );
 					?>
@@ -818,9 +816,9 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 										<?php
 										if ( 'icon' === $item['badge'] && $item['badge_icon']['value'] ) {
 											$icon = sprintf( '<i class="%1$s" aria-hidden="true" title="%2$s"></i>', $item['badge_icon']['value'], $item['badge_icon_title'] );
-											echo sprintf( '<span class="rael-price-list-badge-icon">%s</span>', wp_kses_post( $icon ) );
+											printf( '<span class="rael-price-list-badge-icon">%s</span>', wp_kses_post( $icon ) );
 										} elseif ( 'text' === $item['badge'] && $item['badge_text'] ) {
-											echo sprintf( '<span class="rael-price-list-badge-text">%s</span>', esc_html( $item['badge_text'] ) );
+											printf( '<span class="rael-price-list-badge-text">%s</span>', esc_html( $item['badge_text'] ) );
 										}
 										?>
 									</div>
@@ -839,7 +837,7 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 							</div>
 						<?php endif; ?>
 						<?php if ( ! empty( $item['item_description'] ) ) : ?>
-							<p <?php echo wp_kses_post( $this->get_render_attribute_string( $description_repeater_setting_key ) ); ?>><?php echo wp_kses_post( $item['item_description'] ); ?></p>
+							<p <?php echo esc_attr( $this->get_render_attribute_string( $description_repeater_setting_key ) ); ?>><?php echo esc_html( $item['item_description'] ); ?></p>
 						<?php endif; ?>
 					</div>
 					<?php echo wp_kses_post( $this->render_item_footer( $item ) ); ?>
@@ -901,7 +899,7 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 				<div class="rael-price-list-header">
 
 					<# if ( ! _.isEmpty( item.title ) ) { #>
-					<span class="rael-price-list-title">{{{ item.title }}}</span>
+					<span class="rael-price-list-title">{{ item.title }}</span>
 					<# } #>
 
 					<# if ( 'icon' == item.badge && ! _.isEmpty(item.badge_icon.value) ) { #>
@@ -909,7 +907,7 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 						<i class="{{{item.badge_icon.value}}}" title="{{{item.badge_icon_text}}}"></i>
 					</span>
 					<# } else if ( 'text' == item.badge && ! _.isEmpty(item.badge_text) ) {#>
-						<span class="rael-price-list-badge-text">{{{ item.badge_text }}}</span>
+						<span class="rael-price-list-badge-text">{{ item.badge_text }}</span>
 					<# } #>
 
 					<# if ( 'none' != settings.separator_style ) { #>
@@ -917,18 +915,18 @@ class Responsive_Addons_For_Elementor_Price_List extends Widget_Base {
 					<# } #>
 
 					<# if ( 'yes' == item.offering_discount) { #>
-					<span class="rael-price-list-original-price">{{{ item.original_price }}}</span>
+					<span class="rael-price-list-original-price">{{ item.original_price }}</span>
 					<# } #>
 
 					<# if ( ! _.isEmpty( item.price ) ) { #>
-					<span class="rael-price-list-price">{{{ item.price }}}</span>
+					<span class="rael-price-list-price">{{ item.price }}</span>
 					<# } #>
 
 				</div>
 				<# } #>
 
 				<# if ( ! _.isEmpty( item.item_description ) ) { #>
-				<p class="rael-price-list-description">{{{ item.item_description }}}</p>
+				<p class="rael-price-list-description">{{ item.item_description }}</p>
 				<# } #>
 
 			</div>

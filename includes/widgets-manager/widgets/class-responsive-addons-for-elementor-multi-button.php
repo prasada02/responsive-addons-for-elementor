@@ -390,7 +390,6 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 				),
 			)
 		);
-
 	}
 
 	/**
@@ -450,9 +449,9 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 				'name'     => 'rael_button_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
 				'selector' => '{{WRAPPER}} .rael-multi-button',
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 			)
 		);
 
@@ -562,9 +561,9 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 			array(
 				'name'     => $id_prefix . '_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-multi-button__' . $type . '-btn',
 			)
 		);
@@ -712,9 +711,9 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 			array(
 				'name'     => 'rael_connector_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-multi-button__connector',
 			)
 		);
@@ -741,13 +740,25 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$primary_button_url = '';
 
+		if ( ! empty( $settings['rael_primary_button_link']['url'] ) ) {
+			$url = $settings['rael_primary_button_link']['url'];
+
+			// Basic clean
+			$url = esc_url_raw( $url );
+
+			// Only allow http and https
+			if ( preg_match( '/^https?:\/\//i', $url ) ) {
+				$primary_button_url = $url;
+			}
+		}
 		// Primary Button.
 		$this->add_render_attribute(
 			'rael_primary_button',
 			array(
 				'class' => 'rael-multi-button rael-multi-button__primary-btn',
-				'href'  => $settings['rael_primary_button_link'],
+				'href'  => $primary_button_url,
 			)
 		);
 
@@ -776,11 +787,24 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 		}
 
 		// Secondary Button.
+		$secondary_button_url = '';
+
+		if ( ! empty( $settings['rael_secondary_button_link']['url'] ) ) {
+			$url = $settings['rael_secondary_button_link']['url'];
+
+			// Basic clean
+			$url = esc_url_raw( $url );
+
+			// Only allow http and https
+			if ( preg_match( '/^https?:\/\//i', $url ) ) {
+				$secondary_button_url = $url;
+			}
+		}
 		$this->add_render_attribute(
 			'rael_secondary_button',
 			array(
 				'class' => 'rael-multi-button rael-multi-button__secondary-btn',
-				'href'  => $settings['rael_secondary_button_link'],
+				'href'  => $secondary_button_url,
 			)
 		);
 
@@ -876,12 +900,10 @@ class Responsive_Addons_For_Elementor_Multi_Button extends Widget_Base {
 		} else {
 			if ( empty( $attributes['class'] ) ) {
 				$attributes['class'] = $settings[ $old_icon ];
-			} else {
-				if ( is_array( $attributes['class'] ) ) {
+			} elseif ( is_array( $attributes['class'] ) ) {
 					$attributes['class'][] = $settings[ $old_icon ];
-				} else {
-					$attributes['class'] .= ' ' . $settings[ $old_icon ];
-				}
+			} else {
+				$attributes['class'] .= ' ' . $settings[ $old_icon ];
 			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf( '<i %s></i>', \Elementor\Utils::render_html_attributes( $attributes ) );

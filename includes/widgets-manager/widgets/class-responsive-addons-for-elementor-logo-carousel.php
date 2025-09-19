@@ -86,7 +86,7 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 	public function get_style_depends() {
 		return array(
 			'swiper',
-			'e-swiper',	
+			'e-swiper',
 		);
 	}
 	/**
@@ -696,9 +696,9 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 			array(
 				'name'     => 'rael_logo_title_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'global'   => [
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
-				],
+				),
 				'selector' => '{{WRAPPER}} .rael-logo-carousel__item-title',
 			)
 		);
@@ -1174,6 +1174,28 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 	}
 
 	/**
+	 * Sanitize logo item URL.
+	 * Allow only http/https links.
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	private function sanitize_logo_item_url( $url ) {
+		if ( empty( $url ) ) {
+			return '';
+		}
+
+		// Basic clean
+		$url = esc_url_raw( $url );
+
+		// Only allow http and https
+		if ( ! preg_match( '/^https?:\/\//i', $url ) ) {
+			return '';
+		}
+
+		return $url;
+	}
+	/**
 	 * Render the widget.
 	 *
 	 * Written in PHP and used to generate the final HTML.
@@ -1280,7 +1302,7 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 													"rael_logo_item_{$i}",
 													array(
 														'class' => 'rael-logo-carousel__logo-wrapper-link',
-														'href' => $item['rael_logo_item_link']['url'],
+														'href' => $this->sanitize_logo_item_url( $item['rael_logo_item_link']['url']),
 													)
 												);
 
@@ -1323,7 +1345,7 @@ class Responsive_Addons_For_Elementor_Logo_Carousel extends Widget_Base {
 							</div>
 							<?php
 						endif;
-						$i++;
+						++$i;
 					endforeach;
 					?>
 				</div>
