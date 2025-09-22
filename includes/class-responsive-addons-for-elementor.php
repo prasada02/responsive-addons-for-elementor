@@ -1240,27 +1240,40 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						}
             			break;
 					case 'stacking-cards':
-						wp_enqueue_script(
-							'gsap',
-							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
-							array(),
-							RAEL_VER,
-							true
-						);
-						wp_enqueue_script(
-							'gsap-scrolltrigger',
-							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-							array('gsap'),
-							RAEL_VER,
-							true
-						);
-						wp_enqueue_script(
-							'rael-stacking-cards',
-							RAEL_ASSETS_URL . 'js/frontend/stacking-cards/stacking-cards.min.js',
-							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
-							RAEL_VER,
-							true
-						);
+						// Load GSAP once
+						if ( ! isset( $included_libs['gsap'] ) ) {
+							$included_libs['gsap'] = true;
+							wp_enqueue_script(
+								'gsap',
+								RAEL_ASSETS_URL . 'lib/gsap/gsap.min.js',
+								array(),
+								RAEL_VER,
+								true
+							);
+						}
+
+						// Load GSAP ScrollTrigger once
+						if ( ! isset( $included_libs['gsap-scrolltrigger'] ) ) {
+							$included_libs['gsap-scrolltrigger'] = true;
+							wp_enqueue_script(
+								'gsap-scrolltrigger',
+								RAEL_ASSETS_URL . 'lib/gsap/ScrollTrigger.min.js',
+								array( 'gsap' ),
+								RAEL_VER,
+								true
+							);
+						}
+						 // Load Stacking Cards script
+						if ( ! isset( $included_libs['rael-stacking-cards'] ) ) {
+							$included_libs['rael-stacking-cards'] = true;
+							wp_enqueue_script(
+								'rael-stacking-cards',
+								RAEL_ASSETS_URL . 'js/frontend/stacking-cards/stacking-cards.min.js',
+								array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
+								RAEL_VER,
+								true
+							);
+						}
 						break;
 					case 'facebook-feed':
 						wp_enqueue_script( 'rael-facebook-feed', RAEL_ASSETS_URL . 'js/frontend/facebook-feed/facebook-feed.min.js', array( 'jquery' ), RAEL_VER, true );
