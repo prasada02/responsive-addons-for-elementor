@@ -991,7 +991,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'%'  => array( 'min' => 0, 'max' => 100 ),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .rael-stacking-card' => 'width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .rael-stacking-card' => 'min-width: {{SIZE}}{{UNIT}} !important;',
 				),
 				'render_type' => 'template', 
 			)
@@ -1005,6 +1005,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'size_units' => array( 'px' ),
 				'range' => array( 'px' => array( 'min' => 0, 'max' => 1200 ) ),
 				'default' => array( 'size' => 600, 'unit' => 'px' ),
+				'selectors' => array(
+					'{{WRAPPER}} .rael-stacking-card' => 'min-height: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .rael-card-inner'  => 'height: {{SIZE}}{{UNIT}};',
+				),
 				'render_type' => 'template', 
 			)
 		);
@@ -1997,7 +2001,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		$z = 0; // z-depth
 
 		foreach ( $items as $index => $item ) {
-			$sticky_top_item = ( $sticky_top + ( $index * 40 ) ) . $sticky_unit;
+			$sticky_top_item = ( $sticky_top + ( $index * 10 ) ) . $sticky_unit;
 			// Get numeric values
 			$origin_x_val = ! empty( $settings['transform_origin_x']['size'] ) 
 				? $settings['transform_origin_x']['size'] 
@@ -2013,14 +2017,18 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			
 			
         $scale = $min_scale + ($index * $scale_step);
+		$overlap_step = max(1, $card_gap_size / 6); // adjust divisor to control tightness
         // Offsets per card (use origin values as step sizes)
 		$offsetX = 0; // keep centered, or use $index * $card_gap_size for horizontal gap
-   		$offsetY = $index * $card_gap_size;
+   		$offsetY = $index * $overlap_step;
+
+		$offsetXVal = is_numeric($offsetX) ? $offsetX . $card_gap_unit : $offsetX;
+		$offsetYVal = is_numeric($offsetY) ? $offsetY . $card_gap_unit : $offsetY;
 
 		// sticky positioning
 		$offset_value    = 'calc(' . ($index+1) . ' * ' . $card_gap_size . $card_gap_unit . ')';
 
-		$transform = "translate3d({$offsetX}{$card_gap_unit}, {$offsetY}{$card_gap_unit}, {$z}px) scale({$scale})";
+		$transform = "translate3d({$offsetXVal}, {$offsetYVal}, {$z}px) scale({$scale})";
 
         $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
 		$current_item_background_color = ! empty( $item['background_color'] ) ? 'background-color:' . esc_attr( $item['background_color'] ) . ';' : '';
@@ -2032,9 +2040,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		$style  = 'top:' . esc_attr($sticky_top_item) . ';';
 		$style .= 'margin-top:' . esc_attr($offset_value) . ';';
 		$style .= 'transform-origin:' . esc_attr($transform_origin) . ';';
-		$style .= 'transform: translate3d(0px,0px,0px);'; 
+		$style .= 'transform:' . esc_attr($transform) . ';';
 		$style .= $current_item_background_color;
 		$style .= $current_item_background_image;
+		
 
 
         $this->add_render_attribute(
@@ -2404,9 +2413,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'nofollow'    => $item['link_nofollow'],
 				] );
 
-				echo '<a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
+				echo '<div><a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
 				echo esc_html( $final_button_text );
-				echo '</a>';
+				echo '</a></div>';
 			}
 			else if ( !empty($settings['show_button']) && ! empty( $item['button_text'] ) && ! empty( $item['link_url'] ) ) {
 				$this->add_link_attributes( 'button_' . $index, [
@@ -2414,9 +2423,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'is_external' => $item['link_external'],
 					'nofollow'    => $item['link_nofollow'],
 				] );
-				echo '<a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
+				echo '<div><a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
 				echo esc_html( $item['button_text'] );
-				echo '</a>';
+				echo '</a></div>';
 			}
 
 			echo '</div>'; // content
