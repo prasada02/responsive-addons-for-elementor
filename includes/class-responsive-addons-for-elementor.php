@@ -791,7 +791,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 */
 	public function responsive_addons_for_elementor_widgets_display() {
 		include_once RAEL_DIR . 'includes/class-responsive-addons-for-elementor-widgets-updater.php';
-
 		$rael_widgets_data = new Responsive_Addons_For_Elementor_Widgets_Updater();
 
 		$rael_path = 'responsive-addons-for-elementor/responsive-addons-for-elementor.php';
@@ -806,18 +805,30 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 
 		$exist_rael_theme_builder_widgets_data_update = get_option( 'rael_theme_builder_widgets_data_update', false );
-
 		if ( ! $exist_rael_theme_builder_widgets_data_update ) {
 			$rael_widgets_data->insert_widgets_data();
 			update_option( 'rael_theme_builder_widgets_data_update', true );
 		}
 
 		$exist_rael_facebook_feed_widgets_data_update = get_option( 'rael_facebook_feed_widgets_data_update', false );
-
 		if ( ! $exist_rael_facebook_feed_widgets_data_update ) {
 			$rael_widgets_data->insert_widgets_data();
 			update_option( 'rael_facebook_feed_widgets_data_update', true );
 		}
+
+		// Getting the last stored plugin version; fallback to '0' for older installs
+		$last_version = get_option( 'rael_last_version', '0' );
+
+		if ( version_compare( RAEL_VER, $last_version, '>' ) ) {
+
+			// Reset and insert widgets if updated
+			$rael_widgets_data->reset_widgets_data();
+			$rael_widgets_data->insert_widgets_data();
+
+			// Update stored version
+			update_option( 'rael_last_version', RAEL_VER );
+		}
+	
 
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -827,7 +838,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		if ( isset( $installed_plugins[ $rael_path ] ) ) {
 			$installed_rael_version = $installed_plugins[ $rael_path ]['Version'];
-
 			$widgets = get_option( 'rael_widgets' );
 
 			if ( $widgets && version_compare( RAEL_VER, $installed_rael_version, '>' ) ) {
@@ -840,7 +850,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			} elseif ( version_compare( RAEL_VER, $installed_rael_version, '>' ) ) {
 				$this->update_frontend_assets( $widgets, true );
 			}
-		}
+    	}
 	}
 
 	/**
