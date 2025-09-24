@@ -1451,6 +1451,7 @@ class Responsive_Addons_For_Elementor_Slider extends Widget_Base {
 	/**
 	 * Content template function
 	 */
+
 	protected function content_template() {
 		?>
 		<#
