@@ -252,23 +252,46 @@
         makeStickyOnScroll: function makeStickyOnScroll(element) {
           var $el = $(element);
           this.placeholder = $('<div>').height($el.outerHeight()).hide();
+         const $parent = $el.parent(); // column wrapper
+         const elementWidth = $el.outerWidth();
     
           var self = this;
           this.scrollHandler = function scrollHandler() {
             var scrollTop = $(window).scrollTop();
+              
+
+  if (scrollTop >= self.originalOffsetTop && !self.isSticky) {
+    $el.after(self.placeholder.show());
+    // base props (always applied)
+    let cssProps = {
+      position: "fixed",
+      top: 0,
+      width: elementWidth + "px",
+      zIndex: 1100,
+    };
+    // only apply offset if section has more than one column
     
-            if (scrollTop >= self.originalOffsetTop && !self.isSticky) {
-              $el.after(self.placeholder.show());
-              $el.css({
-                position: 'fixed',
-                top: 0,
-                width: $el.outerWidth() + 'px',
-                zIndex: 1100
-              });
-              self.isSticky = true;
-            } else if (scrollTop < self.originalOffsetTop && self.isSticky) {
-              self.removeStickyStyles();
-            }
+    if ($parent.children(".elementor-element.e-con").length > 1) {
+      const elementOffsetLeft = $el.offset().left;
+      let elementOffsetValue = elementOffsetLeft;
+
+      if (self.target.data("settings")?.isRTL) {
+        const parentWidth = $parent.outerWidth();
+        const documentWidth = window.innerWidth;
+       
+        elementOffsetValue = Math.max(
+          documentWidth - parentWidth - elementOffsetLeft,
+          0
+        );
+      }
+
+      cssProps["inset-inline-start"] = elementOffsetValue + "px";
+    }
+    $el.css(cssProps);
+    self.isSticky = true;
+  } else if (scrollTop < self.originalOffsetTop && self.isSticky) {
+    self.removeStickyStyles();
+  }
           };
     
           $(window).on('scroll.raelSticky-' + this.getUniqueID(), this.scrollHandler);
@@ -277,10 +300,11 @@
         removeStickyStyles: function removeStickyStyles() {
           var $el = $(this.target[0]);
           $el.css({
-            position: '',
-            top: '',
-            width: '',
-            zIndex: ''
+            position: "",
+            top: "",
+            width: "",
+            zIndex: "",
+            insetInlineStart: "",
           });
     
           if (this.placeholder) {
