@@ -895,7 +895,15 @@ class Responsive_Addons_For_Elementor_Countdown extends Widget_Base {
 				if ( empty( $settings['expire_redirect_url']['url'] ) ) {
 					continue;
 				}
-				$action_to_run['redirect_url'] = $settings['expire_redirect_url']['url'];
+				// Sanitize the URL
+				$redirect_url = esc_url_raw( $settings['expire_redirect_url']['url'] );
+
+				// whitelist http/https only
+				if ( ! preg_match( '/^https?:\/\//i', $redirect_url ) ) {
+					continue; // skip invalid or dangerous schemes like javascript:
+				}
+
+				$action_to_run['redirect_url'] = $redirect_url;
 			}
 			$actions[] = $action_to_run;
 		}
@@ -960,6 +968,6 @@ class Responsive_Addons_For_Elementor_Countdown extends Widget_Base {
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
-		return 'https://cyberchimps.com/docs/widgets/countdown';
+		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/countdown/';
 	}
 }

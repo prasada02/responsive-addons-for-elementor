@@ -268,7 +268,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 						'answer'   => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'responsive-addons-for-elementor' ),
 					),
 				),
-				'title_field' => '{{{ rael_question }}}',
+				'title_field' => '{{ rael_question }}',
 			)
 		);
 
@@ -1337,6 +1337,6 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
-		return 'https://cyberchimps.com/docs/widgets/faq';
+		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/faq/';
 	}
 }
