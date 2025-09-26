@@ -8,6 +8,7 @@
 namespace Responsive_Addons_For_Elementor\WidgetsManager;
 
 use Elementor\Plugin;
+use Responsive_Addons_For_Elementor\Helper\Helper;
 use Responsive_Addons_For_Elementor\WidgetsManager\Widgets\Posts;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -85,6 +86,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 		add_action( 'elementor/controls/register', array( $this, 'register_responsive_controls' ) );
 
 		add_action( 'wp_head', array( $this, 'render_faq_schema' ) );
+
+		// **Load all active RAEL extensions**
+    	$this->include_responsive_extensions_files();
 	}
 
 	/**
@@ -176,6 +180,40 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 		);
 
 		return $widget_list;
+	}
+	/**
+	 * List of RAEL extensions.
+	 *
+	 * @return array
+	 */
+	public function get_responsive_extensions_list() {
+		return array(
+			'particle-backgrounds' => array(
+				'file'  => RAEL_DIR . 'ext/class-rael-particles-background.php',
+				'class' => '\RAEL_Ext\RAEL_Particles_Background',			
+			),
+		);
+	}
+	/**
+	 * Load RAEL Extensions.
+	 *
+	 * @return void
+	 */
+	public function include_responsive_extensions_files() {
+		$extensions = $this->get_responsive_extensions_list();
+		foreach ( $extensions as $key => $data ) {
+			// Check if extension is enabled in settings
+			if ( Helper::is_extension_active( $key ) ) {
+
+				if ( file_exists( $data['file'] ) ) {
+					require_once $data['file'];
+
+					if ( class_exists( $data['class'] ) ) {
+						$data['class']::instance();
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -476,6 +514,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Timeline() );
 							break;
 						case 'stacking-cards':
+							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
+							break;
+						case 'sticky-section':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
 							break;
 						case 'sticky-video':
