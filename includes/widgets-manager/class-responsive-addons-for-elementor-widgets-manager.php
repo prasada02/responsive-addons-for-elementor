@@ -192,6 +192,10 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 				'file'  => RAEL_DIR . 'ext/class-rael-particles-background.php',
 				'class' => '\RAEL_Ext\RAEL_Particles_Background',			
 			),
+			'sticky-section' => array(
+				'file'  => RAEL_DIR . 'ext/class-rael-sticky-elementor.php',
+				'class' => '\RAEL_Ext\Rael_Sticky_Elementor',			
+			),
 		);
 	}
 	/**
@@ -514,9 +518,6 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Timeline() );
 							break;
 						case 'stacking-cards':
-							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
-							break;
-						case 'sticky-section':
 							Plugin::instance()->widgets_manager->register( new Widgets\Responsive_Addons_For_Elementor_Stacking_Cards() );
 							break;
 						case 'sticky-video':
