@@ -135,6 +135,10 @@ class Responsive_Addons_For_Elementor {
 		add_action('wp_ajax_rael_facebook_feed_load_more', array($this, 'rael_facebook_feed_load_more'));
 		add_action('wp_ajax_nopriv_rael_facebook_feed_load_more', array($this, 'rael_facebook_feed_load_more'));
 
+		// Hook into save_post to scan Elementor content for RAE widgets for review notice purpose
+		add_action( 'save_post', array( $this, 'rael_check_widgets_in_post' ), 20, 2 );
+
+
 		global $blog_id;
 		if ( is_multisite() ) {
 			switch_to_blog( $blog_id );
@@ -680,9 +684,13 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		if ( isset( $_GET['page'] ) && ( 'responsive' === $_GET['page'] ) ) {
 			return;
 		}
-
+		// Check if user has at least 5 published posts/pages with RAE widgets 
+		$count = $this->rael_get_published_with_widgets_count(); // use the helper function from earlier 
+		if ( $count < 5 ) { 
+			return; 
+		}
 		if ( false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
-			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, 7 * 24 * 60 * 60 );
+			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, 30 * 24 * 60 * 60 );
 			update_option( 'responsive_addons_for_elementor_review_notice', true );
 		} elseif ( false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) && false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) ) {
 			$image_path = RAEL_URL . 'admin/images/rae-icon.svg';
@@ -2465,4 +2473,54 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		$links[]   = $rate_link;
 		return $links;
 	}
+	// Count published posts/pages with RAE widgets by scanning _elementor_data used for sending review prompt
+	public function rael_get_published_with_widgets_count() {
+		$args = array(
+			'post_type'      => array('post','page'),
+			'post_status'    => 'publish',
+			'meta_key'       => '_rael_has_widget',
+			'meta_value'     => 1,
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+		);
+		$query = new WP_Query( $args );
+		return $query->found_posts;
+	}
+	public function rael_check_widgets_in_post( $post_id, $post ) {
+		// Only scan published posts/pages
+		if ( 'publish' !== $post->post_status ) return;
+
+		// Avoid autosave loops
+		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
+
+		// Get Elementor JSON data
+		$data = get_post_meta( $post_id, '_elementor_data', true );
+		if ( empty( $data ) ) return;
+
+		$elements = json_decode( $data, true );
+		if ( ! $elements ) return;
+		$elements_array = isset( $elements['elements'] ) ? $elements['elements'] : $elements;
+
+		// Check recursively for any RAE widget
+		$found = self::rael_has_widget( $elements_array );
+
+		if ( $found ) {
+			update_post_meta( $post_id, '_rael_has_widget', 1 );
+		} else {
+			delete_post_meta( $post_id, '_rael_has_widget' );
+		}
+	}
+	// Recursive function to detect RAE widgets in Elementor JSON
+	public function rael_has_widget( $elements ) {
+		foreach ( $elements as $el ) {
+			if ( isset( $el['widgetType'] ) && strpos( $el['widgetType'], 'rael' ) === 0 ) {
+				return true;
+			}
+			if ( ! empty( $el['elements'] ) && $this->rael_has_widget( $el['elements'] ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
