@@ -2513,16 +2513,24 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	}
 	// Count published posts/pages with RAE widgets by scanning _elementor_data used for sending review prompt
 	public function rael_get_published_with_widgets_count() {
-		$args = array(
-			'post_type'      => array('post','page'),
-			'post_status'    => 'publish',
-			'meta_key'       => '_rael_has_widget',
-			'meta_value'     => 1,
-			'fields'         => 'ids',
-			'posts_per_page' => -1,
-		);
-		$query = new WP_Query( $args );
-		return $query->found_posts;
+		global $wpdb;
+
+		// Count only published posts/pages that have _rael_has_widget = 1
+		$count = $wpdb->get_var( $wpdb->prepare(
+			"
+			SELECT COUNT(1)
+			FROM $wpdb->posts p
+			INNER JOIN $wpdb->postmeta pm ON p.ID = pm.post_id
+			WHERE p.post_type IN ('post','page')
+			AND p.post_status = 'publish'
+			AND pm.meta_key = %s
+			AND pm.meta_value = %s
+			",
+			'_rael_has_widget',
+			1
+		));
+
+		return (int) $count;
 	}
 	public function rael_check_widgets_in_post( $post_id, $post ) {
 		// Only scan published posts/pages
