@@ -66,6 +66,9 @@ class Responsive_Addons_For_Elementor {
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'widget_scripts' ) );
+  		
+		// Elementor editor scripts for import template notice
+        add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'rael_enqueue_editor_scripts' ] );
 
 		add_action( 'admin_enqueue_scripts', array( &$this, 'responsive_addons_for_elementor_admin_enqueue_styles' ) );
 
@@ -137,6 +140,8 @@ class Responsive_Addons_For_Elementor {
 
 		// Hook into save_post to scan Elementor content for RAE widgets for review notice purpose
 		add_action( 'save_post', array( $this, 'rael_check_widgets_in_post' ), 20, 2 );
+		add_action( 'wp_ajax_rael_mark_template_imported', array( $this, 'rael_mark_template_imported' ) );
+		add_action( 'wp_ajax_nopriv_rael_mark_template_imported', array( $this, 'rael_mark_template_imported' ) );
 
 
 		global $blog_id;
@@ -681,18 +686,20 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 * @since 1.4
 	 */
 	public function rael_ask_for_review_notice() {
+
 		if ( isset( $_GET['page'] ) && ( 'responsive' === $_GET['page'] ) ) {
 			return;
 		}
+
 		// Check if user has at least 5 published posts/pages with RAE widgets 
 		$count = $this->rael_get_published_with_widgets_count(); // use the helper function from earlier 
-		if ( $count < 5 ) { 
-			return; 
-		}
-		if ( false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
+
+
+		if (false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
 			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, 30 * 24 * 60 * 60 );
 			update_option( 'responsive_addons_for_elementor_review_notice', true );
-		} elseif ( false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) && false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) ) {
+		} 
+		if ( $count >= 5 || false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) && false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) || $any_template_imported ) {
 			$image_path = RAEL_URL . 'admin/images/rae-icon.svg';
 			printf(
 				'<div class="notice notice-warning rael-ask-for-review-notice">
@@ -1042,6 +1049,14 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			RAEL_VER,
 			true
 		);
+		// Pass data to JS to show review notice on template import
+		$importparams = array(
+			'ajax_url'   => admin_url( 'admin-ajax.php' ),
+			'rael_import_nonce' => wp_create_nonce( 'rael_import_nonce' ),
+			'post_id'    => get_the_ID(),
+		);
+		wp_localize_script( 'rael-frontend' , 'rael_import_review', $importparams );
+
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			$has_cart = is_a( WC()->cart, 'WC_Cart' );
@@ -1370,6 +1385,29 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			false
 		);
 	}
+	  /**
+     * Editor scripts (Elementor backend editor)
+     * rael-import-template-notice.js
+     */
+    public function rael_enqueue_editor_scripts() {
+        wp_enqueue_script(
+            'rael-import-notice',
+            RAEL_URL . 'assets/js/editor/rael-import-template-notice.js',
+            array('jquery', 'elementor-editor'),
+            RAEL_VER,
+            true
+        );
+
+        wp_localize_script(
+            'rael-import-notice',
+            'rael_editor_data',
+            array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'rael_import_nonce' => wp_create_nonce( 'rael_import_nonce' ),
+                'post_id' => get_the_ID(),
+			)
+        );
+    }
 
 	/**
 	 * Include Admin css
@@ -2495,10 +2533,23 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		// Get Elementor JSON data
 		$data = get_post_meta( $post_id, '_elementor_data', true );
-		if ( empty( $data ) ) return;
+		if ( empty($data) ) {
+			return;
+		}
 
-		$elements = json_decode( $data, true );
-		if ( ! $elements ) return;
+		// Decode only if string
+		if ( is_string( $data ) ) {
+			$elements = json_decode( $data, true );
+			if ( json_last_error() !== JSON_ERROR_NONE ) {
+				return;
+			}
+		} elseif ( is_array( $data ) ) {
+			$elements = $data;
+		} else {
+			// Unexpected type
+			return;
+		}
+		
 		$elements_array = isset( $elements['elements'] ) ? $elements['elements'] : $elements;
 
 		// Check recursively for any RAE widget
@@ -2523,4 +2574,19 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		return false;
 	}
 
+	public function rael_mark_template_imported() {
+		check_ajax_referer( 'rael_import_nonce', 'nonce' );
+
+		$post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+		if ( $post_id ) {
+			update_post_meta( $post_id, '_rael_template_imported', 1 );
+
+			// Clear and reset transient after new import
+			delete_transient( 'rael_template_imported_any' );
+			set_transient( 'rael_template_imported_any', 1, 30 * DAY_IN_SECONDS );
+		}
+
+		wp_send_json_success();
+	}
 }
