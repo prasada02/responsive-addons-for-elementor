@@ -59,5 +59,9 @@
     -webkit-box-shadow: 0 0 0 0 currentColor;
     box-shadow: 0 0 0 0 currentColor;
     opacity: 0; } }
-
+@media only screen and (max-width: 767px) {
+  .hotspot-image > .hotspot-indicator-content {
+    width: 34%;
+  }
+}
 /*# sourceMappingURL=image-hotspot.css.map */
