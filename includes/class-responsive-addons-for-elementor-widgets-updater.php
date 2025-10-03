@@ -261,6 +261,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'creativity',
 			),
 			array(
+				'title'    => 'particle-backgrounds',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/particle-backgrounds-for-elementor/',
+				'category' => 'extensions',
+			),
+			array(
 				'title'    => 'portfolio',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/portfolio',
 				'category' => 'content',
@@ -441,6 +446,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'creativity',
 			),
 			array(
+				'title'    => 'sticky-section',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-section/',
+				'category' => 'extensions',
+			),
+			array(
 				'title'    => 'sticky-video',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-video',
 				'category' => 'marketing',
@@ -557,7 +567,6 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			add_option( 'rael_widgets', $widgets );
 		}
 	}
-
 	/**
 	 * Reset the RAEL widgets into the database.
 	 */
