@@ -46,12 +46,13 @@ foreach ( $widgets as $widget ) {
 					<span class="rael-widget-category mx-3"><?php esc_html_e( '|', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category rael-widget-tab pointer" id="creativity"><?php esc_html_e( 'Creativity', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category mx-3"><?php esc_html_e( '|', 'responsive-addons-for-elementor' ); ?></span>
-					<span class="rael-widget-category rael-widget-tab pointer" id="woocommerce"><?php esc_html_e( 'WooCommerce', 'responsive-addons-for-elementor' ); ?></span>
+					<span class="rael-widget-category rael-widget-tab pointer" id="woocommerce"><?php esc_html_e( 'Woo', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category mx-3"><?php esc_html_e( '|', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category rael-widget-tab pointer" id="seo"><?php esc_html_e( 'SEO', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category mx-3"><?php esc_html_e( '|', 'responsive-addons-for-elementor' ); ?></span>
 					<span class="rael-widget-category rael-widget-tab pointer" id="themebuilder"><?php esc_html_e( 'Theme Builder', 'responsive-addons-for-elementor' ); ?></span>
-					
+					<span class="rael-widget-category mx-3"><?php esc_html_e( '|', 'responsive-addons-for-elementor' ); ?></span>
+					<span class="rael-widget-category rael-widget-tab pointer" id="extensions"><?php esc_html_e( 'Extensions', 'responsive-addons-for-elementor' ); ?></span>
 				</p>
 			</div>
 		</div>
