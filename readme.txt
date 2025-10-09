@@ -7,7 +7,7 @@ Tested up to: 6.8
 Elementor tested up to: 3.32
 Elementor Pro tested up to: 3.32
 Requires PHP: 5.6
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -291,6 +291,11 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 2.0.5 - 10th October 2025 =
+- Improvement: Added enable/disable toggle for RAE Extensions like Particle Backgrounds and Sticky Section.
+- Fix: Resolved issue where the RAE Sticky section was not functioning correctly for columns.
+- Fix: Minor bug fixes.
 
 = 2.0.4 - 30th September 2025 =
 - Fix: MailChimp Styler Widget - Fixed dropdown issue where the MailChimp list was not appearing.
