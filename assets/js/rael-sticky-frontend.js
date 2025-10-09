@@ -275,23 +275,13 @@
       const elementOffsetLeft = $el.offset().left;
       let elementOffsetValue = elementOffsetLeft;
 
-      if (self.target.data("settings")?.isRTL) {
-        const parentWidth = $parent.outerWidth();
-        const documentWidth = window.innerWidth;
-       
-        elementOffsetValue = Math.max(
-          documentWidth - parentWidth - elementOffsetLeft,
-          0
-        );
-      }
-
-      cssProps["inset-inline-start"] = elementOffsetValue + "px";
-    }
-    $el.css(cssProps);
-    self.isSticky = true;
-  } else if (scrollTop < self.originalOffsetTop && self.isSticky) {
-    self.removeStickyStyles();
-  }
+                cssProps["inset-inline-start"] = elementOffsetValue + "px";
+              }
+              $el.css(cssProps);
+              self.isSticky = true;
+            } else if (scrollTop < self.originalOffsetTop && self.isSticky) {
+              self.removeStickyStyles();
+            }
           };
     
           $(window).on('scroll.raelSticky-' + this.getUniqueID(), this.scrollHandler);

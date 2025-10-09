@@ -125,7 +125,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'       => __( 'Title Meta Field', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'placeholder' =>  '',
 				'condition'   => array(
 					'source_type' => 'posts',
 					'title_source' => 'post_meta', // shows only if post_meta is selected
@@ -156,7 +156,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'       => __( 'Description Meta Field', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'placeholder' =>  '',
 				'condition'   => array(
 					'source_type' => 'posts',
 					'description_source' => 'post_meta', // shows only if post_meta is selected
@@ -185,7 +185,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'       => __( 'Link Meta Field', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'placeholder' => '',
 				'condition'   => array(
 					'source_type' => 'posts',
 					'link_source' => 'post_meta', // shows only if post_meta is selected
@@ -219,7 +219,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'       => __( 'Button Meta Field', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'placeholder' => '',
 				'condition'   => array(
 					'source_type' => 'posts',
 					'button_text_source' => 'post_meta', // shows only if post_meta is selected
@@ -252,7 +252,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label'       => __( 'Image Meta Field', 'responsive-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( '', 'responsive-addons-for-elementor' ),
+				'placeholder' => '',
 				'condition'   => array(
 					'source_type' => 'posts',
 					'image_source' => 'post_meta', // shows only if post_meta is selected
@@ -515,26 +515,26 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'fields'      => $repeater->get_controls(),
 				'default'     => array(
 					 array(
-                'item_title'    => __('Creative Approaches'),
-                'item_desc'     => __('Harness pioneering technologies that redefine business operations and drive unprecedented productivity.'),
+                'item_title'    => __('Creative Approaches','responsive-addons-for-elementor'),
+                'item_desc'     => __('Harness pioneering technologies that redefine business operations and drive unprecedented productivity.','responsive-addons-for-elementor'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card1.png'),
                 'graphic_icon' => array('value' => 'fas fa-lightbulb', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => __('Unified Experience'),
-                'item_desc'     => __('Seamlessly unify your tools and systems through flexible integrations designed around you.'),
+                'item_title'    => __('Unified Experience','responsive-addons-for-elementor'),
+                'item_desc'     => __('Seamlessly unify your tools and systems through flexible integrations designed around you.','responsive-addons-for-elementor'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card2.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-cogs', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => __('User-Driven Innovation'),
-                'item_desc'     => __('Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.'),
+                'item_title'    => __('User-Driven Innovation','responsive-addons-for-elementor'),
+                'item_desc'     => __('Empower your audience through seamless experiences, intuitive interfaces, and thoughtful design.','responsive-addons-for-elementor'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card3.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-file-alt', 'library' => 'fa-solid'),
             ),
             array(
-                'item_title'    => __('Steady Expansion'),
-                'item_desc'     => __('Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.'),
+                'item_title'    => __('Steady Expansion','responsive-addons-for-elementor'),
+                'item_desc'     => __('Unlock your organization’s potential with powerful strategies designed for long-term success and expansion.','responsive-addons-for-elementor'),
                 'item_image'    => array( 'url' => RAEL_ASSETS_URL . 'images/stacking-cards/card4.jpg' ),
                 'graphic_icon' => array('value' => 'fas fa-chart-line', 'library' => 'fa-solid'),
             ),
@@ -1990,7 +1990,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			$this->add_render_attribute( 'wrapper', 'data-scroll-motion', 'true' );
 		}
 
-		echo '<div ' . $this->get_render_attribute_string( 'wrapper' ) . '>';
+		echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'wrapper' )) . '>';
 
 		
 		$min_scale = 0.85; // first (back) card
@@ -2068,7 +2068,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
             )
         );
 			
-			echo '<div ' . $this->get_render_attribute_string( 'card' . $index ) . '>';
+			echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'card' . $index )) . '>';
 
 			// Card inner (flex container)
         	echo '<div class="rael-card-inner">';
@@ -2202,11 +2202,11 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			$this->add_render_attribute( 'rael_card_title', 'style', $inline_title_style );
 			$tag = ! empty( $settings['title_html_tag'] ) ? $settings['title_html_tag'] : 'div';
 			if ( !empty($final_title) ) {
-				echo '<' . esc_html( $tag ) . ' ' . $this->get_render_attribute_string( 'rael_card_title' ) . '>' . esc_html( $final_title ) . '</' . esc_html( $tag ) . '>';
+				echo '<' . esc_html( $tag ) . ' ' . wp_kses_post($this->get_render_attribute_string( 'rael_card_title' )) . '>' . esc_html( $final_title ) . '</' . esc_html( $tag ) . '>';
 
 			}
 			else if ( !empty ($settings['show_title']) && ! empty( $item['title'] )  ){
-				echo '<' . esc_html( $tag ) . ' ' . $this->get_render_attribute_string( 'rael_card_title' ) . '>' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
+				echo '<' . esc_html( $tag ) . ' ' . wp_kses_post($this->get_render_attribute_string( 'rael_card_title' )) . '>' . esc_html( $item['title'] ) . '</' . esc_html( $tag ) . '>';
 
 			}
 
@@ -2305,10 +2305,10 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			$this->add_render_attribute( 'rael_card_desc', 'style', $desc_inline_style );
 
 			if ( ! empty( $final_desc ) ) {
-				echo '<div ' . $this->get_render_attribute_string( 'rael_card_desc' ) . '>' . wp_kses_post( $final_desc ) . '</div>';
+				echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'rael_card_desc' )) . '>' . wp_kses_post( $final_desc ) . '</div>';
 			} 
 			else if ( ! empty( $settings['show_description'] ) && ! empty( $item['desc'] ) ) {
-				echo '<div ' . $this->get_render_attribute_string( 'rael_card_desc' ) . '>' . wp_kses_post( $item['desc'] ) . '</div>';
+				echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'rael_card_desc' )) . '>' . wp_kses_post( $item['desc'] ) . '</div>';
 			}
 
 			// Button render
@@ -2413,7 +2413,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'nofollow'    => $item['link_nofollow'],
 				] );
 
-				echo '<div><a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
+				echo '<div><a ' . wp_kses_post($this->get_render_attribute_string( 'button_' . $index )) . ' class="elementor-button rael-card-button">';
 				echo esc_html( $final_button_text );
 				echo '</a></div>';
 			}
@@ -2423,7 +2423,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'is_external' => $item['link_external'],
 					'nofollow'    => $item['link_nofollow'],
 				] );
-				echo '<div><a ' . $this->get_render_attribute_string( 'button_' . $index ) . ' class="elementor-button rael-card-button">';
+				echo '<div><a ' . wp_kses_post($this->get_render_attribute_string( 'button_' . $index )) . ' class="elementor-button rael-card-button">';
 				echo esc_html( $item['button_text'] );
 				echo '</a></div>';
 			}
@@ -2478,7 +2478,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			}
 
 			if ( !empty($settings['show_image']) && ! empty( $image_output ) ) {
-				echo '<div class="rael-card-media">' . $image_output . '</div>';
+				echo '<div class="rael-card-media">' . wp_kses_post( $image_output ) . '</div>';
 			}
 
 			echo '</div>'; // .rael-card-inner

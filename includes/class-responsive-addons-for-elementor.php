@@ -691,15 +691,23 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			return;
 		}
 
-		// Check if user has at least 5 published posts/pages with RAE widgets 
+		// Fetch the count of posts with RAE widgets
 		$count = $this->rael_get_published_with_widgets_count(); // use the helper function from earlier 
-
+		// Check if any template was imported in the last 30 days.
+		$any_template_imported = (bool) get_transient( 'rael_template_imported_any' );
 
 		if (false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
 			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, 30 * 24 * 60 * 60 );
 			update_option( 'responsive_addons_for_elementor_review_notice', true );
 		} 
-		if ( $count >= 5 || false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) && false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) || $any_template_imported ) {
+		
+		if (
+			false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) &&
+			false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) &&
+			( $count >= 5 || $any_template_imported )
+		)
+		{
+
 			$image_path = RAEL_URL . 'admin/images/rae-icon.svg';
 			printf(
 				'<div class="notice notice-warning rael-ask-for-review-notice">
@@ -750,6 +758,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		if ( isset( $_GET['responsive-addons-for-elementor-notice-dismissed'] ) ) {
 			update_option( 'responsive_addons_for_elementor_review_notice_dismissed', true );
 			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-for-elementor-notice-dismissed' ), wp_get_referer() ) );
+			exit;
 		}
 	}
 
@@ -760,6 +769,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		if ( isset( $_GET['responsive-addons-for-elementor-review-notice-change-timeout'] ) ) {
 			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, DAY_IN_SECONDS );
 			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-for-elementor-review-notice-change-timeout' ), wp_get_referer() ) );
+			exit;
 		}
 	}
 
@@ -911,8 +921,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-products-compare.php';
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-helperwoocheckout.php';
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-woo-checkout-helper.php';
-		require_once RAEL_DIR . 'ext/class-rael-particles-background.php';
-		require_once RAEL_DIR . 'ext/class-rael-sticky-elementor.php';
 	}
 
 	/**
@@ -1085,22 +1093,23 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			'RAELFrontendConfig',
 			$locale_settings
 		);
-
-		wp_localize_script(
-			'rael-particles',
-			'rael_particles',
-			array(
-				'particles_lib'    => RAEL_ASSETS_URL . '/lib/particles/particles.min.js',
-				'snowflakes_image' => RAEL_ASSETS_URL . '/images/snowflake.svg',
-				'gift'             => RAEL_ASSETS_URL . '/images/gift.png',
-				'tree'             => RAEL_ASSETS_URL . '/images/tree.png',
-				'skull'            => RAEL_ASSETS_URL . '/images/skull.png',
-				'ghost'            => RAEL_ASSETS_URL . '/images/ghost.png',
-				'moon'             => RAEL_ASSETS_URL . '/images/moon.png',
-				'bat'              => RAEL_ASSETS_URL . '/images/bat.png',
-				'pumpkin'          => RAEL_ASSETS_URL . '/images/pumpkin.png',
-			)
-		);
+		if (Helper::is_extension_active('particle-backgrounds')) {
+			wp_localize_script(
+				'rael-particles',
+				'rael_particles',
+				array(
+					'particles_lib' => RAEL_ASSETS_URL . '/lib/particles/particles.min.js',
+					'snowflakes_image' => RAEL_ASSETS_URL . '/images/snowflake.svg',
+					'gift' => RAEL_ASSETS_URL . '/images/gift.png',
+					'tree' => RAEL_ASSETS_URL . '/images/tree.png',
+					'skull' => RAEL_ASSETS_URL . '/images/skull.png',
+					'ghost' => RAEL_ASSETS_URL . '/images/ghost.png',
+					'moon' => RAEL_ASSETS_URL . '/images/moon.png',
+					'bat' => RAEL_ASSETS_URL . '/images/bat.png',
+					'pumpkin' => RAEL_ASSETS_URL . '/images/pumpkin.png',
+				)
+			);
+		}
 	}
 
 	/**
@@ -1320,16 +1329,20 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 		wp_register_style( 'rael-animate-style', RAEL_ASSETS_URL . 'lib/animate/animate.min.css', null, RAEL_VER );
 		wp_enqueue_style( 'rael-animate-style' );
+		if (Helper::is_extension_active('particle-backgrounds')) {
 
 		wp_enqueue_script( 'rael-particles', RAEL_ASSETS_URL . 'lib/particles/particles.js', array(), RAEL_VER, true );
 
 		wp_register_style( 'rael-particles-style', RAEL_ASSETS_URL . 'lib/particles/particles.min.css', null, RAEL_VER );
 
-		wp_register_style( 'rael-particles-style-rtl', RAEL_ASSETS_URL . 'lib/particles/particles-rtl.min.css', null, RAEL_VER );
-		wp_enqueue_style( 'rael-particles-style' );
-		wp_enqueue_style( 'rael-particles-style-rtl' );
-		wp_register_style( 'rael-sticky', RAEL_URL . 'admin/css/rael-sticky.css', array(), RAEL_VER );
-		wp_enqueue_style( 'rael-sticky' );
+			wp_register_style('rael-particles-style-rtl', RAEL_ASSETS_URL . 'lib/particles/particles-rtl.min.css', null, RAEL_VER);
+			wp_enqueue_style('rael-particles-style');
+			wp_enqueue_style('rael-particles-style-rtl');
+		}
+		if (Helper::is_extension_active('sticky-section')) {
+			wp_register_style('rael-sticky', RAEL_URL . 'admin/css/rael-sticky.css', array(), RAEL_VER);
+			wp_enqueue_style('rael-sticky');
+		}
 		wp_enqueue_script(
 			'jet-resize-sensor',
 			RAEL_ASSETS_URL . 'lib/sticky-sidebar/ResizeSensor.min.js',
