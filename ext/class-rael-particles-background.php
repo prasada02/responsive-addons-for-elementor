@@ -175,7 +175,7 @@ if ( ! class_exists( 'RAEL_Particles_Background' ) ) {
 					array(
 						'type'         => Controls_Manager::SWITCHER,
 						'label'        => __( 'Enable Particle Background', 'responsive-addons-for-elementor' ),
-						'default'      => '',
+						'default'      => 'no',
 						'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
 						'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
 						'return_value' => 'yes',
