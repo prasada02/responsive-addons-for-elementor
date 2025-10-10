@@ -693,25 +693,25 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		// Checking if the review notice was permanently dismissed
 		$review_dismissed = get_option( 'responsive_addons_for_elementor_review_notice_dismissed' );
 		if ( $review_dismissed ) {
-			return; // Never show again
+			return; 
 		}
 		if (false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
 			set_transient( 'responsive_addons_for_elementor_intial_timeout', true, 30 * 24 * 60 * 60 );
 			update_option( 'responsive_addons_for_elementor_review_notice', true );
 		}
-		$maybe_later_active = (bool) get_transient( 'responsive_addons_for_elementor_intial_timeout' );
+		$maybe_later_active = (bool) get_transient( 'responsive_addons_for_elementor_timeout' );
 		if ( $maybe_later_active ) {
-			return; // Don't show notice while timeout is active
+			return; 
 		}
 		
 		// Fetch the count of posts with RAE widgets
-		$count = $this->rael_get_published_with_widgets_count(); // use the helper function from earlier 
-		// Check if any template was imported in the last 30 days.
+		$count = $this->rael_get_published_with_widgets_count(); 
+		 
+		// Check if any template was imported.
 		$any_template_imported = (bool) get_transient( 'rael_template_imported_any' );
     	
 		$thirty_day_delay_passed = get_option( 'responsive_addons_for_elementor_initial_timeout' ) ? true : false;
 
-		
 		if ( $thirty_day_delay_passed || $count >= 5 || $any_template_imported ) 
 		{
 
@@ -756,6 +756,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			);
 			do_action( 'tag_review' );
 		}
+		
 	}
 
 	/**
@@ -774,7 +775,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 */
 	public function rael_notice_change_timeout() {
 		if ( isset( $_GET['responsive-addons-for-elementor-review-notice-change-timeout'] ) ) {
-			set_transient( 'responsive_addons_for_elementor_intial_timeout', true, DAY_IN_SECONDS );
+			set_transient( 'responsive_addons_for_elementor_timeout', true, DAY_IN_SECONDS );
 			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-for-elementor-review-notice-change-timeout' ), wp_get_referer() ) );
 			exit;
 		}
