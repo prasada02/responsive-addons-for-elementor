@@ -712,7 +712,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		$thirty_day_delay_passed = get_option( 'responsive_addons_for_elementor_initial_timeout' ) ? true : false;
 
 		
-		if ( $thirty_day_delay_passed || $count >= 1 || $any_template_imported ) 
+		if ( $thirty_day_delay_passed || $count >= 5 || $any_template_imported ) 
 		{
 
 			$image_path = RAEL_URL . 'admin/images/rae-icon.svg';
