@@ -284,6 +284,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				'type'               => Controls_Manager::SELECT,
 				'label'              => __( 'Slides Per View', 'responsive-addons-for-elementor' ),
 				'options'            => array( '' => __( 'Default', 'responsive-addons-for-elementor' ) ) + $slides_per_view,
+				'mobile_default' => '1', 
 				'frontend_available' => true,
 			)
 		);
