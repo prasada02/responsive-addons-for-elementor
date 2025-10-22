@@ -217,34 +217,46 @@
         originalOffsetTop: null,
     
         init: function init() {
-          var isStickyEnabled = this.getSectionSetting('rael_sticky_section_sticky') === 'yes';
-    
-          $(window).off('scroll.raelSticky-' + this.getUniqueID());
-          $(window).off('resize.raelSticky-' + this.getUniqueID());
-    
+          var isStickyEnabled =
+            this.getSectionSetting("rael_sticky_section_sticky") === "yes";
+
+          $(window).off("scroll.raelSticky-" + this.getUniqueID());
+          $(window).off("resize.raelSticky-" + this.getUniqueID());
+
           this.removeStickyStyles();
-    
+
           if (!isStickyEnabled) {
             return;
           }
-    
-          this.originalOffsetTop = this.target.offset().top;
-    
-          this.makeStickyOnScroll(this.target[0]);
-    
+
+          // Delay sticky init until the section is visible
           var self = this;
-          $(window).on('resize.raelSticky-' + this.getUniqueID(), function resizeHandler() {
-            self.originalOffsetTop = self.target.offset().top;
-          });
-    
-          var devices = this.getSectionSetting('rael_sticky_section_sticky_visibility') || [];
-          if (-1 !== devices.indexOf('desktop')) {
+          var checkVisibility = setInterval(function () {
+            if (self.target.is(":visible") && self.target.offset().top > 0) {
+              clearInterval(checkVisibility);
+              self.originalOffsetTop = self.target.offset().top;
+              self.makeStickyOnScroll(self.target[0]);
+            }
+          }, 300);
+
+          var self = this;
+          $(window).on(
+            "resize.raelSticky-" + this.getUniqueID(),
+            function resizeHandler() {
+              self.originalOffsetTop = self.target.offset().top;
+            }
+          );
+
+          var devices =
+            this.getSectionSetting("rael_sticky_section_sticky_visibility") ||
+            [];
+          if (-1 !== devices.indexOf("desktop")) {
             RaelSticky.getStickySectionsDesktop.push($scope);
           }
-          if (-1 !== devices.indexOf('tablet')) {
+          if (-1 !== devices.indexOf("tablet")) {
             RaelSticky.getStickySectionsTablet.push($scope);
           }
-          if (-1 !== devices.indexOf('mobile')) {
+          if (-1 !== devices.indexOf("mobile")) {
             RaelSticky.getStickySectionsMobile.push($scope);
           }
         },
@@ -253,7 +265,7 @@
           var $el = $(element);
           this.placeholder = $('<div>').height($el.outerHeight()).hide();
          const $parent = $el.parent(); // column wrapper
-         const elementWidth = $el.outerWidth();
+          const elementWidth = $el.outerWidth();
     
           var self = this;
           this.scrollHandler = function scrollHandler() {
@@ -277,7 +289,7 @@
 
                 cssProps["inset-inline-start"] = elementOffsetValue + "px";
               }
-              $el.css(cssProps);
+    $el.css(cssProps);
               self.isSticky = true;
             } else if (scrollTop < self.originalOffsetTop && self.isSticky) {
               self.removeStickyStyles();
