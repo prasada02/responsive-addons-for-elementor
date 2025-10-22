@@ -907,8 +907,20 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 
 		foreach ( $widget_ids as $widget_id ) {
 			$widget_data            = $this->find_element_recursive( $data, $widget_id );
+			// Skip if invalid data
+			if ( empty( $widget_data ) || ! is_array( $widget_data ) ) {
+				continue;
+			}
+
 			$widget                 = $elementor->elements_manager->create_element_instance( $widget_data );
+			// Skip if instance creation failed
+			if ( ! $widget || ! method_exists( $widget, 'get_settings' ) ) {
+				continue;
+			}
 			$settings               = $widget->get_settings();
+			if ( empty( $settings['rael_tabs'] ) || ! is_array( $settings['rael_tabs'] ) ) {
+				continue;
+			}
 			$content_schema_warning = 0;
 			$enable_schema          = $settings['rael_schema_support'];
 

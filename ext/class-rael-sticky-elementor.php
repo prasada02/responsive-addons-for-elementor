@@ -49,15 +49,18 @@ if ( ! class_exists( 'Rael_Sticky_Elementor' ) ) {
 		 * Initializes the plugin by adding actions and filters.
 		 */
 		public function __construct() {
-
 			add_action( 'elementor/element/column/section_advanced/after_section_end', array( $this, 'after_section_column_layout' ), 10, 2 );
-
-			add_action( 'elementor/frontend/column/before_render', array( $this, 'column_before_render' ) );
-			add_action( 'elementor/frontend/element/before_render', array( $this, 'column_before_render' ) );
+			//  Register frontend hooks *after* Elementor initializes
+    		add_action( 'elementor/frontend/init', array( $this, 'register_frontend_sticky_hooks' ) );
 
 			add_action( 'elementor/element/after_section_end', array( $this, 'register_sticky_controls' ), 10, 3 );
 
 			add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_scripts' ), 9 );
+		}
+		public function register_frontend_sticky_hooks() {
+			add_action( 'element_ready/column', array( $this, 'column_before_render' ) );
+			add_action( 'element_ready/container', array( $this, 'column_before_render' ) );
+			add_action( 'element_ready/global', array( $this, 'column_before_render' ) );
 		}
 
 		/**
