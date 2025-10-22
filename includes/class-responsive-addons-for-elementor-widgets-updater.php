@@ -181,7 +181,7 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			array(
 				'title'    => 'gf-styler',
 				'name'     => 'Gravity Forms Styler',
-				'docs'     => 'https://cyberchimps.com/docs/widgets/gravity-forms-styler',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/gravity-forms-styler',
 				'category' => 'form',
 			),
 			array(
@@ -259,6 +259,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'title'    => 'one-page-navigation',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/one-page-navigation',
 				'category' => 'creativity',
+			),
+			array(
+				'title'    => 'particle-backgrounds',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/particle-backgrounds-for-elementor/',
+				'category' => 'extensions',
 			),
 			array(
 				'title'    => 'portfolio',
@@ -441,6 +446,11 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 				'category' => 'creativity',
 			),
 			array(
+				'title'    => 'sticky-section',
+				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-section/',
+				'category' => 'extensions',
+			),
+			array(
 				'title'    => 'sticky-video',
 				'docs'     => 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/sticky-video',
 				'category' => 'marketing',
@@ -557,7 +567,6 @@ class Responsive_Addons_For_Elementor_Widgets_Updater {
 			add_option( 'rael_widgets', $widgets );
 		}
 	}
-
 	/**
 	 * Reset the RAEL widgets into the database.
 	 */

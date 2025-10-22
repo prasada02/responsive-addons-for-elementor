@@ -667,7 +667,7 @@ class Responsive_Addons_For_Elementor_Image_Hotspot extends Widget_Base {
 			array(
 				'name'     => 'rael_title_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'selector' => '.title',
+				'selector' => '{{WRAPPER}} .title',
 			)
 		);
 
@@ -685,7 +685,7 @@ class Responsive_Addons_For_Elementor_Image_Hotspot extends Widget_Base {
 			array(
 				'name'     => 'rael_description_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'selector' => '.description',
+				'selector' => '{{WRAPPER}} .description',
 			)
 		);
 
@@ -703,7 +703,7 @@ class Responsive_Addons_For_Elementor_Image_Hotspot extends Widget_Base {
 			array(
 				'name'     => 'rael_button_typography',
 				'label'    => __( 'Typography', 'responsive-addons-for-elementor' ),
-				'selector' => '.hotspot-button',
+				'selector' => '{{WRAPPER}} .hotspot-button',
 			)
 		);
 
@@ -1003,6 +1003,6 @@ class Responsive_Addons_For_Elementor_Image_Hotspot extends Widget_Base {
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
-		return 'https://cyberchimps.com/docs/widgets/image-hotspot';
+		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/image-hotspot-2/';
 	}
 }

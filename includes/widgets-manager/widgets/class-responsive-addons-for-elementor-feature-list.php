@@ -439,7 +439,7 @@ class Responsive_Addons_For_Elementor_Feature_List extends Widget_Base {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .rael-feature-list-items .rael-feature-list-item:not(:last-child)'   => 'padding-bottom: calc({{SIZE}}{{UNIT}}/2)',
+					'{{WRAPPER}} .rael-feature-list-items .rael-feature-list-item:not(:last-child)'   => 'padding-bottom: calc({{SIZE}}{{UNIT}}/2) !important',
 					'{{WRAPPER}} .rael-feature-list-items .rael-feature-list-item:not(:first-child)'  => 'padding-top: calc({{SIZE}}{{UNIT}}/2)',
 					'{{WRAPPER}} .rael-feature-list-items.connector-type-modern .rael-feature-list-item:not(:last-child):before' => 'height: calc(100% + {{SIZE}}{{UNIT}})',
 					'body.rtl {{WRAPPER}} .rael-feature-list-items .rael-feature-list-item:after'  => 'left: calc(-{{SIZE}}{{UNIT}}/2)',
@@ -1335,6 +1335,6 @@ class Responsive_Addons_For_Elementor_Feature_List extends Widget_Base {
 	 * @return string help URL
 	 */
 	public function get_custom_help_url() {
-		return 'https://cyberchimps.com/docs/widgets/feature-list';
+		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/feature-list/';
 	}
 }

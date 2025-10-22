@@ -66,6 +66,9 @@ class Responsive_Addons_For_Elementor {
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'widget_scripts' ) );
+  		
+		// Elementor editor scripts for import template notice
+        add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'rael_enqueue_editor_scripts' ] );
 
 		add_action( 'admin_enqueue_scripts', array( &$this, 'responsive_addons_for_elementor_admin_enqueue_styles' ) );
 
@@ -134,6 +137,12 @@ class Responsive_Addons_For_Elementor {
 		//RAEL Facebook Feed
 		add_action('wp_ajax_rael_facebook_feed_load_more', array($this, 'rael_facebook_feed_load_more'));
 		add_action('wp_ajax_nopriv_rael_facebook_feed_load_more', array($this, 'rael_facebook_feed_load_more'));
+
+		// Hook into save_post to scan Elementor content for RAE widgets for review notice purpose
+		add_action( 'save_post', array( $this, 'rael_check_widgets_in_post' ), 20, 2 );
+		add_action( 'wp_ajax_rael_mark_template_imported', array( $this, 'rael_mark_template_imported' ) );
+		add_action( 'wp_ajax_nopriv_rael_mark_template_imported', array( $this, 'rael_mark_template_imported' ) );
+
 
 		global $blog_id;
 		if ( is_multisite() ) {
@@ -677,14 +686,35 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 * @since 1.4
 	 */
 	public function rael_ask_for_review_notice() {
+
 		if ( isset( $_GET['page'] ) && ( 'responsive' === $_GET['page'] ) ) {
 			return;
 		}
-
-		if ( false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
-			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, 7 * 24 * 60 * 60 );
+		// Checking if the review notice was permanently dismissed
+		$review_dismissed = get_option( 'responsive_addons_for_elementor_review_notice_dismissed' );
+		if ( $review_dismissed ) {
+			return; 
+		}
+		if (false === get_option( 'responsive_addons_for_elementor_review_notice' ) ) {
+			set_transient( 'responsive_addons_for_elementor_intial_timeout', true, 30 * 24 * 60 * 60 );
 			update_option( 'responsive_addons_for_elementor_review_notice', true );
-		} elseif ( false === (bool) get_transient( 'responsive_addons_for_elementor_ask_review_flag' ) && false === get_option( 'responsive_addons_for_elementor_review_notice_dismissed' ) ) {
+		}
+		$maybe_later_active = (bool) get_transient( 'responsive_addons_for_elementor_timeout' );
+		if ( $maybe_later_active ) {
+			return; 
+		}
+		
+		// Fetch the count of posts with RAE widgets
+		$count = $this->rael_get_published_with_widgets_count(); 
+		 
+		// Check if any template was imported.
+		$any_template_imported = (bool) get_transient( 'rael_template_imported_any' );
+    	
+		$thirty_day_delay_passed = get_option( 'responsive_addons_for_elementor_initial_timeout' ) ? true : false;
+
+		if ( $thirty_day_delay_passed || $count >= 5 || $any_template_imported ) 
+		{
+
 			$image_path = RAEL_URL . 'admin/images/rae-icon.svg';
 			printf(
 				'<div class="notice notice-warning rael-ask-for-review-notice">
@@ -726,6 +756,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			);
 			do_action( 'tag_review' );
 		}
+		
 	}
 
 	/**
@@ -735,6 +766,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		if ( isset( $_GET['responsive-addons-for-elementor-notice-dismissed'] ) ) {
 			update_option( 'responsive_addons_for_elementor_review_notice_dismissed', true );
 			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-for-elementor-notice-dismissed' ), wp_get_referer() ) );
+			exit;
 		}
 	}
 
@@ -743,8 +775,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 */
 	public function rael_notice_change_timeout() {
 		if ( isset( $_GET['responsive-addons-for-elementor-review-notice-change-timeout'] ) ) {
-			set_transient( 'responsive_addons_for_elementor_ask_review_flag', true, DAY_IN_SECONDS );
+			set_transient( 'responsive_addons_for_elementor_timeout', true, DAY_IN_SECONDS );
 			wp_safe_redirect( remove_query_arg( array( 'responsive-addons-for-elementor-review-notice-change-timeout' ), wp_get_referer() ) );
+			exit;
 		}
 	}
 
@@ -791,7 +824,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 */
 	public function responsive_addons_for_elementor_widgets_display() {
 		include_once RAEL_DIR . 'includes/class-responsive-addons-for-elementor-widgets-updater.php';
-
 		$rael_widgets_data = new Responsive_Addons_For_Elementor_Widgets_Updater();
 
 		$rael_path = 'responsive-addons-for-elementor/responsive-addons-for-elementor.php';
@@ -806,18 +838,30 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 
 		$exist_rael_theme_builder_widgets_data_update = get_option( 'rael_theme_builder_widgets_data_update', false );
-
 		if ( ! $exist_rael_theme_builder_widgets_data_update ) {
 			$rael_widgets_data->insert_widgets_data();
 			update_option( 'rael_theme_builder_widgets_data_update', true );
 		}
 
 		$exist_rael_facebook_feed_widgets_data_update = get_option( 'rael_facebook_feed_widgets_data_update', false );
-
 		if ( ! $exist_rael_facebook_feed_widgets_data_update ) {
 			$rael_widgets_data->insert_widgets_data();
 			update_option( 'rael_facebook_feed_widgets_data_update', true );
 		}
+
+		// Getting the last stored plugin version; fallback to '0' for older installs
+		$last_version = get_option( 'rael_last_version', '0' );
+
+		if ( version_compare( RAEL_VER, $last_version, '>' ) ) {
+
+			// Reset and insert widgets if updated
+			$rael_widgets_data->reset_widgets_data();
+			$rael_widgets_data->insert_widgets_data();
+
+			// Update stored version
+			update_option( 'rael_last_version', RAEL_VER );
+		}
+	
 
 		if ( ! function_exists( 'get_plugins' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -827,7 +871,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		if ( isset( $installed_plugins[ $rael_path ] ) ) {
 			$installed_rael_version = $installed_plugins[ $rael_path ]['Version'];
-
 			$widgets = get_option( 'rael_widgets' );
 
 			if ( $widgets && version_compare( RAEL_VER, $installed_rael_version, '>' ) ) {
@@ -840,7 +883,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			} elseif ( version_compare( RAEL_VER, $installed_rael_version, '>' ) ) {
 				$this->update_frontend_assets( $widgets, true );
 			}
-		}
+    	}
 	}
 
 	/**
@@ -886,8 +929,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-products-compare.php';
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-helperwoocheckout.php';
 		require_once RAEL_DIR . 'traits/responsive-addons-for-elementor-woo-checkout-helper.php';
-		require_once RAEL_DIR . 'ext/class-rael-particles-background.php';
-		require_once RAEL_DIR . 'ext/class-rael-sticky-elementor.php';
 	}
 
 	/**
@@ -1024,6 +1065,14 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			RAEL_VER,
 			true
 		);
+		// Pass data to JS to show review notice on template import
+		$importparams = array(
+			'ajax_url'   => admin_url( 'admin-ajax.php' ),
+			'rael_import_nonce' => wp_create_nonce( 'rael_import_nonce' ),
+			'post_id'    => get_the_ID(),
+		);
+		wp_localize_script( 'rael-frontend' , 'rael_import_review', $importparams );
+
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			$has_cart = is_a( WC()->cart, 'WC_Cart' );
@@ -1052,22 +1101,23 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			'RAELFrontendConfig',
 			$locale_settings
 		);
-
-		wp_localize_script(
-			'rael-particles',
-			'rael_particles',
-			array(
-				'particles_lib'    => RAEL_ASSETS_URL . '/lib/particles/particles.min.js',
-				'snowflakes_image' => RAEL_ASSETS_URL . '/images/snowflake.svg',
-				'gift'             => RAEL_ASSETS_URL . '/images/gift.png',
-				'tree'             => RAEL_ASSETS_URL . '/images/tree.png',
-				'skull'            => RAEL_ASSETS_URL . '/images/skull.png',
-				'ghost'            => RAEL_ASSETS_URL . '/images/ghost.png',
-				'moon'             => RAEL_ASSETS_URL . '/images/moon.png',
-				'bat'              => RAEL_ASSETS_URL . '/images/bat.png',
-				'pumpkin'          => RAEL_ASSETS_URL . '/images/pumpkin.png',
-			)
-		);
+		if (Helper::is_extension_active('particle-backgrounds')) {
+			wp_localize_script(
+				'rael-particles',
+				'rael_particles',
+				array(
+					'particles_lib' => RAEL_ASSETS_URL . '/lib/particles/particles.min.js',
+					'snowflakes_image' => RAEL_ASSETS_URL . '/images/snowflake.svg',
+					'gift' => RAEL_ASSETS_URL . '/images/gift.png',
+					'tree' => RAEL_ASSETS_URL . '/images/tree.png',
+					'skull' => RAEL_ASSETS_URL . '/images/skull.png',
+					'ghost' => RAEL_ASSETS_URL . '/images/ghost.png',
+					'moon' => RAEL_ASSETS_URL . '/images/moon.png',
+					'bat' => RAEL_ASSETS_URL . '/images/bat.png',
+					'pumpkin' => RAEL_ASSETS_URL . '/images/pumpkin.png',
+				)
+			);
+		}
 	}
 
 	/**
@@ -1240,27 +1290,40 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						}
             			break;
 					case 'stacking-cards':
-						wp_enqueue_script(
-							'gsap',
-							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
-							array(),
-							RAEL_VER,
-							true
-						);
-						wp_enqueue_script(
-							'gsap-scrolltrigger',
-							'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-							array('gsap'),
-							RAEL_VER,
-							true
-						);
-						wp_enqueue_script(
-							'rael-stacking-cards',
-							RAEL_ASSETS_URL . 'js/frontend/stacking-cards/stacking-cards.min.js',
-							array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
-							RAEL_VER,
-							true
-						);
+						// Load GSAP once
+						if ( ! isset( $included_libs['gsap'] ) ) {
+							$included_libs['gsap'] = true;
+							wp_enqueue_script(
+								'gsap',
+								RAEL_ASSETS_URL . 'lib/gsap/gsap.min.js',
+								array(),
+								RAEL_VER,
+								true
+							);
+						}
+
+						// Load GSAP ScrollTrigger once
+						if ( ! isset( $included_libs['gsap-scrolltrigger'] ) ) {
+							$included_libs['gsap-scrolltrigger'] = true;
+							wp_enqueue_script(
+								'gsap-scrolltrigger',
+								RAEL_ASSETS_URL . 'lib/gsap/ScrollTrigger.min.js',
+								array( 'gsap' ),
+								RAEL_VER,
+								true
+							);
+						}
+						 // Load Stacking Cards script
+						if ( ! isset( $included_libs['rael-stacking-cards'] ) ) {
+							$included_libs['rael-stacking-cards'] = true;
+							wp_enqueue_script(
+								'rael-stacking-cards',
+								RAEL_ASSETS_URL . 'js/frontend/stacking-cards/stacking-cards.min.js',
+								array( 'elementor-frontend', 'jquery', 'gsap', 'gsap-scrolltrigger' ),
+								RAEL_VER,
+								true
+							);
+						}
 						break;
 					case 'facebook-feed':
 						wp_enqueue_script( 'rael-facebook-feed', RAEL_ASSETS_URL . 'js/frontend/facebook-feed/facebook-feed.min.js', array( 'jquery' ), RAEL_VER, true );
@@ -1274,16 +1337,20 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 		wp_register_style( 'rael-animate-style', RAEL_ASSETS_URL . 'lib/animate/animate.min.css', null, RAEL_VER );
 		wp_enqueue_style( 'rael-animate-style' );
+		if (Helper::is_extension_active('particle-backgrounds')) {
 
 		wp_enqueue_script( 'rael-particles', RAEL_ASSETS_URL . 'lib/particles/particles.js', array(), RAEL_VER, true );
 
 		wp_register_style( 'rael-particles-style', RAEL_ASSETS_URL . 'lib/particles/particles.min.css', null, RAEL_VER );
 
-		wp_register_style( 'rael-particles-style-rtl', RAEL_ASSETS_URL . 'lib/particles/particles-rtl.min.css', null, RAEL_VER );
-		wp_enqueue_style( 'rael-particles-style' );
-		wp_enqueue_style( 'rael-particles-style-rtl' );
-		wp_register_style( 'rael-sticky', RAEL_URL . 'admin/css/rael-sticky.css', array(), RAEL_VER );
-		wp_enqueue_style( 'rael-sticky' );
+			wp_register_style('rael-particles-style-rtl', RAEL_ASSETS_URL . 'lib/particles/particles-rtl.min.css', null, RAEL_VER);
+			wp_enqueue_style('rael-particles-style');
+			wp_enqueue_style('rael-particles-style-rtl');
+		}
+		if (Helper::is_extension_active('sticky-section')) {
+			wp_register_style('rael-sticky', RAEL_URL . 'admin/css/rael-sticky.css', array(), RAEL_VER);
+			wp_enqueue_style('rael-sticky');
+		}
 		wp_enqueue_script(
 			'jet-resize-sensor',
 			RAEL_ASSETS_URL . 'lib/sticky-sidebar/ResizeSensor.min.js',
@@ -1339,6 +1406,29 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			false
 		);
 	}
+	  /**
+     * Editor scripts (Elementor backend editor)
+     * rael-import-template-notice.js
+     */
+    public function rael_enqueue_editor_scripts() {
+        wp_enqueue_script(
+            'rael-import-notice',
+            RAEL_URL . 'assets/js/editor/rael-import-template-notice.js',
+            array('jquery', 'elementor-editor'),
+            RAEL_VER,
+            true
+        );
+
+        wp_localize_script(
+            'rael-import-notice',
+            'rael_editor_data',
+            array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'rael_import_nonce' => wp_create_nonce( 'rael_import_nonce' ),
+                'post_id' => get_the_ID(),
+			)
+        );
+    }
 
 	/**
 	 * Include Admin css
@@ -2441,5 +2531,91 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		$rate_link = '<a target="_blank" href="' . esc_url( $rate_url ) . '" title="' . esc_attr__( 'Rate the plugin', 'responsive-addons-for-elementor' ) . '">' . esc_html__( 'Rate the plugin ★★★★★', 'responsive-addons-for-elementor' ) . '</a>';
 		$links[]   = $rate_link;
 		return $links;
+	}
+	// Count published posts/pages with RAE widgets by scanning _elementor_data used for sending review prompt
+	public function rael_get_published_with_widgets_count() {
+		global $wpdb;
+
+		// Count only published posts/pages that have _rael_has_widget = 1
+		$count = $wpdb->get_var( $wpdb->prepare(
+			"
+			SELECT COUNT(1)
+			FROM $wpdb->posts p
+			INNER JOIN $wpdb->postmeta pm ON p.ID = pm.post_id
+			WHERE p.post_type IN ('post','page')
+			AND p.post_status = 'publish'
+			AND pm.meta_key = %s
+			AND pm.meta_value = %s
+			",
+			'_rael_has_widget',
+			1
+		));
+
+		return (int) $count;
+	}
+	public function rael_check_widgets_in_post( $post_id, $post ) {
+		// Only scan published posts/pages
+		if ( 'publish' !== $post->post_status ) return;
+
+		// Avoid autosave loops
+		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
+
+		// Get Elementor JSON data
+		$data = get_post_meta( $post_id, '_elementor_data', true );
+		if ( empty($data) ) {
+			return;
+		}
+
+		// Decode only if string
+		if ( is_string( $data ) ) {
+			$elements = json_decode( $data, true );
+			if ( json_last_error() !== JSON_ERROR_NONE ) {
+				return;
+			}
+		} elseif ( is_array( $data ) ) {
+			$elements = $data;
+		} else {
+			// Unexpected type
+			return;
+		}
+		
+		$elements_array = isset( $elements['elements'] ) ? $elements['elements'] : $elements;
+
+		// Check recursively for any RAE widget
+		$found = self::rael_has_widget( $elements_array );
+
+		if ( $found ) {
+			update_post_meta( $post_id, '_rael_has_widget', 1 );
+		} else {
+			delete_post_meta( $post_id, '_rael_has_widget' );
+		}
+	}
+	// Recursive function to detect RAE widgets in Elementor JSON
+	public function rael_has_widget( $elements ) {
+		foreach ( $elements as $el ) {
+			if ( isset( $el['widgetType'] ) && strpos( $el['widgetType'], 'rael' ) === 0 ) {
+				return true;
+			}
+			if ( ! empty( $el['elements'] ) && $this->rael_has_widget( $el['elements'] ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function rael_mark_template_imported() {
+		check_ajax_referer( 'rael_import_nonce', 'nonce' );
+
+		$post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+		if ( $post_id ) {
+			update_post_meta( $post_id, '_rael_template_imported', 1 );
+
+			// Clear and reset transient after new import
+			delete_transient( 'rael_template_imported_any' );
+			set_transient( 'rael_template_imported_any', 1, 30 * DAY_IN_SECONDS );
+		}
+
+		wp_send_json_success();
 	}
 }

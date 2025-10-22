@@ -19,16 +19,12 @@ function initStackingCards($scope) {
     const baseGreyscale = parseFloat(card.dataset.greyscale) || 0;
     const scrollGreyscale = parseFloat(card.dataset.scrollgreyscale) || 0;
 
-    // calculate dynamic offset (works with px, %, vh)
-    const offsetY = `calc(${baseY}${gapUnit} + ${index * gapNum}${gapUnit})`;
-
     //  Set initial state based on dataset values
     gsap.set(card, {
       x: baseX,
-      y: offsetY,
-      rotate: baseRotate, 
+      rotate: baseRotate,
       scale: baseScale,
-      filter: `blur(${baseBlur}px) grayscale(${baseGreyscale}%)`,
+      filter: `blur(0px) grayscale(${baseGreyscale}%)`,
       opacity: 1,
     });
 
@@ -38,7 +34,6 @@ function initStackingCards($scope) {
       onEnter: () => {
         gsap.to(card, {
           x: baseX,
-          y: offsetY,
           rotate: scrollRotate,
           scale: baseScale,
           filter: `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`,
@@ -51,7 +46,6 @@ function initStackingCards($scope) {
       onLeaveBack: () => {
         gsap.to(card, {
           x: baseX,
-          y: offsetY,
           rotate: baseRotate,
           scale: baseScale,
           filter: `blur(0px) grayscale(${baseGreyscale}%)`,
@@ -80,14 +74,14 @@ jQuery(window).on("elementor/frontend/init", function () {
         const parent = wrapper.closest(".elementor-widget-rael-stacking-cards");
 
         if (parent.length) {
-          const cardHeight = wrapper.data("card-height"); 
-          const cardOffset = wrapper.data("card-offset"); 
+          const cardHeight = wrapper.data("card-height");
+          const cardOffset = wrapper.data("card-offset");
 
           parent[0].style.setProperty("--card-height", cardHeight);
           parent[0].style.setProperty("--card-top-offset", cardOffset);
         }
         // ===== End dynamic CSS variables =====
-        initStackingCards($scope); 
+        initStackingCards($scope);
       }
     );
   }
@@ -96,19 +90,17 @@ jQuery(window).on("elementor/frontend/init", function () {
   if (elementorFrontend.isEditMode()) {
     jQuery(window).on("load", function () {
       jQuery(".rael-stacking-cards").each(function () {
-         const $scope = jQuery(this);
-         const wrapper = $scope.find(".rael-stacking-cards-wrapper");
-         const parent = wrapper.closest(
-           ".elementor-widget-rael-stacking-cards"
-         );
+        const $scope = jQuery(this);
+        const wrapper = $scope.find(".rael-stacking-cards-wrapper");
+        const parent = wrapper.closest(".elementor-widget-rael-stacking-cards");
 
-         if (parent.length) {
-           const cardHeight = wrapper.data("card-height"); 
-           const cardOffset = wrapper.data("card-offset"); 
+        if (parent.length) {
+          const cardHeight = wrapper.data("card-height");
+          const cardOffset = wrapper.data("card-offset");
 
-           parent[0].style.setProperty("--card-height", cardHeight);
-           parent[0].style.setProperty("--card-top-offset", cardOffset);
-         }
+          parent[0].style.setProperty("--card-height", cardHeight);
+          parent[0].style.setProperty("--card-top-offset", cardOffset);
+        }
         initStackingCards(jQuery(this));
       });
     });

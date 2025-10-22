@@ -4,10 +4,10 @@ Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, elementor widget, woocommerce elementor, page builder plugin
 Requires at least: 5.0
 Tested up to: 6.8
-Elementor tested up to: 3.31
-Elementor Pro tested up to: 3.31
+Elementor tested up to: 3.32
+Elementor Pro tested up to: 3.32
 Requires PHP: 5.6
-Stable tag: 2.0.2
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -291,6 +291,21 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 2.0.5 - 10th October 2025 =
+- Improvement: Added enable/disable toggle for RAE Extensions like Particle Backgrounds and Sticky Section.
+- Fix: Resolved issue where the RAE Sticky section was not functioning correctly for columns.
+- Fix: Minor bug fixes.
+
+= 2.0.4 - 30th September 2025 =
+- Fix: MailChimp Styler Widget - Fixed dropdown issue where the MailChimp list was not appearing.
+- Fix: Off Canvas Widget - Corrected alignment issues.
+- Fix: Advanced Tabs Widget - Resolved alignment problems, fixed JS script rendering issue on the page.
+- Fix: Minor bug fixes and PHP warnings.
+
+= 2.0.3 - 23rd September 2025 =
+- New: Before After Slider Widget – easily compare two images with an interactive draggable slider.
+- New: Stacking Cards Widget – display content in an animated card stack with smooth scroll interactions.
 
 = 2.0.2 - 12th September 2025 =
 - Fix: Enhanced Security: Strengthened the codebase.
