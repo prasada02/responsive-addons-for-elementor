@@ -75,6 +75,8 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+			'font-awesome-5-all',
+        	'font-awesome-4-shim',
 			'swiper',
 			'e-swiper',	
 		);
@@ -864,8 +866,9 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 		$this->add_control(
 			'star_style',
 			array(
-				'label'        => __( 'Icon', 'responsive-addons-for-elementor' ),
+				'label'        => __( 'Iconstarrr', 'responsive-addons-for-elementor' ),
 				'type'         => Controls_Manager::SELECT,
+				'fa4compatibility' => 'icon',
 				'options'      => array(
 					'star_fontawesome' => 'Font Awesome',
 					'star_unicode'     => 'Unicode',
@@ -1077,7 +1080,48 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 		}
 
 		if ( ! empty( $slide['rating'] ) ) {
-			$html .= $this->render_stars( $slide, $settings );
+
+
+			$rating         = (float) $slide['rating'] > 5 ? 5 : $slide['rating'];
+			$floored_rating = (int) $rating;
+			$stars_html     = '';
+
+			// Font Awesome rendering
+			if ( 'star_fontawesome' === $settings['star_style'] ) {
+			error_log('in star_fontawesome');
+				for ( $stars = 1; $stars <= 5; $stars++ ) {
+					if ( $stars <= $floored_rating ) {
+						$icon = [
+							'value'   => 'fas fa-star',
+							'library' => 'fa-solid',
+						];
+						//$stars_html .= '<i class="elementor-star-full">';
+						\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div'  );
+						//$stars_html .= '</i>';
+					} elseif ( $floored_rating + 1 === $stars && $rating != $floored_rating ) {
+						$icon = [
+							'value'   => 'fas fa-star-half-alt',
+							'library' => 'fa-solid',
+						];
+						//$stars_html .= '<i class="elementor-star-half">';
+						\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div' );
+						//$stars_html .= '</i>';
+				} else {
+					$icon = [
+						'value'   => 'far fa-star',
+						'library' => 'fa-regular',
+					];
+					//$stars_html .= '<i class="elementor-star-empty">';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div' );
+					//$stars_html .= '</i>';
+				}
+			}
+
+			// Unicode fallback
+			} 
+			elseif ( 'star_unicode' === $settings['star_style'] ) {
+				$html .= $this->render_stars( $slide, $settings );
+			}
 		}
 
 		if ( ! empty( $slide['title'] ) ) {
@@ -1099,34 +1143,57 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 	 * @access protected
 	 */
 	protected function render_stars( $slide, $settings ) {
-		$icon = '&#xE934;';
-
-		if ( 'star_fontawesome' === $settings['star_style'] ) {
-			if ( 'outline' === $settings['unmarked_star_style'] ) {
-				$icon = '&#xE933;';
-			}
-		} elseif ( 'star_unicode' === $settings['star_style'] ) {
-			$icon = '&#9733;';
-
-			if ( 'outline' === $settings['unmarked_star_style'] ) {
-				$icon = '&#9734;';
-			}
-		}
-
 		$rating         = (float) $slide['rating'] > 5 ? 5 : $slide['rating'];
 		$floored_rating = (int) $rating;
 		$stars_html     = '';
 
-		for ( $stars = 1; $stars <= 5; $stars++ ) {
-			if ( $stars <= $floored_rating ) {
-				$stars_html .= '<i class="elementor-star-full">' . $icon . '</i>';
-			} elseif ( $floored_rating + 1 === $stars && $rating != $floored_rating ) { //phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-				$stars_html .= '<i class="elementor-star-' . ( $rating - $floored_rating ) * 10 . '">' . $icon . '</i>';
-			} else {
-				$stars_html .= '<i class="elementor-star-empty">' . $icon . '</i>';
+		// Font Awesome rendering
+		if ( 'star_fontawesome' === $settings['star_style'] ) {
+		error_log('in star_fontawesome');
+			for ( $stars = 1; $stars <= 5; $stars++ ) {
+				if ( $stars <= $floored_rating ) {
+					$icon = [
+						'value'   => 'fas fa-star',
+						'library' => 'fa-solid',
+					];
+					//$stars_html .= '<i class="elementor-star-full">';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div'  );
+					//$stars_html .= '</i>';
+				} elseif ( $floored_rating + 1 === $stars && $rating != $floored_rating ) {
+					$icon = [
+						'value'   => 'fas fa-star-half-alt',
+						'library' => 'fa-solid',
+					];
+					//$stars_html .= '<i class="elementor-star-half">';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div' );
+					//$stars_html .= '</i>';
+				} else {
+					$icon = [
+						'value'   => 'far fa-star',
+						'library' => 'fa-regular',
+					];
+					//$stars_html .= '<i class="elementor-star-empty">';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ],'div' );
+					//$stars_html .= '</i>';
+				}
 			}
-		}
 
+		// Unicode fallback
+		} elseif ( 'star_unicode' === $settings['star_style'] ) {
+			error_log('in star_unicode');
+			$icon = ( 'outline' === $settings['unmarked_star_style'] ) ? '&#9734;' : '&#9733;';
+
+			for ( $stars = 1; $stars <= 5; $stars++ ) {
+				if ( $stars <= $floored_rating ) {
+					$stars_html .= '<span class="elementor-star-full">' . $icon . '</span>';
+				} elseif ( $floored_rating + 1 === $stars && $rating != $floored_rating ) {
+					$stars_html .= '<span class="elementor-star-half">' . $icon . '</span>';
+				} else {
+					$stars_html .= '<span class="elementor-star-empty">' . $icon . '</span>';
+				}
+			}
+			error_log('$stars_htmlelseeeee==='.$stars_html);
+		}
 		return '<div class="elementor-star-rating">' . $stars_html . '</div>';
 	}
 
