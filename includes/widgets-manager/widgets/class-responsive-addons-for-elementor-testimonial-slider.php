@@ -517,7 +517,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'slide_padding',
 			array(
 				'label'     => __( 'Padding', 'responsive-addons-for-elementor' ),
