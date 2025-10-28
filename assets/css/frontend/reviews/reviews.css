@@ -389,6 +389,7 @@
 /* Unmarked (background) star for half star */
 .elementor-widget-rael-reviews .elementor-star-rating .rael-star-half > svg path {
   fill: var(--rael-star-unmarked-color, #ddd) !important;
+  stroke: none !important; 
 }
 
 

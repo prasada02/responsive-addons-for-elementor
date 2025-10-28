@@ -1181,7 +1181,7 @@ $this->add_control(
 				<img <?php echo wp_kses_post( $this->get_render_attribute_string( $element_key . '-image' ) ); ?>>
 			</div>
 		<?php endif; ?>
-			<?php //echo wp_kses_post( $this->print_cite( $slide, $settings ) ); 
+			<?php 
 				if ( empty( $slide['name'] ) && empty( $slide['title'] ) ) {
 					return '';
 				}
@@ -1202,29 +1202,17 @@ $this->add_control(
 		if ( 'star_fontawesome' === $settings['star_style'] ) {
 				$style_attr = ( 'outline' === $settings['unmarked_star_style'] ) ? 'data-style="outline"' : 'data-style="filled"';
 
-
-			// Bound rating to [0,5]
-			if ( $rating < 0 ) {
-				$rating = 0;
-			} elseif ( $rating > 5 ) {
-				$rating = 5;
-			}
-
 			// Round to one decimal to avoid floating noise, but keep fraction
 			$rating = round( $rating, 1 );
-
 
 			$floored_rating = floor( $rating );
 			$fraction = $rating - $floored_rating;
 
 			// decide half star when fraction is between 0.25 and 0.75 (flexible)
 			$has_half_star = ( $fraction >= 0.25 && $fraction < 0.75 );
-			error_log('$has_half_star=='.$has_half_star);
 			echo '<div class="elementor-star-rating">';
 
 			for ( $stars = 1; $stars <= 5; $stars++ ) {
-				error_log('$stars==' . $stars);
-				error_log('florred==='.$floored_rating + 1);
 				if ( $stars <= $floored_rating) {
 					// Filled star
 					$icon = [
@@ -1236,31 +1224,28 @@ $this->add_control(
 					echo '</span>';
 
 				} elseif ( $has_half_star && $stars == $floored_rating + 1  ) {
-					error_log('half starrrrrr');
-					error_log('starrate====' . $stars === ceil($rating) && $rating - floor($rating));
-					// ⭐ Half star (overlay)
-				// 🔹 Partially filled star (variable width)
-			$fill_width = round( $fraction * 100 ); // e.g. 0.7 => 70%
+					//  Half star (overlay)
+					//  Partially filled star (variable width)
+					$fill_width = round( $fraction * 100 ); // e.g. 0.7 => 70%
 
-			$icon_filled = [
-				'value'   => 'fas fa-star',
-				'library' => 'fa-solid',
-			];
+					$icon_filled = [
+						'value'   => 'fas fa-star',
+						'library' => 'fa-solid',
+					];
 
-			$icon_unmarked = ( 'outline' === $settings['unmarked_star_style'] )
-				? [ 'value' => 'far fa-star', 'library' => 'fa-regular' ]
-				: [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ];
-			
+					$icon_unmarked = ( 'outline' === $settings['unmarked_star_style'] )
+						? [ 'value' => 'far fa-star', 'library' => 'fa-regular' ]
+						: [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ];
+					
 
-			echo '<span class="rael-star rael-star-half" '.$style_attr.'>';
-				// Base (unmarked)
-				\Elementor\Icons_Manager::render_icon( $icon_unmarked, [ 'aria-hidden' => 'true' ] );
-
-				// Overlay (filled)
-				echo '<span class="rael-star-half-overlay" style="width:' . esc_attr( $fill_width ) . '%;">';
-					\Elementor\Icons_Manager::render_icon( $icon_filled, [ 'aria-hidden' => 'true' ] );
-				echo '</span>';
-			echo '</span>';
+					echo '<span class="rael-star rael-star-half" '.$style_attr.'>';
+						// Base (unmarked)
+						\Elementor\Icons_Manager::render_icon( $icon_unmarked, [ 'aria-hidden' => 'true' ] );
+						// Overlay (filled)
+						echo '<span class="rael-star-half-overlay" style="width:' . esc_attr( $fill_width ) . '%;">';
+							\Elementor\Icons_Manager::render_icon( $icon_filled, [ 'aria-hidden' => 'true' ] );
+						echo '</span>';
+					echo '</span>';
 				} else {
 					// Unmarked star
 					$icon_type = ( 'outline' === $settings['unmarked_star_style'] ) ? 'far fa-star' : 'fas fa-star';
