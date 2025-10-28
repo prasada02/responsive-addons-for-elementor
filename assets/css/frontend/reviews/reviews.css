@@ -330,35 +330,96 @@
   display: inline-block;
 }
 
+.rael-star-half .rael-star-half-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	overflow: hidden;
+}
 .rael-half-star svg {
   position: relative;
   z-index: 2;
 }
 
-/* Overlay unmarked color on right half */
-.rael-half-star::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: var(--rael-unmarked-color, currentColor);
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath d='M259.3 17.8L194 150.2 47.9 171.5C10.7 176.6-10.7 217 12.4 245.5l105.7 103L93.7 470.4c-6.9 40.5 35.6 71 71.9 52l127.4-67 127.4 67c36.3 19 78.8-11.6 71.9-52l-24.4-121.9 105.7-103c23.1-28.5 1.7-68.9-35.5-74L382 150.2 316.7 17.8c-16.3-32.7-63.1-32.7-79.4 0z'/%3E%3C/svg%3E") no-repeat center / contain;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath d='M259.3 17.8L194 150.2 47.9 171.5C10.7 176.6-10.7 217 12.4 245.5l105.7 103L93.7 470.4c-6.9 40.5 35.6 71 71.9 52l127.4-67 127.4 67c36.3 19 78.8-11.6 71.9-52l-24.4-121.9 105.7-103c23.1-28.5 1.7-68.9-35.5-74L382 150.2 316.7 17.8c-16.3-32.7-63.1-32.7-79.4 0z'/%3E%3C/svg%3E") no-repeat center / contain;
-  pointer-events: none;
+/* Unfilled color */
+.rael-star-half > svg path {
+	fill: var(--rael-unmarked-color, #ccc);
 }
-.elementor-star-rating .rael-star-filled svg path {
-    fill: var(--rael-marked-color, currentColor);
-}
-
-.elementor-star-rating .rael-star-unmarked svg path {
-    fill: var(--rael-unmarked-color, currentColor);
-    opacity: 0.5; /* optional, to visually differentiate */
-}
-.elementor-widget-rael-reviews .elementor-star-rating .rael-star{
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star,
+.rael-star-half-overlay svg,
+.rael-star-half svg {
   width: 1em;
   height: 1em;
 }
+/* --- RAE Reviews: Half Star + Dual Color Support --- */
 
+/* Wrapper ensures stars line up horizontally */
+.elementor-widget-rael-reviews .elementor-star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Generic star base */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+}
+
+/* Filled stars (use user-selected color) */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-filled svg path {
+  fill: var(--rael-star-color, #ffb400);
+}
+
+/* Unmarked (empty) stars (use user-selected color) */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-unmarked svg path {
+  fill: var(--rael-star-unmarked-color, #ddd) !important;
+}
+
+/* Half star setup */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-half {
+  position: relative;
+  display: inline-block;
+}
+
+/* Unmarked (background) star for half star */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-half > svg path {
+  fill: var(--rael-star-unmarked-color, #ddd) !important;
+}
+
+
+/* Fill color for left (filled) half */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-half .rael-star-half-overlay svg path {
+  fill: var(--rael-star-color, #ffb400);
+}
+
+/* Optional: hover preview (for editor testing) */
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star:hover svg path {
+  opacity: 0.9;
+}
+/* OUTLINE STYLE */
+.rael-star-half[data-style="outline"] svg path
+ {
+	fill: none !important;
+	stroke: var(--rael-star-unmarked-color, #DDDDDD);
+	stroke-width: 40;
+	stroke-linejoin: round;
+  mix-blend-mode: lighten; /* visually reduces overlap darkness */
+}
+.elementor-widget-rael-reviews .elementor-star-rating .rael-star-filled[data-style="outline"] svg path,
+.rael-star-half[data-style="outline"] .rael-star-half-overlay svg path  {
+	fill: none !important;
+	stroke: var(--rael-star-color, #DDDDDD);
+	stroke-width: 40;
+	stroke-linejoin: round;
+}
+/* FILLED STYLE */
+.rael-star-half[data-style="filled"] svg path{
+  fill: var(--rael-star-color, #DDDDDD);
+	stroke: none;
+}
 /*# sourceMappingURL=reviews.css.map */

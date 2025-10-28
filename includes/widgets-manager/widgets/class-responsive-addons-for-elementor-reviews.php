@@ -935,35 +935,6 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 			)
 		);
 
-		// $this->add_control(
-		// 	'stars_color',
-		// 	array(
-		// 		'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
-		// 		'type'      => Controls_Manager::COLOR,
-		// 		'selectors' => array(
-		// 			'{{WRAPPER}} .elementor-star-rating i:before' => 'color: {{VALUE}}',
-		// 			'{{WRAPPER}} .elementor-star-rating .e-fas-star path' => 'fill: {{VALUE}} !important',
-		// 			'{{WRAPPER}} .elementor-star-rating .e-fas-star-half-alt path' => 'fill: {{VALUE}} !important',
-
-		// 		),
-		// 		'separator' => 'before',
-		// 	)
-		// );
-
-		// $this->add_control(
-		// 	'stars_unmarked_color',
-		// 	array(
-		// 		'label'     => __( 'Unmarked Color', 'responsive-addons-for-elementor' ),
-		// 		'type'      => Controls_Manager::COLOR,
-		// 		'selectors' => array(
-		// 			'{{WRAPPER}} .elementor-star-rating i' => 'color: {{VALUE}}',
-		// 			'{{WRAPPER}} .elementor-star-rating .e-far-star path' => 'fill: {{VALUE}} !important',
-		// 			'{{WRAPPER}} .elementor-star-rating .e-far-star-half-alt path' => 'fill: {{VALUE}} !important',
-		// 			'{{WRAPPER}}' => '--rael-unmarked-color: {{VALUE}};',
-		// 		),
-		// 	)
-		// );
-
 		$this->add_control(
 	'stars_color',
 	array(
@@ -971,9 +942,9 @@ class Responsive_Addons_For_Elementor_Reviews extends Widget_Base {
 		'type'      => Controls_Manager::COLOR,
 		'selectors' => array(
 			// Solid stars (Font Awesome solid)
-			'{{WRAPPER}} .elementor-star-rating .rael-star-filled svg path' => 'fill: {{VALUE}} !important;',
+			'{{WRAPPER}} .elementor-star-rating .rael-star-filled svg path' => 'fill: {{VALUE}};',
 			'{{WRAPPER}} .elementor-star-rating i:before' => 'color: {{VALUE}};',
-			'{{WRAPPER}}' => '--rael-marked-color: {{VALUE}};',
+			'{{WRAPPER}}' => '--rael-star-color: {{VALUE}};',
 		),
 		'separator' => 'before',
 	)
@@ -986,9 +957,9 @@ $this->add_control(
 		'type'      => Controls_Manager::COLOR,
 		'selectors' => array(
 			// Outline stars (Font Awesome regular)
-			'{{WRAPPER}} .elementor-star-rating .rael-star-unmarked svg path' => 'fill: {{VALUE}} !important;',
+			'{{WRAPPER}} .elementor-star-rating .rael-star-unmarked svg path' => 'fill: {{VALUE}};',
 			'{{WRAPPER}} .elementor-star-rating i' => 'color: {{VALUE}};',
-			'{{WRAPPER}}' => '--rael-unmarked-color: {{VALUE}};',
+			'{{WRAPPER}}' => '--rael-star-unmarked-color: {{VALUE}};',
 		),
 	)
 );
@@ -1223,44 +1194,89 @@ $this->add_control(
 
 		if ( ! empty( $slide['rating'] ) ) {
 
-			//echo $this->render_stars( $slide, $settings );
-			$rating         = (float) $slide['rating'] > 5 ? 5 : $slide['rating'];
-		$floored_rating = (int) $rating;
-		$stars_html     = '';
+		$raw_rating = isset( $slide['rating'] ) ? $slide['rating'] : ( isset( $rating ) ? $rating : 0 );
 
+			// Defensive parse: some code earlier may have used wrong precedence. Force float.
+			$rating = floatval( $raw_rating );
 		// Font Awesome rendering
 		if ( 'star_fontawesome' === $settings['star_style'] ) {
+				$style_attr = ( 'outline' === $settings['unmarked_star_style'] ) ? 'data-style="outline"' : 'data-style="filled"';
 
+
+			// Bound rating to [0,5]
+			if ( $rating < 0 ) {
+				$rating = 0;
+			} elseif ( $rating > 5 ) {
+				$rating = 5;
+			}
+
+			// Round to one decimal to avoid floating noise, but keep fraction
+			$rating = round( $rating, 1 );
+
+
+			$floored_rating = floor( $rating );
+			$fraction = $rating - $floored_rating;
+
+			// decide half star when fraction is between 0.25 and 0.75 (flexible)
+			$has_half_star = ( $fraction >= 0.25 && $fraction < 0.75 );
+			error_log('$has_half_star=='.$has_half_star);
 			echo '<div class="elementor-star-rating">';
 
-				for ( $stars = 1; $stars <= 5; $stars++ ) {
-					if ( $stars <= floor( $rating ) ) {
-						// Filled star
-						$icon = [
-							'value'   => 'fas fa-star',
-							'library' => 'fa-solid',
-						];
-						echo '<span class="rael-star rael-star-filled">';
-						\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
-						echo '</span>';
-					} else {
-						// Unmarked star
-						$icon_type = ( 'outline' === $settings['unmarked_star_style'] ) ? 'far fa-star' : 'fas fa-star';
-						$library   = ( 'outline' === $settings['unmarked_star_style'] ) ? 'fa-regular' : 'fa-solid';
+			for ( $stars = 1; $stars <= 5; $stars++ ) {
+				error_log('$stars==' . $stars);
+				error_log('florred==='.$floored_rating + 1);
+				if ( $stars <= $floored_rating) {
+					// Filled star
+					$icon = [
+						'value'   => 'fas fa-star',
+						'library' => 'fa-solid',
+					];
+					echo '<span class="rael-star rael-star-filled" '.$style_attr.'>';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
+					echo '</span>';
 
-						$icon = [
-							'value'   => $icon_type,
-							'library' => $library,
-						];
+				} elseif ( $has_half_star && $stars == $floored_rating + 1  ) {
+					error_log('half starrrrrr');
+					error_log('starrate====' . $stars === ceil($rating) && $rating - floor($rating));
+					// ⭐ Half star (overlay)
+				// 🔹 Partially filled star (variable width)
+			$fill_width = round( $fraction * 100 ); // e.g. 0.7 => 70%
 
-						echo '<span class="rael-star rael-star-unmarked">';
-						\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
-						echo '</span>';
-					}
+			$icon_filled = [
+				'value'   => 'fas fa-star',
+				'library' => 'fa-solid',
+			];
+
+			$icon_unmarked = ( 'outline' === $settings['unmarked_star_style'] )
+				? [ 'value' => 'far fa-star', 'library' => 'fa-regular' ]
+				: [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ];
+			
+
+			echo '<span class="rael-star rael-star-half" '.$style_attr.'>';
+				// Base (unmarked)
+				\Elementor\Icons_Manager::render_icon( $icon_unmarked, [ 'aria-hidden' => 'true' ] );
+
+				// Overlay (filled)
+				echo '<span class="rael-star-half-overlay" style="width:' . esc_attr( $fill_width ) . '%;">';
+					\Elementor\Icons_Manager::render_icon( $icon_filled, [ 'aria-hidden' => 'true' ] );
+				echo '</span>';
+			echo '</span>';
+				} else {
+					// Unmarked star
+					$icon_type = ( 'outline' === $settings['unmarked_star_style'] ) ? 'far fa-star' : 'fas fa-star';
+					$library   = ( 'outline' === $settings['unmarked_star_style'] ) ? 'fa-regular' : 'fa-solid';
+
+					$icon = [
+						'value'   => $icon_type,
+						'library' => $library,
+					];
+					echo '<span class="rael-star rael-star-unmarked">';
+					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
+					echo '</span>';
 				}
+			}
 
-    		echo '</div>';
-
+			echo '</div>';
 		} elseif ( 'star_unicode' === $settings['star_style'] ) {
 			$icon = ( 'outline' === $settings['unmarked_star_style'] ) ? '&#9734;' : '&#9733;';
 
