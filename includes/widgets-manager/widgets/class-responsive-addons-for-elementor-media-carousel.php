@@ -105,6 +105,8 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'font-awesome-4-shim',
+			'swiper',
+			'e-swiper',
 		);
 	}
 	/**
@@ -291,6 +293,7 @@ class Responsive_Addons_For_Elementor_Media_Carousel extends Widget_Base {
 				'type'               => Controls_Manager::SELECT,
 				'label'              => __( 'Slides Per View', 'responsive-addons-for-elementor' ),
 				'options'            => array( '' => __( 'Default', 'responsive-addons-for-elementor' ) ) + $slides_per_view,
+				'devices' => [ 'desktop', 'tablet', 'mobile' ],
 				'condition'          => array(
 					'rael_skin!'  => 'slideshow',
 					'rael_effect' => 'slide',
