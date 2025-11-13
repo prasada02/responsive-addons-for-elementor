@@ -1,5 +1,4 @@
 function initStackingCards($scope) {
-  console.log("Initializing Stacking Cards");
   const cards = gsap.utils.toArray($scope.find(".rael-stacking-card"));
   const total = cards.length;
 
@@ -13,64 +12,89 @@ function initStackingCards($scope) {
     const baseRotate = parseFloat(card.dataset.rotate) || 0;
     const scrollRotate = parseFloat(card.dataset.scrollrotate) || baseRotate;
     const baseScale = parseFloat(card.dataset.scale) || 1;
+    console.log("baseScale=" + baseScale);
     const baseBlur = parseFloat(card.dataset.blur) || 0;
     const baseGreyscale = parseFloat(card.dataset.greyscale) || 0;
     const scrollGreyscale = parseFloat(card.dataset.scrollgreyscale) || 0;
 
+    // ✅ FIXED: use dataset.scrollscale and handle conditional scaling
     const rawScrollScale = parseFloat(card.dataset.scale) || 0;
-    console.log('rawScrollScale='+rawScrollScale);
+    console.log("rawScrollScale=" + rawScrollScale);
     const direction = rawScrollScale < 0 ? -1 : 1;
     const absScrollScale = Math.abs(rawScrollScale);
 
     // ---- NEW LOGIC ----
     const distanceFromFront = total - 1 - index;
+
+    // Each card slightly smaller than the one in front
     const scaleStep = absScrollScale * 0.1;
     const baseCardScale = 1 - distanceFromFront * scaleStep;
     console.log("baseCardScale=" + baseCardScale);
     const scrollCardScale = 1 - distanceFromFront * (scaleStep + 0.015);
     console.log("scrollCardScale=" + scrollCardScale);
+
+    // Slight depth offset for side visibility
     const depthOffset = distanceFromFront * 10 * direction;
-    // --------------------
 
-    // ✅ Explicitly use transform string for correct scale(x, y) output
-    const setTransform = `translate3d(0px, 0px, 0px) rotate(${baseRotate}deg) scale(${baseCardScale}, ${baseCardScale})`;
-
-    gsap.set(card, {
-      //transform: setTransform,
-      // transformOrigin: "center center",
-      // transformStyle: "preserve-3d",
+    // ✅ Build transform config conditionally
+    const setConfig = {
       x: baseX,
+      // y: baseY,
+      // z: depthOffset,
       rotate: baseRotate,
-      scaleX: baseCardScale,
-      scaleY: baseCardScale,
       filter: `blur(0px) grayscale(${baseGreyscale}%)`,
       opacity: 1,
-    });
+    };
+
+    if (rawScrollScale !== 0) {
+      setConfig.scaleX = baseCardScale;
+      setConfig.scaleY = baseCardScale;
+    }
+
+    gsap.set(card, setConfig);
 
     ScrollTrigger.create({
       trigger: card,
       start: "bottom top",
       onEnter: () => {
-        gsap.to(card, {
+        const enterConfig = {
           x: baseX,
+          // y: baseY,
+          // z: depthOffset,
           rotate: scrollRotate,
-          scaleX: scrollCardScale,
-          scaleY: scrollCardScale,
+          filter: `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`,
+          opacity: 1,
+          overwrite: "auto",
           duration: 0.4,
           ease: "power2.out",
-          overwrite: "auto",
-        });
+        };
+
+        if (rawScrollScale !== 0) {
+          enterConfig.scaleX = scrollCardScale;
+          enterConfig.scaleY = scrollCardScale;
+        }
+
+        gsap.to(card, enterConfig);
       },
       onLeaveBack: () => {
-        gsap.to(card, {
+        const leaveConfig = {
           x: baseX,
+          // y: baseY,
+          // z: depthOffset,
           rotate: baseRotate,
-          scaleX: baseCardScale,
-          scaleY: baseCardScale,
+          filter: `blur(0px) grayscale(${baseGreyscale}%)`,
+          opacity: 1,
+          overwrite: "auto",
           duration: 0.4,
           ease: "power2.out",
-          overwrite: "auto",
-        });
+        };
+
+        if (rawScrollScale !== 0) {
+          leaveConfig.scaleX = baseCardScale;
+          leaveConfig.scaleY = baseCardScale;
+        }
+
+        gsap.to(card, leaveConfig);
       },
     });
   });
