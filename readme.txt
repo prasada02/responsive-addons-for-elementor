@@ -7,7 +7,7 @@ Tested up to: 6.8
 Elementor tested up to: 3.32
 Elementor Pro tested up to: 3.32
 Requires PHP: 5.6
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -291,6 +291,12 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+
+= 2.0.6 - 29th October 2025 =
+- Improvement: Enhanced Google Fonts loading logic to ensure more reliable fetching and rendering of fonts within Elementor typography controls.
+- Fix: Resolved issue with the icon dropdown not displaying correctly in the RAE FAQ widget.
+- Fix: Fixed content flicker issue when switching tabs in the RAE Advanced Tabs widget for smoother transitions.
 
 = 2.0.5 - 10th October 2025 =
 - Improvement: Added enable/disable toggle for RAE Extensions like Particle Backgrounds and Sticky Section.
