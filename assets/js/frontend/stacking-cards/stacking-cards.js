@@ -36,9 +36,13 @@ function initStackingCards($scope) {
     const setTransform = `translate3d(0px, 0px, 0px) rotate(${baseRotate}deg) scale(${baseCardScale}, ${baseCardScale})`;
 
     gsap.set(card, {
-      transform: setTransform,
+      //transform: setTransform,
       // transformOrigin: "center center",
       // transformStyle: "preserve-3d",
+      x: baseX,
+      rotate: baseRotate,
+      scaleX: baseCardScale,
+      scaleY: baseCardScale,
       filter: `blur(0px) grayscale(${baseGreyscale}%)`,
       opacity: 1,
     });
@@ -48,30 +52,24 @@ function initStackingCards($scope) {
       start: "bottom top",
       onEnter: () => {
         gsap.to(card, {
+          x: baseX,
+          rotate: scrollRotate,
+          scaleX: scrollCardScale,
+          scaleY: scrollCardScale,
           duration: 0.4,
           ease: "power2.out",
           overwrite: "auto",
-          onUpdate: function () {
-            const s = scrollCardScale;
-            card.style.transform = `translate3d(0px, 0px, 0px) rotate(${scrollRotate}deg) scale(${s}, ${s})`;
-          },
-          onStart: () => {
-            card.style.filter = `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`;
-          },
         });
       },
       onLeaveBack: () => {
         gsap.to(card, {
+          x: baseX,
+          rotate: baseRotate,
+          scaleX: baseCardScale,
+          scaleY: baseCardScale,
           duration: 0.4,
           ease: "power2.out",
           overwrite: "auto",
-          onUpdate: function () {
-            const s = baseCardScale;
-            card.style.transform = `translate3d(0px, 0px, 0px) rotate(${baseRotate}deg) scale(${s}, ${s})`;
-          },
-          onStart: () => {
-            card.style.filter = `blur(0px) grayscale(${baseGreyscale}%)`;
-          },
         });
       },
     });
