@@ -992,7 +992,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'%'  => array( 'min' => 0, 'max' => 100 ),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .rael-stacking-card' => 'min-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .rael-stacking-card' => 'width: {{SIZE}}{{UNIT}} !important; ',
 				),
 				'render_type' => 'template', 
 			)
@@ -2022,8 +2022,19 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 		// sticky positioning
 		$offset_value    = 'calc(' . ($index+1) . ' * ' . $card_gap_size . $card_gap_unit . ')';
-
-		$transform = "translate3d({$offsetXVal}, {$offsetYVal}, {$z}px) scale({$scale})";
+		// ✅ Conditional scale logic — omit scale() if scale_step is 0
+		if (empty($settings['scroll_scale']['size']) || $settings['scroll_scale']['size'] == 0) {
+			// No scaling applied at all
+			$transform = "translate3d({$offsetXVal}, {$offsetYVal}, {$z}px)";
+		} 
+		elseif ($settings['scroll_scale']['size'] < 0) {
+			// Negative scale — skip scale on load (only apply on scroll)
+			$transform = "translate3d({$offsetXVal}, {$offsetYVal}, {$z}px)";
+		} 
+		else {
+			// Positive scale — include scaling
+			$transform = "translate3d({$offsetXVal}, {$offsetYVal}, {$z}px) scale({$scale})";
+		}
 
         $transform_origin = ($origin_x_val == 0 && $origin_y_val == 0) ? "50% 50%" : $origin_x_val . $origin_x_unit. ' ' . $origin_y_val . $origin_y_unit;
 		$current_item_background_color = ! empty( $item['background_color'] ) ? 'background-color:' . esc_attr( $item['background_color'] ) . ';' : '';
@@ -2051,7 +2062,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
                 'data-translate-y' => $settings['transform_origin_y']['size'] ?? 0,
 				'data-rotate'      => $settings['normal_rotation']['size'] ?? 0,
                 'data-scrollrotate'      => $settings['scroll_rotation']['size'] ?? 0,
-                'data-scale'       => $settings['scroll_scale']['size'] ?? 1,
+                'data-scale'       => $settings['scroll_scale']['size'] ?? 0,
                 'data-blur'        => $settings['scroll_blur']['size'] ?? 0,
 				'data-greyscale'   => $settings['normal_greyscale']['size'] ?? 0.2,
                 'data-scrollgreyscale'   => $settings['scroll_greyscale']['size'] ?? 0.2,
@@ -2060,6 +2071,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'data-base-y'         => $offsetY,
 				'data-base-scale'     => $scale,
 				'data-gap'         => $settings['card_gap']['size'] . $settings['card_gap']['unit'], 
+				'data-opacity' 	   => $settings['scroll_opacity']['size'] ?? 0,
             )
         );
 			
