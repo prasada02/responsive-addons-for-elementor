@@ -256,7 +256,7 @@ if ( ! class_exists( 'Rael_Sticky_Elementor' ) ) {
 					'label'       => esc_html__( 'Z-index', 'responsive-addons-for-elementor' ),
 					'type'        => Elementor\Controls_Manager::NUMBER,
 					'placeholder' => '',
-					'default'     => '',
+					'default'     => '1100',
 					'min'         => 1,
 					'max'         => 10000,
 					'step'        => 1,
