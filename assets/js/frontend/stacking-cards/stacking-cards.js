@@ -8,19 +8,15 @@ function initStackingCards($scope) {
     const gapNum = gapMatch ? parseFloat(gapMatch[1]) : 0;
 
     const baseX = parseFloat(card.dataset.translateX) || 0;
-    const baseY = parseFloat(card.dataset.translateY) || 0;
     const baseRotate = parseFloat(card.dataset.rotate) || 0;
     const scrollRotate = parseFloat(card.dataset.scrollrotate) || baseRotate;
-    const baseScale = parseFloat(card.dataset.scale) || 1;
-    console.log("baseScale=" + baseScale);
     const baseBlur = parseFloat(card.dataset.blur) || 0;
     const baseGreyscale = parseFloat(card.dataset.greyscale) || 0;
     const scrollGreyscale = parseFloat(card.dataset.scrollgreyscale) || 0;
+    const rawOpacity = parseFloat(card.dataset.opacity) || 1;
 
     // ✅ FIXED: use dataset.scrollscale and handle conditional scaling
     const rawScrollScale = parseFloat(card.dataset.scale) || 0;
-    console.log("rawScrollScale=" + rawScrollScale);
-    const direction = rawScrollScale < 0 ? -1 : 1;
     const absScrollScale = Math.abs(rawScrollScale);
 
     // ---- NEW LOGIC ----
@@ -28,27 +24,27 @@ function initStackingCards($scope) {
 
     // Each card slightly smaller than the one in front
     const scaleStep = absScrollScale * 0.1;
-    const baseCardScale = 1 - distanceFromFront * scaleStep;
-    console.log("baseCardScale=" + baseCardScale);
     const scrollCardScale = 1 - distanceFromFront * (scaleStep + 0.015);
-    console.log("scrollCardScale=" + scrollCardScale);
 
-    // Slight depth offset for side visibility
-    const depthOffset = distanceFromFront * 10 * direction;
+    // ---- OPACITY LOGIC ----
+    // If backend opacity = 1, progressively fade back cards
+    let baseOpacity = 1;
+    if (rawOpacity === 1) {
+      baseOpacity = 1 - Math.pow(distanceFromFront / total, 1.5);
+      baseOpacity = Math.max(0.05, baseOpacity); // prevent full transparency
+    }
 
     // ✅ Build transform config conditionally
     const setConfig = {
       x: baseX,
-      // y: baseY,
-      // z: depthOffset,
       rotate: baseRotate,
       filter: `blur(0px) grayscale(${baseGreyscale}%)`,
       opacity: 1,
     };
 
     if (rawScrollScale !== 0) {
-      setConfig.scaleX = baseCardScale;
-      setConfig.scaleY = baseCardScale;
+      setConfig.scaleX = 1; //baseCardScale;
+      setConfig.scaleY = 1; //baseCardScale;
     }
 
     gsap.set(card, setConfig);
@@ -59,11 +55,9 @@ function initStackingCards($scope) {
       onEnter: () => {
         const enterConfig = {
           x: baseX,
-          // y: baseY,
-          // z: depthOffset,
           rotate: scrollRotate,
           filter: `blur(${baseBlur}px) grayscale(${scrollGreyscale}%)`,
-          opacity: 1,
+          opacity: baseOpacity,
           overwrite: "auto",
           duration: 0.4,
           ease: "power2.out",
@@ -79,8 +73,6 @@ function initStackingCards($scope) {
       onLeaveBack: () => {
         const leaveConfig = {
           x: baseX,
-          // y: baseY,
-          // z: depthOffset,
           rotate: baseRotate,
           filter: `blur(0px) grayscale(${baseGreyscale}%)`,
           opacity: 1,
@@ -90,8 +82,8 @@ function initStackingCards($scope) {
         };
 
         if (rawScrollScale !== 0) {
-          leaveConfig.scaleX = baseCardScale;
-          leaveConfig.scaleY = baseCardScale;
+          leaveConfig.scaleX = 1; 
+          leaveConfig.scaleY = 1;  
         }
 
         gsap.to(card, leaveConfig);
