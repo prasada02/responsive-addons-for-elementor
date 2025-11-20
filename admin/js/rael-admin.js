@@ -282,9 +282,6 @@ jQuery( document ).ready(
       $("body").on("click", ".rael-settings-trigger", function (e) {
         e.preventDefault();
 
-        let widgetName = $(this).data("widget");
-        $("#rael-popup-title").text(widgetName);
-
         $("#rael-settings-popup").fadeIn(150);
       });
 
@@ -297,7 +294,6 @@ jQuery( document ).ready(
       // Save button click
       $("#rael-popup-save").on("click", function () {
         let selected = $("#rael-post-types").val() || [];
-        let widget = $("#rael-popup-title").text();
 
         $.ajax({
           url: raelDuplicator.ajaxurl,
@@ -305,7 +301,6 @@ jQuery( document ).ready(
           data: {
             action: "rael_save_duplicator_settings",
             post_types: selected,
-            widget: widget,
             nonce: raelDuplicator.nonce,
           },
           success: function success(data) {

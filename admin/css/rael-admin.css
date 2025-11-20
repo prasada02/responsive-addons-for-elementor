@@ -853,11 +853,13 @@ input:checked + .rael-widgets-slider:before {
     justify-content: center;
     z-index: 99999;
 }
-
+#rael-popup-title{
+	font-size: 20px;
+}
 .rael-popup {
     background: #fff;
-    width: 420px;
-    padding: 20px;
+    width: 500px;
+    padding: 35px;
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
@@ -867,6 +869,7 @@ input:checked + .rael-widgets-slider:before {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+	color: #4B5563;
 }
 
 .rael-popup-close {
@@ -878,9 +881,29 @@ input:checked + .rael-widgets-slider:before {
     display: block;
     margin-bottom: 6px;
     font-weight: 600;
+	color: #4B5563;
+}
+.rael-popup-body {
+	margin: 30px 0;
 }
 
 #rael-post-types {
-    width: 100%;
+    width: 430px !important;
     height: 40px;
+	max-width: inherit;
+}
+.rae-popup-hr{
+	border-top: 1px solid #D3D3D3;
+}
+.rael-popup-footer{
+	text-align: right;
+}
+.duplicator-settings-icon{
+	font-size:17px;
+	vertical-align: middle;
+	text-decoration: none;
+	margin-left: 5px;
+}
+.rael-settings-trigger:focus{
+	box-shadow: none;
 }

@@ -141,14 +141,15 @@ foreach ( $widgets as $widget ) {
 						<a href="<?php echo esc_url( $widget['docs'] ); ?>" target="_blank"><?php esc_html_e( 'Docs', 'responsive-addons-for-elementor' ); ?></a> 
 						<?php if ($widget['title'] == 'duplicator') { ?>
 						<a href="#" class="rael-settings-trigger" data-widget="<?php echo esc_attr($widget['name']); ?>">
-        					<span class="dashicons dashicons-admin-generic"></span>
+        					<span title="Duplicator Settings" class="duplicator-settings-icon dashicons dashicons-admin-generic"></span>
     					</a>
 						<div id="rael-settings-popup" class="rael-popup-overlay" style="display: none;">
 							<div class="rael-popup">
 								<div class="rael-popup-header">
-									<h2 id="rael-popup-title">Duplicator</h2>
+									<h2 id="rael-popup-title"><?php esc_html_e('Duplicator','responsive-addons-for-elementor'); ?></h2>
 									<span class="rael-popup-close">&times;</span>
 								</div>
+								<hr class="rae-popup-hr"/>
 
 								<div class="rael-popup-body">
 									<label><?php esc_html_e( 'Select Post Types','responsive-addons-for-elementor'); ?></label>
@@ -163,7 +164,7 @@ foreach ( $widgets as $widget ) {
 										<?php endforeach; ?>
 									</select>
 								</div>
-
+								<hr class="rae-popup-hr"/>
 								<div class="rael-popup-footer">
 									<button id="rael-popup-save" class="button button-primary"><?php esc_html_e('Save', 'responsive-addons-for-elementor'); ?></button>
 								</div>
