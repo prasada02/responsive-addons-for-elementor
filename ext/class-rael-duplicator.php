@@ -39,8 +39,6 @@ if ( ! class_exists( 'RAEL_Duplicator' ) ) {
 			// Row actions for posts/pages
 			add_filter( 'manage_posts_columns', array( $this, 'rae_add_custom_column' ) );
 			add_filter( 'manage_pages_columns', array( $this, 'rae_add_custom_column' ) );
-
-
 			
 			add_filter( 'post_row_actions', array( $this, 'rae_add_duplicator_action' ), 10, 2 );
 			add_filter( 'page_row_actions', array( $this, 'rae_add_duplicator_action' ), 10, 2 );
@@ -49,7 +47,6 @@ if ( ! class_exists( 'RAEL_Duplicator' ) ) {
 			add_filter( 'bulk_actions-edit-post', array( $this, 'rae_register_bulk_action' ) );
 			add_filter( 'handle_bulk_actions-edit-post', array( $this, 'rae_process_bulk_action' ), 10, 3 );
 			
-
 			// Admin action for duplication
 			add_action( 'admin_action_rael_duplicate_post', array( $this, 'rae_duplicate_post_handler' ) );
 
@@ -150,59 +147,96 @@ if ( ! class_exists( 'RAEL_Duplicator' ) ) {
 	/**
 	 * Core duplication logic
 	 */
-	private function rae_duplicate( $post_id ) {
+	/**
+ * Duplicate any post safely (Elementor + Gutenberg + Classic).
+ */
+private function rae_duplicate( $post_id ) {
 
-		$original = get_post( $post_id );
+    $original = get_post( $post_id );
+    if ( ! $original ) {
+        return new WP_Error( 'invalid_post', __( 'Post not found.', 'responsive-addons' ) );
+    }
 
-		if ( ! $original ) {
-			return new WP_Error( 'invalid_post', __( 'Post not found.', 'responsive-addons-for-elementor' ) );
-		}
+    // ---- 1. CREATE THE NEW POST ----
+    $new_post = [
+        'post_title'     => $original->post_title . ' (Copy)',
+        'post_content'   => $original->post_content,
+        'post_excerpt'   => $original->post_excerpt,
+        'post_status'    => 'draft',
+        'post_type'      => $original->post_type,
+        'post_author'    => get_current_user_id(),
+        'menu_order'     => $original->menu_order,
+        'comment_status' => $original->comment_status,
+        'ping_status'    => $original->ping_status,
+    ];
 
-		// Create new post
-		$new_post = [
-			'post_title'   => $original->post_title . ' (Copy)',
-			'post_content' => $original->post_content,
-			'post_excerpt' => $original->post_excerpt,
-			'post_status'  => 'draft',
-			'post_type'    => $original->post_type,
-			'post_author'  => get_current_user_id(),
-		];
+    $new_post_id = wp_insert_post( $new_post );
+    if ( ! $new_post_id ) {
+        return new WP_Error( 'db_error', __( 'Failed to duplicate post.', 'responsive-addons' ) );
+    }
 
-		$new_post_id = wp_insert_post( $new_post );
+    // ---- 2. COPY TAXONOMIES ----
+    $taxonomies = get_object_taxonomies( $original->post_type );
+    foreach ( $taxonomies as $taxonomy ) {
+        $terms = wp_get_object_terms( $post_id, $taxonomy, [ 'fields' => 'ids' ] );
+        if ( ! is_wp_error( $terms ) ) {
+            wp_set_object_terms( $new_post_id, $terms, $taxonomy );
+        }
+    }
 
-		if ( ! $new_post_id ) {
-			return new WP_Error( 'db_error', __( 'Failed to duplicate post.', 'responsive-addons-for-elementor' ) );
-		}
+    // ---- 3. SAFE META COPY (Elementor + ACF + everything else) ----
+    
+	global $wpdb;
 
-		// Copy taxonomies
-		$taxonomies = get_object_taxonomies( $original->post_type );
-		foreach ( $taxonomies as $taxonomy ) {
-			$terms = wp_get_object_terms( $post_id, $taxonomy, [ 'fields' => 'ids' ] );
-			wp_set_object_terms( $new_post_id, $terms, $taxonomy );
-		}
+	$post_meta = $wpdb->get_results(
+		$wpdb->prepare(
+			"SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = %d",
+			$post_id
+		)
+	);
 
-		// Copy all meta
-		$meta = get_post_meta( $post_id );
-		foreach ( $meta as $key => $values ) {
+	if ( ! empty( $post_meta ) && is_array( $post_meta ) ) {
 
-			// Skip WordPress internal meta
-			if ( in_array( $key, [ '_edit_lock', '_edit_last' ] ) ) {
+		$exclude = array(
+			'_edit_lock',
+			'_edit_last',
+			'_wp_old_slug',
+			'_elementor_css', // regenerate
+		);
+
+		$insert_values = '';
+
+		foreach ( $post_meta as $meta ) {
+
+			$key   = sanitize_text_field( $meta->meta_key );
+			$value = $meta->meta_value;
+
+			if ( in_array( $key, $exclude ) ) {
 				continue;
 			}
 
-			foreach ( $values as $value ) {
-				add_post_meta( $new_post_id, $key, maybe_unserialize( $value ) );
+			if ( ! empty( $insert_values ) ) {
+				$insert_values .= ', ';
 			}
+
+			$insert_values .= $wpdb->prepare(
+				"( %d, %s, %s )",
+				$new_post_id,
+				$key,
+				$value
+			);
 		}
 
-		// Copy featured image
-		$thumb = get_post_thumbnail_id( $post_id );
-		if ( $thumb ) {
-			set_post_thumbnail( $new_post_id, $thumb );
+		if ( ! empty( $insert_values ) ) {
+			$wpdb->query(
+				"INSERT INTO $wpdb->postmeta ( post_id, meta_key, meta_value ) VALUES " . $insert_values
+			);
 		}
-
-		return $new_post_id;
 	}
+
+    return $new_post_id;
+}
+
 
 	public function rae_add_custom_column( $columns ) {
 		$columns['rae_duplicator'] = 'RAE Duplicator';
