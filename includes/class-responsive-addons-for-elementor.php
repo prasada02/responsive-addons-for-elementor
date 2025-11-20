@@ -144,6 +144,12 @@ class Responsive_Addons_For_Elementor {
 		add_action( 'wp_ajax_nopriv_rael_mark_template_imported', array( $this, 'rael_mark_template_imported' ) );
 
 
+		add_action( 'wp_ajax_rael_save_duplicator_settings', array( $this, 'rael_save_duplicator_settings' ) );
+		add_action( 'wp_ajax_nopriv_rael_save_duplicator_settings', array( $this, 'rael_save_duplicator_settings' ) );
+
+
+
+
 		global $blog_id;
 		if ( is_multisite() ) {
 			switch_to_blog( $blog_id );
@@ -1487,6 +1493,15 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			)
 		);
 
+		 wp_localize_script(
+        	'responsive-addons-for-elementor-admin-jsfile',
+			'raelDuplicator',
+			array(
+				'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
+				'nonce' 	=> wp_create_nonce('rael_save_dup_settings'),
+			)
+		);
+
 		wp_enqueue_script( 'rael-rst-admin', RAEL_URL . '/admin/js/rael-rst-plugin-install.js', array( 'jquery' ), true, RAEL_VER );
 		wp_enqueue_script( 'updates' );
 		wp_localize_script(
@@ -2616,5 +2631,22 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 
 		wp_send_json_success();
+	}
+
+	public function rael_save_duplicator_settings() {
+		check_ajax_referer( 'rael_save_dup_settings', 'nonce' );
+
+		// Get selected post types from JS
+		$post_types = isset($_POST['post_types']) ? (array) $_POST['post_types'] : array();
+		// Sanitize all values
+		$post_types = array_map('sanitize_text_field', $post_types);
+
+		// Save to WP options table
+		update_option('rael_duplicator_allowed_post_types', $post_types);
+
+		wp_send_json_success(array(
+			'message' => 'Saved',
+			'saved_value' => $post_types
+		));
 	}
 }

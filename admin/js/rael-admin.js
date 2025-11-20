@@ -276,7 +276,49 @@ jQuery( document ).ready(
 					}
 				}
 			);
-		})
+		});
+		//jQuery(function ($) {
+      // Open popup on settings icon click
+      $("body").on("click", ".rael-settings-trigger", function (e) {
+        e.preventDefault();
+
+        let widgetName = $(this).data("widget");
+        $("#rael-popup-title").text(widgetName);
+
+        $("#rael-settings-popup").fadeIn(150);
+      });
+
+      // Close popup
+      $(".rael-popup-close, #rael-settings-popup").on("click", function (e) {
+        if (e.target !== this) return; // close only if clicking overlay or X
+        $("#rael-settings-popup").fadeOut(150);
+      });
+
+      // Save button click
+      $("#rael-popup-save").on("click", function () {
+        let selected = $("#rael-post-types").val() || [];
+        let widget = $("#rael-popup-title").text();
+
+        $.ajax({
+          url: raelDuplicator.ajaxurl,
+          type: "POST",
+          data: {
+            action: "rael_save_duplicator_settings",
+            post_types: selected,
+            widget: widget,
+            nonce: raelDuplicator.nonce,
+          },
+          success: function success(data) {
+            if (data.success) {
+              displayToast("Settings Saved", "success");
+            } else {
+              displayToast("Error", "error");
+            }
+
+            $("#rael-settings-popup").fadeOut(150);
+          },
+        });
+      });
 
 	}
 );
