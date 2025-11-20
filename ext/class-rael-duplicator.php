@@ -33,31 +33,28 @@ if ( ! class_exists( 'RAEL_Duplicator' ) ) {
 		public function __construct() {
 			// Load only if enabled in RAE Extensions
 			if ( ! Helper::is_extension_active('duplicator') ) {
-
 				return;
 			}
 			
 			// Row actions for posts/pages
-			// add_filter( 'post_row_actions', array( $this, 'rae_add_duplicate_link' ), 20, 2 );
-			// add_filter( 'page_row_actions', array( $this, 'rae_add_duplicate_link' ), 20, 2 );
+			add_filter( 'manage_posts_columns', array( $this, 'rae_add_custom_column' ) );
+			add_filter( 'manage_pages_columns', array( $this, 'rae_add_custom_column' ) );
+
+
+			
 			add_filter( 'post_row_actions', array( $this, 'rae_add_duplicator_action' ), 10, 2 );
 			add_filter( 'page_row_actions', array( $this, 'rae_add_duplicator_action' ), 10, 2 );
 
 			// Bulk action
 			add_filter( 'bulk_actions-edit-post', array( $this, 'rae_register_bulk_action' ) );
 			add_filter( 'handle_bulk_actions-edit-post', array( $this, 'rae_process_bulk_action' ), 10, 3 );
-			//add_action( 'quick_edit_custom_box', array( $this,'rae_register_quick_edit_button' ), 20, 2 );
 			
-			add_action( 'admin_enqueue_scripts', array( $this,'rael_quick_edit_js' ) );
-			add_filter( 'manage_post_posts_columns', array( $this,'rael_add_duplicate_column') );
-			add_action( 'manage_posts_custom_column', array( $this,'rael_render_duplicate_column'), 10, 2 );
-			add_action( 'quick_edit_custom_box', array( $this,'rael_register_quick_edit_button'), 10, 2 );
-
-
 
 			// Admin action for duplication
 			add_action( 'admin_action_rael_duplicate_post', array( $this, 'rae_duplicate_post_handler' ) );
 
+			add_filter( 'post_row_actions', array( $this, 'rae_add_duplicate_nonce_field' ), 10, 2 );
+			add_filter( 'page_row_actions', array( $this, 'rae_add_duplicate_nonce_field' ), 10, 2 );
 
 	}
 
@@ -93,57 +90,6 @@ if ( ! class_exists( 'RAEL_Duplicator' ) ) {
 	}
 
 
-	public function rae_register_quick_edit_button( $column_name, $post_type ) {
-
-		// Only output in the "title" column's Quick Edit
-		if ( $column_name !== 'title' ) {
-			return;
-		}
-		?>
-		<fieldset class="inline-edit-col-right rael-quick-edit-field">
-			<div class="inline-edit-col">
-				<label>
-					<span class="title">RAE Duplicator</span>
-					<span class="input-text-wrap">
-						<button type="button" class="button button-primary rael-quick-duplicate-btn">
-							Duplicate Now
-						</button>
-					</span>
-				</label>
-			</div>
-		</fieldset>
-		<?php
-	}
-public function rael_add_duplicate_column( $columns ) {
-    $columns['rael_duplicate'] = __( 'RAE Duplicate', 'responsive-addons-for-elementor' );
-    return $columns;
-}
-
-		public function rael_quick_edit_js() {
-			?>
-			<script>
-        jQuery(function($){
-
-            $(document).on('click', '.rael-quick-duplicate-btn', function(e){
-                e.preventDefault();
-
-                let row = $(this).closest('.inline-edit-row');
-                let postID = row.attr('id').replace('edit-', '');
-
-                if (!postID) return;
-
-                let url = ajaxurl.replace('admin-ajax.php', 'admin.php')
-                    + '?action=rael_duplicate_post&post=' + postID;
-
-                window.location.href = url;
-            });
-
-        });
-    </script>
-<?php
-		}
-
-
 	/**
 	 * Add bulk action
 	 */
@@ -151,44 +97,6 @@ public function rael_add_duplicate_column( $columns ) {
 		$bulk_actions['rael_duplicate'] = __( 'Duplicate', 'responsive-addons-for-elementor' );
 		return $bulk_actions;
 	}
-public function rael_render_duplicate_column( $column, $post_id ) {
-
-    if ( $column !== 'rael_duplicate' ) {
-        return;
-    }
-
-    // Build the URL with nonce
-    $url = wp_nonce_url(
-        admin_url( 'admin.php?action=rael_duplicate_post&post=' . $post_id ),
-        'rael_duplicate_post_' . $post_id
-    );
-
-    echo '<a href="' . esc_url( $url ) . '" class="button button-small rael-dup-btn">'
-        . __( 'Duplicate', 'responsive-addons-for-elementor' ) .
-        '</a>';
-}
-public function rael_register_quick_edit_button( $column_name, $post_type ) {
-
-    // Add field for ALL posts OR target specific post type
-    if ( $column_name !== 'rae_duplicate' ) {
-        return;
-    }
-
-    ?>
-    <fieldset class="inline-edit-col-right">
-        <div class="inline-edit-col">
-            <label class="alignleft">
-                <span class="title">RAE Duplicate</span>
-                <span class="input-text-wrap">
-                    <button type="button" class="button rae-qe-duplicate-btn">
-                        Duplicate Now
-                    </button>
-                </span>
-            </label>
-        </div>
-    </fieldset>
-    <?php
-}
 
 
 	/**
@@ -232,7 +140,13 @@ public function rael_register_quick_edit_button( $column_name, $post_type ) {
 		wp_redirect( admin_url( "post.php?action=edit&post=$new_id" ) );
 		exit;
 	}
+	public function rae_add_duplicate_nonce_field( $actions, $post ) {
+		$nonce = wp_create_nonce( 'rael_duplicate_post_' . $post->ID );
 
+		echo '<input type="hidden" class="rae-dup-nonce" data-post="' . esc_attr( $post->ID ) . '" value="' . esc_attr( $nonce ) . '">';
+
+		return $actions;
+	}
 	/**
 	 * Core duplication logic
 	 */
@@ -288,6 +202,11 @@ public function rael_register_quick_edit_button( $column_name, $post_type ) {
 		}
 
 		return $new_post_id;
+	}
+
+	public function rae_add_custom_column( $columns ) {
+		$columns['rae_duplicator'] = 'RAE Duplicator';
+		return $columns;
 	}
 	
 	}

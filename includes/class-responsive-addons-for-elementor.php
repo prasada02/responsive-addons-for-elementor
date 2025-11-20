@@ -72,6 +72,8 @@ class Responsive_Addons_For_Elementor {
 
 		add_action( 'admin_enqueue_scripts', array( &$this, 'responsive_addons_for_elementor_admin_enqueue_styles' ) );
 
+		add_action( 'admin_enqueue_scripts', array( $this, 'rae_load_duplicator_scripts' ) );
+
 		// Responsive Addons for Elementor Menu.
 		add_action( 'admin_menu', array( $this, 'responsive_addons_for_elementor_admin_menu' ), 9 );
 		add_action( 'responsive_register_admin_menu', array( $this, 'rael_register_admin_menu' ) );
@@ -1492,8 +1494,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'nonce'          => wp_create_nonce( 'responsive-addons-for-elementor' ),
 			)
 		);
-
-		 wp_localize_script(
+		
+		
+		wp_localize_script(
         	'responsive-addons-for-elementor-admin-jsfile',
 			'raelDuplicator',
 			array(
@@ -2648,5 +2651,36 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			'message' => 'Saved',
 			'saved_value' => $post_types
 		));
+	}
+
+	public function rae_load_duplicator_scripts( $hook ) {
+
+		// Load ONLY on list table screens
+		if ( $hook === 'edit.php' ) {
+
+			wp_enqueue_script(
+				'rae-duplicator-admin',
+				RAEL_URL . 'admin/js/rae-duplicator-admin.js',
+				array('jquery'),
+				RAEL_VER,
+				true
+			);
+
+			wp_localize_script(
+				'rae-duplicator-admin',
+				'raeDuplicatorjs',
+				[
+					'allowed_types' => get_option('rael_duplicator_allowed_post_types', ['all']),
+				]
+			);
+			// NEW: add duplicate URL for Quick Edit button
+			wp_localize_script(
+				'rae-duplicator-admin',
+				'RAEDup',
+				[
+					'duplicate_url' => admin_url( 'admin.php?action=rael_duplicate_post' ),
+				]
+			);
+		}
 	}
 }
