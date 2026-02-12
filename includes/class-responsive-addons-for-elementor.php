@@ -1540,19 +1540,20 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			return;
 		}
 		// Registering Bootstrap scripts.
-		wp_enqueue_script( 'rael-frontend', RAEL_URL . 'admin/assets/lib/bootstrap/js/bootstrap.bundle.min.js', array( 'jquery' ), RAEL_VER, true );
 		wp_enqueue_script( 'rael-frontend-toastify', RAEL_URL . 'admin/assets/lib/toastify/js/toastify-js.js', array( 'jquery' ), RAEL_VER, true );
 
 		// Responsive Ready Sites admin styles.
-		wp_register_style( 'responsive-addons-for-elementor-admin', RAEL_URL . 'admin/css/rael-admin.css', false, RAEL_VER );
+		wp_register_style( 'responsive-addons-for-elementor-admin', RAEL_URL . 'admin/css/rael-dashboard.css', false, RAEL_VER );
 		wp_enqueue_style( 'responsive-addons-for-elementor-admin' );
 		wp_enqueue_script(
 			'responsive-addons-for-elementor-admin-jsfile',
-			RAEL_URL . 'admin/js/rael-admin.js',
-			array( 'jquery' ),
+			RAEL_URL . 'admin/js/dashboard/index.js',
+			array( 'jquery', 'react', 'react-dom', 'wp-components' ),
 			RAEL_VER,
 			true
 		);
+
+		wp_enqueue_script( 'updates' );
 
 		wp_localize_script(
 			'responsive-addons-for-elementor-admin-jsfile',
@@ -1562,7 +1563,11 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'raelurl'        => RAEL_URL,
 				'siteurl'        => site_url(),
 				'isRSTActivated' => is_plugin_active( 'responsive-add-ons/responsive-add-ons.php' ),
+				'rst_redirect'   => admin_url( 'admin.php?page=responsive_add_ons' ),
 				'nonce'          => wp_create_nonce( 'responsive-addons-for-elementor' ),
+				'rael_version'   => RAEL_VER,
+				'pageurl'        => admin_url( 'post-new.php?post_type=page' ),
+				'rael_widgets'   => get_option( 'rael_widgets' ),
 			)
 		);
 		
@@ -1672,7 +1677,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		if ( ! class_exists( 'Elementor\Plugin' ) ) {
 			$this->admin_notice_missing_main_plugin();
 		}
-		include_once RAEL_DIR . 'admin/partials/responsive-addons-for-elementor-admin-getting-started.php';
+		echo '<div id="rael-getting-started-page-app"></div>';
 	}
 
 	/**
