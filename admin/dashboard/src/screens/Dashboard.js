@@ -19,7 +19,7 @@ const Dashboard = () => {
 
 const HeroSection = () => {
     return (
-        <div className="xl:mx-30 md:mx-15 mt-8 mb-16 rounded-lg bg-[linear-gradient(256.02deg,#080084_19.96%,#2563EB_90.75%)]">
+        <div className="xl:mx-14 md:mx-15 mt-8 mb-16 rounded-lg bg-[linear-gradient(256.02deg,#080084_19.96%,#2563EB_90.75%)]">
             <div className="flex flex-col gap-6 py-15 px-6 sm:py-14 sm:px-14 pl-15">
                 <p className="text-white font-bold text-5xl sm:text-4xl md:text-5xl leading-tight m-0">{__('Welcome to Responsive Addons for Elementor', 'responsive-addons-for-elementor')}</p>
                 <p className="max-w-175 text-blue-50 font-medium text-sm leading-relaxed m-0">{__('Create stunning WordPress websites with our intuitive block builder. Design beautiful pages, explore ready-made templates, and customize everything to match your vision. Get started in seconds!', 'responsive-addons-for-elementor')}</p>
@@ -39,7 +39,7 @@ const WidgetSection = () => {
     const { widgetsList, activeWidgetsCount, inactiveWidgetsCount } = useContext(WidgetContext);
 
     return (
-        <div className="xl:mx-30 md:mx-15 mb-16">
+        <div className="xl:mx-14 md:mx-15 mb-16">
             <div className="flex justify-between">
                 <div className="flex items-center gap-5">
                     <p className="text-2xl font-medium m-0">{__('Widgets', 'responsive-addons-for-elementor')}</p>
@@ -85,7 +85,7 @@ const ExtendAndQuickAccess = () => {
     const [themeText, setThemeText] = useState(localize?.responsive_status);
 
     return (
-        <div className="xl:flex lg:block justify-between xl:mx-30 md:mx-15 mt-8 mb-16 gap-12">
+        <div className="xl:flex lg:block justify-between xl:mx-14 md:mx-15 mt-8 mb-16 gap-12">
             <div className="xl:w-2/3 lg:w-full">
                 <p className="font-medium text-2xl m-0">{__('Extend Your Website', 'responsive-addons-for-elementor')}</p>
                 <p className="font-normal text-base text-desc mt-2 mb-6">{__("Powerful tools to enhance your site's functionality", 'responsive-addons-for-elementor')}</p>
@@ -183,7 +183,7 @@ const StarterTemplates = () => {
   const templates = ['Real Estate', 'Business', 'Jewellery Shop', 'Interior Design Firm'];
 
   return (
-    <div className="xl:mx-30 md:mx-15 mt-8 mb-16">
+    <div className="xl:mx-14 md:mx-15 mt-8 mb-16">
       <div className="flex justify-between mb-6">
         <div>
           <p className="text-2xl leading-8 font-medium m-0">{__('Starter Templates', 'responsive-addons-for-elementor')}</p>

@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
         <div className="bg-white border-b border-b-blue-100">
-            <div className="mx-auto xl:px-30 md:px-15">
+            <div className="mx-auto xl:px-14 md:px-15">
                 <div className="flex justify-between">
                     <div className="flex items-center w-8/12 gap-6">
                         <img className="rael-cyberchimps-logo" src={localize?.raelurl + 'admin/images/rael-logo.svg'} />
