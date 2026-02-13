@@ -1,7 +1,7 @@
 import { HashRouter } from 'react-router-dom';
 import Header from "./components/Header";
 import Canvas from './screens/Canvas';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 import { WidgetsProvider } from './WidgetContext';
 import { createRoot } from '@wordpress/element';
 
@@ -12,7 +12,7 @@ const GettingStarted = () => {
             <WidgetsProvider>
                 <Canvas />
             </WidgetsProvider>
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

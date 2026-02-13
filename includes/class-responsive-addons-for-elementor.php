@@ -1555,19 +1555,65 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		wp_enqueue_script( 'updates' );
 
+		$rst_path = 'responsive-add-ons/responsive-add-ons.php';
+
+		$rst_nonce = add_query_arg(
+			array(
+				'action'        => 'activate',
+				'plugin'        => rawurlencode( $rst_path ),
+				'plugin_status' => 'all',
+				'paged'         => '1',
+				'_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $rst_path ),
+			),
+			network_admin_url( 'plugins.php' )
+		);
+
+		$rbea_path = 'responsive-block-editor-addons/responsive-block-editor-addons.php';
+
+		$rbea_nonce = add_query_arg(
+			array(
+				'action'        => 'activate',
+				'plugin'        => rawurlencode( $rbea_path ),
+				'plugin_status' => 'all',
+				'paged'         => '1',
+				'_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $rbea_path ),
+			),
+			network_admin_url( 'plugins.php' )
+		);
+
+		$theme_slug = 'responsive';
+
+		$responsive_nonce = add_query_arg(
+			array(
+				'action'   => 'activate',
+				'stylesheet' => rawurlencode( $theme_slug ),
+				'_wpnonce' => wp_create_nonce( 'switch-theme_' . $theme_slug ),
+			),
+			admin_url( 'themes.php' )
+		);
+
 		wp_localize_script(
 			'responsive-addons-for-elementor-admin-jsfile',
 			'localize',
 			array(
-				'ajaxurl'        => admin_url( 'admin-ajax.php' ),
-				'raelurl'        => RAEL_URL,
-				'siteurl'        => site_url(),
-				'isRSTActivated' => is_plugin_active( 'responsive-add-ons/responsive-add-ons.php' ),
-				'rst_redirect'   => admin_url( 'admin.php?page=responsive_add_ons' ),
-				'nonce'          => wp_create_nonce( 'responsive-addons-for-elementor' ),
-				'rael_version'   => RAEL_VER,
-				'pageurl'        => admin_url( 'post-new.php?post_type=page' ),
-				'rael_widgets'   => get_option( 'rael_widgets' ),
+				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+				'raelurl'             => RAEL_URL,
+				'siteurl'             => site_url(),
+				'isRSTActivated'      => is_plugin_active( $rst_path ),
+				'nonce'               => wp_create_nonce( 'responsive-addons-for-elementor' ),
+				'rael_version'        => RAEL_VER,
+				'pageurl'             => admin_url( 'post-new.php?post_type=page' ),
+				'rael_widgets'        => get_option( 'rael_widgets' ),
+				'rst_status'          => $this->rael_plugin_status( $rst_path ),
+				'rbea_status'         => $this->rael_plugin_status( $rbea_path ),
+				'responsive_status'   => $this->rael_get_responsive_theme_status(),
+				'rst_nonce'           => $rst_nonce,
+				'rbea_nonce'          => $rbea_nonce,
+				'responsive_nonce'    => $responsive_nonce,
+				'rst_redirect'        => admin_url( 'admin.php?page=responsive_add_ons' ),
+				'rae_redirect'        => admin_url( 'admin.php?page=rael_getting_started' ),
+				'responsive_redirect' => admin_url( 'admin.php?page=responsive' ),
+				'review_link'         => esc_url( 'https://wordpress.org/support/plugin/responsive-addons-for-elementor/reviews/#new-post' ),
 			)
 		);
 		
@@ -1581,24 +1627,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			)
 		);
 
-		//wp_enqueue_script( 'rael-rst-admin', RAEL_URL . '/admin/js/rael-rst-plugin-install.js', array( 'jquery' ), true, RAEL_VER );
-		//wp_enqueue_script( 'updates' );
-		// wp_localize_script(
-		// 	'rael-rst-admin',
-		// 	'rstPluginInstall',
-		// 	array(
-		// 		'installing'            => esc_html__( 'Installing ', 'responsive-addons-for-elementor' ),
-		// 		'activating'            => esc_html__( 'Activating ', 'responsive-addons-for-elementor' ),
-		// 		'verify_network'        => esc_html__( 'Not connect. Verify Network.', 'responsive-addons-for-elementor' ),
-		// 		'page_not_found'        => esc_html__( 'Requested page not found. [404]', 'responsive-addons-for-elementor' ),
-		// 		'internal_server_error' => esc_html__( 'Internal Server Error [500]', 'responsive-addons-for-elementor' ),
-		// 		'json_parse_failed'     => esc_html__( 'Requested JSON parse failed', 'responsive-addons-for-elementor' ),
-		// 		'timeout_error'         => esc_html__( 'Time out error', 'responsive-addons-for-elementor' ),
-		// 		'ajax_req_aborted'      => esc_html__( 'Ajax request aborted', 'responsive-addons-for-elementor' ),
-		// 		'uncaught_error'        => esc_html__( 'Uncaught Error', 'responsive-addons-for-elementor' ),
-		// 	)
-		// );
-
+		add_filter( 'admin_footer_text', '__return_false' );
 		remove_filter( 'update_footer', 'core_update_footer' );
 	}
 
@@ -1743,6 +1772,14 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	public function rael_widgets_toggle() {
 
 		check_ajax_referer( 'responsive-addons-for-elementor', '_nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Unauthorized', 'responsive-addons-for-elementor' ),
+				)
+			);	
+		}
 
 		$rael_widgets = get_option( 'rael_widgets' );
 
@@ -2866,6 +2903,58 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		wp_send_json_success([
 			'message' => __( 'RST Plugin Activated', 'responsive-addons-for-elementor' ),
 		]);
+	}
+
+	/**
+	 * Check if plugin is installed or activated.
+	 *
+	 * @return string
+	 */
+	public function rael_plugin_status( $path ) {
+
+		if ( is_plugin_active( $path ) ) {
+			return 'activated';
+		}
+
+		// Check if RST is installed.
+		$installed_plugins = get_plugins();
+
+		if ( isset( $installed_plugins[ $path ] ) ) {
+			return 'activate';
+		} else {
+			return 'install';
+		}
+	}
+
+	/**
+	 * Get responsive theme status.
+	 * 
+	 * @return string 'activated' if active, 'activate' if installed, 'install' if not found.
+	 */
+	function rael_get_responsive_theme_status() {
+		
+		$theme_slug = 'responsive';
+		$current_theme = wp_get_theme();
+		
+		// Check if responsive theme or its child theme is active.
+		if ($current_theme->get_stylesheet() === $theme_slug || $current_theme->get('Template') === $theme_slug) {
+			return 'activated';
+		}
+		
+		// Check if responsive theme is installed
+		$themes = wp_get_themes();
+		if (isset($themes[$theme_slug])) {
+			return 'activate';
+		}
+		
+		// Check if any child theme of responsive is installed
+		foreach ($themes as $theme) {
+			if ($theme->get('Template') === $theme_slug) {
+				return 'activate';
+			}
+		}
+		
+		return 'install';
 	}
 
 

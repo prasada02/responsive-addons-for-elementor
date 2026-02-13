@@ -12,12 +12,15 @@
 @source "./**/*.{js,jsx,ts,tsx}";
 
 #wpcontent {
-    padding-left: 0;
+    @apply pl-0;
+}
+
+#wpbody-content {
+    @apply pb-0;
 }
 
 #rael-getting-started-page-app {
     @apply font-sans;
-    padding-bottom: 0;
 }
 
 .rael-active-tab {
@@ -28,8 +31,7 @@
 }
 
 .rael-active-category {
-    @apply border-b-2 border-b-[#2563EB];
-    font-weight: 500;
+    @apply border-b-2 border-b-[#2563EB] font-medium;
 }
 
 /* Inactive */
@@ -48,4 +50,8 @@
 
 .rael-widget-toggle .components-form-toggle.is-checked .components-form-toggle__thumb {
     @apply bg-white!
+}
+
+.rael-widget-toggle .components-h-stack {
+    @apply gap-0;
 }
