@@ -1540,7 +1540,8 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			return;
 		}
 		// Registering Bootstrap scripts.
-		wp_enqueue_script( 'rael-frontend-toastify', RAEL_URL . 'admin/assets/lib/toastify/js/toastify-js.js', array( 'jquery' ), RAEL_VER, true );
+		wp_enqueue_style( 'rael-admin-toastify', RAEL_URL . 'admin/assets/lib/toastify/css/toastify.min.css', false, RAEL_VER );
+		wp_enqueue_script( 'rael-admin-toastify', RAEL_URL . 'admin/assets/lib/toastify/js/toastify-js.js', array( 'jquery' ), RAEL_VER, true );
 
 		// Responsive Ready Sites admin styles.
 		wp_register_style( 'responsive-addons-for-elementor-admin', RAEL_URL . 'admin/css/rael-dashboard.css', false, RAEL_VER );
@@ -1781,28 +1782,32 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			);	
 		}
 
-		$rael_widgets = get_option( 'rael_widgets' );
-
-		if ( isset( $_POST['toggle_value'] ) ) {
-			$status = filter_var( wp_unslash( $_POST['toggle_value'] ), FILTER_VALIDATE_BOOLEAN ) ? 1 : 0;
-			foreach ( $rael_widgets as &$widget ) {
-				$widget['status'] = $status;
-			}
-		} else {
-
-			if ( ! isset( $_POST['index'] ) || ! isset( $_POST['value'] ) ) {
-				wp_send_json_error();
-			}
-
-			$index = sanitize_key( $_POST['index'] );
-			$value = sanitize_key( $_POST['value'] );
-
-			$rael_widgets[ $index ]['status'] = filter_var( $value, FILTER_VALIDATE_BOOLEAN );
-		}
+		// Pre-sanitizing the response using a custom function to ensure all values are cleaned.
+		// PHPCS incorrectly flags this as unsanitized, so the warning is suppressed.
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$rael_widgets = $this->recursive_sanitize_text_field( json_decode( stripslashes( wp_unslash( $_POST['value'] ) ), true ) );
+		// phpcs:enable
 
 		update_option( 'rael_widgets', $rael_widgets );
 
 		$this->update_frontend_assets( $rael_widgets );
+	}
+
+	/**
+	 * Recursively sanitize the response fields from $_POST.
+	 *
+	 * @return mixed
+	 */
+	public function recursive_sanitize_text_field($array) {
+		foreach ( $array as $key => &$value ) {
+			if ( is_array( $value ) ) {
+				$value = $this->recursive_sanitize_text_field($value);
+			}
+			else {
+				$value = sanitize_text_field( wp_unslash( $value ) );
+			}
+		}
+		return $array;
 	}
 
 	/**

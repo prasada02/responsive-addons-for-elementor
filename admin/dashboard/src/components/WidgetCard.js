@@ -5,6 +5,7 @@ import { ToggleControl } from "@wordpress/components";
 import { WidgetContext } from "../WidgetContext";
 import { useContext } from "react";
 import Icons from "../icons";
+import { convertTruthyFalsyValue } from "../Helper";
 
 const WidgetCard = ({ data }) => {
 
@@ -19,7 +20,7 @@ const WidgetCard = ({ data }) => {
                 <ToggleControl
                     className={'rael-widget-toggle'}
                     __nextHasNoMarginBottom
-                    checked={status}
+                    checked={convertTruthyFalsyValue(status)}
                     onChange={() => handleToggle(title)}
                 />
             </div>

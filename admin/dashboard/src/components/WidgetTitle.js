@@ -1,7 +1,5 @@
 const WidgetTitle = ({ title }) => {
 
-    console.log(title);
-
     let widgetTitle = title.replace(/^woocommerce-theme-/, '');
 
     // Handle special cases FIRST

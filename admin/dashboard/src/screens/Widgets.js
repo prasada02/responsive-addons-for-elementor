@@ -3,16 +3,22 @@ import { useState, useContext } from 'react';
 import { ToggleControl } from "@wordpress/components";
 import WidgetCard from "../components/WidgetCard";
 import { WidgetContext } from "../WidgetContext";
+import { convertTruthyFalsyValue } from "../Helper";
 
 const Widgets = () => {
 
-  const { widgetsList, toggleAll, handleToggleAll } = useContext(WidgetContext);
+  const { widgetsList, toggleAll, handleToggleAll, handleToggleCategory } = useContext(WidgetContext);
   const [showCategory, setShowCategory] = useState('all');
   const [search, setSearch] = useState('');
 
   const handleShowCategory = (tab) => {
     setShowCategory(tab);
     setSearch('');
+  }
+
+  const handleSearch = (value) => {
+    setShowCategory('all');
+    setSearch(value);
   }
 
   const widgetsCategories = [
@@ -35,7 +41,7 @@ const Widgets = () => {
           ))}
         </div>
         <div className="relative">
-          <input value={search} className="rael-widget-search border! rounded-[10px]! border-slate-200! p-3! placeholder:text-[#9CA3AF]" onChange={(e) => setSearch(e.target.value)} autoComplete="off" type="text" name="" id="" placeholder="Search Widgets" />
+          <input value={search} className="rael-widget-search w-87.5 border! rounded-[10px]! border-slate-200! py-3! px-4! placeholder:text-[#9CA3AF]" onChange={(e) => handleSearch(e.target.value)} autoComplete="off" type="text" name="" id="" placeholder="Search Widgets" />
           <i className="absolute right-2 top-4 bg-white"><span className="dashicons dashicons-search text-[#2563EB]"></span></i>
         </div>
       </div>
@@ -65,7 +71,7 @@ const Widgets = () => {
               if (current?.category !== categoryKey) return false;
 
               // Search filter
-              if (search !== '' && !current?.title?.toLowerCase().includes(search)) {
+              if (search !== '' && (!current?.name?.toLowerCase().includes(search) && !current?.title?.toLowerCase().includes(search))) {
                 return false;
               }
 
@@ -74,15 +80,28 @@ const Widgets = () => {
 
             if (!filteredWidgets.length) return null;
 
+            const isCategoryEnabled = filteredWidgets.length > 0 && filteredWidgets.every(widget =>
+              convertTruthyFalsyValue(widget?.status) === true
+            );
+
             return (
               <div
                 key={categoryKey}
                 className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-md"
               >
-                <div className="bg-white rounded-lg px-8 py-6 mb-3">
+                <div className="flex items-center justify-between bg-white rounded-lg px-8 py-6 mb-3">
                   <p className="m-0 text-lg leading-7 font-medium text-slate-800">
                     {categoryLabel}
                   </p>
+                  <div className="flex items-center gap-2">
+                    <ToggleControl
+                      className={'rael-widget-toggle'}
+                      __nextHasNoMarginBottom
+                      checked={isCategoryEnabled}
+                      onChange={() => handleToggleCategory(categoryKey)}
+                    />
+                    <span>{__('Enable All', 'responsive-addons-for-elementor')}</span>
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
@@ -122,7 +141,7 @@ const Widgets = () => {
               if (current?.category !== normalizedShowCategory) return null;
 
               // Search check
-              if (search !== '' && !current?.title?.toLowerCase().includes(search)) {
+              if (search !== '' && (!current?.name?.toLowerCase().includes(search) && !current?.title?.toLowerCase().includes(search))) {
                 return null;
               }
 
