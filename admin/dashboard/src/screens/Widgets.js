@@ -100,7 +100,7 @@ const Widgets = () => {
                       checked={isCategoryEnabled}
                       onChange={() => handleToggleCategory(categoryKey)}
                     />
-                    <span>{__('Enable All', 'responsive-addons-for-elementor')}</span>
+                    <span className="text-sm font-medium leading-5 text-slate-800">{__('Enable All', 'responsive-addons-for-elementor')}</span>
                   </div>
                 </div>
 
@@ -114,48 +114,71 @@ const Widgets = () => {
           })}
       </div>
 
-      {showCategory !== 'all' && (
-        <div className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-md">
-          <div className="bg-white rounded-lg px-8 py-6 mb-3">
-            <p className="m-0 text-lg leading-7 font-medium text-slate-800 capitalize">
-              {showCategory}
-            </p>
-          </div>
+      {showCategory !== 'all' && (() => {
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
-            {widgetsList.map((current) => {
+        const normalizedShowCategory =
+          showCategory === 'theme builder'
+            ? 'themebuilder'
+            : showCategory?.toLowerCase();
 
-              // Skip extensions
-              if (current?.category === 'extensions') return null;
+        const filteredWidgets = widgetsList.filter((current) => {
 
-              // Do not render anything when category is "all"
-              if (showCategory === 'all') return null;
+          if (current?.category === 'extensions') return false;
 
-              // Normalize category (for "Theme Builder")
-              const normalizedShowCategory =
-                showCategory === 'theme builder'
-                  ? 'themebuilder'
-                  : showCategory?.toLowerCase();
+          if (current?.category !== normalizedShowCategory) return false;
 
-              // Category check
-              if (current?.category !== normalizedShowCategory) return null;
+          if (
+            search !== '' &&
+            (
+              !current?.name?.toLowerCase().includes(search) &&
+              !current?.title?.toLowerCase().includes(search)
+            )
+          ) {
+            return false;
+          }
 
-              // Search check
-              if (search !== '' && (!current?.name?.toLowerCase().includes(search) && !current?.title?.toLowerCase().includes(search))) {
-                return null;
-              }
+          return true;
+        });
 
-              return (
+        if (!filteredWidgets.length) return null;
+
+        const isCategoryEnabled =
+          filteredWidgets.length > 0 &&
+          filteredWidgets.every(widget =>
+            convertTruthyFalsyValue(widget?.status) === true
+          );
+
+        return (
+          <div className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-md">
+            <div className="flex items-center justify-between bg-white rounded-lg px-8 py-6 mb-3">
+              <p className="m-0 text-lg leading-7 font-medium text-slate-800 capitalize">
+                {showCategory}
+              </p>
+              <div className="flex items-center gap-2">
+                <ToggleControl
+                  className="rael-widget-toggle"
+                  __nextHasNoMarginBottom
+                  checked={isCategoryEnabled}
+                  onChange={() => handleToggleCategory(normalizedShowCategory)}
+                />
+                <span className="text-sm font-medium leading-5 text-slate-800">
+                  {__('Enable All', 'responsive-addons-for-elementor')}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
+              {filteredWidgets.map((current) => (
                 <WidgetCard
                   key={current?.slug || current?.title}
                   data={current}
                 />
-              );
-            })}
+              ))}
+            </div>
           </div>
+        );
 
-        </div>
-      )}
+      })()}
 
     </div>
   )
