@@ -789,7 +789,7 @@ class Responsive_Addons_For_Elementor_Google_Map extends Widget_Base {
 				if ('custom' == address.rael_marker_icon_type && 'undefined' != typeof address.rael_custom_marker_icon && '' != address.rael_custom_marker_icon.url) {
 					location.push('custom');
 					location.push(address.rael_custom_marker_icon.url);
-					location.push(address.rael_custom_marker_size);
+					location.push(address.rael_custom_marker_size.size);
 				} else {
 					location.push('');
 					location.push('');
