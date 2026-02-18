@@ -33,7 +33,7 @@ const Widgets = () => {
   ];
 
   return (
-    <div className="xl:mx-14 md:mx-15 mt-12 mb-16 rounded-[20px]">
+    <div className="xl:mx-14 md:mx-15 mt-12 mb-16">
       <div className="flex justify-between items-center">
         <div className="flex border-b border-b-slate-300">
           {widgetsCategories.map((current) => (
@@ -58,7 +58,7 @@ const Widgets = () => {
 
       <div className="[&>div:not(:first-child)]:mt-16">
         {showCategory === 'all' && widgetsCategories
-          .filter((cat) => cat !== __('All', 'responsive-addons-for-elementor'))
+          .filter((cat) => cat !== 'All')
           .map((categoryLabel) => {
 
             let categoryKey = categoryLabel === 'Theme Builder' ? 'themebuilder' : categoryLabel.toLowerCase();
@@ -87,7 +87,7 @@ const Widgets = () => {
             return (
               <div
                 key={categoryKey}
-                className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-md"
+                className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-lg"
               >
                 <div className="flex items-center justify-between bg-white rounded-lg px-8 py-6 mb-3">
                   <p className="m-0 text-lg leading-7 font-medium text-slate-800">
@@ -151,7 +151,7 @@ const Widgets = () => {
         return (
           <div className="mt-6 p-3 bg-slate-100 border border-slate-200 rounded-md">
             <div className="flex items-center justify-between bg-white rounded-lg px-8 py-6 mb-3">
-              <p className="m-0 text-lg leading-7 font-medium text-slate-800 capitalize">
+              <p className={`m-0 text-lg leading-7 font-medium text-slate-800 ${showCategory === 'seo' ? 'uppercase' : 'capitalize' }`}>
                 {showCategory}
               </p>
               <div className="flex items-center gap-2">

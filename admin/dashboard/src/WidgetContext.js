@@ -7,15 +7,17 @@ export const WidgetsProvider = ({ children }) => {
     const [widgetsList, setWidgetList] = useState(localize?.rael_widgets);
     const [isInitialized, setIsInitialized] = useState(false);
 
-    const areAllWidgetsSelected = widgetsList.every((widget) => convertTruthyFalsyValue(widget?.status) === true);
+    const areAllWidgetsSelected = widgetsList
+        .filter(widget => widget?.category !== 'extensions')
+        .every(widget =>
+            convertTruthyFalsyValue(widget?.status) === true
+        );
     const [toggleAll, setToggleAll] = useState(areAllWidgetsSelected);
 
     const initialActiveWidget = widgetsList.filter((item) => convertTruthyFalsyValue(item?.status) === true);
     const initialInactiveWidget = widgetsList.filter((item) => convertTruthyFalsyValue(item?.status) === false);
     const [activeWidgetsCount, setActiveWidgetsCount] = useState(initialActiveWidget.length);
     const [inactiveWidgetsCount, setInactiveWidgetsCount] = useState(initialInactiveWidget.length);
-
-    // const permanentlyEnabledWidgets = ['advanced-heading', 'image', 'container'];
 
     const handleWidgetCount = (updatedWidgetList) => {
         const activeWidgets = updatedWidgetList.filter((item) => convertTruthyFalsyValue(item?.status) === true)
@@ -33,9 +35,11 @@ export const WidgetsProvider = ({ children }) => {
                     : checkbox
             );
 
-            const areAllUpdatedWidgetsChecked = updatedWidgetList.every(
-                (widget) => widget.status == 1
-            );
+            const areAllUpdatedWidgetsChecked = updatedWidgetList
+                .filter(widget => widget?.category !== 'extensions')
+                .every(widget =>
+                    convertTruthyFalsyValue(widget?.status) === true
+                );
 
             setToggleAll(areAllUpdatedWidgetsChecked);
 
@@ -54,9 +58,11 @@ export const WidgetsProvider = ({ children }) => {
 
         setWidgetList((prevCheckboxes) => {
             const updatedWidgetList = prevCheckboxes.map((checkbox) => {
-                // if (permanentlyEnabledWidgets.includes(checkbox.key)) {
-                //     return checkbox;
-                // }
+
+                if (checkbox?.category === 'extensions') {
+                    return checkbox;
+                }
+
                 return { ...checkbox, status: !toggleAll };
             });
 
@@ -96,9 +102,11 @@ export const WidgetsProvider = ({ children }) => {
             });
 
             // Update global toggle all
-            const areAllWidgetsChecked = updatedWidgetList.every(
-                (widget) => convertTruthyFalsyValue(widget?.status) === true
-            );
+            const areAllWidgetsChecked = updatedWidgetList
+                .filter(widget => widget?.category !== 'extensions')
+                .every(widget =>
+                    convertTruthyFalsyValue(widget?.status) === true
+                );
 
             setToggleAll(areAllWidgetsChecked);
 
@@ -106,6 +114,37 @@ export const WidgetsProvider = ({ children }) => {
 
             if (isInitialized) {
                 console.log('fetching data for category toggle')
+                fetchData(updatedWidgetList);
+            }
+
+            return updatedWidgetList;
+        });
+    };
+
+    const handleToggleAllExtensions = () => {
+        setWidgetList((prevWidgets) => {
+
+            const extensionWidgets = prevWidgets.filter(
+                widget => widget.category === 'extensions'
+            );
+
+            const areAllEnabled = extensionWidgets.every(
+                widget => convertTruthyFalsyValue(widget?.status) === true
+            );
+
+            const updatedWidgetList = prevWidgets.map((widget) => {
+                if (widget.category === 'extensions') {
+                    return {
+                        ...widget,
+                        status: areAllEnabled ? 0 : 1,
+                    };
+                }
+                return widget;
+            });
+
+            handleWidgetCount(updatedWidgetList);
+
+            if (isInitialized) {
                 fetchData(updatedWidgetList);
             }
 
@@ -137,7 +176,7 @@ export const WidgetsProvider = ({ children }) => {
 
     return (
         <WidgetContext.Provider
-            value={{ widgetsList, setWidgetList, handleToggle, toggleAll, handleToggleAll, handleToggleCategory, activeWidgetsCount, inactiveWidgetsCount }}
+            value={{ widgetsList, setWidgetList, handleToggle, toggleAll, handleToggleAll, handleToggleCategory, handleToggleAllExtensions, activeWidgetsCount, inactiveWidgetsCount }}
         >
             {children}
         </WidgetContext.Provider>

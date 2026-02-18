@@ -147,7 +147,6 @@ class Responsive_Addons_For_Elementor {
 
 
 		add_action( 'wp_ajax_rael_save_duplicator_settings', array( $this, 'rael_save_duplicator_settings' ) );
-		add_action( 'wp_ajax_nopriv_rael_save_duplicator_settings', array( $this, 'rael_save_duplicator_settings' ) );
 
 		// RST icon in editor
 		//add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'rael_editor_promo_styles' ) );
@@ -1615,16 +1614,8 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'rae_redirect'        => admin_url( 'admin.php?page=rael_getting_started' ),
 				'responsive_redirect' => admin_url( 'admin.php?page=responsive' ),
 				'review_link'         => esc_url( 'https://wordpress.org/support/plugin/responsive-addons-for-elementor/reviews/#new-post' ),
-			)
-		);
-		
-		
-		wp_localize_script(
-        	'responsive-addons-for-elementor-admin-jsfile',
-			'raelDuplicator',
-			array(
-				'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
-				'nonce' 	=> wp_create_nonce('rael_save_dup_settings'),
+				'selected_posttype'   => get_option( 'rael_duplicator_allowed_post_types', array( 'all' ) ),
+				'all_cpts'            => $this->rael_get_all_cpts(),
 			)
 		);
 
@@ -2752,7 +2743,15 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	}
 
 	public function rael_save_duplicator_settings() {
-		check_ajax_referer( 'rael_save_dup_settings', 'nonce' );
+		check_ajax_referer( 'responsive-addons-for-elementor', '_nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Unauthorized', 'responsive-addons-for-elementor' ),
+				)
+			);	
+		}
 
 		// Get selected post types from JS
 		$post_types = isset($_POST['post_types']) ? (array) $_POST['post_types'] : array();
@@ -2936,7 +2935,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 * 
 	 * @return string 'activated' if active, 'activate' if installed, 'install' if not found.
 	 */
-	function rael_get_responsive_theme_status() {
+	public function rael_get_responsive_theme_status() {
 		
 		$theme_slug = 'responsive';
 		$current_theme = wp_get_theme();
@@ -2960,6 +2959,55 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		}
 		
 		return 'install';
+	}
+
+	/**
+	 * Retrieve all public custom post types and automatically filtering out Elementor / Theme Builder related CPTs.
+	 *
+	 * @return array Associative array of filtered custom post types.
+	 */
+	public function rael_get_all_cpts() {
+		$custom_post_types = get_post_types(
+			array(
+				'public'   => true,
+				'_builtin' => false,
+			),
+			'objects'
+		);
+
+		$filtered_cpts = array();
+		
+		foreach ($custom_post_types as $slug => $pt) {
+
+			// AUTO-REMOVE all Elementor / Theme Builder CPTs
+			if (
+				// Elementor common slug patterns
+				strpos($slug, 'elementor') === 0 ||
+				strpos($slug, 'e-') === 0 ||
+				strpos($slug, 'elementor-') === 0 ||
+				strpos($slug, 'etheme') === 0 ||
+
+				// Elementor Pro Theme Builder labels
+				stripos($pt->label, 'elementor') !== false ||
+				stripos($pt->label, 'template') !== false ||
+				stripos($pt->label, 'theme') !== false ||
+				stripos($pt->label, 'builder') !== false ||
+
+				// Some versions use "Kit" for Theme Style Library
+				stripos($pt->label, 'kit') !== false
+			) {
+				continue;
+			}
+
+			// Exclude if needed
+			if (in_array($slug, ['attachment'], true)) {
+				continue;
+			}
+
+			$filtered_cpts[$slug] = $pt->label;
+		}
+
+		return $filtered_cpts;
 	}
 
 
