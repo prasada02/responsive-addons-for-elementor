@@ -1599,6 +1599,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'ajaxurl'               => admin_url( 'admin-ajax.php' ),
 				'raelurl'               => RAEL_URL,
 				'siteurl'               => site_url(),
+				'themebuilderurl'       => admin_url( 'edit.php?post_type=rael-theme-template' ),
 				'isRSTActivated'        => is_plugin_active( $rst_path ),
 				'nonce'                 => wp_create_nonce( 'responsive-addons-for-elementor' ),
 				'rael_version'          => RAEL_VER,
