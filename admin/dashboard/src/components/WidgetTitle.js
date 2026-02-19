@@ -2,10 +2,9 @@ const WidgetTitle = ({ title }) => {
 
     let widgetTitle = title.replace(/^woocommerce-theme-/, '');
 
-    // Handle special cases FIRST
     switch (widgetTitle) {
         case 'cf-styler':
-            widgetTitle = 'Contact Form Styler';
+            widgetTitle = 'Contact Form 7 Styler';
             break;
         case 'gf-styler':
             widgetTitle = 'Gravity Forms Styler';

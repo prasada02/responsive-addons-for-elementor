@@ -62,6 +62,7 @@
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-3xl: 1.5rem;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --default-transition-duration: 150ms;
@@ -141,6 +142,12 @@
 }
 .m-0 {
   margin: calc(var(--spacing) * 0);
+}
+.m-10 {
+  margin: calc(var(--spacing) * 10);
+}
+.m-16 {
+  margin: calc(var(--spacing) * 16);
 }
 .mx-3 {
   margin-inline: calc(var(--spacing) * 3);
@@ -259,6 +266,9 @@
 .w-3\/4 {
   width: calc(3/4 * 100%);
 }
+.w-3\/5 {
+  width: calc(3/5 * 100%);
+}
 .w-4 {
   width: calc(var(--spacing) * 4);
 }
@@ -273,6 +283,12 @@
 }
 .w-8\/12 {
   width: calc(8/12 * 100%);
+}
+.w-10 {
+  width: calc(var(--spacing) * 10);
+}
+.w-10\/12 {
+  width: calc(10/12 * 100%);
 }
 .w-12 {
   width: calc(var(--spacing) * 12);
@@ -330,6 +346,39 @@
 }
 .resize {
   resize: both;
+}
+.columns-2 {
+  columns: 2;
+}
+.columns-3 {
+  columns: 3;
+}
+.columns-4 {
+  columns: 4;
+}
+.columns-5 {
+  columns: 5;
+}
+.columns-6 {
+  columns: 6;
+}
+.columns-7 {
+  columns: 7;
+}
+.columns-8 {
+  columns: 8;
+}
+.columns-9 {
+  columns: 9;
+}
+.columns-10 {
+  columns: 10;
+}
+.columns-11 {
+  columns: 11;
+}
+.columns-12 {
+  columns: 12;
 }
 .flex-col {
   flex-direction: column;
@@ -545,6 +594,9 @@
 .p-10 {
   padding: calc(var(--spacing) * 10);
 }
+.p-12 {
+  padding: calc(var(--spacing) * 12);
+}
 .px-2 {
   padding-inline: calc(var(--spacing) * 2);
 }
@@ -572,6 +624,9 @@
 .px-8 {
   padding-inline: calc(var(--spacing) * 8);
 }
+.px-10 {
+  padding-inline: calc(var(--spacing) * 10);
+}
 .py-1 {
   padding-block: calc(var(--spacing) * 1);
 }
@@ -596,8 +651,17 @@
 .py-6 {
   padding-block: calc(var(--spacing) * 6);
 }
+.py-10 {
+  padding-block: calc(var(--spacing) * 10);
+}
+.py-12 {
+  padding-block: calc(var(--spacing) * 12);
+}
 .py-15 {
   padding-block: calc(var(--spacing) * 15);
+}
+.py-\[60px\] {
+  padding-block: 60px;
 }
 .pl-6 {
   padding-left: calc(var(--spacing) * 6);
@@ -765,6 +829,10 @@
   --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
 .shadow-\[0_20px_40px_rgba\(0\,0\,0\,0\.15\)\] {
   --tw-shadow: 0 20px 40px var(--tw-shadow-color, rgba(0,0,0,0.15));
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -801,6 +869,10 @@
   transition-property: box-shadow;
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
+}
+.ease-in {
+  --tw-ease: var(--ease-in);
+  transition-timing-function: var(--ease-in);
 }
 .ease-in-out {
   --tw-ease: var(--ease-in-out);
@@ -917,6 +989,21 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+.md\:flex-wrap {
+  @media (width >= 48rem) {
+    flex-wrap: wrap;
+  }
+}
+.md\:gap-5 {
+  @media (width >= 48rem) {
+    gap: calc(var(--spacing) * 5);
+  }
+}
+.md\:bg-red-500 {
+  @media (width >= 48rem) {
+    background-color: var(--color-red-500);
+  }
+}
 .md\:px-15 {
   @media (width >= 48rem) {
     padding-inline: calc(var(--spacing) * 15);
@@ -948,6 +1035,21 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+.lg\:flex-nowrap {
+  @media (width >= 64rem) {
+    flex-wrap: nowrap;
+  }
+}
+.lg\:bg-red-500 {
+  @media (width >= 64rem) {
+    background-color: var(--color-red-500);
+  }
+}
+.xl\:mx-7\.5 {
+  @media (width >= 80rem) {
+    margin-inline: calc(var(--spacing) * 7.5);
+  }
+}
 .xl\:mx-14 {
   @media (width >= 80rem) {
     margin-inline: calc(var(--spacing) * 14);
@@ -976,6 +1078,11 @@
 .xl\:grid-cols-4 {
   @media (width >= 80rem) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.xl\:flex-nowrap {
+  @media (width >= 80rem) {
+    flex-wrap: nowrap;
   }
 }
 .xl\:px-14 {

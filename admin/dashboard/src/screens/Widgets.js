@@ -34,7 +34,7 @@ const Widgets = () => {
 
   return (
     <div className="xl:mx-14 md:mx-15 mt-12 mb-16">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center md:flex-wrap md:gap-5">
         <div className="flex border-b border-b-slate-300">
           {widgetsCategories.map((current) => (
             <div key={current} onClick={() => handleShowCategory(current.toLowerCase())} className={`px-3 py-2.5 text-base leading-6 font-normal text-desc cursor-pointer hover:bg-slate-200 ${showCategory === current.toLowerCase() ? 'rael-active-category' : ''}`}>{current}</div>
@@ -104,7 +104,7 @@ const Widgets = () => {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
+                <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                   {filteredWidgets.map((current) => (
                     <WidgetCard key={current?.slug || current?.title} data={current} />
                   ))}
@@ -167,7 +167,7 @@ const Widgets = () => {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {filteredWidgets.map((current) => (
                 <WidgetCard
                   key={current?.slug || current?.title}
