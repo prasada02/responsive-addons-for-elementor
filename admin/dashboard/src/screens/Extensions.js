@@ -53,7 +53,7 @@ const Extensions = () => {
                                     {current?.title === 'duplicator' && <div className="flex items-center gap-3">
                                         <span className={current?.status ? 'cursor-pointer' : 'cursor-not-allowed'} onClick={() => setShowDupliator(true)}>{Icons.setting}</span>
                                         <span>|</span></div>}
-                                    <a href={current?.docs} target="_blank" className="no-underline"><span className="flex w-4.5">{Icons.arrowDiagonal}</span></a>
+                                    <a href={current?.docs} target="_blank" className="no-underline"><span className="w-4.5">{Icons.arrowDiagonal}</span></a>
                                 </div>
                                 <ToggleControl
                                     className="rael-widget-toggle"

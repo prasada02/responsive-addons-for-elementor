@@ -16,7 +16,7 @@
 }
 
 #wpbody-content {
-    @apply pb-0 bg-slate-100;
+    @apply pb-0 bg-slate-50;
 }
 
 #rael-getting-started-page-app {

@@ -26,7 +26,7 @@ const WidgetCard = ({ data }) => {
             </div>
             <div className="flex justify-between">
                 <WidgetTitle title={title} />
-                <a href={docs} target="_blank" className="no-underline"><span className="flex w-4.5">{Icons.arrowDiagonal}</span></a>
+                <a href={docs} target="_blank" className="no-underline"><span>{Icons.arrowDiagonal}</span></a>
             </div>
         </div>
     )
