@@ -65,7 +65,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return __( 'FAQ', 'responsive-addons-for-elementor' );
+		return __( 'Accordion/FAQ', 'responsive-addons-for-elementor' );
 	}
 
 	/**
@@ -185,6 +185,20 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 					'active' => true,
 				),
 			)
+		);
+		/**
+		 * Keep Open Toggle
+		 */
+		$repeater->add_control(
+			'keep_open',
+			[
+				'label'        => __( 'Keep This Slide Open', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
+				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
 		);
 
 		$repeater->add_control(
@@ -1216,8 +1230,9 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 		$editor_mode            = \Elementor\Plugin::instance()->editor->is_edit_mode();
 		$id                     = substr( $this->get_id_int(), 0, 3 );
 		$content_schema_warning = 0;
-
+	
 		foreach ( $settings['rael_tabs'] as $key ) {
+			 
 			if ( 'content' !== $key['rael_faq_content_type'] ) {
 				$content_schema_warning = 1;
 			}
@@ -1252,6 +1267,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				<?php
 
 				foreach ( $settings['rael_tabs'] as $key ) {
+					  $is_open = ( isset( $key['keep_open'] ) && 'yes' === $key['keep_open'] );
 					if ( ( '' === $key['rael_question'] || '' === $key['rael_answer'] ) && 'yes' === $settings['rael_schema_support'] && ( true === $editor_mode ) ) {
 						?>
 						<span>
@@ -1272,11 +1288,16 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 							)
 						);
 					} else {
+						$accordion_classes = array( 'rael-faq-accordion' );
+
+						if ( $is_open ) {
+							$accordion_classes[] = 'rael-active';
+						}
 						$this->add_render_attribute(
 							'rael_faq_accordion_' . $key['_id'],
 							array(
 								'id'    => 'rael-accordion-' . $key['_id'],
-								'class' => 'rael-faq-accordion',
+								'class' => $accordion_classes,
 							)
 						);
 					}
@@ -1284,14 +1305,21 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 					if ( ! ( '' === $key['rael_question'] || '' === $key['rael_answer'] ) ) {
 						?>
 					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_faq_accordion_' . $key['_id'] ) ); ?> role="tablist">
-						<div class= "rael-accordion-title" aria-expanded="false" role="tab">
+						<div class= "rael-accordion-title" aria-expanded="<?php echo esc_attr( $is_open ? 'true' : 'false' ); ?>" role="tab">
 										<span class="rael-accordion-icon rael-accordion-icon-<?php echo esc_attr( $settings['rael_icon_align'] ); ?>">
 											<span class="rael-accordion-icon-closed"><?php Icons_Manager::render_icon( $settings['rael_selected_icon'] ); ?></span>
 											<span class="rael-accordion-icon-opened"><?php Icons_Manager::render_icon( $settings['rael_selected_active_icon'] ); ?></span>
 										</span>
 							<<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?> class="rael-question-<?php echo esc_attr( $key['_id'] ); ?> rael-question-span" tabindex="0" ><?php echo wp_kses_post( $key['rael_question'] ); ?></<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?>>
 					</div>
-					<div class="rael-accordion-content" role="tabpanel">
+					<?php 
+						$content_style = '';
+
+						if ( 'accordion' === $settings['rael_faq_layout'] ) {
+							$content_style = $is_open ? 'display:block;' : 'display:none;';
+						}
+					?>
+					<div class="rael-accordion-content" role="tabpanel" style="<?php echo esc_attr( $content_style ); ?>">
 										<span>
 
 										<?php
