@@ -255,7 +255,7 @@ class Responsive_Addons_For_Elementor_Google_Map extends Widget_Base {
 				'size_units'  => array( 'px' ),
 				'description' => __( 'Note: If you want to retain the image original size, then set the Marker Size as blank.', 'responsive-addons-for-elementor' ),
 				'default'     => array(
-					'size' => 30,
+					'size' => 37,
 					'unit' => 'px',
 				),
 				'range'       => array(
