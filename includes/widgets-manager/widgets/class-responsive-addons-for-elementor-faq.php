@@ -192,7 +192,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 		$repeater->add_control(
 			'keep_open',
 			[
-				'label'        => __( 'Keep This Slide Open', 'responsive-addons-for-elementor' ),
+				'label'        => __( 'Keep this slide open', 'responsive-addons-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
 				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
@@ -337,6 +337,20 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				'condition' => array(
 					'rael_faq_layout' => 'accordion',
 
+				),
+			)
+		);
+
+		$this->add_control(
+			'rael_show_serial_number',
+			array(
+				'label'     => __( 'Show Serial Number', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => __( 'Show', 'responsive-addons-for-elementor' ),
+				'label_off' => __( 'Hide', 'responsive-addons-for-elementor' ),
+				'default'   => 'no',
+				'condition' => array(
+					'rael_faq_layout' => 'accordion',
 				),
 			)
 		);
@@ -492,6 +506,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				'label'     => __( 'Icon', 'responsive-addons-for-elementor' ),
 				'condition' => array(
 					'rael_faq_layout!' => 'grid',
+					'rael_show_serial_number!' => 'yes',
 				),
 			)
 		);
@@ -1266,7 +1281,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael-faq-container' ) ); ?> >
 				<?php
 
-				foreach ( $settings['rael_tabs'] as $key ) {
+				foreach ( $settings['rael_tabs'] as $index => $key ) {
 					  $is_open = ( isset( $key['keep_open'] ) && 'yes' === $key['keep_open'] );
 					if ( ( '' === $key['rael_question'] || '' === $key['rael_answer'] ) && 'yes' === $settings['rael_schema_support'] && ( true === $editor_mode ) ) {
 						?>
@@ -1310,7 +1325,16 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 											<span class="rael-accordion-icon-closed"><?php Icons_Manager::render_icon( $settings['rael_selected_icon'] ); ?></span>
 											<span class="rael-accordion-icon-opened"><?php Icons_Manager::render_icon( $settings['rael_selected_active_icon'] ); ?></span>
 										</span>
-							<<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?> class="rael-question-<?php echo esc_attr( $key['_id'] ); ?> rael-question-span" tabindex="0" ><?php echo wp_kses_post( $key['rael_question'] ); ?></<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?>>
+							<<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?> class="rael-question-<?php echo esc_attr( $key['_id'] ); ?> rael-question-span" tabindex="0" >
+							<?php
+							if ( 'accordion' === $settings['rael_faq_layout'] && 'yes' === $settings['rael_show_serial_number'] ) {
+								?>
+								<span class="rael-accordion-serial-number"><?php echo esc_html( sprintf( '%02d.', $index + 1 ) ); ?></span>
+								<?php
+							}
+							?>
+							<?php echo wp_kses_post( $key['rael_question'] ); ?>
+							</<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?>>
 					</div>
 					<?php 
 						$content_style = '';
