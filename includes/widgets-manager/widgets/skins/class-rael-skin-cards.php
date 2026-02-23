@@ -197,16 +197,10 @@ class RAEL_Skin_Cards extends RAEL_Skin_Base {
 			'card_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 200,
-					),
-				),
 				'selectors'  => array(
-					'{{WRAPPER}} .elementor-post__card' => 'border-radius: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-post__card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -489,15 +483,16 @@ class RAEL_Skin_Cards extends RAEL_Skin_Base {
 		$this->add_control(
 			'badge_radius',
 			array(
-				'label'     => __( 'Border Radius', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SLIDER,
+				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
 				'range'     => array(
 					'px' => array(
 						'max' => 50,
 					),
 				),
-				'selectors' => array(
-					'{{WRAPPER}} .elementor-post__card .elementor-post__badge' => 'border-radius: {{SIZE}}{{UNIT}};',
+				'selectors'  => array(
+					'{{WRAPPER}} .elementor-post__card .elementor-post__badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 				'condition' => array(
 					$this->get_control_id( 'show_badge' ) => 'yes',
