@@ -16,6 +16,8 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Icons_Manager;
 use Responsive_Addons_For_Elementor\Helper\Helper;
+use Elementor\Group_Control_Background;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -884,15 +886,15 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'rael_title_background',
-			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title' => 'background-color: {{VALUE}};',
-				),
-			)
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_title_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], // Removes image option
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title',
+			]
 		);
 
 		$this->add_control(
@@ -920,29 +922,29 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'rael_title_background_hover',
-			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title:hover' => 'background-color: {{VALUE}};',
-				),
-			)
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_title_background_hover',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], // Removes image option
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title:hover',
+			]
 		);
 
-		$this->add_control(
-			'rael_active_title_hover_background',
-			array(
-				'label'     => __( 'Background Color for Active Tab', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active:hover' => 'background-color: {{VALUE}};',
-				),
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_active_title_hover_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], 
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active:hover',
 				'condition' => array(
 					'rael_faq_layout' => 'accordion',
 				),
-			)
+			]
 		);
 
 		
@@ -987,18 +989,19 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				'label' => __( 'Active', 'responsive-addons-for-elementor' ),
 			)
 		);
-		$this->add_control(
-			'rael_active_title_background',
-			array(
-				'label'     => __( 'Active Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active' => 'background-color: {{VALUE}};',
-				),
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_active_title_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], 
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active',
 				'condition' => array(
 					'rael_faq_layout' => 'accordion',
 				),
-			)
+			]
 		);
 
 		$this->add_control(
