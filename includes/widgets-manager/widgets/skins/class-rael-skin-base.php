@@ -693,6 +693,31 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 		);
 
 		$this->add_control(
+			'title_alignment',
+			array(
+				'label'        => __( 'Alignment', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
+					'left'   => array(
+						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'    => array(
+					'{{WRAPPER}} .elementor-post__title' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
 			'title_color',
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
@@ -750,6 +775,31 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 				'separator' => 'before',
 				'condition' => array(
 					$this->get_control_id( 'meta_data!' ) => array(),
+				),
+			)
+		);
+
+		$this->add_control(
+			'meta_alignment',
+			array(
+				'label'        => __( 'Alignment', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
+					'left'   => array(
+						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'    => array(
+					'{{WRAPPER}} .elementor-post__meta-data' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
@@ -828,6 +878,31 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 		);
 
 		$this->add_control(
+			'excerpt_alignment',
+			array(
+				'label'        => __( 'Alignment', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
+					'left'   => array(
+						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'    => array(
+					'{{WRAPPER}} .elementor-post__excerpt' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
 			'excerpt_color',
 			array(
 				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
@@ -882,6 +957,31 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 				'separator' => 'before',
 				'condition' => array(
 					$this->get_control_id( 'show_read_more' ) => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'readmore_alignment',
+			array(
+				'label'        => __( 'Alignment', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
+					'left'   => array(
+						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors'    => array(
+					'{{WRAPPER}} .elementor-post__read-more__container' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
