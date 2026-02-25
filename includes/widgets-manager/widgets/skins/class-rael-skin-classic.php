@@ -47,7 +47,7 @@ class RAEL_Skin_Classic extends RAEL_Skin_Base {
 	 */
 	protected function _register_controls_actions() {
 		parent::_register_controls_actions();
-		add_action( 'elementor/element/rael-posts/rael_classic_section_design_layout/after_section_end', array( $this, 'register_additional_design_controls' ) );
+		add_action( 'elementor/element/rael-posts/rael_classic_section_design_meta/after_section_end', array( $this, 'register_additional_design_controls' ) );
 	}
 	/**
 	 * Register additional design controls.
