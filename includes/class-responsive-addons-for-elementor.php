@@ -1917,7 +1917,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						break;
 					case 'slider':
 						array_push( $js_files, $js_files_path . 'rael-slider/rael-slider' . $ext );
-						array_push( $css_files, $css_files_path . 'slider/rael-frontend' . $css_min_ext );
+						array_push( $css_files, $css_files_path . 'slider/rael-slider' . $css_min_ext );
 						break;
 					case 'timeline':
 						array_push( $js_files, $js_files_path . 'timeline/rael-timeline' . $ext );
