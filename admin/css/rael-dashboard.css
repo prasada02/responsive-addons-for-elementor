@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.18 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.1 | MIT License | https://tailwindcss.com */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @layer properties;
 :root, :host {
@@ -11,7 +11,6 @@
   --color-green-100: oklch(96.2% 0.044 156.743);
   --color-green-300: oklch(87.1% 0.15 154.449);
   --color-green-500: oklch(72.3% 0.219 149.579);
-  --color-green-700: oklch(52.7% 0.154 150.069);
   --color-green-800: oklch(44.8% 0.119 151.328);
   --color-sky-100: oklch(95.1% 0.026 236.824);
   --color-blue-50: oklch(97% 0.014 254.604);
@@ -62,7 +61,6 @@
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-3xl: 1.5rem;
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --default-transition-duration: 150ms;
@@ -85,6 +83,18 @@
 }
 .sticky {
   position: sticky;
+}
+.start {
+  inset-inline-start: var(--spacing);
+}
+.start\! {
+  inset-inline-start: var(--spacing) !important;
+}
+.end {
+  inset-inline-end: var(--spacing);
+}
+.end\! {
+  inset-inline-end: var(--spacing) !important;
 }
 .top-0 {
   top: calc(var(--spacing) * 0);
@@ -143,20 +153,11 @@
 .m-0 {
   margin: calc(var(--spacing) * 0);
 }
-.m-10 {
-  margin: calc(var(--spacing) * 10);
-}
 .m-16 {
   margin: calc(var(--spacing) * 16);
 }
-.mx-3 {
-  margin-inline: calc(var(--spacing) * 3);
-}
 .mx-auto {
   margin-inline: auto;
-}
-.my-5 {
-  margin-block: calc(var(--spacing) * 5);
 }
 .my-6 {
   margin-block: calc(var(--spacing) * 6);
@@ -251,47 +252,23 @@
 .h-22 {
   height: calc(var(--spacing) * 22);
 }
-.h-100 {
-  height: calc(var(--spacing) * 100);
-}
-.w-1 {
-  width: calc(var(--spacing) * 1);
-}
 .w-1\/4 {
-  width: calc(1/4 * 100%);
-}
-.w-3 {
-  width: calc(var(--spacing) * 3);
+  width: calc(1 / 4 * 100%);
 }
 .w-3\/4 {
-  width: calc(3/4 * 100%);
+  width: calc(3 / 4 * 100%);
 }
 .w-3\/5 {
-  width: calc(3/5 * 100%);
-}
-.w-4 {
-  width: calc(var(--spacing) * 4);
+  width: calc(3 / 5 * 100%);
 }
 .w-4\.5 {
   width: calc(var(--spacing) * 4.5);
 }
 .w-4\/12 {
-  width: calc(4/12 * 100%);
-}
-.w-8 {
-  width: calc(var(--spacing) * 8);
-}
-.w-8\/12 {
-  width: calc(8/12 * 100%);
-}
-.w-10 {
-  width: calc(var(--spacing) * 10);
+  width: calc(4 / 12 * 100%);
 }
 .w-10\/12 {
-  width: calc(10/12 * 100%);
-}
-.w-12 {
-  width: calc(var(--spacing) * 12);
+  width: calc(10 / 12 * 100%);
 }
 .w-12\.5 {
   width: calc(var(--spacing) * 12.5);
@@ -301,9 +278,6 @@
 }
 .w-50 {
   width: calc(var(--spacing) * 50);
-}
-.w-87 {
-  width: calc(var(--spacing) * 87);
 }
 .w-87\.5 {
   width: calc(var(--spacing) * 87.5);
@@ -317,20 +291,11 @@
 .max-w-175 {
   max-width: calc(var(--spacing) * 175);
 }
-.max-w-full {
-  max-width: 100%;
-}
 .max-w-full\! {
   max-width: 100% !important;
 }
-.flex-shrink {
-  flex-shrink: 1;
-}
 .shrink {
   flex-shrink: 1;
-}
-.flex-grow {
-  flex-grow: 1;
 }
 .grow {
   flex-grow: 1;
@@ -346,39 +311,6 @@
 }
 .resize {
   resize: both;
-}
-.columns-2 {
-  columns: 2;
-}
-.columns-3 {
-  columns: 3;
-}
-.columns-4 {
-  columns: 4;
-}
-.columns-5 {
-  columns: 5;
-}
-.columns-6 {
-  columns: 6;
-}
-.columns-7 {
-  columns: 7;
-}
-.columns-8 {
-  columns: 8;
-}
-.columns-9 {
-  columns: 9;
-}
-.columns-10 {
-  columns: 10;
-}
-.columns-11 {
-  columns: 11;
-}
-.columns-12 {
-  columns: 12;
 }
 .flex-col {
   flex-direction: column;
@@ -555,9 +487,6 @@
 .bg-red-100 {
   background-color: var(--color-red-100);
 }
-.bg-slate-50 {
-  background-color: var(--color-slate-50);
-}
 .bg-slate-50\! {
   background-color: var(--color-slate-50) !important;
 }
@@ -597,9 +526,6 @@
 .p-12 {
   padding: calc(var(--spacing) * 12);
 }
-.px-2 {
-  padding-inline: calc(var(--spacing) * 2);
-}
 .px-2\.5 {
   padding-inline: calc(var(--spacing) * 2.5);
 }
@@ -608,9 +534,6 @@
 }
 .px-3\.5 {
   padding-inline: calc(var(--spacing) * 3.5);
-}
-.px-4 {
-  padding-inline: calc(var(--spacing) * 4);
 }
 .px-4\! {
   padding-inline: calc(var(--spacing) * 4) !important;
@@ -624,9 +547,6 @@
 .px-8 {
   padding-inline: calc(var(--spacing) * 8);
 }
-.px-10 {
-  padding-inline: calc(var(--spacing) * 10);
-}
 .py-1 {
   padding-block: calc(var(--spacing) * 1);
 }
@@ -635,9 +555,6 @@
 }
 .py-2\.5 {
   padding-block: calc(var(--spacing) * 2.5);
-}
-.py-3 {
-  padding-block: calc(var(--spacing) * 3);
 }
 .py-3\! {
   padding-block: calc(var(--spacing) * 3) !important;
@@ -654,14 +571,8 @@
 .py-10 {
   padding-block: calc(var(--spacing) * 10);
 }
-.py-12 {
-  padding-block: calc(var(--spacing) * 12);
-}
 .py-15 {
   padding-block: calc(var(--spacing) * 15);
-}
-.py-\[60px\] {
-  padding-block: 60px;
 }
 .pl-6 {
   padding-left: calc(var(--spacing) * 6);
@@ -870,10 +781,6 @@
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
 }
-.ease-in {
-  --tw-ease: var(--ease-in);
-  transition-timing-function: var(--ease-in);
-}
 .ease-in-out {
   --tw-ease: var(--ease-in-out);
   transition-timing-function: var(--ease-in-out);
@@ -999,11 +906,6 @@
     gap: calc(var(--spacing) * 5);
   }
 }
-.md\:bg-red-500 {
-  @media (width >= 48rem) {
-    background-color: var(--color-red-500);
-  }
-}
 .md\:px-15 {
   @media (width >= 48rem) {
     padding-inline: calc(var(--spacing) * 15);
@@ -1035,21 +937,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-.lg\:flex-nowrap {
-  @media (width >= 64rem) {
-    flex-wrap: nowrap;
-  }
-}
-.lg\:bg-red-500 {
-  @media (width >= 64rem) {
-    background-color: var(--color-red-500);
-  }
-}
-.xl\:mx-7\.5 {
-  @media (width >= 80rem) {
-    margin-inline: calc(var(--spacing) * 7.5);
-  }
-}
 .xl\:mx-14 {
   @media (width >= 80rem) {
     margin-inline: calc(var(--spacing) * 14);
@@ -1062,17 +949,12 @@
 }
 .xl\:w-1\/3 {
   @media (width >= 80rem) {
-    width: calc(1/3 * 100%);
+    width: calc(1 / 3 * 100%);
   }
 }
 .xl\:w-2\/3 {
   @media (width >= 80rem) {
-    width: calc(2/3 * 100%);
-  }
-}
-.xl\:grid-cols-3 {
-  @media (width >= 80rem) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: calc(2 / 3 * 100%);
   }
 }
 .xl\:grid-cols-4 {
