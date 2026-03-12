@@ -1823,11 +1823,11 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		$css_files   = array();
 		$included_js = array();
 
-		$js_files_path  = RAEL_DIR . 'assets/js/frontend/';
-		$css_files_path = RAEL_DIR . 'assets/css/frontend/';
+		$js_files_path  = RAEL_DIR . 'assets/dist/js/frontend/';
+		$css_files_path = RAEL_DIR . 'assets/dist/css/frontend/';
 
-		$target_js_file_path  = RAEL_DIR . 'assets/js/frontend/rael-frontend.js';
-		$target_css_file_path = RAEL_DIR . 'assets/css/rael-frontend.css';
+		$target_js_file_path  = RAEL_DIR . 'assets/dist/js/frontend/rael-frontend.min.js';
+		$target_css_file_path = RAEL_DIR . 'assets/dist/css/frontend/rael-frontend.min.css';
 
 		$ext         = '.min.js';
 		$css_min_ext = '.min.css';
