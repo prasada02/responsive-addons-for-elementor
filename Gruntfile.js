@@ -74,6 +74,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-wp-i18n');
 
   grunt.registerTask('pot', ['makepot']);
+  grunt.registerTask('scripts', ['shell:build']);
   grunt.registerTask('build', ['clean', 'shell:build', 'pot', 'copy', 'compress']);
 
 };
