@@ -16,6 +16,8 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Icons_Manager;
 use Responsive_Addons_For_Elementor\Helper\Helper;
+use Elementor\Group_Control_Background;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -65,7 +67,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return __( 'FAQ', 'responsive-addons-for-elementor' );
+		return __( 'Accordion/FAQ', 'responsive-addons-for-elementor' );
 	}
 
 	/**
@@ -185,6 +187,20 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 					'active' => true,
 				),
 			)
+		);
+		/**
+		 * Keep Open Toggle
+		 */
+		$repeater->add_control(
+			'keep_open',
+			[
+				'label'        => __( 'Keep this slide open', 'responsive-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
+				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
 		);
 
 		$repeater->add_control(
@@ -323,6 +339,20 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				'condition' => array(
 					'rael_faq_layout' => 'accordion',
 
+				),
+			)
+		);
+
+		$this->add_control(
+			'rael_show_serial_number',
+			array(
+				'label'     => __( 'Show Serial Number', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => __( 'Show', 'responsive-addons-for-elementor' ),
+				'label_off' => __( 'Hide', 'responsive-addons-for-elementor' ),
+				'default'   => 'no',
+				'condition' => array(
+					'rael_faq_layout' => 'accordion',
 				),
 			)
 		);
@@ -478,6 +508,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 				'label'     => __( 'Icon', 'responsive-addons-for-elementor' ),
 				'condition' => array(
 					'rael_faq_layout!' => 'grid',
+					'rael_show_serial_number!' => 'yes',
 				),
 			)
 		);
@@ -855,29 +886,15 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'rael_title_background',
-			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'rael_active_title_background',
-			array(
-				'label'     => __( 'Active Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active' => 'background-color: {{VALUE}};',
-				),
-				'condition' => array(
-					'rael_faq_layout' => 'accordion',
-				),
-			)
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_title_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], // Removes image option
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title',
+			]
 		);
 
 		$this->add_control(
@@ -896,24 +913,6 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'rael_title_active_color',
-			array(
-				'label'     => __( 'Active Text Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active .rael-question-span,
-						{{WRAPPER}} span.rael-accordion-icon-opened' => 'color: {{VALUE}};',
-				),
-				'global'    => array(
-					'default' => Global_Colors::COLOR_PRIMARY,
-				),
-				'condition' => array(
-					'rael_faq_layout' => 'accordion',
-				),
-			)
-		);
-
 		$this->end_controls_tab();
 
 		$this->start_controls_tab(
@@ -923,31 +922,32 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'rael_title_background_hover',
-			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title:hover' => 'background-color: {{VALUE}};',
-				),
-			)
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_title_background_hover',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], // Removes image option
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title:hover',
+			]
 		);
 
-		$this->add_control(
-			'rael_active_title_hover_background',
-			array(
-				'label'     => __( 'Active Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active:hover' => 'background-color: {{VALUE}};',
-				),
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_active_title_hover_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], 
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active:hover',
 				'condition' => array(
 					'rael_faq_layout' => 'accordion',
 				),
-			)
+			]
 		);
 
+		
 		$this->add_control(
 			'rael_title_hover_color',
 			array(
@@ -967,7 +967,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 		$this->add_control(
 			'rael_title_active_hover_color',
 			array(
-				'label'     => __( 'Active Color', 'responsive-addons-for-elementor' ),
+				'label'     => __( 'Text Color for Active Tab', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active:hover .rael-question-span,
@@ -982,6 +982,46 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			)
 		);
 
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'rael_colors_active',
+			array(
+				'label' => __( 'Active', 'responsive-addons-for-elementor' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'rael_active_title_background',
+				'label'    => __( 'Background', 'responsive-addons-for-elementor' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ], 
+				'selector' => '{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active',
+				'condition' => array(
+					'rael_faq_layout' => 'accordion',
+				),
+			]
+		);
+
+		$this->add_control(
+			'rael_title_active_color',
+			array(
+				'label'     => __( 'Active Text Color', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .rael-faq-accordion .rael-accordion-title.rael-title-active .rael-question-span,
+						{{WRAPPER}} span.rael-accordion-icon-opened' => 'color: {{VALUE}};',
+				),
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
+				'condition' => array(
+					'rael_faq_layout' => 'accordion',
+				),
+			)
+		);
+		
 		$this->end_controls_tab();
 
 		$this->end_controls_tabs();
@@ -1216,8 +1256,9 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 		$editor_mode            = \Elementor\Plugin::instance()->editor->is_edit_mode();
 		$id                     = substr( $this->get_id_int(), 0, 3 );
 		$content_schema_warning = 0;
-
+	
 		foreach ( $settings['rael_tabs'] as $key ) {
+			 
 			if ( 'content' !== $key['rael_faq_content_type'] ) {
 				$content_schema_warning = 1;
 			}
@@ -1251,7 +1292,8 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael-faq-container' ) ); ?> >
 				<?php
 
-				foreach ( $settings['rael_tabs'] as $key ) {
+				foreach ( $settings['rael_tabs'] as $index => $key ) {
+					  $is_open = ( isset( $key['keep_open'] ) && 'yes' === $key['keep_open'] );
 					if ( ( '' === $key['rael_question'] || '' === $key['rael_answer'] ) && 'yes' === $settings['rael_schema_support'] && ( true === $editor_mode ) ) {
 						?>
 						<span>
@@ -1272,11 +1314,16 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 							)
 						);
 					} else {
+						$accordion_classes = array( 'rael-faq-accordion' );
+
+						if ( $is_open ) {
+							$accordion_classes[] = 'rael-active';
+						}
 						$this->add_render_attribute(
 							'rael_faq_accordion_' . $key['_id'],
 							array(
 								'id'    => 'rael-accordion-' . $key['_id'],
-								'class' => 'rael-faq-accordion',
+								'class' => $accordion_classes,
 							)
 						);
 					}
@@ -1284,14 +1331,30 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base {
 					if ( ! ( '' === $key['rael_question'] || '' === $key['rael_answer'] ) ) {
 						?>
 					<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'rael_faq_accordion_' . $key['_id'] ) ); ?> role="tablist">
-						<div class= "rael-accordion-title" aria-expanded="false" role="tab">
+						<div class= "rael-accordion-title" aria-expanded="<?php echo esc_attr( $is_open ? 'true' : 'false' ); ?>" role="tab">
 										<span class="rael-accordion-icon rael-accordion-icon-<?php echo esc_attr( $settings['rael_icon_align'] ); ?>">
 											<span class="rael-accordion-icon-closed"><?php Icons_Manager::render_icon( $settings['rael_selected_icon'] ); ?></span>
 											<span class="rael-accordion-icon-opened"><?php Icons_Manager::render_icon( $settings['rael_selected_active_icon'] ); ?></span>
 										</span>
-							<<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?> class="rael-question-<?php echo esc_attr( $key['_id'] ); ?> rael-question-span" tabindex="0" ><?php echo wp_kses_post( $key['rael_question'] ); ?></<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?>>
+							<<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?> class="rael-question-<?php echo esc_attr( $key['_id'] ); ?> rael-question-span" tabindex="0" >
+							<?php
+							if ( 'accordion' === $settings['rael_faq_layout'] && 'yes' === $settings['rael_show_serial_number'] ) {
+								?>
+								<span class="rael-accordion-serial-number"><?php echo esc_html( sprintf( '%02d.', $index + 1 ) ); ?></span>
+								<?php
+							}
+							?>
+							<?php echo wp_kses_post( $key['rael_question'] ); ?>
+							</<?php echo esc_html( Helper::validate_html_tags( $settings['rael_heading_tag'] ) ); ?>>
 					</div>
-					<div class="rael-accordion-content" role="tabpanel">
+					<?php 
+						$content_style = '';
+
+						if ( 'accordion' === $settings['rael_faq_layout'] ) {
+							$content_style = $is_open ? 'display:block;' : 'display:none;';
+						}
+					?>
+					<div class="rael-accordion-content" role="tabpanel" style="<?php echo esc_attr( $content_style ); ?>">
 										<span>
 
 										<?php
