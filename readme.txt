@@ -293,7 +293,6 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 - Fix: RAE FAQ Widget – Resolved an issue where arrow icons were not displayed after importing Responsive Starter Templates.
 - Fix: RAE Scroll Animations Extension – Resolved an issue where a horizontal scrollbar appeared when using "Elementor Full Width" or "Elementor Canvas" page layouts.
 
-
 = 2.1.4 – 12th March 2026 =
 - Improvement: RAE Banner Widget – Removed duplicate border controls from the General and Container tabs to avoid redundant settings.
 - Fix: Resolved an issue where filter options were missing in Gallery and other image widgets after importing templates.
