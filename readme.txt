@@ -280,7 +280,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 
-= 2.1.6 – 2nd April 2026 =
+= 2.1.6 – 3rd April 2026 =
 - Fix: RAE OffCanvas: Resolved an issue where the layout broke when the content type was set to Saved Sections.
 - Fix: RAE Reviews: Fixed an issue where rating stars were not displaying correctly.
 - Fix: RAE Price Box: Added an icon size control for the Call to Action when the CTA type is set to Text.
