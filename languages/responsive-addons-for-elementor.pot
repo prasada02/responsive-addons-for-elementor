@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Responsive Addons for Elementor 2.1.5\n"
+"Project-Id-Version: Responsive Addons for Elementor 2.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/responsive-addons-for-elementor\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-27T05:16:12+00:00\n"
+"POT-Creation-Date: 2026-04-02T04:33:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: responsive-addons-for-elementor\n"
@@ -1797,7 +1797,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1007
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:131
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1216
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2722
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2724
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1251
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:360
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:562
@@ -1920,7 +1920,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:126
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:976
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2178
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3017
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3019
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:534
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1052
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-team-member.php:115
@@ -2242,7 +2242,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:1862
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:1928
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:2037
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2978
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2980
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1431
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-stacking-cards.php:1444
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-stacking-cards.php:1544
@@ -2352,8 +2352,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1584
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2464
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2571
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2704
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3146
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2706
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3148
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:447
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:494
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:621
@@ -3672,7 +3672,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:693
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:828
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:981
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2771
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2773
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:541
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:150
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-reviews.php:379
@@ -4156,7 +4156,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:2515
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:745
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2240
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3082
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3084
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1025
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1115
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-progress-bar.php:343
@@ -4275,7 +4275,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:564
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:713
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1176
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2828
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2830
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:423
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:631
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1307
@@ -4801,9 +4801,9 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2324
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2448
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2560
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2749
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2881
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3131
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2751
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2883
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3133
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:403
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:480
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:610
@@ -4996,9 +4996,9 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2339
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2436
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2595
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2732
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2866
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3162
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2734
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2868
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3164
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1261
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1343
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1500
@@ -5143,7 +5143,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:657
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:618
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1261
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2856
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2858
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1333
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:596
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:714
@@ -5588,8 +5588,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1815
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1896
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2199
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2948
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3040
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2950
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3042
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:321
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:391
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:469
@@ -6116,7 +6116,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:917
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1917
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:830
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2660
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2662
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1218
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:143
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:535
@@ -6373,7 +6373,7 @@ msgstr ""
 
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-before-after-slider.php:432
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:867
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3056
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3058
 msgid "Thickness"
 msgstr ""
 
@@ -6597,7 +6597,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:471
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1251
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1062
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2693
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2695
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1237
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:116
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-stacking-cards.php:658
@@ -6618,7 +6618,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:470
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1250
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1061
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2692
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2694
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1236
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:115
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-stacking-cards.php:656
@@ -6642,7 +6642,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:469
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1249
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1060
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2691
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2693
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1235
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:114
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:294
@@ -7070,7 +7070,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-call-to-action.php:384
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-call-to-action.php:1226
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:969
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3120
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3122
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:362
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1455
 msgid "Ribbon"
@@ -7189,7 +7189,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1679
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:1747
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2638
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2686
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2688
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:668
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:750
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1230
@@ -7258,7 +7258,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-nav-menu.php:931
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-nav-menu.php:1065
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1069
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2789
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2791
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:759
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:953
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-table-of-contents.php:413
@@ -7326,7 +7326,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:468
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1248
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1059
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2690
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2692
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1234
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:113
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:293
@@ -7344,7 +7344,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:472
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-modal-popup.php:1252
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1063
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2694
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2696
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1238
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:117
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:297
@@ -7378,7 +7378,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:2273
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-post-carousel.php:2595
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1093
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2812
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2814
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1365
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-reviews.php:545
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-search-form.php:400
@@ -7497,7 +7497,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-nav-menu.php:275
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-nav-menu.php:302
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-offcanvas.php:1251
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2922
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2924
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1376
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-slider.php:669
 #: includes/widgets-manager/widgets/skins/class-rael-skin-base.php:1675
@@ -7587,7 +7587,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1152
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1365
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1045
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2766
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2768
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-video.php:584
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:508
 #: includes/widgets-manager/widgets/skins/class-rael-skin-base.php:1510
@@ -7607,8 +7607,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1371
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1051
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2181
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2772
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3022
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2774
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3024
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:537
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1055
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-reviews.php:896
@@ -7636,8 +7636,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1372
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1052
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2182
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2773
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3025
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2775
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3027
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:540
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1056
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:515
@@ -7662,8 +7662,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1373
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1053
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2183
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2774
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3024
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2776
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3026
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:538
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1057
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:516
@@ -7688,8 +7688,8 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1374
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:1054
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2184
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2775
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3023
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2777
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3025
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:539
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-pricing-table.php:1058
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:517
@@ -7799,7 +7799,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:1389
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:492
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-posts.php:695
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2895
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2897
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-wpf-styler.php:1066
 #: includes/widgets-manager/widgets/skins/class-rael-skin-base.php:1648
 #: includes/widgets-manager/widgets/theme-builder/class-responsive-addons-for-elementor-theme-archive-posts.php:408
@@ -8614,7 +8614,7 @@ msgstr ""
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-icon-box.php:369
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:935
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:945
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3005
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:3007
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-list.php:525
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-reviews.php:606
 msgid "Separator"
@@ -14069,7 +14069,7 @@ msgid "Select Plan"
 msgstr ""
 
 #: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:915
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2937
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2939
 msgid "Disclaimer Text"
 msgstr ""
 
@@ -14162,12 +14162,12 @@ msgstr ""
 msgid "Item Spacing"
 msgstr ""
 
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2843
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2845
 #: includes/widgets-manager/widgets/skins/class-rael-skin-base.php:1591
 msgid "Button Shadow"
 msgstr ""
 
-#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2910
+#: includes/widgets-manager/widgets/class-responsive-addons-for-elementor-price-box.php:2912
 #: includes/widgets-manager/widgets/skins/class-rael-skin-base.php:1663
 msgid "Hover Shadow"
 msgstr ""
