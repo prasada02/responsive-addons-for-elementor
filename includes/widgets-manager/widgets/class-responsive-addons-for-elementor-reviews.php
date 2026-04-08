@@ -1199,7 +1199,7 @@ $this->add_control(
 		echo '<cite class="elementor-testimonial__cite">';
 
 		if ( ! empty( $slide['name'] ) ) {
-			echo '<span class="responsive-testimonial__name">' . $slide['name'] . '</span>';
+			echo '<span class="responsive-testimonial__name">' . esc_html( $slide['name'] ) . '</span>';
 		}
 
 		if ( ! empty( $slide['rating'] ) ) {
@@ -1229,7 +1229,7 @@ $this->add_control(
 						'value'   => 'fas fa-star',
 						'library' => 'fa-solid',
 					];
-					echo '<span class="rael-star rael-star-filled" '.$style_attr.'>';
+					echo '<span class="rael-star rael-star-filled" '. esc_attr( $style_attr ).'>';
 					\Elementor\Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] );
 					echo '</span>';
 
@@ -1248,7 +1248,7 @@ $this->add_control(
 						: [ 'value' => 'fas fa-star', 'library' => 'fa-solid' ];
 					
 
-					echo '<span class="rael-star rael-star-half" '.$style_attr.'>';
+					echo '<span class="rael-star rael-star-half" '. esc_attr( $style_attr ).'>';
 						// Base (unmarked)
 						\Elementor\Icons_Manager::render_icon( $icon_unmarked, [ 'aria-hidden' => 'true' ] );
 						// Overlay (filled)
@@ -1274,7 +1274,7 @@ $this->add_control(
 			echo '</div>';
 		} elseif ( 'star_unicode' === $settings['star_style'] ) {
 			$icon = ( 'outline' === $settings['unmarked_star_style'] ) ? '&#9734;' : '&#9733;';
-					
+			$stars_html = '';
 			for ( $stars = 1; $stars <= 5; $stars++ ) {
 				$rating_unicode        = (float) $slide['rating'] > 5 ? 5 : $slide['rating'];
 				$floored_rating_unicode = (int) $rating_unicode;
@@ -1287,14 +1287,14 @@ $this->add_control(
 					$stars_html .= '<i class="elementor-star-empty">' . $icon . '</i>';
 				}
 		}
-			echo '<div class="elementor-star-rating">' . $stars_html . '</div>';
+			echo '<div class="elementor-star-rating">' . wp_kses_post( $stars_html ) . '</div>';
 
 		}
 			
 		}
 
 		if ( ! empty( $slide['title'] ) ) {
-			echo  '<span class="responsive-testimonial__title">' . $slide['title'] . '</span>';
+			echo  '<span class="responsive-testimonial__title">' . esc_html( $slide['title'] ) . '</span>';
 		}
 		echo '</cite>';
 			?>
