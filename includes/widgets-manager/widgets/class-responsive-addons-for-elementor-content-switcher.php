@@ -41,6 +41,8 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 	 */
 	private static $section_templates = null;
 	private static $container_templates = null;
+	private static $div_block_templates = null;
+	private static $flexbox_templates = null;
 	private static $template_type = null;
 	
 
@@ -109,6 +111,8 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 			'content'              => __( 'Content', 'responsive-addons-for-elementor' ),
 			'saved_rows'           => __( 'Saved Section', 'responsive-addons-for-elementor' ),
 			'saved_container_templates'  => __( 'Saved Container', 'responsive-addons-for-elementor' ),
+			'saved_div_block_templates'  => __( 'Saved Div Block', 'responsive-addons-for-elementor' ),
+			'saved_flexbox_templates'  => __( 'Saved Flexbox', 'responsive-addons-for-elementor' ),
 			'saved_page_templates' => __( 'Saved Page', 'responsive-addons-for-elementor' ),
 		);
 
@@ -124,12 +128,17 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 	 *
 	 * @return array of templates
 	 */
+
 	public static function get_saved_data( $type = 'page' ) {
 
 		if ( 'container' === $type ) {
 			$template_type = 'container_templates';
 		} elseif ( 'section' === $type ) {
 			$template_type = 'section_templates';
+		} elseif ( 'e-div-block' === $type ) {
+			$template_type = 'div_block_templates';
+		} elseif ( 'e-flexbox' === $type ) {
+			$template_type = 'flexbox_templates';
 		} else {
 			$template_type = 'page_templates';
 		}
@@ -138,36 +147,24 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 			return self::${$template_type};
 		}
 
-		// For compatibility with old elementor
-		if ( 'container' === $type ) {
-
-			$meta_query = array(
-				array(
-					'key'     => '_elementor_template_type',
-					'value'   => 'container',
-				),
-			);
-
-		} else {
-
-			$meta_query = array(
-				array(
-					'key'   => '_elementor_template_type',
-					'value' => $type,
-				),
-			);
-		}
+		$meta_query = [
+			[
+				'key'   => '_elementor_template_type',
+				'value' => $type,
+			],
+		];
 
 		$posts = get_posts(
-			array(
+			[
 				'post_type'      => 'elementor_library',
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				'posts_per_page' => -1,
 				'meta_query'     => $meta_query,
-			)
+			]
 		);
 
+		self::${$template_type} = [];
 		self::${$template_type}[-1] = __( 'Select', 'responsive-addons-for-elementor' );
 
 		if ( ! empty( $posts ) ) {
@@ -175,7 +172,6 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 			foreach ( $posts as $post ) {
 
 				$content_id = apply_filters( 'wpml_object_id', $post->ID );
-
 				self::${$template_type}[ $content_id ] = $post->post_title;
 			}
 
@@ -187,7 +183,6 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 
 		return self::${$template_type};
 	}
-
 	/**
 	 * Get switcher type.
 	 *
@@ -238,6 +233,12 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 				case 'saved_container_templates':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_container'] );
 					break;
+				case 'saved_div_block_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_div_block'] );
+					break;
+				case 'saved_flexbox_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_flexbox'] );
+					break;
 				case 'saved_page_templates':
 						$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_page'] );
 					break;
@@ -255,6 +256,12 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 					break;
 				case 'saved_container_templates':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_container'] );
+					break;
+				case 'saved_div_block_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_div_block'] );
+					break;
+				case 'saved_flexbox_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_flexbox'] );
 					break;
 				case 'saved_page_templates':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_page'] );
@@ -367,6 +374,32 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 		);
 
 		$this->add_control(
+			'rael_ct_content_1_saved_div_block',
+			array(
+				'label'     => __( 'Select Div Block', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'e-div-block' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_1_content_type' => 'saved_div_block_templates',
+				),
+			)
+		);
+
+		$this->add_control(
+			'rael_ct_content_1_saved_flexbox',
+			array(
+				'label'     => __( 'Select Flexbox', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'e-flexbox' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_1_content_type' => 'saved_flexbox_templates',
+				),
+			)
+		);
+
+		$this->add_control(
 			'rael_ct_content_1_saved_page',
 			array(
 				'label'     => __( 'Select Page', 'responsive-addons-for-elementor' ),
@@ -450,12 +483,38 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'rael_ct_content_2_saved_container',
 			array(
-				'label'     => __( 'Select Section', 'responsive-addons-for-elementor' ),
+				'label'     => __( 'Select Container', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => self::get_saved_data( 'container' ),
 				'default'   => '-1',
 				'condition' => array(
 					'rael_ct_content_2_content_type' => 'saved_container_templates',
+				),
+			)
+		);
+
+		$this->add_control(
+			'rael_ct_content_2_saved_div_block',
+			array(
+				'label'     => __( 'Select Div Block', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'e-div-block' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_2_content_type' => 'saved_div_block_templates',
+				),
+			)
+		);
+
+		$this->add_control(
+			'rael_ct_content_2_saved_flexbox',
+			array(
+				'label'     => __( 'Select Flexbox', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'e-flexbox' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_2_content_type' => 'saved_flexbox_templates',
 				),
 			)
 		);
