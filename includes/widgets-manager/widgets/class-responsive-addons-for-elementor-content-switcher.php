@@ -40,6 +40,9 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 	 * @var section_templates
 	 */
 	private static $section_templates = null;
+	private static $container_templates = null;
+	private static $template_type = null;
+	
 
 	/**
 	 * Retrieve the widget name.
@@ -105,6 +108,7 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 		$content_type = array(
 			'content'              => __( 'Content', 'responsive-addons-for-elementor' ),
 			'saved_rows'           => __( 'Saved Section', 'responsive-addons-for-elementor' ),
+			'saved_container_templates'  => __( 'Saved Container', 'responsive-addons-for-elementor' ),
 			'saved_page_templates' => __( 'Saved Page', 'responsive-addons-for-elementor' ),
 		);
 
@@ -122,43 +126,63 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 	 */
 	public static function get_saved_data( $type = 'page' ) {
 
-		$template_type = $type . '_templates';
+		if ( 'container' === $type ) {
+			$template_type = 'container_templates';
+		} elseif ( 'section' === $type ) {
+			$template_type = 'section_templates';
+		} else {
+			$template_type = 'page_templates';
+		}
 
-		$templates_list = array();
+		if ( isset( self::${$template_type} ) && null !== self::${$template_type} ) {
+			return self::${$template_type};
+		}
 
-		if ( ( null === self::$page_templates && 'page' === $type ) || ( null === self::$section_templates && 'section' === $type ) ) {
+		// For compatibility with old elementor
+		if ( 'container' === $type ) {
 
-			$posts = get_posts(
+			$meta_query = array(
 				array(
-					'post_type'              => 'elementor_library',
-					'orderby'                => 'title',
-					'order'                  => 'ASC',
-					'posts_per_page'         => '-1',
-					'elementor_library_type' => $type,
-				)
+					'key'     => '_elementor_template_type',
+					'value'   => 'container',
+				),
 			);
+
+		} else {
+
+			$meta_query = array(
+				array(
+					'key'   => '_elementor_template_type',
+					'value' => $type,
+				),
+			);
+		}
+
+		$posts = get_posts(
+			array(
+				'post_type'      => 'elementor_library',
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'posts_per_page' => -1,
+				'meta_query'     => $meta_query,
+			)
+		);
+
+		self::${$template_type}[-1] = __( 'Select', 'responsive-addons-for-elementor' );
+
+		if ( ! empty( $posts ) ) {
 
 			foreach ( $posts as $post ) {
 
-					$templates_list[] = array(
-						'id'   => $post->ID,
-						'name' => $post->post_title,
-					);
+				$content_id = apply_filters( 'wpml_object_id', $post->ID );
+
+				self::${$template_type}[ $content_id ] = $post->post_title;
 			}
 
-			self::${$template_type}[-1] = __( 'Select', 'responsive-addons-for-elementor' );
+		} else {
 
-			if ( count( $templates_list ) ) {
-				foreach ( $templates_list as $saved_row ) {
-
-					$content_id                            = $saved_row['id'];
-					$content_id                            = apply_filters( 'wpml_object_id', $content_id );
-					self::${$template_type}[ $content_id ] = $saved_row['name'];
-
-				}
-			} else {
-				self::${$template_type}['no_template'] = __( 'It seems that, you have not saved any template yet.', 'responsive-addons-for-elementor' );
-			}
+			self::${$template_type}['no_template'] =
+				__( 'It seems that, you have not saved any template yet.', 'responsive-addons-for-elementor' );
 		}
 
 		return self::${$template_type};
@@ -211,6 +235,9 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 				case 'saved_rows':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_section'] );
 					break;
+				case 'saved_container_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_container'] );
+					break;
 				case 'saved_page_templates':
 						$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_1_saved_page'] );
 					break;
@@ -225,6 +252,9 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 					break;
 				case 'saved_rows':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_section'] );
+					break;
+				case 'saved_container_templates':
+					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_container'] );
 					break;
 				case 'saved_page_templates':
 					$output = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $settings['rael_ct_content_2_saved_page'] );
@@ -324,6 +354,19 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 		);
 
 		$this->add_control(
+			'rael_ct_content_1_saved_container',
+			array(
+				'label'     => __( 'Select Container', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'container' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_1_content_type' => 'saved_container_templates',
+				),
+			)
+		);
+
+		$this->add_control(
 			'rael_ct_content_1_saved_page',
 			array(
 				'label'     => __( 'Select Page', 'responsive-addons-for-elementor' ),
@@ -401,6 +444,18 @@ class Responsive_Addons_For_Elementor_Content_Switcher extends Widget_Base {
 				'default'   => '-1',
 				'condition' => array(
 					'rael_ct_content_2_content_type' => 'saved_rows',
+				),
+			)
+		);
+		$this->add_control(
+			'rael_ct_content_2_saved_container',
+			array(
+				'label'     => __( 'Select Section', 'responsive-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => self::get_saved_data( 'container' ),
+				'default'   => '-1',
+				'condition' => array(
+					'rael_ct_content_2_content_type' => 'saved_container_templates',
 				),
 			)
 		);
