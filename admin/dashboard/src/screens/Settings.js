@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { WidgetContext } from "../WidgetContext";
 import Icons from "../icons";
 import { displayToast } from "../Helper";
-import { use } from "react";
 
 const Settings = () => {
 
@@ -27,11 +27,7 @@ const Settings = () => {
 
 const PluginSettings = () => {
 
-  const [mailchimpapi, setMailchimpapi] = useState(localize?.mailchimp_api_key);
-  const [googleMapAPI, setGoogleMapAPI] = useState(localize?.google_map_api_key);
-  const [googleMapLanguage, setGoogleMapLanguage] = useState(localize?.google_map_language);
-  const [reCaptcha, setReCaptcha] = useState(localize?.recaptcha_site_key);
-  const [reCaptchaSecret, setReCaptchaSecret] = useState(localize?.recaptcha_secret_key);
+  const { mailchimpapi, setMailchimpapi, googleMapAPI, setGoogleMapAPI, googleMapLanguage, setGoogleMapLanguage, reCaptcha, setReCaptcha, reCaptchaSecret, setReCaptchaSecret } = useContext(WidgetContext);
 
   const handleAPIvalidate = async () => {
     if (!mailchimpapi) {
