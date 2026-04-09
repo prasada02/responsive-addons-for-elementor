@@ -1403,7 +1403,35 @@ endforeach;
 									<td <?php echo wp_kses_post( $this->get_render_attribute_string( 'table_inside_td' . $i . $j ) ); ?>>
 										<div class="td-content-wrapper">
 											<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'td_content' ) ); ?>>
-												<?php echo esc_html( Plugin::$instance->frontend->get_builder_content( intval( $table_td[ $j ]['template'] ), true ) ); ?>
+												<?php 
+												$template_id = intval( $table_td[ $j ]['template'] );
+
+												$template_content = Plugin::$instance->frontend->get_builder_content( $template_id, true );
+
+												$allowed_tags = wp_kses_allowed_html( 'post' );
+
+												// Allow <style> and <script> tags
+												$allowed_tags['style'] = [
+													'type' => true,
+												];
+
+												$allowed_tags['script'] = [
+													'type' => true,
+													'src'  => true,
+												];
+
+												// Allow global attributes
+												foreach ( $allowed_tags as $tag => $attrs ) {
+													$allowed_tags[ $tag ]['class']    = true;
+													$allowed_tags[ $tag ]['style']    = true;
+													$allowed_tags[ $tag ]['id']       = true;
+													$allowed_tags[ $tag ]['data-*']   = true;
+													$allowed_tags[ $tag ]['aria-*']   = true;
+													$allowed_tags[ $tag ]['role']     = true;
+												}
+
+												echo wp_kses( $template_content, $allowed_tags );
+												?>
 											</div>
 										</div>
 									</td>
