@@ -3909,7 +3909,7 @@ class Responsive_Addons_For_Elementor_Login_Register extends Widget_Base {
 								<?php
 							}
 							if ( $show_fp ) {
-								echo '<div class="rael-forgot-password">' . esc_url( $fp_link ) . '</div>';
+								echo '<div class="rael-forgot-password">' . wp_kses_post( $fp_link ) . '</div>';
 							}
 							?>
 						</div>
