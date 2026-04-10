@@ -8,14 +8,12 @@
 	font-style: normal;
 }
 
-body.toplevel_page_rael_getting_started #wpcontent,
-body.responsive_page_rael_getting_started #wpcontent {
+body[class*="page_rael_getting_started"] #wpcontent {
 	padding-left: 0;
 	background: #F0F0F1;
 }
 
-body.toplevel_page_rael_getting_started #wpfooter,
-body.responsive_page_rael_getting_started #wpfooter {
+body[class*="page_rael_getting_started"] #wpfooter {
 	display: none;
 }
 

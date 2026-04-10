@@ -1538,7 +1538,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			)
 		);
 
-		if ( 'toplevel_page_rael_getting_started' !== $hook && 'responsive_page_rael_getting_started' !== $hook ) {
+		if ( false === strpos( $hook, 'page_rael_getting_started' ) ) {
 			return;
 		}
 		// Registering Bootstrap scripts.

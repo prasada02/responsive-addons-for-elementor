@@ -185,20 +185,13 @@ jQuery( document ).ready(
     }
 
     function applyCurrentClass() {
+      let menuSelector = '[id*="page_rael_getting_started"]';
       if (window.location.hash === "" || window.location.hash === "#settings") {
-        $("#toplevel_page_rael_getting_started ul li:eq(1)").removeClass(
-          "current"
-        );
-        $("#toplevel_page_rael_getting_started ul li:eq(3)").addClass(
-          "current"
-        );
+        $(menuSelector + " ul li:eq(1)").removeClass("current");
+        $(menuSelector + " ul li:eq(3)").addClass("current");
       } else {
-        $("#toplevel_page_rael_getting_started ul li:eq(1)").addClass(
-          "current"
-        );
-        $("#toplevel_page_rael_getting_started ul li:eq(3)").removeClass(
-          "current"
-        );
+        $(menuSelector + " ul li:eq(1)").addClass("current");
+        $(menuSelector + " ul li:eq(3)").removeClass("current");
       }
     }
 
