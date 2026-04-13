@@ -309,7 +309,7 @@ trait Woo_Checkout_Helper {
 					</p>
 
 					<p class="form-row form-row-last">
-						<button type="submit" class="button" name="apply_coupon" value="<?php wp_kses_post( $settings['rael_woo_checkout_coupon_button_text'], 'responsive-addons-for-elementor' ); ?>"><?php wp_kses_post( $settings['rael_woo_checkout_coupon_button_text'], 'responsive-addons-for-elementor' ); ?></button>
+						<button type="submit" class="button" name="apply_coupon" value="<?php wp_kses_post( $settings['rael_woo_checkout_coupon_button_text'], 'responsive-addons-for-elementor' ); ?>"><?php echo wp_kses_post( $settings['rael_woo_checkout_coupon_button_text'], 'responsive-addons-for-elementor' ); ?></button>
 					</p>
 
 					<div class="clear"></div>
