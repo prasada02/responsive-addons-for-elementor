@@ -1111,7 +1111,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			'rael-frontend',
 			RAEL_URL . 'assets/js/frontend/rael-frontend.js',
 			array(
+				'jquery',
 				'elementor-frontend',
+				'isotope'
 			),
 			RAEL_VER,
 			true
@@ -1235,11 +1237,20 @@ private function rael_find_element_recursive($elements, $widget_id) {
 							wp_register_style( 'rael-photoswipe-default-skin', RAEL_ASSETS_URL . 'lib/photoswipe/default-skin.min.css', null, RAEL_VER );
 							wp_enqueue_style( 'rael-photoswipe-default-skin' );
 						}
+						wp_register_script(
+							'isotope',
+							RAEL_ASSETS_URL . 'lib/isotope/isotope.min.js',
+							[ 'jquery' ],
+							RAEL_VER,
+							true
+						);
+
 						if ( ! isset( $included_libs['rael-swiper'] ) ) {
 							$included_libs['rael-swiper'] = true;
 							wp_register_script( 'rael-swiper', RAEL_ASSETS_URL . 'lib/swiper/swiper.min.js', array(), RAEL_VER, true );
 							wp_localize_script( 'rael-swiper', 'rael_elementor_swiper', $swiper_class );
 						}
+						
 						break;
 					case 'image-gallery':
 						if ( ! isset( $included_libs['rael-fancybox'] ) ) {
