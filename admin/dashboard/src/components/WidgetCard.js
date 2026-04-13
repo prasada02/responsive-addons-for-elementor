@@ -9,7 +9,7 @@ import { convertTruthyFalsyValue } from "../Helper";
 
 const WidgetCard = ({ data }) => {
 
-    const { category, title, status, docs } = data;
+    const { category, title, status, docs, demo } = data;
 
     const { handleToggle } = useContext(WidgetContext);
 
@@ -26,7 +26,7 @@ const WidgetCard = ({ data }) => {
             </div>
             <div className="flex justify-between">
                 <WidgetTitle title={title} />
-                <a href={docs} target="_blank" className="no-underline"><span>{Icons.arrowDiagonal}</span></a>
+                <a href={demo ?? docs} target="_blank" className="no-underline"><span>{Icons.arrowDiagonal}</span></a>
             </div>
         </div>
     )

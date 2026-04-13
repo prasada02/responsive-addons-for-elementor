@@ -22,7 +22,7 @@ const HeroSection = () => {
         <div className="xl:mx-14 md:mx-15 mt-8 mb-16 rounded-lg bg-[linear-gradient(256.02deg,#080084_19.96%,#2563EB_90.75%)]">
             <div className="flex flex-col gap-6 py-15 px-6 sm:py-14 sm:px-14 pl-15">
                 <p className="text-white font-bold text-5xl sm:text-4xl md:text-5xl leading-tight m-0">{__('Welcome to Responsive Addons for Elementor', 'responsive-addons-for-elementor')}</p>
-                <p className="max-w-175 text-blue-50 font-medium text-sm leading-relaxed m-0">{__('Create stunning WordPress websites with our intuitive block builder. Design beautiful pages, explore ready-made templates, and customize everything to match your vision. Get started in seconds!', 'responsive-addons-for-elementor')}</p>
+                <p className="max-w-175 text-blue-50 font-medium text-sm leading-relaxed m-0">{__('Responsive Addons for Elementor plugin enhances the Elementor page builder with 80+ advanced widgets, 5+ extensions, and ready-to-use sections helping you build powerful websites faster.', 'responsive-addons-for-elementor')}</p>
                 <p className="m-0">
                     <button onClick={() => window.location.href = localize?.pageurl} className="flex items-center gap-1 py-2.5 px-3.5 text-blue-500 leading-5 cursor-pointer bg-white rounded-md font-medium border-0">{Icons.createPage} {__('Create a Page', 'responsive-addons-for-elementor')}
                     </button>
@@ -191,7 +191,7 @@ const StarterTemplates = () => {
         </div>
         <button onClick={() => navigate('/templates')} className="rounded-md border border-blue-600 text-blue-600 hover:bg-blue-100 text-sm font-medium px-5 py-2 self-baseline cursor-pointer">{__('View All Templates', 'responsive-addons-for-elementor')}</button>
       </div>
-      <div className="flex justify-center gap-6">
+      <div className="flex justify-between gap-6">
         {templates?.map((template, index) => (
           <div className="bg-white border border-slate-200 rounded-md transition-shadow hover:[box-shadow:0px_10px_10px_-5px_rgba(0,0,0,0.04)]">
             <img className="w-full" src={localize.raelurl + `admin/images/template${index + 1}.jpg`} alt={template} />
