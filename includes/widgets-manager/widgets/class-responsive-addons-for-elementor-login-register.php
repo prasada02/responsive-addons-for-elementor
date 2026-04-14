@@ -3077,6 +3077,9 @@ class Responsive_Addons_For_Elementor_Login_Register extends Widget_Base {
 				'type'      => Controls_Manager::HEADING,
 				'label'     => __( 'Terms & Conditions', 'responsive-addons-for-elementor' ),
 				'separator' => 'before',
+				'condition' => array(
+					'rael_form_type' => 'register',
+				),
 			)
 		);
 
@@ -3087,6 +3090,9 @@ class Responsive_Addons_For_Elementor_Login_Register extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .rael-register-form-container input:checked+.rael-tc-slider' => 'background-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'rael_form_type' => 'register',
 				),
 			)
 		);
