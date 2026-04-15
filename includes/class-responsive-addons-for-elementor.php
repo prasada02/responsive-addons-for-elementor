@@ -1555,6 +1555,8 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			true
 		);
 
+		wp_enqueue_style( 'wp-components' );
+
 		wp_enqueue_script( 'updates' );
 
 		$rst_path = 'responsive-add-ons/responsive-add-ons.php';
