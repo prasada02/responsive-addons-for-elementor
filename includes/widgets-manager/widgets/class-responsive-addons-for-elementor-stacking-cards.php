@@ -377,16 +377,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			)
 		);
 
-		$repeater->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			array(
-				'name'      => 'item_image_size',
-				'default'   => 'medium_large',
-				'separator' => 'none',
-				'condition' => array( 'content_type' => 'editor' ),
-				'render_type' => 'template', 
-			)
-		);
 		// === Field for Template ===
 
 		$repeater->add_control(
@@ -494,7 +484,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'background_type' => 'color' ),
-				'render_type' => 'template', 
+				'render_type' => 'template',
 			)
 		);
 
@@ -2143,8 +2133,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		$style .= 'transform-origin:' . esc_attr($transform_origin) . ';';
 		$style .= 'transform:' . esc_attr($transform) . ';';
 		$style .= $current_item_background_color;
-		$style .= $current_item_background_image;
-		
+		$style .= $current_item_background_image;		
 
 
         $this->add_render_attribute(
@@ -2171,11 +2160,12 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
         );
 			
 		echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'card' . $index )) . '>';
-		if ( $item['content_type'] === 'section' && ! empty( $item['item_section'] ) ) {
+		if ( isset( $item['content_type'] ) && $item['content_type'] === 'section' && ! empty( $item['item_section'] ) ) {
+
 			echo '<div class="rael-section-fetch" data-target-id="' . esc_attr( $item['item_section'] ) . '"></div>';
 		}
 
-		else  if ( $item['content_type'] === 'template' && ! empty( $item['item_template'] ) ) {
+		else if ( isset( $item['content_type'] ) && $item['content_type'] === 'template' && ! empty( $item['item_template'] ) ) {
 
 			//Enqueue social icons css if not present
 			if ( class_exists( '\Elementor\Plugin' ) ) {
