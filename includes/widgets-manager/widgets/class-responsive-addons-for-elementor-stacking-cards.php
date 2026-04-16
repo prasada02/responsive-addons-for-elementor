@@ -755,17 +755,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		);
 
 		$this->add_control(
-			'button_text',
-			array(
-				'label' => __( 'Button Text', 'responsive-addons-for-elementor' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => __( 'Read More', 'responsive-addons-for-elementor' ),
-				'condition' => array( 'show_button' => 'yes' ),
-				'render_type' => 'template', 
-			)
-		);
-
-		$this->add_control(
 			'show_image',
 			array(
 				'label' => __( 'Show Image', 'responsive-addons-for-elementor' ),
