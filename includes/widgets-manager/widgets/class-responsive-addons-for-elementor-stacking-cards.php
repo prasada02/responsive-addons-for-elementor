@@ -678,23 +678,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 		);
 
 		$this->add_control(
-			'general_item_image_size',
-			array(
-				'label' => __( 'Item Image Size', 'responsive-addons-for-elementor' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'medium_large',
-				'options' => array(
-					'thumbnail'    => __( 'Thumbnail', 'responsive-addons-for-elementor' ),
-					'medium'       => __( 'Medium', 'responsive-addons-for-elementor' ),
-					'medium_large' => __( 'Medium Large (max width 768)', 'responsive-addons-for-elementor' ),
-					'large'        => __( 'Large', 'responsive-addons-for-elementor' ),
-					'full'         => __( 'Full', 'responsive-addons-for-elementor' ),
-				),
-				'render_type' => 'template', 
-			)
-		);
-
-		$this->add_control(
 			'rtl_enable',
 			array(
 				'label' => __( 'RTL', 'responsive-addons-for-elementor' ),
