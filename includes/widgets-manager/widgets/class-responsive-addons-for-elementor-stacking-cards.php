@@ -484,6 +484,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'background_type' => 'color' ),
+				'default'	=> '#ffffff',
 				'render_type' => 'template',
 			)
 		);
@@ -1010,9 +1011,6 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'fields_options' => array(
 					'background' => array(
 						'default' => 'classic',
-					),
-					'color' => array(
-						'default' => '#ffffff', 
 					),
 					'color_b' => array(
 						'default' => '#f0f0f0', 
