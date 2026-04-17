@@ -2460,7 +2460,7 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 
 			$this->add_render_attribute( 'rael_card_desc', 'class', 'rael-card-desc' );
 
-			if ( ! empty( $final_desc ) ) {
+			if ( ! empty( $settings['show_description'] ) && ! empty( $final_desc ) ) {
 				echo '<div ' . wp_kses_post($this->get_render_attribute_string( 'rael_card_desc' )) . '>' . wp_kses_post( $final_desc ) . '</div>';
 			} 
 			else if ( ! empty( $settings['show_description'] ) && ! empty( $item['desc'] ) ) {
