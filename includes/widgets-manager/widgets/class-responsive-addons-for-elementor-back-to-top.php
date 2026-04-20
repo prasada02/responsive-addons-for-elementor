@@ -312,7 +312,7 @@ class Responsive_Addons_For_Elementor_Back_To_Top extends Widget_Base {
 				),
 				'default'    => array(
 					'unit' => 'px',
-					'size' => 50,
+					'size' => 60,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .rael-btt__button' => 'width: {{SIZE}}{{UNIT}}; padding: 10px;',
@@ -338,7 +338,7 @@ class Responsive_Addons_For_Elementor_Back_To_Top extends Widget_Base {
 				),
 				'default'    => array(
 					'unit' => 'px',
-					'size' => 50,
+					'size' => 60,
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .rael-btt__button' => 'height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
