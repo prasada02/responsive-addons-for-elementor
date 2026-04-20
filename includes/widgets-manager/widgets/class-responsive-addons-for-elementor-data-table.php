@@ -1261,6 +1261,9 @@ class Responsive_Addons_For_Elementor_Data_Table extends Widget_Base {
 
 				$table_tr_keys = array_keys( $table_tr );
 				$last_key      = end( $table_tr_keys );
+				if ( $last_key === false || ! isset( $table_tr[ $last_key ] ) ) {
+					continue; 
+				}
 
 				$tbody_content = ( 'editor' === $content_row['rael_data_table_content_type'] ) ? $content_row['rael_data_table_content_row_content'] : wp_kses_post( $content_row['rael_data_table_content_row_title'] );
 
