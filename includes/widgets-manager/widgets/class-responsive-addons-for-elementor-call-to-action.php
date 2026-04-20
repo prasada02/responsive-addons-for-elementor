@@ -1464,6 +1464,9 @@ class Responsive_Addons_For_Elementor_Call_To_Action extends Widget_Base {
 				),
 				'default'      => 'zoom-in',
 				'prefix_class' => 'elementor-bg-transform elementor-bg-transform-',
+				'condition' => array(
+					'sequenced_animation' => 'responsive-cta--sequenced-animation',
+				),
 			)
 		);
 
