@@ -203,15 +203,15 @@ class Responsive_Addons_For_Elementor_Data_Table extends Widget_Base {
 				'options'   => array(
 					'none'  => array(
 						'title' => esc_html__( 'None', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-ban',
+						'icon'  => 'eicon-ban',
 					),
 					'icon'  => array(
 						'title' => esc_html__( 'Icon', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-star',
+						'icon'  => 'eicon-star',
 					),
 					'image' => array(
 						'title' => esc_html__( 'Image', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-picture-o',
+						'icon'  => 'eicon-image',
 					),
 				),
 				'default'   => 'icon',
@@ -351,19 +351,19 @@ class Responsive_Addons_For_Elementor_Data_Table extends Widget_Base {
 				'options'   => array(
 					'icon'     => array(
 						'title' => esc_html__( 'Icon', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-info',
+						'icon'  => 'eicon-info-circle',
 					),
 					'textarea' => array(
 						'title' => esc_html__( 'Textarea', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-text-width',
+						'icon'  => 'eicon-text',
 					),
 					'editor'   => array(
 						'title' => esc_html__( 'Editor', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-pencil',
+						'icon'  => 'eicon-edit',
 					),
 					'template' => array(
 						'title' => esc_html__( 'Templates', 'responsive-addons-for-elementor' ),
-						'icon'  => 'fa fa-file',
+						'icon'  => 'eicon-library-save',
 					),
 				),
 				'default'   => 'textarea',
