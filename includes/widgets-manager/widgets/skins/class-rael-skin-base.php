@@ -1366,7 +1366,7 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 			$apply_to_custom_excerpt = $this->get_instance_value( 'apply_to_custom_excerpt' );
 
 			// Force the manually-generated Excerpt length as well if the user chose to enable 'apply_to_custom_excerpt'.
-		if ( 'yes' === $apply_to_custom_excerpt && ! empty( $post->post_excerpt ) ) {
+		if ( 'yes' === $apply_to_custom_excerpt && $post && ! empty( $post->post_excerpt ) ) {
 				$max_length = (int) $this->get_instance_value( 'excerpt_length' );
 				$excerpt    = apply_filters( 'the_excerpt', get_the_excerpt() );
 				$excerpt    = $this->trim_words( $excerpt, $max_length );
@@ -1470,7 +1470,7 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 		}
 
 		global $post;
-		$page_id = $post->ID;
+		$page_id = isset( $post->ID ) ? $post->ID : 0;
 
 		$this->parent->add_render_attribute(
 			'container',
