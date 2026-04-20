@@ -435,6 +435,9 @@ class Responsive_Addons_For_Elementor_Call_To_Action extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-cta' => 'background-color: {{VALUE}};',
 				),
+				'condition'  => array(
+					'skin' => 'cover',
+				),
 			)
 		);
 
