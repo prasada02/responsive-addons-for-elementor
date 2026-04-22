@@ -54,7 +54,7 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 		 */
 		
 		public function __construct() {
-			add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_rae_animations_scripts' ), 9 );
+			add_action( 'elementor/frontend/after_enqueue_scripts', array( $this, 'enqueue_rae_animations_scripts' ), 9 );
 			add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'enqueue_rae_animations_scripts' ), 9 );
 
 			add_action( 'elementor/element/container/section_layout/before_section_start', array( $this, 'register_animations_controls' ), 10, 2 );
@@ -78,6 +78,11 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 			if ( ! Helper::is_extension_active('animations') ) {
 				return;
 			}
+			// Ensure Elementor frontend script is available
+			if ( ! wp_script_is( 'elementor-frontend', 'registered' ) ) {
+				return;
+			}
+
 			wp_enqueue_script(
 				'rael-animations-frontend',
 				RAEL_ASSETS_URL . 'js/rael-animations.min.js',
