@@ -73,7 +73,7 @@ const Extensions = () => {
 
 const ShowDuplicatorSetting = ({ setShowDupliator }) => {
 
-    const [selectedPostType, setSelectedPostType] = useState(localize.selected_posttype);
+    const { selectedPostType, setSelectedPostType } = useContext(WidgetContext);
 
     const saveDuplicator = async () => {
         const formData = new FormData();

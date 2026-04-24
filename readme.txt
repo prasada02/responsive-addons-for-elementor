@@ -1,17 +1,17 @@
-=== Responsive Addons for Elementor – Free Elementor Addons Plugin and Elementor Templates ===
+=== Responsive Addons for Elementor – Free Elementor Addons, Kits and Elementor Templates ===
 Contributors: cyberchimps
 Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, widgets for elementor, header footer builder, elementor templates
 Requires at least: 5.0
 Tested up to: 6.9
-Elementor tested up to: 3.35
-Elementor Pro tested up to: 3.35
+Elementor tested up to: 4.0
+Elementor Pro tested up to: 4.0
 Requires PHP: 5.6
-Stable tag: 2.1.1
+Stable tag: 2.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Free Elementor addons plugin with 80+ widgets, 5+ extensions, Theme builder, 250+ Elementor templates, 500+ sections — build modern UI Elementor websites.
+Free Elementor addons plugin with 80+ widgets, 5+ extensions, Theme builder, 250+ Elementor templates, 500+ modern UI sections for Elementor websites.
 
 == Description ==
 
@@ -55,9 +55,6 @@ Unlock a growing library of pre-made templates and sections with Responsive Addo
 
 ###🌟 Expert Support:###
 Join our community and get exceptional support through our forum or contact form whenever you need it.
-
-###⚙️ Plugin Requirements:###
-Responsive Addons for Elementor require the Elementor plugin for its functionality.
 
 ###🚀 Continuous Updates:###
 Stay ahead with regular updates and new additions to our collection of Elementor widgets, giving you fresh tools to enhance your website.
@@ -253,7 +250,7 @@ Let’s get started with the widget list.
 
 ###Theme Builder for Elementor###
 
-<a href = "https://cyberchimps.com/responsive-addons-for-elementor/theme-builder/" >Theme Builder</a> — Responsive Addons for Elementor’s Theme Builder is a user-friendly tool that empowers you to create and design templates for different sections of your website. Its drag-and-drop interface makes website customization a breeze. The tool also offers a feature that allows you to design and customize various sections of your website as templates, such as the header, footer, WooCommerce products, and more.
+<a href = "https://cyberchimps.com/responsive-addons-for-elementor/theme-builder/" >Theme Builder</a> — Responsive Addons for Elementor’s Theme Builder offers a drag-and-drop interface that allows you to design and customize various sections of your website as templates, such as the header, footer, WooCommerce products, and more.
 
 
 ##Support & Documentation##
@@ -282,6 +279,44 @@ If you like Responsive Addons for Elementor, consider checking out our other Wor
 The Development Version of the Responsive Addons for Elementor plugin is located at [https://github.com/cyberchimps/responsive-addons-for-elementor](https://github.com/cyberchimps/responsive-addons-for-elementor)
 
 == Changelog ==
+
+= 2.1.7 – 16th April 2026 =
+- Improvement: Introducing revamped dashboard in the RAE plugin.
+
+= 2.1.6 – 2nd April 2026 =
+- Fix: RAE OffCanvas: Resolved an issue where the layout broke when the content type was set to Saved Sections.
+- Fix: RAE Reviews: Fixed an issue where rating stars were not displaying correctly.
+- Fix: RAE Price Box: Added an icon size control for the Call to Action when the CTA type is set to Text.
+- Fix: RAE Stacking Cards: Fixed an issue where icons were not visible when the item content type was set to Template.
+
+= 2.1.5 – 25th March 2026 =
+- New: RAE Testimonial Slider Widget: Marquee Feature – Introduced a Marquee mode with configurable settings to enable continuous scrolling of testimonials.
+- Improvement: RAE FAQ Widget – Renamed "FAQ" to "Accordion/FAQ", added per-item toggle control to keep slides open, introduced "Show Serial Number" option under Layout, added dedicated Active state styling, and enabled gradient background support across all title states.
+- Improvement: Elementor Panel Organization – Structured RAE widgets into dedicated panels including "RAE Archive" for archive widgets and “RAE Single” for singular post widgets to improve discoverability and workflow.
+- Improvement: Stacking Cards Widget Enhancements – Added image size controls for custom width adjustments, introduced spacing controls (margin/padding) for title and description, applied conditional settings to reduce unnecessary options for non-default presets, and added background overlay controls with color and opacity options.
+- Improvement: Price Box Widget – Added alignment controls for all individual elements to provide better layout flexibility.
+- Improvement: Pricing Table Widget Enhancements – Added alignment options for icon and heading, enabled icon upload for Ribbon in content settings, and introduced styling controls for Ribbon including icon color, size, padding, and background color.
+- Improvement: RAE Posts Widget – Added alignment options for title, excerpt, metadata, and the read more button, along with enhanced metadata settings for improved customization flexibility.
+- Fix: RAE Products Widget – Resolved issues with image size settings not applying correctly and rating stars not being visible.
+- Fix: RAE Image Gallery Widget – Resolved an issue where captions and descriptions were not displayed after importing Responsive Starter Templates.
+- Fix: RAE FAQ Widget – Resolved an issue where arrow icons were not displayed after importing Responsive Starter Templates.
+- Fix: RAE Animations Extension – Resolved an issue where a horizontal scrollbar appeared when using "Elementor Full Width" or "Elementor Canvas" page layouts.
+
+= 2.1.4 – 12th March 2026 =
+- Improvement: RAE Banner Widget – Removed duplicate border controls from the General and Container tabs to avoid redundant settings.
+- Fix: Resolved an issue where filter options were missing in Gallery and other image widgets after importing templates.
+- Fix: Testimonial Slider Widget – Improved padding behavior by removing the default container padding and allowing full control through widget settings.
+- Fix: Google Map Widget – Fixed the default marker size mismatch and an issue where the marker size slider did not properly update the custom marker image.
+- Fix: Archive Post Widget – Fixed a layout issue in the Classic Skin where post items were misaligned in the grid.
+
+= 2.1.3 – 26th February 2026 =
+- Fix: Minor bug fixes.
+
+= 2.1.2 – 23rd February 2026 =
+- Fix: RAE - Starter Templates activation issue.
+- Fix: RAE Advanced Tabs - Extra margin when heading (H1–H6) or paragraph tags are used in tab titles.
+- Fix: RAE Contact Form 7 Styler - Issue where label color and active input border color were not applied.
+- Fix: RAE FAQ - Issue causing content to disappear when Grid layout is selected.
 
 = 2.1.1 – 10th February 2026 =
 - Improvement: Enhanced core asset loading logic for better performance and efficiency.

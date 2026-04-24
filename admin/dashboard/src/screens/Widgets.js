@@ -71,7 +71,7 @@ const Widgets = () => {
               if (current?.category !== categoryKey) return false;
 
               // Search filter
-              if (search !== '' && (!current?.name?.toLowerCase().includes(search) && !current?.title?.toLowerCase().includes(search))) {
+              if (search !== '' && (!current?.name?.toLowerCase().includes(search.toLowerCase()) && !current?.title?.toLowerCase().includes(search.toLowerCase()))) {
                 return false;
               }
 
@@ -130,8 +130,8 @@ const Widgets = () => {
           if (
             search !== '' &&
             (
-              !current?.name?.toLowerCase().includes(search) &&
-              !current?.title?.toLowerCase().includes(search)
+              !current?.name?.toLowerCase().includes(search.toLowerCase()) &&
+              !current?.title?.toLowerCase().includes(search.toLowerCase())
             )
           ) {
             return false;

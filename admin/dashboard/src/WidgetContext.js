@@ -18,6 +18,13 @@ export const WidgetsProvider = ({ children }) => {
     const initialInactiveWidget = widgetsList.filter((item) => convertTruthyFalsyValue(item?.status) === false);
     const [activeWidgetsCount, setActiveWidgetsCount] = useState(initialActiveWidget.length);
     const [inactiveWidgetsCount, setInactiveWidgetsCount] = useState(initialInactiveWidget.length);
+    const [selectedPostType, setSelectedPostType] = useState(localize.selected_posttype);
+
+    const [mailchimpapi, setMailchimpapi] = useState(localize?.mailchimp_api_key);
+    const [googleMapAPI, setGoogleMapAPI] = useState(localize?.google_map_api_key);
+    const [googleMapLanguage, setGoogleMapLanguage] = useState(localize?.google_map_language);
+    const [reCaptcha, setReCaptcha] = useState(localize?.recaptcha_site_key);
+    const [reCaptchaSecret, setReCaptchaSecret] = useState(localize?.recaptcha_secret_key);
 
     const handleWidgetCount = (updatedWidgetList) => {
         const activeWidgets = updatedWidgetList.filter((item) => convertTruthyFalsyValue(item?.status) === true)
@@ -176,7 +183,7 @@ export const WidgetsProvider = ({ children }) => {
 
     return (
         <WidgetContext.Provider
-            value={{ widgetsList, setWidgetList, handleToggle, toggleAll, handleToggleAll, handleToggleCategory, handleToggleAllExtensions, activeWidgetsCount, inactiveWidgetsCount }}
+            value={{ widgetsList, setWidgetList, handleToggle, toggleAll, handleToggleAll, handleToggleCategory, handleToggleAllExtensions, activeWidgetsCount, inactiveWidgetsCount, selectedPostType, setSelectedPostType, mailchimpapi, setMailchimpapi, googleMapAPI, setGoogleMapAPI, googleMapLanguage, setGoogleMapLanguage, reCaptcha, setReCaptcha, reCaptchaSecret, setReCaptchaSecret }}
         >
             {children}
         </WidgetContext.Provider>
