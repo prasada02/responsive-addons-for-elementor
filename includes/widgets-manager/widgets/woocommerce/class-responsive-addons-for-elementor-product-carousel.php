@@ -2593,33 +2593,6 @@ class Responsive_Addons_For_Elementor_Product_Carousel extends Widget_Base {
 			)
 		);
 		$this->add_responsive_control(
-			'rael_pc_image_dots_width',
-			array(
-				'label'      => __( 'Width', 'responsive-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min'  => 0,
-						'max'  => 1000,
-						'step' => 5,
-					),
-					'%'  => array(
-						'min' => 0,
-						'max' => 100,
-					),
-				),
-				'devices'    => array( 'desktop', 'tablet', 'mobile' ),
-				'default'    => array(
-					'unit' => 'px',
-					'size' => 350,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .rael-pc__gallery-pagination' => 'width: {{SIZE}}{{UNIT}} !important;',
-				),
-			)
-		);
-		$this->add_responsive_control(
 			'rael_pc_image_dots_height',
 			array(
 				'label'      => __( 'Height', 'responsive-addons-for-elementor' ),
