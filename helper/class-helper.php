@@ -227,7 +227,6 @@ class Helper {
 
 	public static function rael_product_quickview_popup() {
 		// Verify Nonce.
-
 		if ( ( ! isset( $_POST['security'] ) ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'facebook_feed_ajax_nonce' ) ) {
 			return;
 		}
@@ -339,7 +338,7 @@ class Helper {
 			wp_send_json_error();
 		}
 
-		// The below arrays value is sanitized in the foreach loop, so we can skip sanitization here to avoid double sanitization.
+		// The below arrays value is sanitized in the foreach loop, so we can skip sanitization here to avoid double loop for sanitization.
 		$cart_items   = isset( $_POST['cart_item_data'] ) ? (array) $_POST['cart_item_data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$product_data = isset( $_POST['product_data'] ) ? (array) $_POST['product_data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 

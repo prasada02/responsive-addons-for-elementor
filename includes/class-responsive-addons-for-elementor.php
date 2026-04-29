@@ -108,8 +108,8 @@ class Responsive_Addons_For_Elementor {
 		add_action( 'wp_ajax_nopriv_rael_product_quickview_popup', array( Helper::class, 'rael_product_quickview_popup' ) );
 		add_action( 'wp_ajax_rael_product_quickview_popup', array( Helper::class, 'rael_product_quickview_popup' ) );
 
-		add_action( 'wp_ajax_nopriv_rael_product_add_to_cart', array( Helper::class, 'rael_product_add_to_cart' ) );
-		add_action( 'wp_ajax_rael_product_add_to_cart', array( Helper::class, 'rael_product_add_to_cart' ) );
+		add_action( 'wp_ajax_nopriv_rael_product_add_to_cart', array( Helper::class, 'rael_product_add_to_cart' ));
+		add_action( 'wp_ajax_rael_product_add_to_cart', array( Helper::class, 'rael_product_add_to_cart' ));
 
 		// RAEL Products.
 		add_action( 'wp_ajax_rael_load_more', array( Helper::class, 'ajax_load_more' ) );
