@@ -1047,4 +1047,7 @@ html {
 .rael-woo-checkout.theme-astra:not(.elementor-editor-active) .rael-woo-checkout.layout-split .woocommerce #customer_details.col2-set .col-2, .rael-woo-checkout.theme-astra:not(.elementor-editor-active) .rael-woo-checkout.layout-multi-steps .woocommerce #customer_details.col2-set .col-2 {
   clear: both; }
 
+.rael-products-compare-table{
+  padding: 50px;
+}
 /*# sourceMappingURL=woo-checkout.css.map */
