@@ -4,8 +4,8 @@ Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, widgets for elementor, header footer builder, elementor templates
 Requires at least: 5.0
 Tested up to: 6.9
-Elementor tested up to: 3.35
-Elementor Pro tested up to: 3.35
+Elementor tested up to: 4.0
+Elementor Pro tested up to: 4.0
 Requires PHP: 5.6
 Stable tag: 2.1.7
 License: GPLv2 or later
@@ -280,7 +280,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 
-= 2.1.7 – 15th April 2026 =
+= 2.1.7 – 16th April 2026 =
 - Improvement: Introducing revamped dashboard in the RAE plugin.
 
 = 2.1.6 – 2nd April 2026 =
