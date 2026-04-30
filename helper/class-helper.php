@@ -226,9 +226,14 @@ class Helper {
 	}
 
 	public static function rael_product_quickview_popup() {
-		// Verify Nonce.
+		
+		// Validate product_id is a real published product
+		$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+		$widget_id  = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
+		$page_id    = isset( $_POST['page_id'] ) ? absint( $_POST['page_id'] ) : 0;
 
-		if ( ( ! isset( $_POST['security'] ) ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'rael_products' ) ) {
+		if ( empty( $product_id ) || empty( $widget_id ) || empty( $page_id ) ) {
+			wp_send_json_error( 'Missing required fields' );
 			return;
 		}
 
@@ -329,13 +334,31 @@ class Helper {
 
 	public static function rael_product_add_to_cart() {
 
-		$ajax = wp_doing_ajax();
-		if ( ( ! isset( $_POST['nonce'] ) ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'rael_products' ) ) {
-			return;
+		$product_data = isset($_POST['product_data']) ? $_POST['product_data'] : [];
+
+		if (empty($product_data)) {
+			wp_send_json_error('No product data');
 		}
 
-		$cart_items = isset( $_POST['cart_item_data'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_item_data'] ) ) : array();
+		$item = $product_data[0];
+		$product_id   = absint($item['product_id']);
+		$quantity     = absint($item['quantity']);
 		$variation  = array();
+		$variation_id = !empty($item['variation_id']) ? absint($item['variation_id']) : 0;
+		$passed = apply_filters(
+			'woocommerce_add_to_cart_validation',
+			true,
+			$product_id,
+			$quantity,
+			$variation_id,
+			$variation
+		);
+
+		if ( ! $passed ) {
+			wp_send_json_error('Validation failed');
+		}
+		$cart_items = isset( $_POST['cart_item_data'] ) ?  wp_unslash( $_POST['cart_item_data'] ) : array();
+		
 		if ( ! empty( $cart_items ) ) {
 			foreach ( $cart_items as $key => $value ) {
 				if ( preg_match( '/^attribute*/', $value['name'] ) ) {
@@ -345,10 +368,10 @@ class Helper {
 		}
 
 		if ( isset( $_POST['product_data'] ) ) {
-			foreach ( sanitize_text_field( wp_unslash( $_POST['product_data'] ) ) as $item ) {
-				$product_id   = isset( $item['product_id'] ) ? sanitize_text_field( $item['product_id'] ) : 0;
-				$variation_id = isset( $item['variation_id'] ) ? sanitize_text_field( $item['variation_id'] ) : 0;
-				$quantity     = isset( $item['quantity'] ) ? sanitize_text_field( $item['quantity'] ) : 0;
+			foreach ( $_POST['product_data'] as $item ) {
+				$product_id   = isset( $item['product_id'] ) ? absint( $item['product_id'] ) : 0;
+				$variation_id = isset( $item['variation_id'] ) ? absint( $item['variation_id'] ) : 0;
+				$quantity     = isset( $item['quantity'] ) ? absint( $item['quantity'] ) : 0;
 
 				if ( $variation_id ) {
 					WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
