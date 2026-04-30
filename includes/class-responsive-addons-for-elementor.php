@@ -1298,10 +1298,25 @@ private function rael_find_element_recursive($elements, $widget_id) {
 					case 'lottie':
 						wp_register_script( 'rael-lottie-lib', RAEL_ASSETS_URL . 'lib/lottie/lottie.min.js', array(), RAEL_VER, true );
 						break;
-					case 'sticky-video':
-						wp_register_script( 'rael-plyr', RAEL_ASSETS_URL . 'lib/plyr/plyr.min.js', array(), RAEL_VER, true );
+					case 'sticky-video':						
+						if ( ! isset( $included_libs['plyr'] ) ) {
+							$included_libs['plyr'] = true;
+							wp_register_script( 'plyr', RAEL_ASSETS_URL . 'lib/plyr/plyr.min.js', array(), RAEL_VER, true );
+
+						}
+						if ( ! isset( $included_libs['rael-sticky-video'] ) ) {
+							$included_libs['rael-sticky-video'] = true;
+							wp_register_script(
+								'rael-sticky-video',
+								RAEL_ASSETS_URL . 'js/frontend/sticky-video/rael-sticky-video.min.js',
+								array( 'elementor-frontend','jquery', 'plyr' ),
+								RAEL_VER,
+								true
+							);
+						}
 						wp_register_style( 'rael-plyr-style', RAEL_ASSETS_URL . 'lib/plyr/plyr.min.css', null, RAEL_VER );
 						wp_enqueue_style( 'rael-plyr-style' );
+
 						break;
 					case 'content-ticker':
 					case 'logo-carousel':
@@ -1445,6 +1460,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			RAEL_VER,
 			true
 		);
+
 	}
 
 	/**
@@ -1963,7 +1979,6 @@ private function rael_find_element_recursive($elements, $widget_id) {
 						array_push( $css_files, $css_files_path . 'wpfstyler/rael-wpfstyler' . $css_min_ext );
 						break;
 					case 'sticky-video':
-						array_push( $js_files, $js_files_path . 'sticky-video/rael-sticky-video' . $ext );
 						array_push( $css_files, $css_files_path . 'sticky-video/rael-sticky-video' . $css_min_ext );
 						break;
 					case 'table-of-contents':
