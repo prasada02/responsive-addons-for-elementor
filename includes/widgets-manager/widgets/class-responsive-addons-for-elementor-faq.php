@@ -1370,7 +1370,7 @@ class Responsive_Addons_For_Elementor_FAQ extends Widget_Base
 										default:
 											$output = '';
 									}
-									echo wp_kses_post($output);
+									echo $output;
 									?>
 								</span>
 							</div>
