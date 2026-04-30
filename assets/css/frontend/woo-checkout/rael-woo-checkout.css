@@ -130,7 +130,7 @@
   margin: 0 0 20px 0; }
 
 .rael-woo-checkout .woocommerce .woo-checkout-coupon .checkout_coupon .form-row-first {
-  width: 78%;
+  width: 66%;
   float: left; }
 
 .rael-woo-checkout .woocommerce .woo-checkout-coupon .checkout_coupon .form-row-first input {
@@ -145,7 +145,7 @@
   outline-offset: 0; }
 
 .rael-woo-checkout .woocommerce .woo-checkout-coupon .checkout_coupon .form-row-last {
-  width: 20%;
+  width: 32%;
   margin-left: 2%;
   float: right; }
 
@@ -1047,4 +1047,7 @@ html {
 .rael-woo-checkout.theme-astra:not(.elementor-editor-active) .rael-woo-checkout.layout-split .woocommerce #customer_details.col2-set .col-2, .rael-woo-checkout.theme-astra:not(.elementor-editor-active) .rael-woo-checkout.layout-multi-steps .woocommerce #customer_details.col2-set .col-2 {
   clear: both; }
 
+.rael-products-compare-table{
+  padding: 50px;
+}
 /*# sourceMappingURL=woo-checkout.css.map */
