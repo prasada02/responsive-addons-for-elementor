@@ -78,9 +78,11 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 			if ( ! Helper::is_extension_active('animations') ) {
 				return;
 			}
-			if ( ! did_action( 'elementor/loaded' ) ) {
+			// Ensure Elementor frontend script is available
+			if ( ! wp_script_is( 'elementor-frontend', 'registered' ) ) {
 				return;
 			}
+
 			wp_enqueue_script(
 				'rael-animations-frontend',
 				RAEL_ASSETS_URL . 'js/rael-animations.min.js',
