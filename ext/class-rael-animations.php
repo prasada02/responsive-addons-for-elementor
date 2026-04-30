@@ -548,7 +548,7 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 
 			// Will override motion effect transform-origin.
 			$section->add_responsive_control(
-				'motion_fx_transform_x_anchor_point',
+				'rae_motion_fx_transform_x_anchor_point',
 				[
 					'label' => esc_html__( 'X Anchor Point', 'responsive-addons-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
@@ -575,7 +575,7 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 
 			// Will override motion effect transform-origin.
 			$section->add_responsive_control(
-				'motion_fx_transform_y_anchor_point',
+				'rae_motion_fx_transform_y_anchor_point',
 				[
 					'label' => esc_html__( 'Y Anchor Point', 'responsive-addons-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
@@ -880,8 +880,8 @@ if ( ! class_exists( 'Rael_Animations' ) ) {
 				$data['scale'] = [
 					'direction' => $settings['rae_animations_scale_direction'] ?? 'scale_up',
 					'speed'     => (float) ( $settings['rae_animations_scale_speed']['size'] ?? 4 ),
-					'origin_x'  => $settings['motion_fx_transform_x_anchor_point'] ?? 'center',
-					'origin_y'  => $settings['motion_fx_transform_y_anchor_point'] ?? 'center',
+					'origin_x'  => $settings['rae_motion_fx_transform_x_anchor_point'] ?? 'center',
+					'origin_y'  => $settings['rae_motion_fx_transform_y_anchor_point'] ?? 'center',
 					'start'     => (int) ( $viewport['start'] ?? 0 ),
 					'end'       => (int) ( $viewport['end'] ?? 100 ),
 				];
