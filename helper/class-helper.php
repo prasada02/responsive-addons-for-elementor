@@ -226,14 +226,8 @@ class Helper {
 	}
 
 	public static function rael_product_quickview_popup() {
-		
-		// Validate product_id is a real published product
-		$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
-		$widget_id  = isset( $_POST['widget_id'] ) ? sanitize_key( $_POST['widget_id'] ) : '';
-		$page_id    = isset( $_POST['page_id'] ) ? absint( $_POST['page_id'] ) : 0;
-
-		if ( empty( $product_id ) || empty( $widget_id ) || empty( $page_id ) ) {
-			wp_send_json_error( 'Missing required fields' );
+		// Verify Nonce.
+		if ( ( ! isset( $_POST['security'] ) ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'facebook_feed_ajax_nonce' ) ) {
 			return;
 		}
 
@@ -333,53 +327,59 @@ class Helper {
 	}
 
 	public static function rael_product_add_to_cart() {
-
-		$product_data = isset($_POST['product_data']) ? $_POST['product_data'] : [];
-
-		if (empty($product_data)) {
-			wp_send_json_error('No product data');
+		// Verify nonce early.
+		if (
+			empty( $_POST['nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['nonce'] ) ),
+				'facebook_feed_ajax_nonce'
+			)
+		) {
+			wp_send_json_error();
 		}
 
-		$item = $product_data[0];
-		$product_id   = absint($item['product_id']);
-		$quantity     = absint($item['quantity']);
-		$variation  = array();
-		$variation_id = !empty($item['variation_id']) ? absint($item['variation_id']) : 0;
-		$passed = apply_filters(
-			'woocommerce_add_to_cart_validation',
-			true,
-			$product_id,
-			$quantity,
-			$variation_id,
-			$variation
-		);
+		// The below arrays value is sanitized in the foreach loop, so we can skip sanitization here to avoid double loop for sanitization.
+		$cart_items   = isset( $_POST['cart_item_data'] ) ? (array) $_POST['cart_item_data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$product_data = isset( $_POST['product_data'] ) ? (array) $_POST['product_data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		if ( ! $passed ) {
-			wp_send_json_error('Validation failed');
+		if ( empty( $cart_items ) || empty( $product_data ) ) {
+			wp_send_json_error();
 		}
-		$cart_items = isset( $_POST['cart_item_data'] ) ?  wp_unslash( $_POST['cart_item_data'] ) : array();
-		
-		if ( ! empty( $cart_items ) ) {
-			foreach ( $cart_items as $key => $value ) {
-				if ( preg_match( '/^attribute*/', $value['name'] ) ) {
-					$variation[ $value['name'] ] = $value['value'];
-				}
+
+		$variation = array();
+
+		foreach ( $cart_items as $item ) {
+			if ( empty( $item['name'] ) ) {
+				continue;
+			}
+			
+			// Sanitize name and value, and check if it's a product attribute before adding to variation array.
+			$name  = sanitize_text_field( wp_unslash( $item['name'] ) );
+			$value = isset( $item['value'] ) ? sanitize_text_field( wp_unslash( $item['value'] ) ) : '';
+
+			if ( strpos( $name, 'attribute' ) === 0 ) {
+				$variation[ $name ] = $value;
 			}
 		}
 
-		if ( isset( $_POST['product_data'] ) ) {
-			foreach ( $_POST['product_data'] as $item ) {
-				$product_id   = isset( $item['product_id'] ) ? absint( $item['product_id'] ) : 0;
-				$variation_id = isset( $item['variation_id'] ) ? absint( $item['variation_id'] ) : 0;
-				$quantity     = isset( $item['quantity'] ) ? absint( $item['quantity'] ) : 0;
+		// Add products to cart
+		foreach ( $product_data as $item ) {
+			// Sanitize product_id, variation_id and quantity. If product_id is not present, skip adding to cart.
+			$product_id   = ! empty( $item['product_id'] ) ? (int) sanitize_text_field( wp_unslash( $item['product_id'] ) ) : 0;
+			$variation_id = ! empty( $item['variation_id'] ) ? (int) sanitize_text_field( wp_unslash( $item['variation_id'] ) ) : 0;
+			$quantity     = ! empty( $item['quantity'] ) ? (int) sanitize_text_field( wp_unslash( $item['quantity'] ) ) : 1;
 
-				if ( $variation_id ) {
-					WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
-				} else {
-					WC()->cart->add_to_cart( $product_id, $quantity );
-				}
+			if ( ! $product_id ) {
+				continue;
+			}
+
+			if ( $variation_id ) {
+				WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
+			} else {
+				WC()->cart->add_to_cart( $product_id, $quantity );
 			}
 		}
+
 		wp_send_json_success();
 	}
 
