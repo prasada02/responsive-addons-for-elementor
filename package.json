@@ -1,13 +1,18 @@
 {
   "name": "responsive-addons-for-elementor",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Responsive Addons for Elementor plugin adds Elementor widgets and seamlessly integrates with any Elementor Package (Free, Pro). It is compatible with all popular WordPress themes.",
   "main": "index.js",
   "scripts": {
     "build": "grunt build",
-    "zip": "grunt zip"
+    "zip": "grunt zip",
+    "dashboard:start": "wp-scripts start ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
+    "dashboard:build": "wp-scripts build ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
+    "dashboard-style:start": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css --watch",
+    "dashboard-style:build": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css"
   },
   "devDependencies": {
+    "@wordpress/scripts": "^31.4.0",
     "grunt": "^1.6.1",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -19,5 +24,10 @@
     "grunt-zip": "^0.20.0",
     "load-grunt-tasks": "^5.1.0",
     "sass": "^1.94.0"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "react-router-dom": "^7.13.0",
+    "tailwindcss": "^4.1.18"
   }
 }

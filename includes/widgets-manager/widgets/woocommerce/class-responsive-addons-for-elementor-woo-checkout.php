@@ -121,6 +121,10 @@ class Responsive_Addons_For_Elementor_Woo_Checkout extends Widget_Base {
 		return array( 'responsive-addons-for-elementor' );
 	}
 
+	public function get_script_depends() {
+		return [ 'jquery', 'wc-checkout' ];
+	}
+
 	/**
 	 * Register widget controls.
 	 *
@@ -3693,4 +3697,5 @@ class Responsive_Addons_For_Elementor_Woo_Checkout extends Widget_Base {
 		</div>
 		<?php
 	}
+	
 }
