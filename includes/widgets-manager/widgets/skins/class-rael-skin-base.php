@@ -2016,8 +2016,8 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 		}
 
 		$page_limit = $this->parent->get_query()->max_num_pages;
-		if ( '' !== $parent_settings['pagination_page_limit'] ) {
-			$page_limit = min( $parent_settings['pagination_page_limit'], $page_limit );
+		if ( ! empty( $parent_settings['pagination_page_limit'] ) && is_numeric( $parent_settings['pagination_page_limit'] ) && $parent_settings['pagination_page_limit'] > 0 ) {
+			$page_limit = min( (int) $parent_settings['pagination_page_limit'], (int) $page_limit );
 		}
 
 		if ( 2 > $page_limit ) {
@@ -2059,9 +2059,10 @@ abstract class RAEL_Skin_Base extends Elementor_Skin_Base {
 			array_unshift( $links, $prev_next['prev'] );
 			$links[] = $prev_next['next'];
 		}
-
+		$current_paged = $this->parent->get_current_page();
+		$class         = ( 'infinite' === $parent_settings['pagination_type'] && $current_paged >= $page_limit ) ? ' style="display:none;"' : '';
 		?>
-		<nav class="elementor-pagination rael-post-pagination" role="navigation" aria-label="<?php esc_attr_e( 'Pagination', 'responsive-addons-for-elementor' ); ?>">
+		<nav class="elementor-pagination rael-post-pagination" <?php echo $class; ?> role="navigation" aria-label="<?php esc_attr_e( 'Pagination', 'responsive-addons-for-elementor' ); ?>">
 		<?php
 		if ( 'infinite' == $parent_settings['pagination_type'] ) {
 			?>
