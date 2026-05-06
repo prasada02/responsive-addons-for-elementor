@@ -794,6 +794,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 					'full'         => __( 'Full', 'responsive-addons-for-elementor' ),
 				),
 				'render_type' => 'template', 
+				'condition' => [
+					'show_graphic_element' => 'image',
+				],
 			)
 		);
 
@@ -1382,6 +1385,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Title', 'responsive-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_title' => 'yes',
+				],
 
 			)
 		);
@@ -1481,6 +1487,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Description', 'responsive-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_description' => 'yes',
+				],
 			)
 		);
 
@@ -1581,6 +1590,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Button', 'responsive-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_button' => 'yes',
+				],
 			)
 		);
 
@@ -1840,6 +1852,9 @@ class Responsive_Addons_For_Elementor_Stacking_Cards extends Widget_Base
 			array(
 				'label' => __( 'Image', 'responsive-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_image' => 'yes',
+				],
 			)
 		);
 		
