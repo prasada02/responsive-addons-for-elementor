@@ -1023,18 +1023,16 @@ class Responsive_Addons_For_Elementor_Gf_Styler extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'gform_button_background_hover_color',
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
 			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .rael-gform-style .gform-theme--framework input[type="button"]:hover' =>
-						'background-color: {{VALUE}};',
-
-					'{{WRAPPER}} .rael-gform-style .gform-theme--framework input[type="submit"]:hover' =>
-						'background-color: {{VALUE}};',
-				),
+				'name'     => 'gform_button_background_hover_color',
+				'label'    => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .rael-gform-style .gform-theme--framework input[type="button"]:hover,
+				{{WRAPPER}} .rael-gform-style .gform-theme--framework input[type="submit"]:hover,
+				{{WRAPPER}} .rael-gform-style .gform-theme--framework .gf_progressbar_percentage:hover,
+				{{WRAPPER}} .rael-gform-style .gform-theme--framework .gform_wrapper .percentbar_blue:hover',
 			)
 		);
 
