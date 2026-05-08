@@ -31,8 +31,7 @@ var RAELProductsHandler = function($scope, $) {
     var iconBeforeCompare = '<i class="fas fa-exchange-alt"></i>';
     var iconAfterCompare = '<i class="fas fa-check-circle"></i>';
 
-       var compareBtn = $('button[data-product-id="' + productId + '"]');
-        compareBtnSpan = compareBtn.find('.rael-wc-compare-text');
+      
 
     var modalTemplate = `
         <div class="rael-products-compare-modal">
@@ -105,6 +104,11 @@ var RAELProductsHandler = function($scope, $) {
         }
 
         var productId = compareBtn.data('product-id');
+
+         var compareBtn = $('button[data-product-id="' + productId + '"]');
+        compareBtnSpan = compareBtn.find('.rael-wc-compare-text');
+
+
         var oldProductIds = localStorage.getItem('productIds');
   
         if (oldProductIds) {
@@ -141,6 +145,8 @@ var RAELProductsHandler = function($scope, $) {
         e.stopImmediatePropagation();
         var $rBtn = $(this);
         var productId = $rBtn.data('product-id');
+         var compareBtn = $('button[data-product-id="' + productId + '"]');
+        compareBtnSpan = compareBtn.find('.rael-wc-compare-text');
         $rBtn.addClass('disable');
         $rBtn.prop('disabled', true); // prevent additional ajax request
   
