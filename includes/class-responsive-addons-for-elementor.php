@@ -948,6 +948,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		$words = array(
 			'loading' => esc_html__( 'Loading', 'responsive-addons-for-elementor' ),
 			'added'   => esc_html__( 'Added', 'responsive-addons-for-elementor' ),
+			'compare' => esc_html__( 'Compare', 'responsive-addons-for-elementor' ),
 		);
 
 		return $words;
