@@ -831,7 +831,9 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 		$counter_attr  = 'data-counter="' . $product_count . '"';
 		 // Read the icon persisted by the widget on last render
     	$icon = get_option( 'rael_menu_cart_icon', 'cart-medium' );
-
+		if ( ! class_exists( '\Responsive_Addons_For_Elementor\WidgetsManager\Widgets\Woocommerce\Responsive_Addons_For_Elementor_Menu_Cart' ) ) {
+			include_once RAEL_DIR . '/includes/widgets-manager/widgets/woocommerce/class-responsive-addons-for-elementor-menu-cart.php';
+		}
 		?>
 		<div class="rael-menu-cart__toggle elementor-button-wrapper">
 			<a id="rael-menu-cart__toggle_button" href="#" class="elementor-button elementor-size-sm">
