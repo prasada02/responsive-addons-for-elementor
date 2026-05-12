@@ -121,6 +121,7 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 				),
 				'default'      => 'cart-medium',
 				'prefix_class' => 'toggle-icon--',
+				'render_type'  => 'template',
 			)
 		);
 		$this->add_control(
@@ -788,11 +789,26 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
+
 		$this->maybe_use_mini_cart_template();
 
 		$settings = $this->get_settings_for_display();
-		// Persist so the fragment AJAX call can read it
-    	update_option( 'rael_menu_cart_icon', sanitize_text_field( $settings['icon'] ?? 'cart-medium' ) );
+
+		// Persist selected icon.
+		$icon = sanitize_text_field( $settings['icon'] ?? 'cart-medium' );
+
+		update_option( 'rael_menu_cart_icon', $icon );
+
+		// Clear object cache.
+		wp_cache_delete( 'rael_menu_cart_icon', 'options' );
+
+		// Ensure WC fragments JS is loaded.
+		wp_enqueue_script( 'wc-cart-fragments' );
+
+		// Force fragment refresh version bump.
+		if ( function_exists( 'WC' ) && WC()->session ) {
+			WC()->session->set( 'refresh_totals', true );
+		}
 
 		$this->rae_render_menu_cart( $settings );
 	}
@@ -865,15 +881,13 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 	public static function get_cart_icon_svg( $icon ) {
 		switch ( $icon ) {
 
-			/* ================= CART ================= */
-
 			case 'cart-light':
 				return '<svg class="e-eicon-cart-light rael-menu-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M2 3h2.5l3 10.5h9.5l2.5-7.5H7"/>
 					<circle cx="9.5" cy="19.5" r="1.5"/>
 					<circle cx="17.5" cy="19.5" r="1.5"/>
 				</svg>';
-
+				
 			case 'cart-medium':
 				return '<svg class="e-eicon-cart-medium rael-menu-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M2 3h2.5l3 10.5h9.5l2.5-7.5H7"/>
@@ -887,9 +901,6 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 					<circle cx="9.5" cy="19.5" r="2"/>
 					<circle cx="17.5" cy="19.5" r="2"/>
 				</svg>';
-
-
-			/* ================= BASKET ================= */
 
 			case 'basket-light':
 				return '<svg class="e-eicon-basket-light rael-menu-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
@@ -915,9 +926,6 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 					<rect x="2" y="9" width="20" height="3.5" rx="1.75"/>
 					<path d="M4 12.5l1.5 8.5h13l1.5-8.5z"/>
 				</svg>';
-
-
-			/* ================= BAG ================= */
 
 			case 'bag-light':
 				return '<svg class="e-eicon-bag-light rael-menu-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
