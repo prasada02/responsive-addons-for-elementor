@@ -69,19 +69,7 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 	}
 
 	public function __construct( $data = array(), $args = null ) {
-			parent::__construct( $data, $args ); // ✅ REQUIRED
-
-		add_action( 'wp_enqueue_scripts', function() {
-
-		wp_add_inline_style(
-			'elementor-frontend',
-			'#rael-menu-cart__toggle_button .rael-menu-cart-icon {
-				width: 20px;
-				height: 20px;
-			}'
-			);
-
-		});
+			parent::__construct( $data, $args ); 
 	}
 	/**
 	 * Register controls for the widget
@@ -340,6 +328,10 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 			array(
 				'label'      => __( 'Size', 'responsive-addons-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
+				'default'    => array(
+					'size' => 20,
+					'unit' => 'px',
+				),
 				'range'      => array(
 					'px' => array(
 						'min' => 0,
@@ -348,7 +340,8 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 				),
 				'size_units' => array( 'px', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .rael-menu-cart__toggle .elementor-button-icon' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .rael-menu-cart__toggle .rael-menu-cart-icon' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+
 				),
 			)
 		);
@@ -869,8 +862,9 @@ class Responsive_Addons_For_Elementor_Menu_Cart extends Widget_Base {
 				<span class="elementor-button-text"><?php echo wp_kses_post( $sub_total ); ?></span>
 				<span class="elementor-button-icon" <?php echo wp_kses_post( $counter_attr ); ?>>
 
-				
+				<div class="rael-menu-cart-icon-wrapper" style="width:20px;height:20px;">
 					<?php echo self::get_cart_icon_svg( $icon ); ?>
+				</div>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Cart', 'responsive-addons-for-elementor' ); ?></span>
 				</span>
 			</a>
