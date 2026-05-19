@@ -1,4 +1,5 @@
 <?php
+
 /**
  * RAEL Testimonial slider
  *
@@ -7,7 +8,7 @@
 
 namespace Responsive_Addons_For_Elementor\WidgetsManager\Widgets;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
@@ -26,7 +27,8 @@ use Elementor\Icons_Manager;
 /**
  * 'RAEL Testimonial slider' widget class
  */
-class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
+class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base
+{
 	/**
 	 * Counter for slide prints.
 	 *
@@ -38,7 +40,8 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name()
+	{
 		return 'rael-testimonial-slider';
 	}
 	/**
@@ -46,15 +49,17 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public function get_title() {
-		return __( 'Testimonial Slider', 'responsive-addons-for-elementor' );
+	public function get_title()
+	{
+		return __('Testimonial Slider', 'responsive-addons-for-elementor');
 	}
 	/**
 	 * Get the icon for the widget displayed in the editor.
 	 *
 	 * @return string
 	 */
-	public function get_icon() {
+	public function get_icon()
+	{
 		return 'eicon-testimonial rael-badge';
 	}
 	/**
@@ -62,15 +67,17 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return array
 	 */
-	public function get_categories() {
-		return array( 'responsive-addons-for-elementor' );
+	public function get_categories()
+	{
+		return array('responsive-addons-for-elementor');
 	}
 	/**
 	 * Get the stylesheets required for the widget.
 	 *
 	 * @return array
 	 */
-	public function get_style_depends() {
+	public function get_style_depends()
+	{
 		return array(
 			'font-awesome-5-all',
 			'font-awesome-4-shim',
@@ -83,39 +90,40 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return array
 	 */
-	public function get_script_depends() {
-		return [ 'rael-swiper','font-awesome-4-shim', 'rael-testimonial-marquee'];
-  
+	public function get_script_depends()
+	{
+		return ['rael-swiper', 'font-awesome-4-shim', 'rael-testimonial-marquee'];
 	}
 	/**
 	 * Get default values for the repeater control.
 	 *
 	 * @return array
 	 */
-	private function get_repeater_defaults() {
+	private function get_repeater_defaults()
+	{
 		$placeholder_image_src = Utils::get_placeholder_image_src();
 
 		return array(
 			array(
-				'content' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor' ),
-				'name'    => __( 'John Doe', 'responsive-addons-for-elementor' ),
-				'title'   => __( 'CEO', 'responsive-addons-for-elementor' ),
+				'content' => __('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor'),
+				'name'    => __('John Doe', 'responsive-addons-for-elementor'),
+				'title'   => __('CEO', 'responsive-addons-for-elementor'),
 				'image'   => array(
 					'url' => $placeholder_image_src,
 				),
 			),
 			array(
-				'content' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor' ),
-				'name'    => __( 'John Doe', 'responsive-addons-for-elementor' ),
-				'title'   => __( 'CEO', 'responsive-addons-for-elementor' ),
+				'content' => __('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor'),
+				'name'    => __('John Doe', 'responsive-addons-for-elementor'),
+				'title'   => __('CEO', 'responsive-addons-for-elementor'),
 				'image'   => array(
 					'url' => $placeholder_image_src,
 				),
 			),
 			array(
-				'content' => __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor' ),
-				'name'    => __( 'John Doe', 'responsive-addons-for-elementor' ),
-				'title'   => __( 'CEO', 'responsive-addons-for-elementor' ),
+				'content' => __('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'responsive-addons-for-elementor'),
+				'name'    => __('John Doe', 'responsive-addons-for-elementor'),
+				'title'   => __('CEO', 'responsive-addons-for-elementor'),
 				'image'   => array(
 					'url' => $placeholder_image_src,
 				),
@@ -127,11 +135,12 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return void
 	 */
-	protected function register_controls() {
+	protected function register_controls()
+	{
 		$this->start_controls_section(
 			'rael-section_slides',
 			array(
-				'label' => __( 'Slides', 'responsive-addons-for-elementor' ),
+				'label' => __('Slides', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -141,7 +150,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$repeater->add_control(
 			'rael_testimonial_slider_icon_new',
 			array(
-				'label'            => esc_html__( 'Icon', 'responsive-addons-for-elementor' ),
+				'label'            => esc_html__('Icon', 'responsive-addons-for-elementor'),
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'rael_testimonial_slider_before_content_icon',
 			)
@@ -150,16 +159,16 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$repeater->add_control(
 			'content',
 			array(
-				'label' => __( 'Content', 'responsive-addons-for-elementor' ),
+				'label' => __('Content', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::TEXTAREA,
 			)
 		);
-		
+
 
 		$repeater->add_control(
 			'testimonial_rating',
 			array(
-				'label'   => __( 'Testimonial Rating', 'responsive-addons-for-elementor' ),
+				'label'   => __('Testimonial Rating', 'responsive-addons-for-elementor'),
 				'type'    => Controls_Manager::SELECT,
 				'default' => '5',
 				'options' => array(
@@ -175,7 +184,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$repeater->add_control(
 			'image',
 			array(
-				'label' => __( 'Image', 'responsive-addons-for-elementor' ),
+				'label' => __('Image', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::MEDIA,
 			)
 		);
@@ -183,18 +192,18 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$repeater->add_control(
 			'name',
 			array(
-				'label'   => __( 'Name', 'responsive-addons-for-elementor' ),
+				'label'   => __('Name', 'responsive-addons-for-elementor'),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'John Doe', 'responsive-addons-for-elementor' ),
+				'default' => __('John Doe', 'responsive-addons-for-elementor'),
 			)
 		);
 
 		$repeater->add_control(
 			'title',
 			array(
-				'label'   => __( 'Title', 'responsive-addons-for-elementor' ),
+				'label'   => __('Title', 'responsive-addons-for-elementor'),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'CEO', 'responsive-addons-for-elementor' ),
+				'default' => __('CEO', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -203,7 +212,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'slides',
 			array(
-				'label'     => __( 'Slides', 'responsive-addons-for-elementor' ),
+				'label'     => __('Slides', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::REPEATER,
 				'fields'    => $repeater->get_controls(),
 				'default'   => $this->get_repeater_defaults(),
@@ -213,10 +222,10 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'enable_rating',
 			array(
-				'label'        => __( 'Enable Rating', 'responsive-addons-for-elementor' ),
+				'label'        => __('Enable Rating', 'responsive-addons-for-elementor'),
 				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
-				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
+				'label_on'     => __('Yes', 'responsive-addons-for-elementor'),
+				'label_off'    => __('No', 'responsive-addons-for-elementor'),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			)
@@ -225,9 +234,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'rael_icon_size',
 			array(
-				'label'      => __( 'Icon Size', 'responsive-addons-for-elementor' ),
+				'label'      => __('Icon Size', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'em', 'rem' ),
+				'size_units' => array('px', 'em', 'rem'),
 				'range'      => array(
 					'px' => array(
 						'min' => 1,
@@ -248,12 +257,12 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'skin',
 			array(
-				'label'        => __( 'Skin', 'responsive-addons-for-elementor' ),
+				'label'        => __('Skin', 'responsive-addons-for-elementor'),
 				'type'         => Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => array(
-					'default' => __( 'Default', 'responsive-addons-for-elementor' ),
-					'bubble'  => __( 'Bubble', 'responsive-addons-for-elementor' ),
+					'default' => __('Default', 'responsive-addons-for-elementor'),
+					'bubble'  => __('Bubble', 'responsive-addons-for-elementor'),
 				),
 				'prefix_class' => 'responsive-testimonial--skin-',
 				'render_type'  => 'template',
@@ -263,15 +272,15 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'layout',
 			array(
-				'label'        => __( 'Layout', 'responsive-addons-for-elementor' ),
+				'label'        => __('Layout', 'responsive-addons-for-elementor'),
 				'type'         => Controls_Manager::SELECT,
 				'default'      => 'image_inline',
 				'options'      => array(
-					'image_inline'  => __( 'Image Inline', 'responsive-addons-for-elementor' ),
-					'image_stacked' => __( 'Image Stacked', 'responsive-addons-for-elementor' ),
-					'image_above'   => __( 'Image Above', 'responsive-addons-for-elementor' ),
-					'image_left'    => __( 'Image Left', 'responsive-addons-for-elementor' ),
-					'image_right'   => __( 'Image Right', 'responsive-addons-for-elementor' ),
+					'image_inline'  => __('Image Inline', 'responsive-addons-for-elementor'),
+					'image_stacked' => __('Image Stacked', 'responsive-addons-for-elementor'),
+					'image_above'   => __('Image Above', 'responsive-addons-for-elementor'),
+					'image_left'    => __('Image Left', 'responsive-addons-for-elementor'),
+					'image_right'   => __('Image Right', 'responsive-addons-for-elementor'),
 				),
 				'prefix_class' => 'responsive-testimonial--layout-',
 				'render_type'  => 'template',
@@ -281,20 +290,20 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'alignment',
 			array(
-				'label'        => __( 'Alignment', 'responsive-addons-for-elementor' ),
+				'label'        => __('Alignment', 'responsive-addons-for-elementor'),
 				'type'         => Controls_Manager::CHOOSE,
 				'default'      => 'center',
 				'options'      => array(
 					'left'   => array(
-						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
+						'title' => __('Left', 'responsive-addons-for-elementor'),
 						'icon'  => 'eicon-text-align-left',
 					),
 					'center' => array(
-						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
+						'title' => __('Center', 'responsive-addons-for-elementor'),
 						'icon'  => 'eicon-text-align-center',
 					),
 					'right'  => array(
-						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
+						'title' => __('Right', 'responsive-addons-for-elementor'),
 						'icon'  => 'eicon-text-align-right',
 					),
 				),
@@ -302,16 +311,16 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			)
 		);
 
-		$slides_per_view = range( 1, 10 );
-		$slides_per_view = array_combine( $slides_per_view, $slides_per_view );
+		$slides_per_view = range(1, 10);
+		$slides_per_view = array_combine($slides_per_view, $slides_per_view);
 
 		$this->add_responsive_control(
 			'slides_per_view',
 			array(
 				'type'               => Controls_Manager::SELECT,
-				'label'              => __( 'Slides Per View', 'responsive-addons-for-elementor' ),
-				'options'            => array( '' => __( 'Default', 'responsive-addons-for-elementor' ) ) + $slides_per_view,
-				'mobile_default' => '1', 
+				'label'              => __('Slides Per View', 'responsive-addons-for-elementor'),
+				'options'            => array('' => __('Default', 'responsive-addons-for-elementor')) + $slides_per_view,
+				'mobile_default' => '1',
 				'frontend_available' => true,
 			)
 		);
@@ -320,9 +329,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			'slides_to_scroll',
 			array(
 				'type'               => Controls_Manager::SELECT,
-				'label'              => __( 'Slides to Scroll', 'responsive-addons-for-elementor' ),
-				'description'        => __( 'Set how many slides are scrolled per swipe.', 'responsive-addons-for-elementor' ),
-				'options'            => array( '' => __( 'Default', 'responsive-addons-for-elementor' ) ) + $slides_per_view,
+				'label'              => __('Slides to Scroll', 'responsive-addons-for-elementor'),
+				'description'        => __('Set how many slides are scrolled per swipe.', 'responsive-addons-for-elementor'),
+				'options'            => array('' => __('Default', 'responsive-addons-for-elementor')) + $slides_per_view,
 				'frontend_available' => true,
 			)
 		);
@@ -331,7 +340,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			'width',
 			array(
 				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Width', 'responsive-addons-for-elementor' ),
+				'label'      => __('Width', 'responsive-addons-for-elementor'),
 				'range'      => array(
 					'px' => array(
 						'min' => 100,
@@ -341,7 +350,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						'min' => 50,
 					),
 				),
-				'size_units' => array( '%', 'px' ),
+				'size_units' => array('%', 'px'),
 				'default'    => array(
 					'unit' => '%',
 				),
@@ -352,165 +361,43 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-		
-		// Marquee Section
-		$this->start_controls_section(
-			'section_marquee',
-			[
-				'label' => __( 'Marquee', 'responsive-addons-for-elementor' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
-		);
-
-
-		/* Enable Marquee */
-		$this->add_control(
-			'enable_marquee',
-			[
-				'label'        => __( 'Enable Marquee', 'responsive-addons-for-elementor' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'On', 'responsive-addons-for-elementor' ),
-				'label_off'    => __( 'Off', 'responsive-addons-for-elementor' ),
-				'return_value' => 'yes',
-				'default'      => '',
-			]
-		);
-
-		/* Direction */
-		$this->add_control(
-			'marquee_direction',
-			[
-				'label'     => __( 'Direction', 'responsive-addons-for-elementor' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'rtl',
-				'options'   => [
-					'ltr' => __( 'Left to Right', 'responsive-addons-for-elementor' ),
-					'rtl' => __( 'Right to Left', 'responsive-addons-for-elementor' ),
-					'ttb' => __( 'Top to Bottom', 'responsive-addons-for-elementor' ),
-					'btt' => __( 'Bottom to Top', 'responsive-addons-for-elementor' ),
-				],
-				'condition' => [
-					'enable_marquee' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'marquee_alignment',
-			array(
-				'label'   => __( 'Alignment', 'responsive-addons-for-elementor' ),
-				'type'    => Controls_Manager::CHOOSE,
-				'default' => 'center',
-				'options' => array(
-					'flex-start' => array(
-						'title' => __( 'Left', 'responsive-addons-for-elementor' ),
-						'icon'  => 'eicon-text-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'responsive-addons-for-elementor' ),
-						'icon'  => 'eicon-text-align-center',
-					),
-					'flex-end' => array(
-						'title' => __( 'Right', 'responsive-addons-for-elementor' ),
-						'icon'  => 'eicon-text-align-right',
-					),
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .responsive-marquee-track' => 'align-items: {{VALUE}};',
-				),
-				'condition' => array(
-					'enable_marquee'     => 'yes',
-					'marquee_direction'  => array( 'ttb', 'btt' ),
-				),
-			)
-		);
-
-		/* Speed (px/sec) */
-		$this->add_control(
-			'marquee_speed',
-			[
-				'label'      => __( 'Speed', 'responsive-addons-for-elementor' ),
-				'type'       => Controls_Manager::NUMBER,
-				'default'    => 100,
-				'min'        => 10,
-				'max'        => 500,
-				'step'       => 10,
-				'condition'  => [
-					'enable_marquee' => 'yes',
-				],
-			]
-		);
-
-		/* Gap Between Items */
-		$this->add_control(
-			'marquee_gap',
-			[
-				'label'      => __( 'Gap Between Items', 'responsive-addons-for-elementor' ),
-				'type'       => Controls_Manager::NUMBER,
-				'default'    => 30,
-				'min'        => 0,
-				'max'        => 200,
-				'step'       => 5,
-				'condition'  => [
-					'enable_marquee' => 'yes',
-				],
-			]
-		);
-
-		/* Pause on Hover */
-		$this->add_control(
-			'marquee_pause_hover',
-			[
-				'label'        => __( 'Pause on Hover', 'responsive-addons-for-elementor' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'responsive-addons-for-elementor' ),
-				'label_off'    => __( 'No', 'responsive-addons-for-elementor' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'condition'    => [
-					'enable_marquee' => 'yes',
-				],
-			]
-		);
-
-		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_additional_options',
 			array(
-				'label' => __( 'Slider Options', 'responsive-addons-for-elementor' ),	
+				'label' => __('Slider Options', 'responsive-addons-for-elementor'),
 				'condition' => [
 					'enable_marquee!' => 'yes',
 				],
 			),
-			
+
 		);
 
 		$this->add_control(
 			'show_arrows',
 			array(
 				'type'               => Controls_Manager::SWITCHER,
-				'label'              => __( 'Arrows', 'responsive-addons-for-elementor' ),
+				'label'              => __('Arrows', 'responsive-addons-for-elementor'),
 				'default'            => 'yes',
-				'label_off'          => __( 'Hide', 'responsive-addons-for-elementor' ),
-				'label_on'           => __( 'Show', 'responsive-addons-for-elementor' ),
+				'label_off'          => __('Hide', 'responsive-addons-for-elementor'),
+				'label_on'           => __('Show', 'responsive-addons-for-elementor'),
 				'prefix_class'       => 'elementor-arrows-',
 				'render_type'        => 'template',
-				'frontend_available' => true,			
+				'frontend_available' => true,
 			)
-		);	
+		);
 
 		$this->add_control(
 			'pagination',
 			array(
-				'label'              => __( 'Pagination', 'responsive-addons-for-elementor' ),
+				'label'              => __('Pagination', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SELECT,
 				'default'            => 'bullets',
 				'options'            => array(
-					''            => __( 'None', 'responsive-addons-for-elementor' ),
-					'bullets'     => __( 'Dots', 'responsive-addons-for-elementor' ),
-					'fraction'    => __( 'Fraction', 'responsive-addons-for-elementor' ),
-					'progressbar' => __( 'Progress', 'responsive-addons-for-elementor' ),
+					''            => __('None', 'responsive-addons-for-elementor'),
+					'bullets'     => __('Dots', 'responsive-addons-for-elementor'),
+					'fraction'    => __('Fraction', 'responsive-addons-for-elementor'),
+					'progressbar' => __('Progress', 'responsive-addons-for-elementor'),
 				),
 				'prefix_class'       => 'responsive-pagination-type-',
 				'render_type'        => 'template',
@@ -521,7 +408,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'speed',
 			array(
-				'label'              => __( 'Transition Duration', 'responsive-addons-for-elementor' ),
+				'label'              => __('Transition Duration', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::NUMBER,
 				'default'            => 500,
 				'frontend_available' => true,
@@ -531,7 +418,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'autoplay',
 			array(
-				'label'              => __( 'Autoplay', 'responsive-addons-for-elementor' ),
+				'label'              => __('Autoplay', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SWITCHER,
 				'default'            => 'yes',
 				'separator'          => 'before',
@@ -542,7 +429,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'autoplay_speed',
 			array(
-				'label'              => __( 'Autoplay Speed', 'responsive-addons-for-elementor' ),
+				'label'              => __('Autoplay Speed', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::NUMBER,
 				'default'            => 5000,
 				'condition'          => array(
@@ -555,7 +442,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'loop',
 			array(
-				'label'              => __( 'Infinite Loop', 'responsive-addons-for-elementor' ),
+				'label'              => __('Infinite Loop', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SWITCHER,
 				'default'            => 'yes',
 				'frontend_available' => true,
@@ -565,7 +452,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pause_on_hover',
 			array(
-				'label'              => __( 'Pause on Hover', 'responsive-addons-for-elementor' ),
+				'label'              => __('Pause on Hover', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SWITCHER,
 				'default'            => 'yes',
 				'condition'          => array(
@@ -578,7 +465,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pause_on_interaction',
 			array(
-				'label'              => __( 'Pause on Interaction', 'responsive-addons-for-elementor' ),
+				'label'              => __('Pause on Interaction', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SWITCHER,
 				'default'            => 'yes',
 				'condition'          => array(
@@ -599,10 +486,131 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
+		// Marquee Section
+		$this->start_controls_section(
+			'section_marquee',
+			[
+				'label' => __('Marquee', 'responsive-addons-for-elementor'),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		/* Enable Marquee */
+		$this->add_control(
+			'enable_marquee',
+			[
+				'label'        => __('Enable Marquee', 'responsive-addons-for-elementor'),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __('On', 'responsive-addons-for-elementor'),
+				'label_off'    => __('Off', 'responsive-addons-for-elementor'),
+				'return_value' => 'yes',
+				'default'      => '',
+			]
+		);
+
+		/* Direction */
+		$this->add_control(
+			'marquee_direction',
+			[
+				'label'     => __('Direction', 'responsive-addons-for-elementor'),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'rtl',
+				'options'   => [
+					'ltr' => __('Left to Right', 'responsive-addons-for-elementor'),
+					'rtl' => __('Right to Left', 'responsive-addons-for-elementor'),
+					'ttb' => __('Top to Bottom', 'responsive-addons-for-elementor'),
+					'btt' => __('Bottom to Top', 'responsive-addons-for-elementor'),
+				],
+				'condition' => [
+					'enable_marquee' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'marquee_alignment',
+			array(
+				'label'   => __('Alignment', 'responsive-addons-for-elementor'),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => array(
+					'flex-start' => array(
+						'title' => __('Left', 'responsive-addons-for-elementor'),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __('Center', 'responsive-addons-for-elementor'),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end' => array(
+						'title' => __('Right', 'responsive-addons-for-elementor'),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .responsive-marquee-track' => 'align-items: {{VALUE}};',
+				),
+				'condition' => array(
+					'enable_marquee'     => 'yes',
+					'marquee_direction'  => array('ttb', 'btt'),
+				),
+			)
+		);
+
+		/* Speed (px/sec) */
+		$this->add_control(
+			'marquee_speed',
+			[
+				'label'      => __('Speed', 'responsive-addons-for-elementor'),
+				'type'       => Controls_Manager::NUMBER,
+				'default'    => 100,
+				'min'        => 10,
+				'max'        => 500,
+				'step'       => 10,
+				'condition'  => [
+					'enable_marquee' => 'yes',
+				],
+			]
+		);
+
+		/* Gap Between Items */
+		$this->add_control(
+			'marquee_gap',
+			[
+				'label'      => __('Gap Between Items', 'responsive-addons-for-elementor'),
+				'type'       => Controls_Manager::NUMBER,
+				'default'    => 30,
+				'min'        => 0,
+				'max'        => 200,
+				'step'       => 5,
+				'condition'  => [
+					'enable_marquee' => 'yes',
+				],
+			]
+		);
+
+		/* Pause on Hover */
+		$this->add_control(
+			'marquee_pause_hover',
+			[
+				'label'        => __('Pause on Hover', 'responsive-addons-for-elementor'),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __('Yes', 'responsive-addons-for-elementor'),
+				'label_off'    => __('No', 'responsive-addons-for-elementor'),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'enable_marquee' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
 		$this->start_controls_section(
 			'section_slides_style',
 			array(
-				'label' => __( 'Slides', 'responsive-addons-for-elementor' ),
+				'label' => __('Slides', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -610,8 +618,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'space_between',
 			array(
-				'label'              => __( 'Space Between', 'responsive-addons-for-elementor' ),
+				'label'              => __('Space Between', 'responsive-addons-for-elementor'),
 				'type'               => Controls_Manager::SLIDER,
+				'condition'          => array(
+					'enable_marquee!' => 'yes',
+				),
 				'range'              => array(
 					'px' => array(
 						'max' => 50,
@@ -634,10 +645,10 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'slide_border_size',
 			array(
-				'label'     => __( 'Border Size', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Size', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::DIMENSIONS,
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -645,16 +656,16 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'slide_border_radius',
 			array(
-				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
+				'label'      => __('Border Radius', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
+				'size_units' => array('px', '%'),
 				'range'      => array(
 					'%' => array(
 						'max' => 50,
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide' => 'border-radius: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item' => 'border-radius: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -662,10 +673,10 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'slide_border_color',
 			array(
-				'label'     => __( 'Border Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item' => 'border-color: {{VALUE}}',
 				),
 			)
 		);
@@ -673,10 +684,10 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'slide_padding',
 			array(
-				'label'     => __( 'Padding', 'responsive-addons-for-elementor' ),
+				'label'     => __('Padding', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::DIMENSIONS,
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 				'separator' => 'before',
 			)
@@ -689,7 +700,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_style_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Normal', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -697,8 +708,8 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_box_shadow',
-				'label'    => __( 'Box Shadow', 'responsive-addons-for-elementor' ),
-				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide',
+				'label'    => __('Box Shadow', 'responsive-addons-for-elementor'),
+				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item',
 			)
 		);
 
@@ -706,16 +717,16 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'rael_team_background_content_normal',
-				'label'    => esc_html__( 'Background', 'responsive-addons-for-elementor' ),
-				'types'    => array( 'classic', 'gradient', 'video' ),
-				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide',
+				'label'    => esc_html__('Background', 'responsive-addons-for-elementor'),
+				'types'    => array('classic', 'gradient', 'video'),
+				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item',
 			)
 		);
 
 		$this->add_control(
 			'rael_icon_normal_color',
 			array(
-				'label'     => __( 'Icon Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Icon Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
@@ -730,7 +741,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_style_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Hover', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -738,7 +749,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_hover_box_shadow',
-				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover',
+				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item:hover',
 			)
 		);
 
@@ -746,21 +757,21 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'rael_team_background_content_hover',
-				'label'    => esc_html__( 'Background', 'responsive-addons-for-elementor' ),
-				'types'    => array( 'classic', 'gradient', 'video' ),
-				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover',
+				'label'    => esc_html__('Background', 'responsive-addons-for-elementor'),
+				'types'    => array('classic', 'gradient', 'video'),
+				'selector' => '{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item:hover',
 			)
 		);
 
 		$this->add_control(
 			'rael_icon_hover_color',
 			array(
-				'label'     => __( 'Icon Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Icon Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon i, {{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon svg' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon i, {{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon svg, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__icon i, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__icon svg' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__icon svg, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__icon svg' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -768,11 +779,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_content_hover_color',
 			array(
-				'label'     => __( 'Content Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Content Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__text, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -780,11 +791,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_name_hover_color',
 			array(
-				'label'     => __( 'Name Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Name Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__name' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__name, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__name' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -792,11 +803,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_title_hover_color',
 			array(
-				'label'     => __( 'Title Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Title Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__title, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -809,14 +820,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_content_style',
 			array(
-				'label' => __( 'Content', 'responsive-addons-for-elementor' ),
+				'label' => __('Content', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 		$this->add_control(
 			'testimonial_content_background_color',
 			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Background Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'alpha'     => false,
 				'default' => '#e6e9ec',
@@ -831,7 +842,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_gap',
 			array(
-				'label'     => __( 'Gap', 'responsive-addons-for-elementor' ),
+				'label'     => __('Gap', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
@@ -852,7 +863,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'content_color',
 			array(
-				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Text Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__text' => 'color: {{VALUE}}',
@@ -877,7 +888,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'name_title_style',
 			array(
-				'label'     => __( 'Name', 'responsive-addons-for-elementor' ),
+				'label'     => __('Name', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -886,7 +897,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'name_color',
 			array(
-				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Text Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__name' => 'color: {{VALUE}}',
@@ -911,7 +922,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'heading_title_style',
 			array(
-				'label'     => __( 'Title', 'responsive-addons-for-elementor' ),
+				'label'     => __('Title', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			)
@@ -920,7 +931,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			array(
-				'label'     => __( 'Text Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Text Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__title' => 'color: {{VALUE}}',
@@ -947,7 +958,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			array(
-				'label' => __( 'Image', 'responsive-addons-for-elementor' ),
+				'label' => __('Image', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -955,7 +966,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'image_size',
 			array(
-				'label'     => __( 'Size', 'responsive-addons-for-elementor' ),
+				'label'     => __('Size', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
@@ -990,7 +1001,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'image_gap',
 			array(
-				'label'     => __( 'Gap', 'responsive-addons-for-elementor' ),
+				'label'     => __('Gap', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
@@ -1018,7 +1029,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'image_margin',
 			array(
-				'label' => __( 'Margin', 'responsive-addons-for-elementor' ),
+				'label' => __('Margin', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::DIMENSIONS,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__image' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -1029,7 +1040,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'image_border',
 			array(
-				'label'     => __( 'Border', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SWITCHER,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__image img' => 'border-style: solid',
@@ -1041,7 +1052,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_image_shadow',
-				'label'    => __( 'Box Shadow', 'responsive-addons-for-elementor' ),
+				'label'    => __('Box Shadow', 'responsive-addons-for-elementor'),
 				'selector' => '{{WRAPPER}} .responsive-testimonial__image img',
 			)
 		);
@@ -1050,7 +1061,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_hover_image_shadow',
-				'label'    => __( 'Box Shadow Hover', 'responsive-addons-for-elementor' ),
+				'label'    => __('Box Shadow Hover', 'responsive-addons-for-elementor'),
 				'selector' => '{{WRAPPER}} .responsive-testimonial__image img:hover',
 			)
 		);
@@ -1058,7 +1069,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'image_border_color',
 			array(
-				'label'     => __( 'Border Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000',
 				'selectors' => array(
@@ -1073,7 +1084,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'image_border_width',
 			array(
-				'label'     => __( 'Border Width', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Width', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
@@ -1093,7 +1104,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'image_border_radius',
 			array(
-				'label'     => __( 'Border Radius', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Radius', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__image img' => 'border-radius: {{SIZE}}{{UNIT}}',
@@ -1108,7 +1119,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_image_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Normal', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -1116,7 +1127,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_image_box_shadow',
-				'label'    => __( 'Box Shadow', 'responsive-addons-for-elementor' ),
+				'label'    => __('Box Shadow', 'responsive-addons-for-elementor'),
 				'selector' => '{{WRAPPER}} .responsive-testimonial__image img',
 			)
 		);
@@ -1126,7 +1137,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_image_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Hover', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -1140,13 +1151,13 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
-		
+
 
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_rating_style',
 			[
-				'label' => __( 'Rating', 'responsive-addons-for-elementor' ),
+				'label' => __('Rating', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1154,7 +1165,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rating_color',
 			[
-				'label' => __( 'Color', 'responsive-addons-for-elementor' ),
+				'label' => __('Color', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::COLOR,
 				'default' => '#ffb400',
 				'selectors' => [
@@ -1166,7 +1177,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'rating_icon_size',
 			[
-				'label' => __( 'Icon Size', 'responsive-addons-for-elementor' ),
+				'label' => __('Icon Size', 'responsive-addons-for-elementor'),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -1174,7 +1185,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						'max' => 60,
 					],
 				],
-				'default' => array('size' => '17', 'unit' => 'px' ),
+				'default' => array('size' => '17', 'unit' => 'px'),
 				'selectors' => [
 					'{{WRAPPER}} .rael-rating-stars i' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
@@ -1184,7 +1195,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'rating_item_margin_right',
 			[
-				'label' => __( 'Items Margin Right', 'responsive-addons-for-elementor' ),
+				'label' => __('Items Margin Right', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -1205,7 +1216,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'review_padding',
 			[
-				'label' => __( 'Review Padding', 'responsive-addons-for-elementor' ),
+				'label' => __('Review Padding', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::DIMENSIONS,
 				'selectors' => [
 					'{{WRAPPER}} .rael-rating-stars' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -1216,7 +1227,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'review_margin',
 			[
-				'label' => __( 'Review Margin', 'responsive-addons-for-elementor' ),
+				'label' => __('Review Margin', 'responsive-addons-for-elementor'),
 				'type'  => Controls_Manager::DIMENSIONS,
 				'selectors' => [
 					'{{WRAPPER}} .rael-rating-stars' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -1230,7 +1241,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation',
 			array(
-				'label' => __( 'Navigation', 'responsive-addons-for-elementor' ),
+				'label' => __('Navigation', 'responsive-addons-for-elementor'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'enable_marquee!' => 'yes',
@@ -1241,7 +1252,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'heading_arrows',
 			array(
-				'label'     => __( 'Arrows', 'responsive-addons-for-elementor' ),
+				'label'     => __('Arrows', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'none',
 			)
@@ -1250,23 +1261,23 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'arrow_style',
 			array(
-				'label'       => __( 'Choose Arrow', 'responsive-addons-for-elementor' ),
+				'label'       => __('Choose Arrow', 'responsive-addons-for-elementor'),
 				'type'        => Controls_Manager::SELECT,
 				'label_block' => true,
 				'default'     => 'fa fa-angle-right',
 				'options'     => array(
-					'fa fa-angle-right'          => __( 'Angle', 'responsive-addons-for-elementor' ),
-					'fa fa-angle-double-right'   => __( 'Double Angle', 'responsive-addons-for-elementor' ),
-					'fa fa-chevron-right'        => __( 'Chevron', 'responsive-addons-for-elementor' ),
-					'fa fa-chevron-circle-right' => __( 'Chevron Circle', 'responsive-addons-for-elementor' ),
-					'fa fa-arrow-right'          => __( 'Arrow', 'responsive-addons-for-elementor' ),
-					'fa fa-long-arrow-right'     => __( 'Long Arrow', 'responsive-addons-for-elementor' ),
-					'fa fa-caret-right'          => __( 'Caret', 'responsive-addons-for-elementor' ),
-					'fa fa-caret-square-o-right' => __( 'Caret Square', 'responsive-addons-for-elementor' ),
-					'fa fa-arrow-circle-right'   => __( 'Arrow Circle', 'responsive-addons-for-elementor' ),
-					'fa fa-arrow-circle-o-right' => __( 'Arrow Circle O', 'responsive-addons-for-elementor' ),
-					'fa fa-toggle-right'         => __( 'Toggle', 'responsive-addons-for-elementor' ),
-					'fa fa-hand-o-right'         => __( 'Hand', 'responsive-addons-for-elementor' ),
+					'fa fa-angle-right'          => __('Angle', 'responsive-addons-for-elementor'),
+					'fa fa-angle-double-right'   => __('Double Angle', 'responsive-addons-for-elementor'),
+					'fa fa-chevron-right'        => __('Chevron', 'responsive-addons-for-elementor'),
+					'fa fa-chevron-circle-right' => __('Chevron Circle', 'responsive-addons-for-elementor'),
+					'fa fa-arrow-right'          => __('Arrow', 'responsive-addons-for-elementor'),
+					'fa fa-long-arrow-right'     => __('Long Arrow', 'responsive-addons-for-elementor'),
+					'fa fa-caret-right'          => __('Caret', 'responsive-addons-for-elementor'),
+					'fa fa-caret-square-o-right' => __('Caret Square', 'responsive-addons-for-elementor'),
+					'fa fa-arrow-circle-right'   => __('Arrow Circle', 'responsive-addons-for-elementor'),
+					'fa fa-arrow-circle-o-right' => __('Arrow Circle O', 'responsive-addons-for-elementor'),
+					'fa fa-toggle-right'         => __('Toggle', 'responsive-addons-for-elementor'),
+					'fa fa-hand-o-right'         => __('Hand', 'responsive-addons-for-elementor'),
 				),
 			)
 		);
@@ -1274,7 +1285,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'arrows_size',
 			array(
-				'label'     => __( 'Size', 'responsive-addons-for-elementor' ),
+				'label'     => __('Size', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'default'   => array(
 					'size' => 20,
@@ -1293,7 +1304,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'left_arrow_position',
 			array(
-				'label'      => __( 'Align Left Arrow', 'responsive-addons-for-elementor' ),
+				'label'      => __('Align Left Arrow', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array(
 					'px' => array(
@@ -1302,7 +1313,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						'step' => 1,
 					),
 				),
-				'size_units' => array( 'px' ),
+				'size_units' => array('px'),
 				'selectors'  => array(
 					'{{WRAPPER}} .responsive-swiper-button-prev' => 'left: {{SIZE}}{{UNIT}};',
 				),
@@ -1312,7 +1323,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'right_arrow_position',
 			array(
-				'label'      => __( 'Align Right Arrow', 'responsive-addons-for-elementor' ),
+				'label'      => __('Align Right Arrow', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array(
 					'px' => array(
@@ -1321,7 +1332,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						'step' => 1,
 					),
 				),
-				'size_units' => array( 'px' ),
+				'size_units' => array('px'),
 				'selectors'  => array(
 					'{{WRAPPER}} .responsive-swiper-button-next' => 'right: {{SIZE}}{{UNIT}};',
 				),
@@ -1331,9 +1342,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'arrows_height',
 			array(
-				'label'      => __( 'Arrows Height', 'responsive-addons-for-elementor' ),
+				'label'      => __('Arrows Height', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::SLIDER,
-				'default'    => array( 'size' => '44' ),
+				'default'    => array('size' => '44'),
 				'range'      => array(
 					'px' => array(
 						'min'  => 15,
@@ -1341,7 +1352,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						'step' => 1,
 					),
 				),
-				'size_units' => array( 'px' ),
+				'size_units' => array('px'),
 				'selectors'  => array(
 					'{{WRAPPER}} .responsive-swiper-button-prev, {{WRAPPER}} .responsive-swiper-button-next' => 'height: {{SIZE}}{{UNIT}};',
 				),
@@ -1351,7 +1362,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'arrows_color',
 			array(
-				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000',
 				'selectors' => array(
@@ -1363,7 +1374,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'heading_pagination',
 			array(
-				'label'     => __( 'Pagination', 'responsive-addons-for-elementor' ),
+				'label'     => __('Pagination', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => array(
 					'pagination!' => '',
@@ -1373,14 +1384,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_style',
 			array(
-				'label'       => __( 'Choose Dots Style', 'responsive-addons-for-elementor' ),
+				'label'       => __('Choose Dots Style', 'responsive-addons-for-elementor'),
 				'type'        => Controls_Manager::SELECT,
 				'label_block' => true,
 				'default'     => 'solid_circle',
 				'options'     => array(
-					'solid_circle'    => __( 'Solid Circle', 'responsive-addons-for-elementor' ),
-					'outline_circle'  => __( 'Outlined Circle', 'responsive-addons-for-elementor' ),
-					'bars'  => __( 'Bars', 'responsive-addons-for-elementor' ),
+					'solid_circle'    => __('Solid Circle', 'responsive-addons-for-elementor'),
+					'outline_circle'  => __('Outlined Circle', 'responsive-addons-for-elementor'),
+					'bars'  => __('Bars', 'responsive-addons-for-elementor'),
 				),
 				'prefix_class' => 'rael-pagination-style-',
 				'condition' => array(
@@ -1389,14 +1400,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			)
 		);
 
-			$this->add_control(
+		$this->add_control(
 			'pagination_size',
 			array(
-				'label'     => __( 'Size', 'responsive-addons-for-elementor' ),
+				'label'     => __('Size', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
-						'max' => 20, 
+						'max' => 20,
 					),
 				),
 				'default'   => array(
@@ -1405,19 +1416,19 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}}.rael-pagination-style-solid_circle .swiper-pagination-bullet' =>
-						'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important; border-radius: 50% !important;',
+					'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important; border-radius: 50% !important;',
 
 					'{{WRAPPER}}.rael-pagination-style-outline_circle .swiper-pagination-bullet' =>
-						'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important; border-radius: 50% !important;',
+					'height: {{SIZE}}{{UNIT}} !important; width: {{SIZE}}{{UNIT}} !important; border-radius: 50% !important;',
 
 					'{{WRAPPER}}.rael-pagination-style-bars .swiper-pagination-bullet' =>
-						'width: {{SIZE}}{{UNIT}} !important; height: 5px !important; border-radius: 10px !important;',
+					'width: {{SIZE}}{{UNIT}} !important; height: 5px !important; border-radius: 10px !important;',
 
 					'{{WRAPPER}} .swiper-horizontal .swiper-pagination-progressbar' =>
-						'height: {{SIZE}}{{UNIT}} !important;',
+					'height: {{SIZE}}{{UNIT}} !important;',
 
 					'{{WRAPPER}} .swiper-pagination-fraction' =>
-						'font-size: {{SIZE}}{{UNIT}} !important;',
+					'font-size: {{SIZE}}{{UNIT}} !important;',
 				),
 				'condition' => array(
 					'pagination!' => '',
@@ -1429,7 +1440,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_color',
 			array(
-				'label'     => __( 'Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#cccccc',
 				'selectors' => array(
@@ -1437,15 +1448,15 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 					'{{WRAPPER}} .swiper-pagination-fraction' => 'color: {{VALUE}}',
 					/* Solid Circle – inactive bullets */
 					'{{WRAPPER}}.rael-pagination-style-solid_circle .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)' =>
-						'background-color: {{VALUE}}; opacity: 1;',
+					'background-color: {{VALUE}}; opacity: 1;',
 
 					/* Outline Circle – inactive bullets */
 					'{{WRAPPER}}.rael-pagination-style-outline_circle .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)' =>
-						'background-color: transparent; border: 2px solid {{VALUE}}; opacity: 1;',
+					'background-color: transparent; border: 2px solid {{VALUE}}; opacity: 1;',
 
 					/* Bars – inactive bars */
 					'{{WRAPPER}}.rael-pagination-style-bars .swiper-pagination-bullet:not(.swiper-pagination-bullet-active)' =>
-						'background-color: {{VALUE}};',
+					'background-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'pagination!' => '',
@@ -1456,14 +1467,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_active_color',
 			array(
-				'label'     => __( 'Active Dot Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Active Dot Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000000',
 				'selectors' => array(
 					'{{WRAPPER}} .swiper-pagination-bullet-active' => 'background-color: {{VALUE}}',
 				),
 				'condition' => array(
-					'pagination' => array( 'bullets' ),
+					'pagination' => array('bullets'),
 				),
 			)
 		);
@@ -1471,13 +1482,13 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_progress_color',
 			array(
-				'label'     => __( 'Progress Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Progress Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .swiper-pagination-progressbar-fill' => 'background-color: {{VALUE}}',
 				),
 				'condition' => array(
-					'pagination' => array( 'progressbar' ),
+					'pagination' => array('progressbar'),
 				),
 			)
 		);
@@ -1487,7 +1498,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_skin_style',
 			array(
-				'label'     => __( 'Bubble', 'responsive-addons-for-elementor' ),
+				'label'     => __('Bubble', 'responsive-addons-for-elementor'),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'skin' => 'bubble',
@@ -1498,9 +1509,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'text_padding',
 			array(
-				'label'      => __( 'Padding', 'responsive-addons-for-elementor' ),
+				'label'      => __('Padding', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
+				'size_units' => array('px', '%', 'em'),
 				'default'    => array(
 					'top'    => '20',
 					'bottom' => '20',
@@ -1522,9 +1533,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'border_radius',
 			array(
-				'label'      => __( 'Border Radius', 'responsive-addons-for-elementor' ),
+				'label'      => __('Border Radius', 'responsive-addons-for-elementor'),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'em' ),
+				'size_units' => array('px', '%', 'em'),
 				'selectors'  => array(
 					'{{WRAPPER}} .responsive-testimonial__content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
@@ -1534,7 +1545,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'border',
 			array(
-				'label'     => __( 'Border', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SWITCHER,
 				'selectors' => array(
 					'{{WRAPPER}} .responsive-testimonial__content, {{WRAPPER}} .responsive-testimonial__content:after' => 'border-style: solid',
@@ -1545,7 +1556,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'border_color',
 			array(
-				'label'     => __( 'Border Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000',
 				'selectors' => array(
@@ -1561,7 +1572,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'border_width',
 			array(
-				'label'     => __( 'Border Width', 'responsive-addons-for-elementor' ),
+				'label'     => __('Border Width', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
@@ -1588,7 +1599,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_bubble_normal',
 			array(
-				'label' => esc_html__( 'Normal', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Normal', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -1596,14 +1607,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'rael_tm_bubble_box_shadow',
-				'label'    => __( 'Box Shadow', 'responsive-addons-for-elementor' ),
+				'label'    => __('Box Shadow', 'responsive-addons-for-elementor'),
 				'selector' => '{{WRAPPER}} .responsive-testimonial__content',
 			)
 		);
 		$this->add_control(
 			'background_color',
 			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Background Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'alpha'     => false,
 				'selectors' => array(
@@ -1617,7 +1628,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'rael_tm_bubble_hover',
 			array(
-				'label' => esc_html__( 'Hover', 'responsive-addons-for-elementor' ),
+				'label' => esc_html__('Hover', 'responsive-addons-for-elementor'),
 			)
 		);
 
@@ -1632,7 +1643,7 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'background_color_hover',
 			array(
-				'label'     => __( 'Background Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Background Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'alpha'     => false,
 				'selectors' => array(
@@ -1644,11 +1655,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_bubble_content_hover_color',
 			array(
-				'label'     => __( 'Content Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Content Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__text, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1656,11 +1667,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_bubble_name_hover_color',
 			array(
-				'label'     => __( 'Name Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Name Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__name' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__name, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__name' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1668,11 +1679,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 		$this->add_control(
 			'rael_bubble_title_hover_color',
 			array(
-				'label'     => __( 'Title Hover Color', 'responsive-addons-for-elementor' ),
+				'label'     => __('Title Hover Color', 'responsive-addons-for-elementor'),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .responsive-testimonial-swiper .swiper-slide:hover .responsive-testimonial__title, {{WRAPPER}} .responsive-marquee-wrapper .marquee-item .responsive-testimonial:hover .responsive-testimonial__title' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1688,19 +1699,20 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 * @param array|null $settings Optional. Custom settings to use for rendering. Defaults to null.
 	 * @return void
 	 */
-	protected function render( array $settings = null ) {
+	protected function render(array $settings = null)
+	{
 
 		$settings = $this->get_settings_for_display();
 
-		$is_marquee = ( 'yes' === $settings['enable_marquee'] );
+		$is_marquee = ('yes' === $settings['enable_marquee']);
 
-		if ( $is_marquee ) {
-			wp_enqueue_script( 'rael-testimonial-marquee' );
+		if ($is_marquee) {
+			wp_enqueue_script('rael-testimonial-marquee');
 		} else {
-			wp_enqueue_script( 'rael-swiper' );
+			wp_enqueue_script('rael-swiper');
 		}
 
-		if ( empty( $settings['slides'] ) ) {
+		if (empty($settings['slides'])) {
 			return;
 		}
 
@@ -1709,27 +1721,27 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			'video_play_icon' => true,
 		);
 
-		$settings = array_merge( $default_settings, $settings );
-		$slides_count = count( $settings['slides'] );
+		$settings = array_merge($default_settings, $settings);
+		$slides_count = count($settings['slides']);
 
-		?>
+?>
 
-		<?php if ( $is_marquee ) : ?>
+		<?php if ($is_marquee) : ?>
 
 			<!-- Marquee mode -->
 
 			<div class="responsive-marquee-wrapper"
-				data-marquee-speed="<?php echo esc_attr( $settings['marquee_speed'] ?? 20 ); ?>"
-				data-marquee-direction="<?php echo esc_attr( $settings['marquee_direction'] ?? 'ltr' ); ?>"
-				data-marquee-gap="<?php echo esc_attr( $settings['marquee_gap'] ?? '20' ); ?>"
-				data-marquee-pause="<?php echo esc_attr( $settings['marquee_pause_hover'] ?? '' ); ?>">
+				data-marquee-speed="<?php echo esc_attr($settings['marquee_speed'] ?? 20); ?>"
+				data-marquee-direction="<?php echo esc_attr($settings['marquee_direction'] ?? 'ltr'); ?>"
+				data-marquee-gap="<?php echo esc_attr($settings['marquee_gap'] ?? '20'); ?>"
+				data-marquee-pause="<?php echo esc_attr($settings['marquee_pause_hover'] ?? ''); ?>">
 
 				<div class="responsive-marquee-track">
 
 					<?php
-					foreach ( $settings['slides'] as $index => $slide ) :
+					foreach ($settings['slides'] as $index => $slide) :
 						++$this->slide_prints_count;
-						?>
+					?>
 						<div class="marquee-item">
 							<?php
 							$this->print_single_slide(
@@ -1742,9 +1754,9 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 					<?php endforeach; ?>
 
 					<?php
-					foreach ( $settings['slides'] as $index => $slide ) :
+					foreach ($settings['slides'] as $index => $slide) :
 						++$this->slide_prints_count;
-						?>
+					?>
 						<div class="marquee-item">
 							<?php
 							$this->print_single_slide(
@@ -1759,14 +1771,14 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 				</div>
 			</div>
 
-    	<?php else : ?>
+		<?php else : ?>
 
 			<!-- Original Swiper-slider mode -->
 
 			<div class="responsive-swiper">
-				<div class="<?php echo esc_attr( $settings['container_class'] ); ?> swiper<?php echo esc_attr( RAEL_SWIPER_CONTAINER ); ?>">
+				<div class="<?php echo esc_attr($settings['container_class']); ?> swiper<?php echo esc_attr(RAEL_SWIPER_CONTAINER); ?>">
 					<div class="swiper-wrapper">
-						<?php foreach ( $settings['slides'] as $index => $slide ) : ?>
+						<?php foreach ($settings['slides'] as $index => $slide) : ?>
 							<?php ++$this->slide_prints_count; ?>
 							<div class="swiper-slide">
 								<?php
@@ -1780,42 +1792,42 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 						<?php endforeach; ?>
 					</div>
 
-					<?php if ( 1 < $slides_count ) : ?>
+					<?php if (1 < $slides_count) : ?>
 
-						<?php if ( $settings['pagination'] ) : ?>
+						<?php if ($settings['pagination']) : ?>
 							<div class="swiper-pagination"></div>
 						<?php endif; ?>
 
-						<?php if ( $settings['show_arrows'] ) : ?>
+						<?php if ($settings['show_arrows']) : ?>
 
 							<?php
-							if ( $settings['arrow_style'] ) {
+							if ($settings['arrow_style']) {
 								$pa_next_arrow = $settings['arrow_style'];
-								$pa_prev_arrow = str_replace( 'right', 'left', $settings['arrow_style'] );
+								$pa_prev_arrow = str_replace('right', 'left', $settings['arrow_style']);
 							} else {
 								$pa_next_arrow = 'fa fa-angle-right';
 								$pa_prev_arrow = 'fa fa-angle-left';
 							}
 							?>
 
-							<div class="responsive-swiper-button-next elementor-swiper-button elementor-swiper-button-next swiper-button-next-<?php echo esc_attr( $this->get_id() ); ?>">
-								<i class="<?php echo esc_attr( $pa_next_arrow ); ?>"></i>
+							<div class="responsive-swiper-button-next elementor-swiper-button elementor-swiper-button-next swiper-button-next-<?php echo esc_attr($this->get_id()); ?>">
+								<i class="<?php echo esc_attr($pa_next_arrow); ?>"></i>
 							</div>
 
-							<div class="responsive-swiper-button-prev elementor-swiper-button elementor-swiper-button-prev swiper-button-prev-<?php echo esc_attr( $this->get_id() ); ?>">
-								<i class="<?php echo esc_attr( $pa_prev_arrow ); ?>"></i>
+							<div class="responsive-swiper-button-prev elementor-swiper-button elementor-swiper-button-prev swiper-button-prev-<?php echo esc_attr($this->get_id()); ?>">
+								<i class="<?php echo esc_attr($pa_prev_arrow); ?>"></i>
 							</div>
 
 						<?php endif; ?>
 
-                	<?php endif; ?>
+					<?php endif; ?>
 
-            	</div>
-        	</div>
+				</div>
+			</div>
 
-    	<?php endif; ?>
+		<?php endif; ?>
 
-		<?php
+	<?php
 	}
 
 	/**
@@ -1830,26 +1842,27 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return string HTML markup for the testimonial title.
 	 */
-	private function print_title( $slide, $location ) {
-		if ( empty( $slide['name'] ) && empty( $slide['title'] ) ) {
+	private function print_title($slide, $location)
+	{
+		if (empty($slide['name']) && empty($slide['title'])) {
 			return '';
 		}
 
-		$skin              = $this->get_settings( 'skin' );
-		$layout            = 'bubble' === $skin ? 'image_inline' : $this->get_settings( 'layout' );
-		$locations_outside = array( 'image_above', 'image_right', 'image_left' );
-		$locations_inside  = array( 'image_inline', 'image_stacked' );
+		$skin              = $this->get_settings('skin');
+		$layout            = 'bubble' === $skin ? 'image_inline' : $this->get_settings('layout');
+		$locations_outside = array('image_above', 'image_right', 'image_left');
+		$locations_inside  = array('image_inline', 'image_stacked');
 
-		$print_outside = ( 'outside' === $location && in_array( $layout, $locations_outside, true ) );
-		$print_inside  = ( 'inside' === $location && in_array( $layout, $locations_inside, true ) );
+		$print_outside = ('outside' === $location && in_array($layout, $locations_outside, true));
+		$print_inside  = ('inside' === $location && in_array($layout, $locations_inside, true));
 
 		$html = '';
-		if ( $print_outside || $print_inside ) {
+		if ($print_outside || $print_inside) {
 			$html = '<cite class="responsive-testimonial__cite">';
-			if ( ! empty( $slide['name'] ) ) {
+			if (! empty($slide['name'])) {
 				$html .= '<span class="responsive-testimonial__name">' . $slide['name'] . '</span>';
 			}
-			if ( ! empty( $slide['title'] ) ) {
+			if (! empty($slide['title'])) {
 				$html .= '<span class="responsive-testimonial__title">' . $slide['title'] . '</span>';
 			}
 			$html .= '</cite>';
@@ -1865,18 +1878,19 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 * @param string $element_key The unique key for the element.
 	 * @return void
 	 */
-	protected function print_single_slide( array $slide, array $settings, $element_key ) {
+	protected function print_single_slide(array $slide, array $settings, $element_key)
+	{
 		$settings         = $this->get_settings_for_display();
-		$is_marquee = ( 'yes' === $settings['enable_marquee'] );
+		$is_marquee = ('yes' === $settings['enable_marquee']);
 
-		$slide_classes = [ 'responsive-testimonial' ];
+		$slide_classes = ['responsive-testimonial'];
 
-		if ( $is_marquee ) {
+		if ($is_marquee) {
 			$slide_classes[] = 'rael-marquee-item';
 		}
 
-		$tm_icon_migrated = isset( $settings['__fa4_migrated']['rael_testimonial_slider_icon_new'] );
-		$tm_icon_is_new   = empty( $settings['rael_testimonial_slider_before_content_icon'] );
+		$tm_icon_migrated = isset($settings['__fa4_migrated']['rael_testimonial_slider_icon_new']);
+		$tm_icon_is_new   = empty($settings['rael_testimonial_slider_before_content_icon']);
 		$this->add_render_attribute(
 			$element_key . '-testimonial',
 			array(
@@ -1884,66 +1898,66 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 			)
 		);
 
-		if ( ! empty( $slide['image']['url'] ) ) {
+		if (! empty($slide['image']['url'])) {
 			$this->add_render_attribute(
 				$element_key . '-image',
 				array(
-					'src' => $this->get_slide_image_url( $slide, $settings ),
-					'alt' => ! empty( $slide['name'] ) ? $slide['name'] : '',
+					'src' => $this->get_slide_image_url($slide, $settings),
+					'alt' => ! empty($slide['name']) ? $slide['name'] : '',
 				)
 			);
 		}
 
-		?>
-		<div <?php echo wp_kses_post( $this->get_render_attribute_string( $element_key . '-testimonial' ) ); ?>>
-			<?php if ( $slide['content'] ) : ?>
-					<div class="responsive-testimonial__icon" style="text-align: left;">
+	?>
+		<div <?php echo wp_kses_post($this->get_render_attribute_string($element_key . '-testimonial')); ?>>
+			<?php if ($slide['content']) : ?>
+				<div class="responsive-testimonial__icon" style="text-align: left;">
 					<?php
-					if ( $tm_icon_is_new || $tm_icon_migrated ) {
-							Icons_Manager::render_icon( $slide['rael_testimonial_slider_icon_new'] );
+					if ($tm_icon_is_new || $tm_icon_migrated) {
+						Icons_Manager::render_icon($slide['rael_testimonial_slider_icon_new']);
 					} else {
-						echo '<i class="' . esc_attr( $slide['rael_testimonial_slider_before_content_icon'] ) . '"></i>';
+						echo '<i class="' . esc_attr($slide['rael_testimonial_slider_before_content_icon']) . '"></i>';
 					}
 					?>
 				</div>
 				<div class="responsive-testimonial__content">
-					<?php 
-						if($settings['enable_rating'] == 'yes') {
-							$rating = intval( $slide['testimonial_rating'] );
+					<?php
+					if ($settings['enable_rating'] == 'yes') {
+						$rating = intval($slide['testimonial_rating']);
 
-							echo '<div class="rael-rating-stars">';
+						echo '<div class="rael-rating-stars">';
 
-							// filled stars
-							for ( $i = 0; $i < $rating; $i++ ) {
-								echo '<i class="fas fa-star"></i>';
-							}
-
-							// outlined stars
-							for ( $i = $rating; $i < 5; $i++ ) {
-								echo '<i class="far fa-star"></i>';
-							}
-
-							echo '</div>';
+						// filled stars
+						for ($i = 0; $i < $rating; $i++) {
+							echo '<i class="fas fa-star"></i>';
 						}
+
+						// outlined stars
+						for ($i = $rating; $i < 5; $i++) {
+							echo '<i class="far fa-star"></i>';
+						}
+
+						echo '</div>';
+					}
 
 					?>
 
 					<div class="responsive-testimonial__text">
-						<?php echo esc_html( $slide['content'] ); ?>
+						<?php echo esc_html($slide['content']); ?>
 					</div>
-					<?php echo wp_kses_post( $this->print_title( $slide, 'outside' ) ); ?>
+					<?php echo wp_kses_post($this->print_title($slide, 'outside')); ?>
 				</div>
 			<?php endif; ?>
 			<div class="responsive-testimonial__footer">
-				<?php if ( $slide['image']['url'] ) : ?>
+				<?php if ($slide['image']['url']) : ?>
 					<div class="responsive-testimonial__image">
-						<img <?php echo wp_kses_post( $this->get_render_attribute_string( $element_key . '-image' ) ); ?>>
+						<img <?php echo wp_kses_post($this->get_render_attribute_string($element_key . '-image')); ?>>
 					</div>
 				<?php endif; ?>
-				<?php echo wp_kses_post( $this->print_title( $slide, 'inside' ) ); ?>
+				<?php echo wp_kses_post($this->print_title($slide, 'inside')); ?>
 			</div>
 		</div>
-		<?php
+<?php
 	}
 	/**
 	 * Get the URL of the image for a slide.
@@ -1958,10 +1972,11 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return string The URL of the slide image.
 	 */
-	protected function get_slide_image_url( $slide, array $settings ) {
-		$image_url = Group_Control_Image_Size::get_attachment_image_src( $slide['image']['id'], 'image_size', $settings );
+	protected function get_slide_image_url($slide, array $settings)
+	{
+		$image_url = Group_Control_Image_Size::get_attachment_image_src($slide['image']['id'], 'image_size', $settings);
 
-		if ( ! $image_url ) {
+		if (! $image_url) {
 			$image_url = $slide['image']['url'];
 		}
 
@@ -1973,7 +1988,8 @@ class Responsive_Addons_For_Elementor_Testimonial_Slider extends Widget_Base {
 	 *
 	 * @return string help URL
 	 */
-	public function get_custom_help_url() {
+	public function get_custom_help_url()
+	{
 		return 'https://cyberchimps.com/docs/responsive-addons-for-elementor/widgets/testimonial-slider-2/';
 	}
 }
