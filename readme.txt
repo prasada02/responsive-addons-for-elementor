@@ -283,12 +283,8 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 = 2.1.8 – 19th May 2026 =
 - Fix: RAE Advanced Tab: Resolved a rendering inconsistency where icons were not being properly initialized and displayed within the Icon Type control settings in the editor panel.
 - Fix: RAE Button: Corrected a typography state inheritance issue where hover font family styles were unintentionally applied to the button’s default state.
-- Fix: RAE Stacking Cards: Improved conditional control handling by preventing Description styling options from appearing when the Description section is disabled.
-- Fix: RAE Stacking Cards: Improved conditional control handling by preventing Button styling options from appearing when the Button section is disabled.
-- Fix: RAE Stacking Cards: Improved conditional control handling by preventing Image styling options from appearing when the Image section is disabled.
-- Fix: RAE Stacking Cards: Improved conditional control handling by preventing Title styling options from appearing when the Title section is disabled.
-- Fix: RAE Accordion/FAQ: Resolved an unintended active-state border rendering issue affecting accordion headings in both the Elementor editor and frontend view.
-- Fix: RAE Accordion/FAQ: Fixed a layout alignment inconsistency between heading text and toggle icons when heading tags (H1–H5 and paragraph tags) were applied.
+- Fix: RAE Stacking Cards: Improved conditional control handling by preventing Description, Button, Image, Title styling options from appearing when the respective sections are disabled.
+- Fix: RAE Accordion/FAQ: Resolved an unintended active-state border rendering issue affecting accordion headings in both the Elementor editor and frontend view and fixed a layout alignment inconsistency between heading text and toggle icons when heading tags (H1–H5 and paragraph tags) were applied.
 - Fix: RAE Products: Fixed an intermittent UI synchronization issue where the "Added" compare button state was not consistently updated below product cards after products were added to the comparison table.
 - Fix: Minor bug fixes.
 
