@@ -282,7 +282,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 = 2.1.8 – 19th May 2026 =
 
-- Fix: Advanced Tab: Fixed issues with Alignment, Width, duplicate Background Color controls, and Active tab background styling when gradients were applied.
+- Fix: Advanced Tabs: Fixed issues with Alignment, Width, duplicate Background Color controls, and Active tab background styling when gradients were applied.
 - Fix: Back to Top: Fixed an issue where Icon Color settings were not reflected on the frontend.
 - Fix: Call to Action: Fixed issues where Background Color settings were not applied correctly and Sequenced Animation was triggered even when disabled.
 - Fix: Contact Form 7 Styler: Fixed missing icons in the Field Alignment setting.
