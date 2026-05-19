@@ -289,7 +289,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 - Fix: RAE Stacking Cards: Improved conditional control handling by preventing Title styling options from appearing when the Title section is disabled.
 - Fix: RAE Accordion/FAQ: Resolved an unintended active-state border rendering issue affecting accordion headings in both the Elementor editor and frontend view.
 - Fix: RAE Accordion/FAQ: Fixed a layout alignment inconsistency between heading text and toggle icons when heading tags (H1–H5 and paragraph tags) were applied.
-- Fix: RAE Products: Fixed an intermittent UI synchronization issue where the “Added” compare button state was not consistently updated below product cards after products were added to the comparison table.
+- Fix: RAE Products: Fixed an intermittent UI synchronization issue where the "Added" compare button state was not consistently updated below product cards after products were added to the comparison table.
 - Fix: Minor bug fixes.
 
 = 2.1.7 – 16th April 2026 =
