@@ -94,4 +94,104 @@
             }
         });
     });
+    
+    // Editor mode fix - separate handler that only runs in editor
+    if (typeof elementorFrontend !== 'undefined' && elementorFrontend.isEditMode()) {
+        $(document).off('click', '.rael-products__load-more-button.editor-fix');
+        $(document).on('click', '.rael-products__load-more-button', function(e) {
+            // This overrides the original handler in editor mode
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            var $this = $(this),
+                $loaderSpan = $('span', $this),
+                $text = $loaderSpan.html(),
+                $widgetId = $this.data('widget-id'),
+                $pageId = $this.data('page-id'),
+                $nonce = $this.data('nonce'),
+                $scope = $(`.elementor-element-${$widgetId}`),
+                $class = $this.data('class'),
+                $args = $this.data('args'),
+                $layout = $this.data('layout'),
+                $template = $this.data('template'),
+                $page = parseInt($this.data('page')) + 1,
+                $maxPage = undefined != $this.data('maxPage') ? $this.data('maxPage') : false;
+            
+            if ('undefined' === typeof $widgetId || 'undefined' === typeof $args || 'masonry' !== $layout) {
+                return;
+            }
+            
+            var ob = {};
+            var data = {
+                action: 'rael_load_more',
+                class: $class,
+                args: $args,
+                page: $page,
+                page_id: $pageId,
+                widget_id: $widgetId,
+                nonce: $nonce,
+                template: $template
+            };
+            
+            String($args).split('&').forEach(function (item, index) {
+                var arr = String(item).split('=');
+                ob[arr[0]] = arr[1];
+            });
+            
+            $this.addClass('rael-products__load-more-button--loading');
+            $loaderSpan.html(localize.i18n.loading);
+            
+            $.ajax({
+                url: localize.ajaxurl,
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    var $content = $(response);
+                    
+                    if ($content.hasClass('no-posts-found') || 0 === $content.length) {
+                        $this.remove();
+                    } else {
+                        $content = $content.filter('li');
+                        var $productsContainer = $('.rael-products .products', $scope);
+                        var dynamicID = `rael-products-${Date.now()}`;
+                        
+                        $content.find('.woocommerce-product-gallery').addClass(dynamicID).addClass('rael-new-product');
+                        $productsContainer.append($content);
+                        
+                        var $isotope = $productsContainer.data('isotope');
+                        if (!$isotope) {
+                            $productsContainer.isotope({
+                                itemSelector: 'li',
+                                layoutMode: 'masonry'
+                            });
+                            $isotope = $productsContainer.data('isotope');
+                        }
+                        
+                        $productsContainer.imagesLoaded(function() {
+                            $isotope.isotope('appended', $content);
+                            $isotope.isotope('layout');
+                            
+                            $('.woocommerce-product-gallery.' + dynamicID, $scope).each(function() {
+                                if ($.fn.wc_product_gallery) {
+                                    $(this).wc_product_gallery();
+                                }
+                            });
+                        });
+                        
+                        $this.removeClass('rael-products__load-more-button--loading');
+                        $loaderSpan.html($text);
+                        $this.data('page', $page);
+                        
+                        if ($maxPage && data.page >= $maxPage) {
+                            $this.remove();
+                        }
+                    }
+                },
+                error: function(response) {
+                    // Definition should be for development purpose only.
+                }
+            });
+        });
+    }
 })(jQuery);

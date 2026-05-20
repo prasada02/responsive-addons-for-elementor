@@ -1473,6 +1473,14 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			RAEL_VER,
 			true
 		);
+		// For hiding title in Post Title widget if Hide title option of Post settings is enabled
+		wp_enqueue_script(
+            'rael-title-preview',
+           RAEL_ASSETS_URL . 'js/rael-post-title-preview.js',
+            [ 'jquery', 'elementor-frontend' ],
+            RAEL_VER,
+            true
+        );
 
 	}
 
@@ -1531,6 +1539,23 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			RAEL_VER,
 			false
 		);
+
+		wp_register_script( 
+			'rael-elementor-upsell-icon',
+			RAEL_ASSETS_URL . 'js/controls/rael-elementor-upsell-icon.js',
+			array( 'jquery', 'wp-data', 'wp-i18n' ),
+			RAEL_VER,
+			false
+		);
+
+		wp_localize_script( 'rael-elementor-upsell-icon', 'raelElementorUpsellIcon', array(
+			'iconUrl' => RAEL_URL . 'admin/images/rael-logo.svg',
+			'strings' => array(
+				'rael' => __( 'Responsive Addons for Elementor', 'header-footer-elementor' )
+			)
+		));
+
+		wp_enqueue_script( 'rael-elementor-upsell-icon' );
 	}
 	  /**
      * Editor scripts (Elementor backend editor)
