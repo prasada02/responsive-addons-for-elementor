@@ -100,7 +100,7 @@ class Responsive_Addons_For_Elementor_Widgets_Manager {
 		// Elementor Custom Scripts.
 		wp_register_script(
 			'rael-elementor-editor',
-			RAEL_URL . 'assets/js/editor/rael-editor.js',
+			RAEL_URL . 'assets/dist/js/editor/rael-editor.min.js',
 			array( 'jquery-elementor-select2' ),
 			RAEL_VER,
 			false

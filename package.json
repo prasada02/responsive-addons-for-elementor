@@ -4,30 +4,37 @@
   "description": "Responsive Addons for Elementor plugin adds Elementor widgets and seamlessly integrates with any Elementor Package (Free, Pro). It is compatible with all popular WordPress themes.",
   "main": "index.js",
   "scripts": {
-    "build": "grunt build",
-    "zip": "grunt zip",
-    "dashboard:start": "wp-scripts start ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
-    "dashboard:build": "wp-scripts build ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
-    "dashboard-style:start": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css --watch",
-    "dashboard-style:build": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css"
+    "build": "npm run frontend-build && npm run dashboard-build && npm run dashboard-css-build",
+    "frontend-build": "webpack --config webpack.frontend.js",
+    "frontend-watch": "webpack --config webpack.frontend.js --watch",
+    "dashboard-start": "wp-scripts start ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
+    "dashboard-build": "wp-scripts build ./admin/dashboard/src/index.js --output-path=admin/js/dashboard",
+    "dashboard-css-start": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css --watch",
+    "dashboard-css-build": "npx @tailwindcss/cli -i ./admin/dashboard/src/input.css -o ./admin/css/rael-dashboard.css"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
     "@wordpress/scripts": "^31.4.0",
+    "babel-loader": "^10.1.1",
+    "css-loader": "^7.1.4",
+    "css-minimizer-webpack-plugin": "^8.0.0",
+    "glob": "^13.0.6",
     "grunt": "^1.6.1",
-    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-compress": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^4.0.0",
-    "grunt-contrib-uglify": "^5.2.2",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-sass": "^3.1.0",
+    "grunt-shell": "^4.0.0",
     "grunt-wp-i18n": "^1.0.4",
-    "grunt-zip": "^0.20.0",
-    "load-grunt-tasks": "^5.1.0",
-    "sass": "^1.94.0"
+    "mini-css-extract-plugin": "^2.10.1",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^6.0.1",
+    "webpack-remove-empty-scripts": "^1.1.1"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "react-router-dom": "^7.13.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "tippy.js": "^6.2.7"
   }
 }
