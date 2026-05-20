@@ -1309,7 +1309,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 							$included_libs['rael-sticky-video'] = true;
 							wp_register_script(
 								'rael-sticky-video',
-								RAEL_ASSETS_URL . 'js/frontend/sticky-video/rael-sticky-video.min.js',
+								RAEL_ASSETS_URL . 'dist/js/frontend/sticky-video/rael-sticky-video.min.js',
 								array( 'elementor-frontend','jquery', 'plyr' ),
 								RAEL_VER,
 								true
@@ -1352,7 +1352,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 							wp_register_script( 'rael-swiper', RAEL_ASSETS_URL . 'lib/swiper/swiper.js', array(), RAEL_VER, true );
 							wp_localize_script( 'rael-swiper', 'rael_elementor_swiper', $swiper_class );
 						}
-						wp_register_script( 'rael-testimonial-marquee', RAEL_ASSETS_URL . 'js/frontend/testimonial/rael-testimonial-marquee.min.js', array(), RAEL_VER,true );
+						wp_register_script( 'rael-testimonial-marquee', RAEL_ASSETS_URL . 'dist/js/frontend/testimonial/rael-testimonial-marquee.min.js', array(), RAEL_VER,true );
 
 						break;
 					case 'banner':
@@ -1544,7 +1544,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		wp_register_script( 
 			'rael-elementor-upsell-icon',
-			RAEL_ASSETS_URL . 'js/controls/rael-elementor-upsell-icon.js',
+			RAEL_ASSETS_URL . 'dist/js/controls/rael-elementor-upsell-icon.min.js',
 			array( 'jquery', 'wp-data', 'wp-i18n' ),
 			RAEL_VER,
 			false
@@ -1553,7 +1553,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		wp_localize_script( 'rael-elementor-upsell-icon', 'raelElementorUpsellIcon', array(
 			'iconUrl' => RAEL_URL . 'admin/images/rael-logo.svg',
 			'strings' => array(
-				'rael' => __( 'Responsive Addons for Elementor', 'header-footer-elementor' )
+				'rael' => __( 'Responsive Addons for Elementor', 'responsive-addons-for-elementor' )
 			)
 		));
 
