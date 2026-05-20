@@ -1474,13 +1474,15 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			true
 		);
 		// For hiding title in Post Title widget if Hide title option of Post settings is enabled
-		wp_enqueue_script(
-            'rael-title-preview',
-           RAEL_ASSETS_URL . 'js/rael-post-title-preview.js',
-            [ 'jquery', 'elementor-frontend' ],
-            RAEL_VER,
-            true
-        );
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+			wp_enqueue_script(
+				'rael-title-preview',
+				RAEL_ASSETS_URL . 'js/widgets/rael-post-title-preview.js',
+				[ 'jquery' ],
+				RAEL_VER,
+				true
+			);
+		}
 
 	}
 
