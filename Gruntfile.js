@@ -23,6 +23,7 @@ module.exports = function (grunt) {
               '!package-lock.json',
               '!webpack.frontend.js',
               '!README.md',
+              '!admin/dashboard/**',
             ],
             dest: 'build/<%= pkg.name %>/'
           }
