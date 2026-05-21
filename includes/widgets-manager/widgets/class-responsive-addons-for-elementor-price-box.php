@@ -1142,6 +1142,9 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				'label' => __( 'Select Icon', 'responsive-addons-for-elementor' ),
 				'type'  => Controls_Manager::ICONS,
 				'separator' => 'before',
+				'condition' => array(
+					'rael_show_ribbon!' => 'none',
+				),
 			),
 		);
 
@@ -1158,6 +1161,7 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				'default'     => 'before',
 				'condition'   => array(
 					'rael_ribbon_icon[value]!' => '',
+					'rael_show_ribbon!'        => 'none',
 				),
 			)
 		);
@@ -1241,7 +1245,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => array(
-					'rael_heading_icon[value]!' => '',
+					'rael_heading_icon[value]!'      => '',
+					'rael_heading_choose_icon_image' => 'icon',
 				),
 			)
 		);
@@ -1263,7 +1268,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					{{WRAPPER}} .rael-price-box-header__icon svg' => 'font-size: {{SIZE}}px; width: {{SIZE}}px; height: {{SIZE}}px; line-height: {{SIZE}}px;',
 				),
 				'condition' => array(
-					'rael_heading_icon[value]!' => '',
+					'rael_heading_icon[value]!'      => '',
+					'rael_heading_choose_icon_image' => 'icon',
 				),
 			)
 		);
@@ -1278,7 +1284,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 					'{{WRAPPER}} .rael-price-box-header__icon' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'condition'  => array(
-					'rael_heading_icon[value]!' => '',
+					'rael_heading_icon[value]!'      => '',
+					'rael_heading_choose_icon_image' => 'icon',
 				),
 			)
 		);
@@ -1289,7 +1296,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				array(
 					'label'     => __( 'Normal', 'responsive-addons-for-elementor' ),
 					'condition' => array(
-						'rael_heading_icon[value]!' => '',
+						'rael_heading_icon[value]!'      => '',
+						'rael_heading_choose_icon_image' => 'icon',
 					),
 				)
 			);
@@ -1307,7 +1315,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 							'{{WRAPPER}} .rael-price-box-header__icon svg' => 'fill: {{VALUE}};',
 						),
 						'condition' => array(
-							'rael_heading_icon[value]!' => '',
+							'rael_heading_icon[value]!'      => '',
+							'rael_heading_choose_icon_image' => 'icon',
 						),
 					)
 				);
@@ -1322,7 +1331,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 							'{{WRAPPER}} .rael-price-box-header__icon' => 'background: {{VALUE}};',
 						),
 						'condition' => array(
-							'rael_heading_icon[value]!' => '',
+							'rael_heading_icon[value]!'      => '',
+							'rael_heading_choose_icon_image' => 'icon',
 						),
 					)
 				);
@@ -1334,7 +1344,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 				array(
 					'label'     => __( 'Hover', 'responsive-addons-for-elementor' ),
 					'condition' => array(
-						'rael_heading_icon[value]!' => '',
+						'rael_heading_icon[value]!'      => '',
+						'rael_heading_choose_icon_image' => 'icon',
 					),
 				)
 			);
@@ -1353,7 +1364,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 							'{{WRAPPER}} .rael-price-box-header__icon svg:hover' => 'fill: {{VALUE}};',
 						),
 						'condition' => array(
-							'rael_heading_icon[value]!' => '',
+							'rael_heading_icon[value]!'      => '',
+							'rael_heading_choose_icon_image' => 'icon',
 						),
 					)
 				);
@@ -1368,7 +1380,8 @@ class Responsive_Addons_For_Elementor_Price_Box extends Widget_Base {
 							'{{WRAPPER}} .rael-price-box-header__icon:hover' => 'background: {{VALUE}};',
 						),
 						'condition' => array(
-							'rael_heading_icon[value]!' => '',
+							'rael_heading_icon[value]!'      => '',
+							'rael_heading_choose_icon_image' => 'icon',
 						),
 					)
 				);
