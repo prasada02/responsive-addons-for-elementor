@@ -139,6 +139,11 @@
 			initMarquee
 		);
 
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-post-carousel.default',
+			initMarquee
+		);
+
 	});
 
 })(jQuery);
