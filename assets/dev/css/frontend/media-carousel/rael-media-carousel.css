@@ -108,4 +108,97 @@
   box-sizing: border-box;
   flex-shrink: 0;
 }
+
+.responsive-marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height: 230px;
+}
+
+
+.responsive-marquee-track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    will-change: transform;
+}
+
+.marquee-item {
+    flex-shrink: 0;
+    border-style: solid;
+    overflow: hidden;
+}
+.rael-marquee-item{
+    flex: 0 0 auto;      
+    width: 350px;        
+    max-width: 100%;
+    height: 100%;
+}
+.responsive-marquee-wrapper .marquee-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.responsive-marquee-wrapper .elementor-carousel-image {
+    width: 100%;
+    height: 100%;
+}
+/* Infinite seamless animation */
+@keyframes rael-marquee-x {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes rael-marquee-y {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+
+/* Pause on hover (optional but recommended) */
+.responsive-marquee-wrapper.rael-pause-enabled:hover .responsive-marquee-track {
+    animation-play-state: paused;
+}
+
+/* Edge shadow overlays */
+.responsive-marquee-wrapper.has-edge-shadow::before,
+.responsive-marquee-wrapper.has-edge-shadow::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.responsive-marquee-wrapper.has-edge-shadow.edge-shadow-horizontal::before {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    box-shadow: 0 0 var(--rae-marquee-shadow-blur, 20px) var(--rae-marquee-shadow-size, 50px) var(--rae-marquee-shadow-color, #ffffff);
+}
+
+.responsive-marquee-wrapper.has-edge-shadow.edge-shadow-horizontal::after {
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    box-shadow: 0 0 var(--rae-marquee-shadow-blur, 20px) var(--rae-marquee-shadow-size, 50px) var(--rae-marquee-shadow-color, #ffffff);
+}
+
+.responsive-marquee-wrapper.has-edge-shadow.edge-shadow-vertical::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    box-shadow: 0 0 var(--rae-marquee-shadow-blur, 20px) var(--rae-marquee-shadow-size, 50px) var(--rae-marquee-shadow-color, #ffffff);
+}
+
+.responsive-marquee-wrapper.has-edge-shadow.edge-shadow-vertical::after {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    box-shadow: 0 0 var(--rae-marquee-shadow-blur, 20px) var(--rae-marquee-shadow-size, 50px) var(--rae-marquee-shadow-color, #ffffff);
+}
 /*# sourceMappingURL=media-carousel.css.map */
