@@ -144,6 +144,11 @@
 			initMarquee
 		);
 
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-product-carousel.default',
+			initMarquee
+		);
+
 	});
 
 })(jQuery);

@@ -97,6 +97,7 @@ class Responsive_Addons_For_Elementor_Post_Carousel extends Widget_Base {
 			'elementor-frontend',
 			'swiper',
 			'e-swiper',
+			'rael-swiper',
 			'rael-testimonial-marquee',
 		);
 	}
@@ -1194,6 +1195,36 @@ class Responsive_Addons_For_Elementor_Post_Carousel extends Widget_Base {
 				'condition' => array(
 					'enable_marquee'     => 'yes',
 					'marquee_direction'  => array( 'ttb', 'btt' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'marquee_height',
+			array(
+				'label'      => __( 'Marquee Height', 'responsive-addons-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh', 'em', 'rem', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 100,
+						'max' => 1000,
+					),
+					'vh' => array(
+						'min' => 10,
+						'max' => 100,
+					),
+				),
+				'default'    => array(
+					'size' => 400,
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .responsive-marquee-wrapper' => 'height: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'enable_marquee'    => 'yes',
+					'marquee_direction' => array( 'ttb', 'btt' ),
 				),
 			)
 		);

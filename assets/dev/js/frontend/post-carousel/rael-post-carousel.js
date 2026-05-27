@@ -72,8 +72,9 @@ var RAELWidgetPostCarouselHandler = function ($scope, $) {
     grabCursor: $grab_cursor,
     autoHeight: true,
     loop: $loop,
-    autoplay: {
+    autoplay: $autoplay === 0 ? false : {
       delay: $autoplay,
+      disableOnInteraction: false,
     },
     pagination: {
       el: $pagination,
@@ -106,7 +107,7 @@ var RAELWidgetPostCarouselHandler = function ($scope, $) {
 
   var swiperPromise = function swiperPromise(swiperElement, swiperConfig) {
     return new Promise(function (resolve, reject) {
-      var swiperInstance = new RAELSwiper(swiperElement, swiperConfig);
+      var swiperInstance = typeof RAELSwiper !== "undefined" ? new RAELSwiper(swiperElement, swiperConfig) : new Swiper(swiperElement, swiperConfig);
       resolve(swiperInstance);
     });
   };
@@ -125,11 +126,11 @@ var RAELWidgetPostCarouselHandler = function ($scope, $) {
   };
 
   swiperLoader($postCarousel, $carouselOptions).then(function (carousel) {
-    if ($autoplay === 0) {
+    if ($autoplay === 0 && carousel.autoplay) {
       carousel.autoplay.stop();
     }
 
-    if ($pause_on_hover && $autoplay !== 0) {
+    if ($pause_on_hover && $autoplay !== 0 && carousel.autoplay) {
       $postCarousel.on("mouseenter", function () {
         carousel.autoplay.stop();
       });
