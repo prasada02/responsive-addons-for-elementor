@@ -280,7 +280,7 @@ The Development Version of the Responsive Addons for Elementor plugin is located
 
 == Changelog ==
 
-= 2.1.9 – 26th May 2026 =
+= 2.1.9 – 28th May 2026 =
 - Improvement: Moved all Pricing Table widget settings to the Price Box widget for a more streamlined editing experience.
 - Improvement: Deprecated the Pricing Table widget. Existing Pricing Table widgets will continue to work, but future enhancements will be focused on the Price Box widget.
 - Improvement: Stacking Cards: Improved control rendering behavior to ensure settings controls work consistently across different render types.
