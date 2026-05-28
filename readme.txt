@@ -3,7 +3,7 @@ Contributors: cyberchimps
 Donate Link: https://cyberchimps.com
 Tags: elementor, elementor addons, widgets for elementor, header footer builder, elementor templates
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Elementor tested up to: 4.0
 Elementor Pro tested up to: 4.0
 Requires PHP: 5.6
