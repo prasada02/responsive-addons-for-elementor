@@ -3202,7 +3202,7 @@ class Responsive_Addons_For_Elementor_Product_Carousel extends Widget_Base {
 							wp_reset_postdata();
 							echo '</ul>';
 						} else {
-							echo '<p class="rael-pc__no-posts-found">No layout found!</p>';
+							echo '<p class="rael-pc__no-posts-found">' . esc_html__( 'No layout found!', 'responsive-addons-for-elementor' ) . '</p>';
 						}
 						?>
 					</div>
