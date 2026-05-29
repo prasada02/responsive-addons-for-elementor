@@ -27,6 +27,9 @@
                 direction === 'ltr' ||
                 direction === 'ttb';
 
+            var isMediaCarousel = $this.closest('.elementor-widget-rael-media-carousel').length > 0;
+            var instanceId = Math.random().toString(36).substr(2, 9);
+
             // Layout Mode
 
             if (isVertical) {
@@ -34,8 +37,17 @@
                     display: 'flex',
                     flexDirection: 'column',
                     width: '100%',
-                    height: '60vh',
+                    height: 'max-content',
                 });
+
+                if (isMediaCarousel) {
+                    var wrapperHeight = $this.height() || 230;
+                    $track.find('.rael-marquee-item').css('height', wrapperHeight + 'px');
+                } else {
+                    if (parseInt($this.css('height')) === 0 || $this.css('height') === 'auto' || !$this.css('height')) {
+                        $this.css('height', '60vh');
+                    }
+                }
             } else {
                 $track.css({
                     display: 'flex',
@@ -95,7 +107,12 @@
 
             // Resize Recalculate
 
-            $(window).off('resize.raelMarquee').on('resize.raelMarquee', function () {
+            $(window).off('resize.raelMarquee_' + instanceId).on('resize.raelMarquee_' + instanceId, function () {
+
+                if (isVertical && isMediaCarousel) {
+                    var wrapperHeight = $this.height() || 230;
+                    $track.find('.rael-marquee-item').css('height', wrapperHeight + 'px');
+                }
 
                 var newSize = isVertical
                     ? $track[0].scrollHeight
@@ -110,13 +127,28 @@
         });
     }
 
-    $(window).on('elementor/frontend/init', function () {
+	$(window).on('elementor/frontend/init', function () {
 
-        elementorFrontend.hooks.addAction(
-            'frontend/element_ready/rael-testimonial-slider.default',
-            initMarquee
-        );
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-testimonial-slider.default',
+			initMarquee
+		);
 
-    });
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-media-carousel.default',
+			initMarquee
+		);
+
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-post-carousel.default',
+			initMarquee
+		);
+
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/rael-product-carousel.default',
+			initMarquee
+		);
+
+	});
 
 })(jQuery);
