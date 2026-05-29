@@ -1154,7 +1154,8 @@ class Responsive_Addons_For_Elementor_Timeline extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .rael-timeline__date .time' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .rael-timeline__date .time' =>
+						'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'condition'  => array(
 					'rael_show_time' => 'yes',

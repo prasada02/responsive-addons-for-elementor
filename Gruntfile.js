@@ -1,139 +1,81 @@
 module.exports = function (grunt) {
-  require("load-grunt-tasks")(grunt);
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON("package.json"),
 
-    sass: {
-      options: {
-        implementation: require("sass"), // Dart Sass
-      },
-      dist: {
-        files: [
-          {
-            expand: true,
-            cwd: "assets/scss",
-            src: ["*.scss"],
-            dest: "assets/css",
-            ext: ".css",
-          },
-        ],
-      },
-    },
-
-    cssmin: {
-      target: {
-        files: [
-          {
-            expand: true,
-            cwd: "assets/css/",
-            src: [
-              "*.css",
-              "!*.min.css",
-              "!rael-admin.css",
-              "!rael-frontend.css",
-              "!rael-admin.min.css",
-              "!rael-frontend.min.css",
-            ],
-            dest: "assets/css/",
-            ext: ".min.css",
-          },
-          {
-            expand: true,
-            cwd: "assets/css/frontend/",
-            src: ["**/*.css", "!**/*.min.css"],
-            dest: "assets/css/frontend/",
-            ext: ".min.css",
-          },
-        ],
-      },
-    },
-
-    uglify: {
-      target: {
-        files: [
-          {
-            expand: true,
-            cwd: "assets/js/",
-            src: ["*.js", "!*.min.js", "!rae-duplicator-admin.js","!rae-duplicator-admin.min.js"],
-            dest: "assets/js/",
-            ext: ".min.js",
-          },
-          {
-            expand: true,
-            cwd: "assets/js/frontend/",
-            src: [
-              "**/*.js",
-              "!**/*.min.js",
-              "!rael-frontend.js",
-              "!rael-frontend.min.js",
-            ],
-            dest: "assets/js/frontend/",
-            ext: ".min.js",
-          },
-          {
-            expand: true,
-            cwd: "assets/js/widgets/",
-            src: [
-              "**/*.js",
-              "!**/*.min.js",
-              "!rael-widgets.js",
-              "!rael-widgets.min.js",
-            ],
-            dest: "assets/js/widgets/",
-            ext: ".min.js",
-          },
-        ],
-      },
-    },
+    pkg: grunt.file.readJSON('package.json'),
 
     clean: {
-      build: ["build/"],
+      build: ['build']
     },
+
     copy: {
       build: {
         files: [
           {
-            dot: true,
             expand: true,
-            cwd: "./",
             src: [
-              "**/*",
-              "!node_modules/**",
-              "!build/**",
-              "!*.zip",
-              "!package.json",
-              "!package-lock.json",
-              "!Gruntfile.js",
-              "!composer.json",
-              "!composer.lock",
-              "!vendor/**",
-              "!*.md",
-              "!.git/**",
-              "!.idea/**",
+              '**',
+              '!node_modules/**',
+              '!assets/dev/**',
+              '!build/**',
+              '!Gruntfile.js',
+              '!package.json',
+              '!package-lock.json',
+              '!webpack.frontend.js',
+              '!README.md',
+              '!admin/dashboard/**',
             ],
-            dest: "build/responsive-addons-for-elementor/",
-          },
-        ],
-      },
+            dest: 'build/<%= pkg.name %>/'
+          }
+        ]
+      }
     },
 
-    // Zip the build folder → versioned ZIP
-    zip: {
-      release: {
-        cwd: "build/responsive-addons-for-elementor/",
-        src: ["**/*"],
-        dest: "responsive-addons-for-elementor-<%= pkg.version %>.zip",
-      },
+    compress: {
+      main: {
+        options: {
+          archive: 'build/responsive-addons-for-elementor.zip'
+        },
+        files: [
+          {
+            expand: true,
+            cwd: 'build/<%= pkg.name %>',
+            src: ['**'],
+            dest: '<%= pkg.name %>'
+          }
+        ]
+      }
     },
+
+    makepot: {
+      target: {
+        options: {
+          type: 'wp-plugin',
+          domainPath: '/languages',
+          potFilename: '<%= pkg.name %>.pot',
+          mainFile: '<%= pkg.name %>.php',
+          exclude: [
+            'node_modules/.*',
+            'build/.*'
+          ]
+        }
+      }
+    },
+
+    shell: {
+      build: ['npm run build'].join(' && '),
+    },
+
   });
 
-  grunt.registerTask("build", ["sass", "cssmin", "uglify"]);
-  // Release ZIP task
-  grunt.registerTask("release", [
-    "clean:build",
-    "build",
-    "copy:build",
-    "zip:release",
-  ]);
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-wp-i18n');
+
+  grunt.registerTask('pot', ['makepot']);
+  grunt.registerTask('scripts', ['shell:build']);
+  grunt.registerTask('build', ['clean', 'shell:build', 'pot', 'copy', 'compress']);
+
 };
