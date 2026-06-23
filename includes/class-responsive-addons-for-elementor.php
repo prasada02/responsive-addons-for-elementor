@@ -2289,24 +2289,29 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			return;
 		}
 
-		$api_key = $_POST['apiKey']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-		$list_id = $_POST['listId']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
+		$api_key = get_option( 'rael_mailchimp_settings_api_key' );
+		$list_id = isset( $_POST['listId'] ) ? sanitize_text_field( wp_unslash( $_POST['listId'] ) ) : '';
+
+		if ( empty( $api_key ) ) {
+			wp_send_json_error( array( 'message' => 'Mailchimp API key is not configured.' ) );
+		}
+
+		$datacenter = substr( $api_key, strpos( $api_key, '-' ) + 1 );
+		if ( ! preg_match( '/^[a-z]{2,3}\d+$/', $datacenter ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid Mailchimp API key.' ) );
+		}
 
 		parse_str( $_POST['fields'], $settings ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 
 		$merge_fields = array(
-			'FNAME' => ! empty( $settings['rael_mailchimp_firstname'] ) ? $settings['rael_mailchimp_firstname'] : '',
-			'LNAME' => ! empty( $settings['rael_mailchimp_lastname'] ) ? $settings['rael_mailchimp_lastname'] : '',
+			'FNAME' => ! empty( $settings['rael_mailchimp_firstname'] ) ? sanitize_text_field( $settings['rael_mailchimp_firstname'] ) : '',
+			'LNAME' => ! empty( $settings['rael_mailchimp_lastname'] ) ? sanitize_text_field( $settings['rael_mailchimp_lastname'] ) : '',
 		);
 
+		$url = 'https://' . $datacenter . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . md5( strtolower( $settings['rael_mailchimp_email'] ) );
+
 		$response = wp_remote_post(
-			'https://' . substr(
-				$api_key,
-				strpos(
-					$api_key,
-					'-'
-				) + 1
-			) . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/' . md5( strtolower( $settings['rael_mailchimp_email'] ) ),
+			esc_url_raw( $url ),
 			array(
 				'method'  => 'PUT',
 				'headers' => array(
@@ -2315,7 +2320,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				),
 				'body'    => wp_json_encode(
 					array( // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
-					'email_address' => $settings['rael_mailchimp_email'],
+					'email_address' => sanitize_email( $settings['rael_mailchimp_email'] ),
 					'status'        => 'subscribed',
 					'merge_fields'  => $merge_fields,
 					)
