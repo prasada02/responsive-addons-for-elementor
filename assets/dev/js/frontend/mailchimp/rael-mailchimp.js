@@ -2,7 +2,7 @@ jQuery(window).on("elementor/frontend/init", function() {
     elementorFrontend.hooks.addAction("frontend/element_ready/rael-mailchimp-styler.default", function($scope, $) {
         var $mailchimp = $(".rael-mailchimp-wrap", $scope),
             $mailchimp_id = $mailchimp.data("mailchimp-id") !== undefined ? $mailchimp.data("mailchimp-id") : "",
-            $api_key = $mailchimp.data("api-key") !== undefined ? $mailchimp.data("api-key") : "",
+            // Note: The API key is NOT read from the DOM. It stays on the server.
             $list_id = $mailchimp.data("list-id") !== undefined ? $mailchimp.data("list-id") : "",
             $button_text = $mailchimp.data("button-text") !== undefined ? $mailchimp.data("button-text") : "",
             $success_text = $mailchimp.data("success-text") !== undefined ? $mailchimp.data("success-text") : "",
@@ -20,8 +20,8 @@ jQuery(window).on("elementor/frontend/init", function() {
                 type: "POST",
                 data: {
                     action: "rael_mailchimp_subscribe",
+                    security: RAELFrontendConfig.rael_mailchimp_nonce,
                     fields: _this.serialize(),
-                    apiKey: $api_key,
                     listId: $list_id
                 },
                 success: function success(data) {
