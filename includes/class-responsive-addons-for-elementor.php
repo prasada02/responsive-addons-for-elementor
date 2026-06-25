@@ -1142,9 +1142,10 @@ private function rael_find_element_recursive($elements, $widget_id) {
 			}
 		}
 
-		$locale_settings['ajaxurl'] = admin_url( 'admin-ajax.php' );
-		$locale_settings['nonce']   = wp_create_nonce( 'facebook_feed_ajax_nonce' );
-		$locale_settings['i18n']    = $this->get_i18n_words();
+		$locale_settings['ajaxurl']              = admin_url( 'admin-ajax.php' );
+		$locale_settings['nonce']                = wp_create_nonce( 'facebook_feed_ajax_nonce' );
+		$locale_settings['rael_mailchimp_nonce'] = wp_create_nonce( 'rael_mailchimp_subscribe_nonce' );
+		$locale_settings['i18n']                 = $this->get_i18n_words();
 
 		wp_localize_script(
 			'rael-frontend',
@@ -2285,6 +2286,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	 * Mailchip Subscribe.
 	 */
 	public function mailchimp_subscribe_with_ajax() {
+		// Verify the nonce before doing anything else to block unauthenticated/CSRF requests.
+		check_ajax_referer( 'rael_mailchimp_subscribe_nonce', 'security' );
+
 		if ( ! isset( $_POST['fields'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return;
 		}
