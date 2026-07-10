@@ -1629,6 +1629,31 @@ private function rael_find_element_recursive($elements, $widget_id) {
 		wp_enqueue_style( 'wp-components' );
 
 		wp_enqueue_script( 'updates' );
+		// Fetch the current user plan
+		$is_responsivex_active = is_plugin_active( 'responsivex/responsivex.php' );
+
+		if ( $is_responsivex_active && class_exists( 'ResponsiveX' ) ) {
+			$responsivex_settings = new ResponsiveX();
+			$plan_details = $responsivex_settings->get_responsivex_plan();
+		}
+		$is_connected = 'no';
+		$email        = '';
+		$plan         = '';
+
+		if ( is_plugin_active( 'responsive-add-ons/responsive-add-ons.php' ) && class_exists( 'Responsive_Add_Ons_App_Auth' ) ) {
+			require_once RESPONSIVE_ADDONS_DIR . 'includes/class-responsive-add-ons-app-auth.php';
+			$cc_app_auth = new Responsive_Add_Ons_App_Auth();
+			$is_connected = $cc_app_auth->has_auth();
+			if ( $is_connected && class_exists( 'Responsive_Add_Ons_Settings' ) ) {
+				$user  = Responsive_Add_Ons_Settings::get_instance();
+				$email = esc_html( $user->get_email() );
+				$plan  = esc_html( ucwords( $user->get_plan() ) );
+			}
+		}
+		$responsivex_path = 'responsivex/responsivex.php';
+
+		$is_responsivex_active = is_plugin_active( $responsivex_path );
+
 
 		$rst_path = 'responsive-add-ons/responsive-add-ons.php';
 
@@ -1698,6 +1723,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'google_map_local_lang' => $this->rael_google_map_local_lang(),
 				'recaptcha_site_key'    => get_option( 'rael_login_reg_setting_site_key', '' ),
 				'recaptcha_secret_key'  => get_option( 'rael_login_reg_setting_secret_key', '' ),
+				'plan_details'			=> $plan_details,
+				'userEmail'				=> $email,
+				'isResponsiveXActivated'=> $is_responsivex_active,
 			)
 		);
 
