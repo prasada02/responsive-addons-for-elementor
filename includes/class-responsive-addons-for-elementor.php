@@ -1630,17 +1630,27 @@ private function rael_find_element_recursive($elements, $widget_id) {
 
 		wp_enqueue_script( 'updates' );
 		// Fetch the current user plan
-		$is_responsivex_active = is_plugin_active( 'responsivex/responsivex.php' );
-
-		if ( $is_responsivex_active && class_exists( 'ResponsiveX' ) ) {
-			$responsivex_settings = new ResponsiveX();
-			$plan_details = $responsivex_settings->get_responsivex_plan();
-		}
-		$is_connected = 'no';
+		$is_responsivepro_active = is_plugin_active( 'responsivepro/responsivepro.php' );
+		$plan_details = '';
+		$is_connected = false;
 		$email        = '';
 		$plan         = '';
 
-		if ( is_plugin_active( 'responsive-add-ons/responsive-add-ons.php' ) && class_exists( 'Responsive_Add_Ons_App_Auth' ) ) {
+		if ( $is_responsivepro_active && class_exists( 'ResponsivePRO' ) ) {
+			$responsivepro_settings = new ResponsivePRO();
+			$plan_details = $responsivepro_settings->get_responsivepro_plan();
+			if ( class_exists( 'ResponsivePRO_App_Auth' ) ) {
+				$cc_app_auth = new ResponsivePRO_App_Auth();
+				$is_connected = $cc_app_auth->has_auth();
+				if ( $is_connected && class_exists( 'ResponsivePRO_Settings' ) ) {
+					$user  = ResponsivePRO_Settings::get_instance();
+					$email = esc_html( $user->get_email() );
+					$plan  = esc_html( ucwords( $user->get_plan() ) );
+				}
+			}
+		}
+
+		if ( ! $is_connected && is_plugin_active( 'responsive-add-ons/responsive-add-ons.php' ) && class_exists( 'Responsive_Add_Ons_App_Auth' ) ) {
 			require_once RESPONSIVE_ADDONS_DIR . 'includes/class-responsive-add-ons-app-auth.php';
 			$cc_app_auth = new Responsive_Add_Ons_App_Auth();
 			$is_connected = $cc_app_auth->has_auth();
@@ -1650,9 +1660,9 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				$plan  = esc_html( ucwords( $user->get_plan() ) );
 			}
 		}
-		$responsivex_path = 'responsivex/responsivex.php';
+		$responsivepro_path = 'responsivepro/responsivepro.php';
 
-		$is_responsivex_active = is_plugin_active( $responsivex_path );
+		$is_responsivepro_active = is_plugin_active( $responsivepro_path );
 
 
 		$rst_path = 'responsive-add-ons/responsive-add-ons.php';
@@ -1725,7 +1735,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 				'recaptcha_secret_key'  => get_option( 'rael_login_reg_setting_secret_key', '' ),
 				'plan_details'			=> $plan_details,
 				'userEmail'				=> $email,
-				'isResponsiveXActivated'=> $is_responsivex_active,
+				'isResponsiveXActivated'=> $is_responsivepro_active,
 			)
 		);
 
