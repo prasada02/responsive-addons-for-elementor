@@ -255,11 +255,11 @@ const ExtendAndQuickAccess = () => {
                 <p className="font-medium text-2xl m-0">{__('Extend Your Website', 'responsive-addons-for-elementor')}</p>
                 <p className="font-normal text-base text-desc mt-2 mb-6">{__("Powerful tools to enhance your site's functionality", 'responsive-addons-for-elementor')}</p>
                 <div className="grid md:grid-cols-2 gap-6 w-full p-3 bg-slate-100 border border-slate-200 rounded-md">
-                    <PluginCard title={__('Starter Templates', 'responsive-addons-for-elementor')} description={__('150+ Ready to Import Designer-Made Website Starter Templates.', 'responsive-addons-for-elementor')} image="rplus_logo">
+                    <PluginCard title={__('Starter Templates', 'responsive-addons-for-elementor')} description={__('150+ Ready to Import Designer-Made Website Starter Templates.', 'responsive-addons-for-elementor')} image="rst_sm_logo">
                         <button onClick={() => navigate('/templates')} className="mt-1.125 py-2.5 px-3.5 border-0 bg-blue-600 hover:bg-blue-900 rounded-md text-white text-sm leading-5 font-medium cursor-pointer">{__('Explore Templates', 'responsive-addons-for-elementor')}</button>
                     </PluginCard>
 
-                    <PluginCard title={__('Responsive Plus', 'responsive-addons-for-elementor')} description={__('Get Advanced modules: Site Builder, Fonts, WooCommerce, and more.', 'responsive-addons-for-elementor')} image="rplus_logo">
+                    <PluginCard title={__('Responsive Starter Templates', 'responsive-addons-for-elementor')} description={__('Get Advanced modules: Site Builder, Fonts, WooCommerce, and more.', 'responsive-addons-for-elementor')} image="rst_sm_logo">
                         <InstallButton
                             type="plugin"
                             status={localize?.rst_status}
