@@ -2944,7 +2944,7 @@ private function rael_find_element_recursive($elements, $widget_id) {
 	}
 
 	public function rae_print_rst_template_views() {
-		// Plugin slug for Responsive Plus
+		// Plugin slug for Responsive Starter Templates
 		$plugin_slug = 'responsive-add-ons/responsive-add-ons.php';
 
 		// Button text depends on whether plugin is installed
